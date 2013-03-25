@@ -1,0 +1,15 @@
+﻿@model eNotaryWebRole.Models.UnsignedDocumentsViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@{
+    foreach (var item in Model.List)
+    {
+        string link = @item.ToString().Split('/')[5];
+       <a href="@item.ToString()">@link</a><br/>
+    }
+}

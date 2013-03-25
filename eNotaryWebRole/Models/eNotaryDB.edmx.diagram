@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7255b61dbbf34c678c212b2501f751f1" Name="Diagram1">
+        <EntityTypeShape EntityType="eNotaryDBModel.Act" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="eNotaryDBModel.ActType" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="eNotaryDBModel.EducationLevel" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="eNotaryDBModel.JobType" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="eNotaryDBModel.Payment" Width="1.5" PointX="12.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="eNotaryDBModel.PersonDetail" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="eNotaryDBModel.SignedAct" Width="1.5" PointX="10.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="eNotaryDBModel.sysdiagram" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eNotaryDBModel.UserRole" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eNotaryDBModel.User" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="eNotaryDBModel.FK_Acts_ActType" ManuallyRouted="false" />
+        <AssociationConnector Association="eNotaryDBModel.FK_Acts_PersonDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="eNotaryDBModel.FK_SignedActs_Acts" ManuallyRouted="false" />
+        <AssociationConnector Association="eNotaryDBModel.FK_PersonDetails_EducationLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="eNotaryDBModel.FK_PersonDetails_JobType" ManuallyRouted="false" />
+        <AssociationConnector Association="eNotaryDBModel.FK_Payments_PersonDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="eNotaryDBModel.FK_Payments_SignedActs" ManuallyRouted="false" />
+        <AssociationConnector Association="eNotaryDBModel.FK_SignedActs_PersonDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="eNotaryDBModel.FK_Users_PersonDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="eNotaryDBModel.FK_Users_UserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
