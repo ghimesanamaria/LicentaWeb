@@ -1,4 +1,4 @@
-﻿@*<script type="text/javascript">*@
+﻿<script type="text/javascript">
      var config = {
          // Valid file formats
          support: "image/jpg,image/png,image/bmp,image/jpeg,image/gif",
@@ -27,30 +27,3 @@
 <div class="status"></div>
 </div>
 
-
-<APPLET code="NETapplet.class" width="500" height="500" archive ='@Url.Content("~/Content/applet.jar")'>
-Java applet that draws animated bubbles.
-</APPLET>
-<button id ="1"></button>
-
-
-<script>
-    var ID = "1"; //Read Client ID of TextBox
-    //Call Java Welcome Message
-    function btnCallJava_onclick() {
-        MyJavaApplet.WelcomeToJava();
-    }
-    // Get Message From Java
-    function btnNetMessage_onclick() {
-        var message = MyJavaApplet.MessageForNetFromJava();
-        alert(message);
-    }
-    //Pass Argument To Java Methods
-    function btnServerValueSend_onclick() {
-        var Message = document.getElementById(ID);
-        var result = MyJavaApplet.MessageFromNETServerSide(Message.value);
-        alert(result);
-    }
-
-
-</script>
