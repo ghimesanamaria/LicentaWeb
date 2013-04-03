@@ -7,6 +7,7 @@
     <h1>@ViewBag.Title.</h1>
     <h2>Create a new account.</h2>
 </hgroup>
+<h4 id="ErrorMessage" ></h4>
 
 @using (@Ajax.BeginForm("Register", "Account", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "registrationForm" }))
 { 
@@ -15,7 +16,7 @@
 
    
     <div class="dropdown"> 
-      <ul class="nav nav-pills" role="menu" aria-labelledby="dLabel">
+      <ul class="nav nav-pills" role="menu" aria-labelledby="dLabel" id="registerMenu">
           <li class="active" id="liPersonDetails"><a href="#" >Date personale</a></li>   
           <li id ="liAddress"><a href="#">Adresa</a></li> 
           <li id ="liContactDetails"><a href="#">Date de contact</a></li> 
@@ -120,12 +121,12 @@
 
         // change tab
         // find live which tab was clicked to make it active
-        $('ul li a').live('click', function () {
+        $('#registerMenu li a').live('click', function () {
 
            
 
             // remove class active from each tab 
-            $('ul').find('li').removeClass('active');
+            $('#registerMenu').find('li').removeClass('active');
 
             $("#"+$(this).parent()[0].id).addClass('active');
             if ($(this).parent()[0].id == 'liAddress') {
@@ -146,8 +147,103 @@
 
         });
 
+        // validate the registration form
+
+        $("form").validate({
+            onsubmit: false,
+            ignore: '.ignore',
+            debug: true,
+            onkeyup: false,
+            onclick: false,
+            rules: {
+                FirstName: {
+                    required: true                 
+                },
+                LastName:{
+                    required: true
+                },
+                Birthday:{
+                    date: true,
+                    required: true
+                },
+                Address1: {
+                    required: true
+                },
+                Street_1:{
+                    required: true
+                },
+                ZIP:{
+                    required: true,
+                    numeric: "#ZIP"
+                },
+                City:{
+                    required: true
+                },
+                Country :{
+                    required: true
+                },
+                MobilePhoneNumber:{
+                    required: true
+                },
+                Email :{
+                    required: true
+                }
+
+            },
+            messages: {
+                FirstName: {
+                    required: "*"
+                },
+                LastName: {
+                    required: "*"
+                },
+                Birthday: {
+                    required: "*"
+                },
+                Address1: {
+                    required: "*"
+                },
+                Street_1: {
+                    required: "*"
+                },
+                ZIP : {
+                    required: "*",
+                    numeric: "Codul postal trebuie sa fie alcatuit din 6 cifre"
+                },
+                City: {
+                    required: "*"
+                },
+                Country: {
+                    required: "*"
+                },
+                MobilePhoneNumber: {
+                    required: "*"
+                },
+                Email :{
+                    required:  "*"
+                }
+
+
+                },
+             showErrors: function (e, el) {
+
+                 this.defaultShowErrors();
+                 $("#ErrorMessage").text("Campurile marcate cu (*) sunt obligatorii!");
+                 $("#ErrorMessage").addClass('alert alert-error');
+
+             }
+         });
+
         
-   
+        Query.validator.addMethod("numeric",
+            function (value, element, params) {
+                if (params == "")
+                    return true;
+                var code= $(params).val();
+               
+
+                return !isNaN(parseFloat(code)) && isFinite(n);;
+            });
    
         
 
