@@ -66,6 +66,17 @@ namespace eNotaryWebRole.Controllers
         public ActionResult Register()
         {
             PersonDetail model = new PersonDetail();
+
+            List<string> jobTypeList = new List<string>();
+           jobTypeList = ( from j in _db.JobTypes
+                               select j.JobName).ToList();
+
+           ViewBag.JobType = new SelectList(jobTypeList);
+           List<string> educationLevelList = new List<string>();
+           educationLevelList = (from e in _db.EducationLevels
+                                 select e.EducationLevel1).ToList();
+           ViewBag.EducationLevel = new SelectList(educationLevelList);
+
             return View(model);
         }
          [AllowAnonymous]

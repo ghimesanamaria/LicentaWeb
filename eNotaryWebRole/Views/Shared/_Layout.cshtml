@@ -9,10 +9,14 @@
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
          @Styles.Render("~/Content/bootstrap.css")
+         @Styles.Render("~/Content/datepicker.css")
         @Scripts.Render("~/bundles/modernizr")
+        @Styles.Render("http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css")
         @Scripts.Render("~/Scripts/jquery-1.7.1.js")
         @Scripts.Render("~/Scripts/jquery-ui-1.8.20.min.js")
+     
         <script src='@Url.Content("~/Scripts/bootstrap/bootstrap.js")'></script>
+        <script src='@Url.Content("~/Scripts/bootstrap/bootstrap-datepicker.js")'></script>
         <!-- Load Queue widget CSS and jQuery -->
         <script src="~/Scripts/multiupload.js"></script>
         <link href="~/Content/style.css" rel="stylesheet" />

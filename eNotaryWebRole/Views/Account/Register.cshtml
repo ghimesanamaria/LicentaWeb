@@ -60,13 +60,13 @@
            <p id="pNationality"> Nationalitate</p>
             @Html.TextBoxFor(m => m.Nationality)
            <p id="pJobType"> Tipul job-ului </p>
-          @*  @Html.DropDownList("tip job")*@
-            @Html.TextBox("tip job")
+             @Html.DropDownList("JobType")
+            
             <p id="pJobPlace">Locul de munca</p>
             @Html.TextBoxFor(m=>m.JobPlace)
             <p id="pEducationLevel">Nivelul de educatie</p>
-           @* @Html.DropDownList("nivel educatie")*@
-              @Html.TextBox("nivel educatie")
+           @Html.DropDownList("EducationLevel")
+             
 
         </div> 
 
@@ -102,17 +102,21 @@
      </div>   
     <br />
     <br />
-      <input type="submit" class ="btn" value="Inregistrati-va acum" style="float:left; " />
+    <div id ="submitButton" style ="float:left; width:100%; margin-left:2%;"> <input type="submit" class ="btn" value="Inregistrati-va acum" style="float:left; " /></div> 
   
 }
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script>
-
+    $("#Birthday").datepicker('show');
+       
 
     $(document).ready(function () {
+
+       
 
         // change tab
         // find live which tab was clicked to make it active
