@@ -158,27 +158,7 @@ namespace eNotaryWebRole.Controllers
             //catch (Exception ex)
             //{            
             //}
-            var smartCardCerts = new List<X509Certificate2>();
-            var myStore = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            myStore.Open(OpenFlags.IncludeArchived);
-           
-            foreach (X509Certificate2 cert in myStore.Certificates)
-            {
-                if (!cert.HasPrivateKey) continue; // not smartcard for sure
-                var rsa = cert.PrivateKey as RSACryptoServiceProvider;
-                if (rsa == null) continue; // not smart card cert again
-                if (rsa.CspKeyContainerInfo.HardwareDevice) // sure - smartcard
-                {
-                    // inspect rsa.CspKeyContainerInfo.KeyContainerName Property
-                    // or rsa.CspKeyContainerInfo.ProviderName (your smartcard provider, such as 
-                    // "Schlumberger Cryptographic Service Provider" for Schlumberger Cryptoflex 4K
-                    // card, etc
-                    var name = cert.FriendlyName;
-                   // rsa.SignData(); // to confirm presence of private key - to finally authenticate
-                }
-            }
           
-            
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
 
             // to test if your service is running in the compute emulator or in a classic webserver
@@ -194,6 +174,8 @@ namespace eNotaryWebRole.Controllers
 
             LocalResource resouce = RoleEnvironment.GetLocalResource("eNotarySpace");
             ViewBag.LocalStorage =resouce.RootPath ;
+
+          
 
             return View();
         }

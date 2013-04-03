@@ -233,3 +233,9 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\Interop.CERT
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.csproj.ResolveComReference.cache
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.pdb
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\DotNetOpenAuth.InfoCard.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Org.Mentalis.Security.Cryptography.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Mono.Math.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\DotNetOpenAuth.InfoCard.xml
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Org.Mentalis.Security.Cryptography.xml
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Mono.Math.xml

@@ -14,7 +14,7 @@ using eNotaryWebRole.Models;
 namespace eNotaryWebRole.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
+    //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
         //
@@ -60,7 +60,7 @@ namespace eNotaryWebRole.Controllers
         //
         // GET: /Account/Register
 
-        [AllowAnonymous]
+       [AllowAnonymous]
         public ActionResult Register()
         {
             return View();

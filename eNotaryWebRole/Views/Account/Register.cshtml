@@ -1,4 +1,4 @@
-﻿@model eNotaryWebRole.Models.RegisterModel
+﻿@model eNotaryWebRole.Models.PersonDetail
 @{
     ViewBag.Title = "Register";
 }
@@ -8,28 +8,62 @@
     <h2>Create a new account.</h2>
 </hgroup>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
+@using (@Ajax.BeginForm("Register", "Account", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "registrationForm" }))
+{ 
+   @Html.AntiForgeryToken()
+   @Html.ValidationSummary()
 
-    <fieldset>
-        <legend>Registration Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
+   
+    <div class="dropdown"> 
+      <ul class="nav nav-pills" role="menu" aria-labelledby="dLabel">
+          <li class="active"><a href="#" >Date personale</a></li>   
+          <li ><a href="#">Adresa</a></li> 
+          <li ><a href="#">Date de contact</a></li> 
+      </ul>
+    </div>
+    
+    <div id="divPersonal">
+       <div style ="float:left; width:50%;">
+            <p id="pFirstName"> Prenume 1 </p>
+            @Html.TextBoxFor(m => m.FirstName)
+      
+      
+            <p id="pMiddleName"> Prenume 2</p>
+            @Html.TextBoxFor(m => m.MiddleName)
+       
+       
+            <p id="pLastName"> Nume</p>
+            @Html.TextBoxFor(m => m.LastName)
+        
+     
+            <p id="pBirthday"> Data nasterii</p>
+            @Html.TextBoxFor(m => m.Birthday)
+       
+
+         
+            <p id="pGender"> Sex</p>
+            @{
+                List<string> list = new List<string>();
+                list.Add("Feminin");
+                list.Add("Masculin");
+                SelectList listGender = new SelectList(list);
+    
+            }
+           @Html.DropDownList("genderList", listGender, new { id="genderList"})
+        
+         
+            <p id="pNationality"> Nationalitate</p>
+            @Html.TextBoxFor(m => m.Nationality)
+        
+       </div>
+        <div style ="float:left;"></div> 
+
+    </div>
+
+
+         
         <input type="submit" value="Register" />
-    </fieldset>
+  
 }
 
 @section Scripts {

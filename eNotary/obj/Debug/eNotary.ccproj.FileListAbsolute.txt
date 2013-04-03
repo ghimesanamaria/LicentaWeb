@@ -162,6 +162,8 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\DotNetOpenAuth.AspNet.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\DotNetOpenAuth.Core.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\DotNetOpenAuth.Core.xml
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\DotNetOpenAuth.InfoCard.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\DotNetOpenAuth.InfoCard.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\DotNetOpenAuth.OAuth.Consumer.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\DotNetOpenAuth.OAuth.Consumer.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\DotNetOpenAuth.OAuth.dll
@@ -190,9 +192,13 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Microsoft.WindowsAzure.Storage.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Microsoft.WindowsAzure.Storage.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Microsoft.WindowsAzure.StorageClient.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Mono.Math.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Mono.Math.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Newtonsoft.Json.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Newtonsoft.Json.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\NuGet.Core.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Org.Mentalis.Security.Cryptography.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Org.Mentalis.Security.Cryptography.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\PdfSharp.Charting.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\PdfSharp.Charting.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\PdfSharp.dll
