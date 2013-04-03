@@ -45,5 +45,19 @@ namespace eNotaryWebRole.Models
         public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<SignedAct> SignedActs { get; set; }
         public virtual ICollection<User> Users { get; set; }
+        public virtual Address Address { get; set; }
+
+
+        // add  function for verify if model in view is empty
+
+         public bool Empty
+            {
+                get {
+                    return (ID == 0 &&
+                              string.IsNullOrWhiteSpace(FirstName) &&
+                              string.IsNullOrWhiteSpace(LastName) &&
+                              string.IsNullOrWhiteSpace(Email));
+                    }
+            }
     }
 }

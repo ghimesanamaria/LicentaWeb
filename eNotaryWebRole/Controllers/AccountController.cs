@@ -20,6 +20,8 @@ namespace eNotaryWebRole.Controllers
         //
         // GET: /Account/Login
 
+        private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
+
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -35,13 +37,13 @@ namespace eNotaryWebRole.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-            {
-                return RedirectToLocal(returnUrl);
-            }
+            //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            //{
+            //    return RedirectToLocal(returnUrl);
+            //}
 
-            // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            //// If we got this far, something failed, redisplay form
+            //ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
         }
 
@@ -63,8 +65,35 @@ namespace eNotaryWebRole.Controllers
        [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            PersonDetail model = new PersonDetail();
+            return View(model);
         }
+         [AllowAnonymous]
+        //partial view for address module
+       public ActionResult Address(long? id )
+       {
+           // change this 
+
+           string username = "admin";
+
+
+           // verify more careful if the address is for that specific user
+
+           Address model = new Address();
+           if (id != 0)
+           {
+               model = (from u in _db.Users.Where(o => o.Username == username)
+                        join p in _db.PersonDetails
+                        on u.PersonID equals p.ID
+                        join a in _db.Addresses
+                        on p.AddressID equals a.ID
+                        where a.ID == id
+                        select a).SingleOrDefault();
+           }
+
+           return PartialView(model);
+       }
+
 
         //
         // POST: /Account/Register

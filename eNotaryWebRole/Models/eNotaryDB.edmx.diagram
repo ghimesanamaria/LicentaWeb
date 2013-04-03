@@ -25,6 +25,8 @@
         <AssociationConnector Association="eNotaryDBModel.FK_SignedActs_PersonDetails" ManuallyRouted="false" />
         <AssociationConnector Association="eNotaryDBModel.FK_Users_PersonDetails" ManuallyRouted="false" />
         <AssociationConnector Association="eNotaryDBModel.FK_Users_UserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="eNotaryDBModel.Address" Width="1.5" PointX="4.0228271167831622" PointY="30.387120663368666" />
+        <AssociationConnector Association="eNotaryDBModel.FK_PersonDetails_Address" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

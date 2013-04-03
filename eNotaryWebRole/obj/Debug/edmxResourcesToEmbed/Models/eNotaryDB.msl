@@ -125,5 +125,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="eNotaryDBModel.Address">
+        <MappingFragment StoreEntitySet="Address">
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+          <ScalarProperty Name="Street_3" ColumnName="Street 3" />
+          <ScalarProperty Name="Street_2" ColumnName="Street 2" />
+          <ScalarProperty Name="Street_1" ColumnName="Street 1" />
+          <ScalarProperty Name="Address1" ColumnName="Address" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

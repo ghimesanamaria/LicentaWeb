@@ -4,10 +4,11 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="eNotaryDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="eNotaryDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="eNotaryDBModelStoreContainer">
           <EntitySet Name="Acts" EntityType="eNotaryDBModel.Store.Acts" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ActType" EntityType="eNotaryDBModel.Store.ActType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Address" EntityType="eNotaryDBModel.Store.Address" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="EducationLevel" EntityType="eNotaryDBModel.Store.EducationLevel" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="JobType" EntityType="eNotaryDBModel.Store.JobType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Payments" EntityType="eNotaryDBModel.Store.Payments" store:Type="Tables" Schema="dbo" />
@@ -31,6 +32,10 @@
           <AssociationSet Name="FK_Payments_SignedActs" Association="eNotaryDBModel.Store.FK_Payments_SignedActs">
             <End Role="SignedActs" EntitySet="SignedActs" />
             <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonDetails_Address" Association="eNotaryDBModel.Store.FK_PersonDetails_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="PersonDetails" EntitySet="PersonDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_PersonDetails_EducationLevel" Association="eNotaryDBModel.Store.FK_PersonDetails_EducationLevel">
             <End Role="EducationLevel" EntitySet="EducationLevel" />
@@ -78,6 +83,19 @@
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ActTypeName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Street 1" Type="nvarchar(max)" />
+          <Property Name="Street 2" Type="nvarchar(max)" />
+          <Property Name="Street 3" Type="nvarchar(max)" />
+          <Property Name="ZIP" Type="bigint" />
+          <Property Name="City" Type="nvarchar(max)" />
+          <Property Name="Country" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="EducationLevel">
           <Key>
@@ -219,6 +237,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PersonDetails_Address">
+          <End Role="Address" Type="eNotaryDBModel.Store.Address" Multiplicity="0..1" />
+          <End Role="PersonDetails" Type="eNotaryDBModel.Store.PersonDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonDetails">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PersonDetails_EducationLevel">
           <End Role="EducationLevel" Type="eNotaryDBModel.Store.EducationLevel" Multiplicity="0..1" />
           <End Role="PersonDetails" Type="eNotaryDBModel.Store.PersonDetails" Multiplicity="*" />
@@ -291,8 +321,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="eNotaryDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -346,6 +375,11 @@
           <AssociationSet Name="FK_Users_UserRoles" Association="eNotaryDBModel.FK_Users_UserRoles">
             <End Role="UserRoles" EntitySet="UserRoles" />
             <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Addresses" EntityType="eNotaryDBModel.Address" />
+          <AssociationSet Name="FK_PersonDetails_Address" Association="eNotaryDBModel.FK_PersonDetails_Address">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="PersonDetail" EntitySet="PersonDetails" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Act">
@@ -429,6 +463,7 @@
           <NavigationProperty Name="Payments" Relationship="eNotaryDBModel.FK_Payments_PersonDetails" FromRole="PersonDetails" ToRole="Payments" />
           <NavigationProperty Name="SignedActs" Relationship="eNotaryDBModel.FK_SignedActs_PersonDetails" FromRole="PersonDetails" ToRole="SignedActs" />
           <NavigationProperty Name="Users" Relationship="eNotaryDBModel.FK_Users_PersonDetails" FromRole="PersonDetails" ToRole="Users" />
+          <NavigationProperty Name="Address" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="PersonDetail" ToRole="Address" />
         </EntityType>
         <EntityType Name="SignedAct">
           <Key>
@@ -602,6 +637,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Address1" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Street_1" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Street_2" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Street_3" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="ZIP" />
+          <Property Type="String" Name="City" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Country" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="Address" ToRole="PersonDetail" />
+        </EntityType>
+        <Association Name="FK_PersonDetails_Address">
+          <End Type="eNotaryDBModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="eNotaryDBModel.PersonDetail" Role="PersonDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonDetail">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -729,6 +790,20 @@
                 <ScalarProperty Name="PsswdEncrypt" ColumnName="PsswdEncrypt" />
                 <ScalarProperty Name="DigitalCertificate" ColumnName="DigitalCertificate" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="eNotaryDBModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="Street_3" ColumnName="Street 3" />
+                <ScalarProperty Name="Street_2" ColumnName="Street 2" />
+                <ScalarProperty Name="Street_1" ColumnName="Street 1" />
+                <ScalarProperty Name="Address1" ColumnName="Address" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

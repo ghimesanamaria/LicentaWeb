@@ -264,6 +264,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SignDocsController.cs" />
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\APDUCommand.cs" />
     <Compile Include="Models\APDULog.cs" />
     <Compile Include="Models\APDUParam.cs" />
@@ -472,6 +475,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\SignDocs\Index.cshtml" />
+    <Content Include="Views\Account\Address.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
