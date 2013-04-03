@@ -119,10 +119,24 @@
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Inchide</button>
-            <button class="btn btn-primary">Salveaza</button>
+            <button class="btn btn-primary" id="btnSaveRegister">Salveaza</button>
          </div>
     </div>
 }
+
+  <div id="divMessagePopUp" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="MessageModalLabel">Mesaj</h3>
+        </div>
+        <div class="modal-body">
+            <p id="pMessage"></p>
+            
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Inchide</button> 
+         </div>
+    </div>
     
 
 
@@ -130,7 +144,45 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script>
+
+
+
+
     $("#Birthday").datepicker('show');
+
+
+    var onSuccess = function(data)
+    {
+        $("#pMessage").text(data);
+        $("#divMessagePopUp").modal('show');
+        count=data[0];
+            
+        if (count!=null) {
+
+       
+            if (data == "Datele nu au fost salvate!" ) 
+            {
+                $("#ErrorMessage").removeClass('alert alert-success');
+                $("#ErrorMessage").addClass('alert alert-error');
+           
+            } else {
+           
+                $("#ErrorMessage").removeClass('alert alert-error');
+                $("#ErrorMessage").addClass('alert alert-success');
+            }
+     
+            $("#ErrorMessage").html(data);
+
+        } else {
+
+            $("#ErrorMessage").html("Datele nu au fost salvate!");
+           
+ 
+            $("#ErrorMessage").addClass('alert alert-error');
+  
+            $("#ErrorMessage").html(data);
+        }
+    };
        
 
     $(document).ready(function () {
@@ -283,7 +335,12 @@
         
 
     });
-   
+    $('#btnSaveRegister').click(function (e){
+
+        if ($("#registrationForm").valid()) {
+            $.post('@Url.Action("Register", "Account")', $("#registrationForm").serialize(), onSuccess);
+        }
+    });
         
 
 </script>

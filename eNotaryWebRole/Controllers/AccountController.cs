@@ -112,15 +112,14 @@ namespace eNotaryWebRole.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(FormCollection collection)
         {
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                   
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -130,6 +129,7 @@ namespace eNotaryWebRole.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            PersonDetail model = new PersonDetail();
             return View(model);
         }
 
