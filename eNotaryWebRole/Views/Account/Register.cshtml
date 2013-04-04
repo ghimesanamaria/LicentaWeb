@@ -8,6 +8,7 @@
     <h2>Create a new account.</h2>
 </hgroup>
 <h4 id="ErrorMessage" ></h4>
+<h4 id="InformationMessage" class="alert alert-info"> Campurile marcate cu * sunt obligatorii !</h4>
 
 @using (@Ajax.BeginForm("Register", "Account", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "registrationForm" }))
 { 
@@ -26,7 +27,7 @@
     
     <div id="divPersonal">
        <div style ="float:left; width:50%;">
-            <p id="pFirstName"> Prenume 1 </p>
+            <p id="pFirstName"> Prenume 1 *</p>
             @Html.TextBoxFor(m => m.FirstName)
       
       
@@ -34,11 +35,11 @@
             @Html.TextBoxFor(m => m.MiddleName)
        
        
-            <p id="pLastName"> Nume</p>
+            <p id="pLastName"> Nume *</p>
             @Html.TextBoxFor(m => m.LastName)
         
      
-            <p id="pBirthday"> Data nasterii</p>
+            <p id="pBirthday"> Data nasterii *</p>
             @Html.TextBoxFor(m => m.Birthday)
        
 
@@ -85,11 +86,11 @@
     </div>
     
     <div id="divContactDetails" class="hideDiv">
-        <p id="pMobilePhoneNumber"> Numar de telefon mobil</p>
+        <p id="pMobilePhoneNumber"> Numar de telefon mobil *</p>
         @Html.TextBoxFor(m=> m.MobilePhoneNumber)
         <p id="pHomePhoneNumber"> Numar de telefon fix (acasa)</p>
         @Html.TextBoxFor(m=> m.HomePhoneNumber)
-        <p id="pEmail"> Adresa email</p>
+        <p id="pEmail"> Adresa email *</p>
         @Html.TextBoxFor(m=>m.Email)
         <p id="pFacebookID"> Facebook ID</p>
         @Html.TextBoxFor(m=>m.FacebookID)
@@ -253,8 +254,13 @@
                     required: true
                 },
                 MobilePhoneNumber:{
-                    required: true
+                    required: true,
+                    validPhoneNumber: "#MobilePhoneNumber"
                 },
+                HomePhoneNumber: {
+                    validPhoneNumber : "#HomePhoneNumber"
+                }
+            ,
                 Email :{
                     required: true,
                     validEmail: "#Email"
@@ -288,8 +294,13 @@
                     required: "*"
                 },
                 MobilePhoneNumber: {
-                    required: "*"
+                    required: "*",
+                    validPhoneNumber : "Introduceti un numar de telefon corect!"
                 },
+                HomePhoneNumber :{
+                    validPhoneNumber: "Introduceti un numar de telefon corect!"
+                }
+                ,
                 Email :{
                     required:  "*",
                     validEmail : "Introduceti o adresa de email valida!"
@@ -344,6 +355,36 @@
             //                alert("Introduceti o adresa de mail valida.");
             return isCorrect;
         });
+
+        jQuery.validator.addMethod("validPhoneNumber",
+       function (value, element, params) {
+           var isCorrect = false;
+           
+           var phone = $(params).val();
+            
+           var phoneReg = new RegExp(/^[0-9-+]+$/);
+            
+           
+
+           try {
+               var valid = phoneReg.test(phone);
+               if (valid)
+
+                   isCorrect = true;
+               if(phone.length <10)
+                   isCorrect = false;
+
+             
+
+           }
+           catch (e) {
+
+           }
+
+           //            if (isCorrect == false)
+           //                alert("Introduceti o adresa de mail valida.");
+           return isCorrect;
+       });
 
         $('#btnRegisterNow').click(function (e) {
 
