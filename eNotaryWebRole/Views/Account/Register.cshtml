@@ -256,7 +256,8 @@
                     required: true
                 },
                 Email :{
-                    required: true
+                    required: true,
+                    validEmail: "#Email"
                 }
 
             },
@@ -290,7 +291,8 @@
                     required: "*"
                 },
                 Email :{
-                    required:  "*"
+                    required:  "*",
+                    validEmail : "Introduceti o adresa de email valida!"
                 }
 
 
@@ -313,6 +315,35 @@
 
                 return !isNaN(parseFloat(code)) && isFinite(code);;
             });
+
+
+        jQuery.validator.addMethod("validEmail",
+        function (value, element, params) {
+            var isCorrect = false;
+           
+            var email = $(params).val();
+            
+            var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+            
+           
+
+            try {
+                var valid = emailReg.test(email);
+                if (valid)
+
+                    isCorrect = true;
+
+                console.log(email.match(emailRegex));
+
+            }
+            catch (e) {
+
+            }
+
+            //            if (isCorrect == false)
+            //                alert("Introduceti o adresa de mail valida.");
+            return isCorrect;
+        });
 
         $('#btnRegisterNow').click(function (e) {
 

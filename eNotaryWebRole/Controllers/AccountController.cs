@@ -79,6 +79,8 @@ namespace eNotaryWebRole.Controllers
 
             return View(model);
         }
+
+        // GET
          [AllowAnonymous]
         //partial view for address module
        public ActionResult Address(long? id )
@@ -105,7 +107,7 @@ namespace eNotaryWebRole.Controllers
            return PartialView(model);
        }
 
-
+      
         //
         // POST: /Account/Register
 
@@ -119,6 +121,47 @@ namespace eNotaryWebRole.Controllers
                 // Attempt to register the user
                 try
                 {
+
+
+                // create address object for this person and get the id 
+
+                    Address addressPerson = new Address()
+                    {
+                        Address1 = collection["Address1"],
+                        Street_1 = collection["Street_1"],
+                        Street_2 = collection["Street_2"],
+                        Street_3 = collection["Street_3"],
+                        ZIP = long.Parse(collection["ZIP"]),
+                        City = collection["City"],
+                        Country = collection["Country"]
+                    };
+                    
+                    _db.SaveChanges();
+
+                    _db.Entry(addressPerson).GetDatabaseValues();
+
+                    long addressID = addressPerson.ID;
+
+                // create new object for person details
+                    PersonDetail personDetail = new PersonDetail()
+                    {
+                        FirstName =collection["FirstName"],
+                        LastName =collection["LastName"],
+                        MiddleName=collection["LastName"],
+                        Birthday = DateTime.Parse(collection["Birthday"]),
+                        Gender = collection["genderList"],
+                        Nationality = collection["Nationality"],
+                        JobPlace = collection["JobPlace"],
+                        MobilePhoneNumber = collection["MobilePhoneNumber"],
+                        HomePhoneNumber = collection["HomePhoneNumber"],
+                        Email = collection["Email"],
+                        FacebookID = collection["FacebookID"],
+                        AddressID = addressID
+
+                        
+                    };
+
+                    _db.SaveChanges();
                    
                     return RedirectToAction("Index", "Home");
                 }
