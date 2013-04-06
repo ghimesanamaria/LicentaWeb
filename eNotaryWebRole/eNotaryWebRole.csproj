@@ -417,6 +417,8 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>eNotaryDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
     <Content Include="Models\eNotaryDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>eNotaryDB.edmx</DependentUpon>

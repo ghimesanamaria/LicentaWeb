@@ -86,6 +86,7 @@ namespace eNotaryWebRole.Controllers
 
         }
 
+        [HttpPost]
         public ActionResult GetTreeData(long id, string modelID, string umID, string openedDeviceIDs, int isPlant)
         {
             string username="";
@@ -101,10 +102,43 @@ namespace eNotaryWebRole.Controllers
             else
             {
                 username = "admin";
-            }         
+            }
+
             
-            
-            
+
+
+            switch (id)
+            {
+                case -1:
+                    {
+                        // we must find all people that has unsigned and unvisualized acts 
+                        // we have to sort them depending on thei role
+
+                        // 1.
+
+                        var q = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat")
+                                 join p in _db.PersonDetails
+                                 on a.PersonDetailsID equals p.ID
+
+                                 select
+                                 new
+                                 {
+                                     
+                                     data = p.LastName,
+                                     id = p.ID,
+                                     attr = new { id = p.ID },
+                                     state = "closed"
+                                     
+                                 });
+
+                       
+                        return Json(q);
+
+
+                    } 
+                    break;
+            }
+
 
           
 

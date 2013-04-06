@@ -52,7 +52,7 @@
        function () {
            if ($("#bttClearSearch").css("display") == "none") {
           
-               $("#tbSearchTree").css("width", "-=24");
+               $("#tbSearchTree").css("width", "-=26");
            }
         
            if($("#tbSearchTree").val()!='')
@@ -60,7 +60,7 @@
            else {
                $("#demoTree").jstree("clear_search");
               $("#bttClearSearch").css('display', 'none');
-               $("#tbSearchTree").css("width", "+=24");
+               $("#tbSearchTree").css("width", "+=26");
               
                 
            }
@@ -81,7 +81,7 @@
     
      $("#bttClearSearch").click(function (e) {
          e.preventDefault();
-         $("#tbSearchTree").css("width", "+=24");
+         $("#tbSearchTree").css("width", "+=26");
          $("#tbSearchTree").attr("value", "");
       
          $("#bttClearSearch").css('display', 'none');
@@ -93,7 +93,7 @@
      $(document).ready(function() {
       
    
-       $("#tbSearchTree").css("width", "-=4");
+       $("#tbSearchTree").css("width", "-=13");
      });
      
      $(function () {

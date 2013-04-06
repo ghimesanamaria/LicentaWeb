@@ -2,6 +2,10 @@
     display:none;
 }
 
+#bttClearSearch {
+    height:31px;
+}
+
 /*default*/
 html {
     background-color: #e2e2e2;
