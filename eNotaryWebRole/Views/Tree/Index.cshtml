@@ -1,0 +1,119 @@
+﻿@model eNotaryWebRole.Models.TreeNodesViewModel
+<script src='@Url.Content("~/Scripts/jstree/demoTree.js")'></script>
+ 
+<div id="search-header-wrapper">
+    <div id="search-header">
+        <div id="searchBox">
+            <div class="input-append" style="width:100%;border: 1px solid #CCC; border-radius: 4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;">
+                <input type="text"  id="tbSearchTree" name="SearchTree" style="width:inherit; border:none; height:23px; " >
+                <button class="btn add-on" style="display: none;" id="bttClearSearch" value="Clear Search" name="ClearSearch" ><img src='@Url.Content("~/Content/Icons/x.png")'/></button>
+            </div>
+        </div>
+        <div id="buttonGroup" class="btn-group" style="width:30%;  ">
+                <button class="btn" id="bttSearch" value="Search" name="Search" ><i class="icon-search" ></i></button>
+                <button class="btn" id="bttFilters"><i class="icon-chevron-right" ></i></button>
+        </div>
+    </div>
+</div>
+
+<div id="loading"></div>
+
+<div id="demoTree" style="overflow: auto; height: 400px; width:92%;"></div>
+
+
+<script type="text/javascript">
+   treeModelTree = @Html.Raw(Model.treeVariables);
+  
+   
+   var openedNodes = [];
+   var openedParentNodes = [];
+   var hiddenNodes = [];
+   var uncheckedModelFilters = [];
+   var uncheckedUnitsFilters = [];
+   var testNodes=[];
+   var ok=0;
+  
+
+   
+
+   // keypress Enter
+   $("#tbSearchTree").keypress(function(e) {
+       if(e.which==10 || e.which == 13) {
+       var val = $("#tbSearchTree").val();
+        $("#demoTree").jstree("search",$("#tbSearchTree").val());
+         $("#tbSearchTree").val(val);
+      
+   }
+      
+   });
+
+
+   $("#tbSearchTree").live('input',
+       function () {
+           if ($("#bttClearSearch").css("display") == "none") {
+          
+               $("#tbSearchTree").css("width", "-=24");
+           }
+        
+           if($("#tbSearchTree").val()!='')
+           $("#bttClearSearch").css('display', 'inline');
+           else {
+               $("#demoTree").jstree("clear_search");
+              $("#bttClearSearch").css('display', 'none');
+               $("#tbSearchTree").css("width", "+=24");
+              
+                
+           }
+           
+       }
+   );
+     $("#bttSearch").click(function (e) {
+         e.preventDefault();
+
+     
+            
+        
+
+     $("#demoTree").jstree("search",$("#tbSearchTree").val());
+       
+
+    });
+    
+     $("#bttClearSearch").click(function (e) {
+         e.preventDefault();
+         $("#tbSearchTree").css("width", "+=24");
+         $("#tbSearchTree").attr("value", "");
+      
+         $("#bttClearSearch").css('display', 'none');
+        $("#demoTree").jstree("clear_search");
+    });
+
+
+
+     $(document).ready(function() {
+      
+   
+       $("#tbSearchTree").css("width", "-=4");
+     });
+     
+     $(function () {
+         
+        loadJstree(treeModelTree, [],'','','', '@Url.Content("~/Tree/GetTreeData/")','@Url.Content("~/Tree/SearchTreeData2/")',0, '');
+         
+});
+    
+  
+
+
+    $('#loading').ajaxStart(function() {
+    $(this).show();
+}).ajaxComplete(function() {
+    $(this).hide();
+});
+
+    
+</script>
+
+
+
+    

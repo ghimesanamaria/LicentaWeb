@@ -173,6 +173,7 @@ namespace eNotaryWebRole.Controllers
             using (var fileStream = System.IO.File.OpenWrite(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Fisiere\test.jpg"))
             {
                 blockBlob.DownloadToStream(fileStream);
+                fileStream.Close();
             }
 
             List<string> listAllContainerDoc = new List<string>();

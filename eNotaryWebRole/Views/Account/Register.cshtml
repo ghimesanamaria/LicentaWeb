@@ -151,7 +151,9 @@
 
     $("#Birthday").datepicker('show');
 
-
+    var onBegin = function (data) {
+        return true;
+    };
     var onSuccess = function(data)
     {
         $("#pMessage").text(data);

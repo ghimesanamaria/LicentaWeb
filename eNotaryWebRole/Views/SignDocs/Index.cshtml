@@ -1,10 +1,12 @@
 ﻿@model eNotaryWebRole.Models.UnsignedDocumentsViewModel
 
-@{
-    ViewBag.Title = "Index";
-}
 
 <h2>Index</h2>
+<div id ="documentTree" style="float:left;width:50%; margin-left:3%;">
+    @Html.Action("Index", "Tree")
+
+</div>
+<div id="list" style="float:left;width:50%;">
 
 @{
     foreach (var item in Model.List)
@@ -13,3 +15,4 @@
        <a href="@item.ToString()">@link</a><br/>
     }
 }
+    </div>

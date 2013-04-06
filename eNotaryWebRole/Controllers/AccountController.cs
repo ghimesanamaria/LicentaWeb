@@ -10,6 +10,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using eNotaryWebRole.Filters;
 using eNotaryWebRole.Models;
+using SBClient;
 
 namespace eNotaryWebRole.Controllers
 {
@@ -138,7 +139,7 @@ namespace eNotaryWebRole.Controllers
 
                     _db.Addresses.Add(addressPerson);
 
-                    _db.SaveChanges();
+                    
 
                     _db.Entry(addressPerson).GetDatabaseValues();
 
@@ -165,6 +166,8 @@ namespace eNotaryWebRole.Controllers
                     _db.PersonDetails.Add(personDetail);
 
                     _db.SaveChanges();
+
+                  
                    
                     return RedirectToAction("Index", "Home");
                 }
