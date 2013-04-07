@@ -137,6 +137,58 @@ namespace eNotaryWebRole.Controllers
 
                     } 
                     break;
+                case -2:
+                    {
+                        var q2 = ( from  a in _db.Acts.Where( o=> o.Signed== true && o.State == "semnat")
+                                   join p in _db.PersonDetails
+                                  on a.PersonDetailsID equals p.ID
+
+                                   select
+                                   new
+                                   {
+
+                                       data = p.LastName,
+                                       id = p.ID,
+                                       attr = new { id = p.ID },
+                                       state = "closed"
+
+                                   });
+                        return Json(q2);
+                    }
+                    break;
+                case -3:
+                    {
+                        var q3 = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "vizualizat")
+                                  join p in _db.PersonDetails
+                                 on a.PersonDetailsID equals p.ID
+
+                                  select
+                                  new
+                                  {
+
+                                      data = p.LastName,
+                                      id = p.ID,
+                                      attr = new { id = p.ID },
+                                      state = "closed"
+
+                                  });
+                        return Json(q3);
+                    }
+                    break;
+                default:
+                    {
+                        // must verify what type of act must be  displayed - signed, unsigned or visualized but unsigned
+                        var q4 = (from a in _db.Acts
+                                  select
+                                  new
+                                  {
+                                      data = a.ExternalUniqueReference,
+                                      id = a.ID,
+                                      attr = new { id = a.ID },
+                                      state = "closed"
+                                  });
+                    }
+                    break;
             }
 
 
