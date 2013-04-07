@@ -187,6 +187,7 @@ namespace eNotaryWebRole.Controllers
                                       attr = new { id = a.ID },
                                       state = "closed"
                                   });
+                        return Json(q4);
                     }
                     break;
             }

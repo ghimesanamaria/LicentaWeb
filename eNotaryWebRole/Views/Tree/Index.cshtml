@@ -36,19 +36,19 @@
 
    
 
-   // keypress Enter
-   $("#tbSearchTree").keypress(function(e) {
-       if(e.which==10 || e.which == 13) {
-       var val = $("#tbSearchTree").val();
-        $("#demoTree").jstree("search",$("#tbSearchTree").val());
-         $("#tbSearchTree").val(val);
+   //// keypress Enter
+   //$("#tbSearchTree").keypress(function(e) {
+   //    if(e.which==10 || e.which == 13) {
+   //    var val = $("#tbSearchTree").val();
+   //     $("#demoTree").jstree("search",$("#tbSearchTree").val());
+   //      $("#tbSearchTree").val(val);
       
-   }
+   //}
       
-   });
+   //});
 
 
-   $("#tbSearchTree").live('input',
+   $("#tbSearchTree").on('input',
        function () {
            if ($("#bttClearSearch").css("display") == "none") {
           

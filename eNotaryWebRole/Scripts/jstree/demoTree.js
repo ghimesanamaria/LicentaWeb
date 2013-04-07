@@ -74,9 +74,17 @@
             "override_ui": true,
             "real_checkboxes": true,
             "real_checkboxes_names": function (n) {
-               
-                        return [("check_" + (n[0].id || Math.ceil(Math.random() * 10000))), n[0].id];
+                var t = n[0].attributes.description;
                 
+                if (typeof t !== 'undefined') {
+
+                    if (t.value.indexOf('Variable') > -1)
+                        return [("check_" + (n[0].id || Math.ceil(Math.random() * 10000))), n[0].id];
+                    else
+                        return [("check_" + t.value + (n[0].id || Math.ceil(Math.random() * 10000))), n[0].id];
+                }
+                else
+                    return [("check_" + (n[0].id || Math.ceil(Math.random() * 10000))), n[0].id];
             }
         },
 
@@ -84,13 +92,46 @@
     })
     .delegate("a", "click", function (event, data) {
 
-        
+        if (window.g_forDashBoard) {
             // reload the grid when new element is checked or 
             // unchecked in tree
             var checkedNodes = $("#demoTree").jstree("get_checked", null, true);
 
+            var siteIDs = [];
 
-      
+            $.each(checkedNodes, function (i, node) {
+                //if ($(node).attr('description') == 'LiveVariable') {
+                siteIDs.push(node.id);
+                //}
+            });
+
+            if (siteIDs.length > 0) {
+
+                //
+                //selectedVariablesString = siteIDs;
+                LoadLiveDashboard(dashboardUrl, siteIDs);
+            }
+        }
+
+        if (window.g_forSetpoints) {
+            // reload the grid when new element is checked or 
+            // unchecked in tree
+            var checkedNodes = $("#demoTree").jstree("get_checked", null, true);
+
+            var setPointIDs = [];
+
+            $.each(checkedNodes, function (i, node) {
+                if ($(node).attr('description') == 'LiveVariable') {
+                    setPointIDs.push(node.id);
+                }
+            });
+
+            if (setPointIDs.length > 0) {
+                $grid.fill(setPointIDs, function () {
+                    console.log('Filled grid with setpoints: ', setPointIDs);
+                });
+            }
+        }
 
         $(event.target).find('.jstree-checkbox').attr("checked", "checked");
 
@@ -102,11 +143,19 @@
 
         }
 
-        
+        var sel = $(this).parent().attr('id');
+        if (typeof selectedVariablesString === "undefined") {
+            // ???
+        }
+        else {
+            selectedVariablesString = jQuery.grep(selectedVariablesString, function (value) {
+                return value != sel;
+            });
+        }
     })
     .bind("before.jstree", function (e, data) {
         var url = document.URL;
-        
+        if (url.indexOf('KPIConfiguration') > -1 || url.indexOf("MySavedReports") > -1 )
 
             if (data.func === "check_node") {
 
@@ -116,7 +165,29 @@
             }
     })
     .bind('open_node.jstree', function (e, data) {
-        
+        var description = data.inst._get_node(data.rslt.obj).attr("description");
+
+        if (description != undefined) {
+            if (description == 'dv') {
+                var device = data.args[0][0].id;
+                if (device != undefined)
+                    openedNodes.push(device);
+            }
+            if (description == 'sv') {
+                var device = data.args[0][0].id;
+                if (device != undefined) {
+                    openedParentNodes.push(device);
+                } else {
+                    //pt prima incarcare a raportului default
+                    var device2 = data.args[0];
+                    if (device2 != undefined) {
+                        var d = device2.split('#');
+                        openedParentNodes.push(d[1]);
+                    }
+                }
+
+            }
+        }
     })
     .bind("loaded.jstree", function (e, data) {})
     .bind('after_open.jstree', function (e, data) {
@@ -134,8 +205,31 @@
         var description = data.args[0][0].attributes[1].value;
         var getVariables = [];
 
-       
-        
+        if (typeof selectedVariablesString === "undefined" || selectedVariablesString == "") {
+            // ???
+        } else {
+            getVariables = selectedVariablesString.split(',');
+        }
 
+        $.each(getVariables, function (index, value) {
+                if (value != '') {
+                //var varNode = '\#' + value + '\'';
+                var varNode = '#' + value;
+
+                $.jstree._reference('#demoTree').check_node(varNode);
+            }
+        });
+
+        if (description == 'sv') {
+            $.each(uncheckedModelFilters, function (index, value) {
+                hideFilteredNodesmodelFilterTree(value, openedParentNodes);
+            });
+        }
+
+        if (description == 'dv') {
+            $.each(uncheckedUnitsFilters, function (index, value) {
+                hideFilteredNodesunitsFilterTree(value, openedNodes);
+            });
+        }
     });
 }
