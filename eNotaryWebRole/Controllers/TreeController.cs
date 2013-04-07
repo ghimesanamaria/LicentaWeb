@@ -126,7 +126,7 @@ namespace eNotaryWebRole.Controllers
                                      
                                      data = p.LastName,
                                      id = p.ID,
-                                     attr = new { id = p.ID },
+                                     attr = new { id = p.ID , description="person"},
                                      state = "closed"
                                      
                                  });
@@ -149,7 +149,7 @@ namespace eNotaryWebRole.Controllers
 
                                        data = p.LastName,
                                        id = p.ID,
-                                       attr = new { id = p.ID },
+                                       attr = new { id = p.ID, description="person" },
                                        state = "closed"
 
                                    });
@@ -168,7 +168,7 @@ namespace eNotaryWebRole.Controllers
 
                                       data = p.LastName,
                                       id = p.ID,
-                                      attr = new { id = p.ID },
+                                      attr = new { id = p.ID , description = "person"},
                                       state = "closed"
 
                                   });
@@ -184,8 +184,8 @@ namespace eNotaryWebRole.Controllers
                                   {
                                       data = a.ExternalUniqueReference,
                                       id = a.ID,
-                                      attr = new { id = a.ID },
-                                      state = "closed"
+                                      attr = new { id = a.ID, description ="act" },
+                                      state = String.Empty
                                   });
                         return Json(q4);
                     }

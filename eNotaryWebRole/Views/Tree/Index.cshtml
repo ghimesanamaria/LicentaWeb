@@ -3,13 +3,13 @@
  
 <div id="search-header-wrapper">
     <div id="search-header">
-        <div id="searchBox">
+        <div id="searchBox" style="width:69%; float:left;">
             <div class="input-append" style="width:100%;border: 1px solid #CCC; border-radius: 4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;">
                 <input type="text"  id="tbSearchTree" name="SearchTree" style="width:inherit; border:none; height:23px; " >
                 <button class="btn add-on" style="display: none;" id="bttClearSearch" value="Clear Search" name="ClearSearch" ><img src='@Url.Content("~/Content/Icons/x.png")'/></button>
             </div>
         </div>
-        <div id="buttonGroup" class="btn-group" style="width:30%;  ">
+        <div id="buttonGroup" class="btn-group" style="width:30%;  float:right;">
                 <button class="btn" id="bttSearch" value="Search" name="Search" ><i class="icon-search" ></i></button>
                 <button class="btn" id="bttFilters"><i class="icon-chevron-right" ></i></button>
         </div>
@@ -98,7 +98,7 @@
      
      $(function () {
          
-        loadJstree(treeModelTree, [],'','','', '@Url.Content("~/Tree/GetTreeData/")','@Url.Content("~/Tree/SearchTreeData2/")',0, '');
+         loadJstree(treeModelTree, [],'','','', '@Url.Content("~/Tree/GetTreeData/")','@Url.Content("~/Tree/SearchTreeData2/")',0, '','@Url.Content("~/SignDocs/DisplayImage")','@Url.Content("~/Fisiere/temp_jpeg.jpg")');
          
 });
     

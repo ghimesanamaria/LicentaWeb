@@ -236,10 +236,11 @@ namespace eNotaryWebRole.Controllers
                  // Retrieve a reference to a container
                  CloudBlobContainer container = blobClient.GetContainerReference("testcontainer");
 
+
                  // Create the container if it doesn't already exist.
                  container.CreateIfNotExists();
                  // By default, the new container is private and you must specify your storage access key to download the blobs from this container.
-
+                
                  // upload a blob into a container
                  // Create or overwrite the "testContainer" blob with contents from an uploaded fike
                  var contentType = file.ContentType;

@@ -113,7 +113,7 @@ namespace eNotaryWebRole.Controllers
         ////    //}
         ////}
 
-
+        private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
 
 
         public ActionResult Index()
@@ -169,11 +169,16 @@ namespace eNotaryWebRole.Controllers
             // Retrieve a reference to a container
             CloudBlobContainer container = blobClient.GetContainerReference("testcontainer");
             CloudBlockBlob blockBlob = container.GetBlockBlobReference("Tulips.jpg");
-
-            using (var fileStream = System.IO.File.OpenWrite(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Fisiere\test.jpg"))
+            try
             {
-                blockBlob.DownloadToStream(fileStream);
-                fileStream.Close();
+                using (var fileStream = System.IO.File.OpenWrite(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Fisiere\test.jpg"))
+                {
+                    blockBlob.DownloadToStream(fileStream);
+                    fileStream.Close();
+                }
+            }
+            catch (Exception ex)
+            {
             }
 
             List<string> listAllContainerDoc = new List<string>();
@@ -219,7 +224,7 @@ namespace eNotaryWebRole.Controllers
 
 
             // signPDF();
-            signAdvancedPDF();
+           // signAdvancedPDF();
 
 
 
@@ -561,6 +566,46 @@ namespace eNotaryWebRole.Controllers
                    
                 }
             }
+
+        [HttpPost]
+        public ActionResult DisplayImage(long id)
+        {
+            string extUniqueRef = (from a in _db.Acts.Where(o => o.ID == id)
+                               select
+                               a.ExternalUniqueReference).FirstOrDefault();
+
+            // get the specified document 
+            // verify its extension, because the signed document will have the pdf extension
+            // if the extension is different convert document in pdf, then sign
+
+            // Step 1. Get the document wished
+
+            CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+
+
+
+            // Second step
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+            // Retrieve a reference to a container
+            CloudBlobContainer container = blobClient.GetContainerReference("testcontainer");
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(extUniqueRef);
+            try
+            {
+                using (var stream = System.IO.File.OpenWrite(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Fisiere\temp_jpeg.jpg"))
+                {
+                    blockBlob.DownloadToStream(stream);
+                    
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return Json("OK");
+
+        }
             
         }
 

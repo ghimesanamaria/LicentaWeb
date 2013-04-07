@@ -2,17 +2,16 @@
 
 
 <h2>Index</h2>
-<div id ="documentTree" style="float:left;width:50%; margin-left:3%;">
+<div id ="documentTree" style="float:left;width:30%; margin-left:3%;">
     @Html.Action("Index", "Tree")
 
 </div>
-<div id="list" style="float:left;width:50%;">
+<div id="documentListed" style="float:right;width:65%;">
 
-@{
-    foreach (var item in Model.List)
-    {
-        string link = @item.ToString().Split('/')[5];
-       <a href="@item.ToString()">@link</a><br/>
-    }
-}
+    <iframe src="" frameborder="0" id="listDoc" style="width:100%; height:700px;"></iframe>
     </div>
+
+<script>
+
+
+</script>

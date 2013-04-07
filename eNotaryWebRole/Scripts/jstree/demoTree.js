@@ -1,4 +1,4 @@
-﻿function loadJstree(treeModel, arrayTest, filterModels, selUM, DevicesOpen, urlGetData, urlSearchData, isPlant, selectedVariablesString) {
+﻿function loadJstree(treeModel, arrayTest, filterModels, selUM, DevicesOpen, urlGetData, urlSearchData, isPlant, selectedVariablesString, urlDisplayImage,urlServerImage) {
    
     $("#demoTree").jstree({
         "themes": {
@@ -154,12 +154,12 @@
         }
     })
     .bind("before.jstree", function (e, data) {
-        var url = document.URL;
-        if (url.indexOf('KPIConfiguration') > -1 || url.indexOf("MySavedReports") > -1 )
+      
 
             if (data.func === "check_node") {
 
                 $.jstree._reference('#demoTree').uncheck_all();
+                console.log(e);
 
 
             }
@@ -189,6 +189,34 @@
             }
         }
     })
+    .bind("check_node.jstree", function (e, data) {
+        console.log('aici');
+       
+
+        // because the access on a blob it's private make an ajax request to load the image on server temporarily
+        var param = new Object();
+        param.id = data.args[0].parentNode.parentNode.id;
+        var parameter = JSON.stringify(param);
+        $.ajax({                  
+            type: "POST",
+            url: urlDisplayImage,
+            dataType: 'json',
+            data: parameter,
+
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                
+                 $("#listDoc").attr('src', urlServerImage);
+                return true;
+            },
+            error: function () {
+                console.log('eroare');
+
+            }
+        });
+
+       
+        })
     .bind("loaded.jstree", function (e, data) {})
     .bind('after_open.jstree', function (e, data) {
 
