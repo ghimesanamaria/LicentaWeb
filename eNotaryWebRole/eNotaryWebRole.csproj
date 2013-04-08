@@ -432,6 +432,8 @@
       <DependentUpon>eNotaryDB.edmx</DependentUpon>
       <LastGenOutput>eNotaryDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Fisiere\test.pdf" />
+    <Content Include="Fisiere\test2.pdf" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\ajax-loader.gif" />
     <Content Include="Images\ajax-loaderback.gif" />
@@ -568,7 +570,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Fisiere\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -616,7 +617,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>12141</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

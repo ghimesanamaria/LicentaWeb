@@ -169,12 +169,13 @@ namespace eNotaryWebRole.Controllers
             // Retrieve a reference to a container
             CloudBlobContainer container = blobClient.GetContainerReference("testcontainer");
             CloudBlockBlob blockBlob = container.GetBlockBlobReference("Tulips.jpg");
+            var url = HttpContext.Request.PhysicalApplicationPath;
             try
             {
-                using (var fileStream = System.IO.File.OpenWrite(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Fisiere\test.jpg"))
+                using (FileStream fileStream = new FileStream(url+"\\Fisere\\test.jpg", FileMode.Create))
                 {
                     blockBlob.DownloadToStream(fileStream);
-                    fileStream.Close();
+                    
                 }
             }
             catch (Exception ex)
@@ -216,10 +217,10 @@ namespace eNotaryWebRole.Controllers
             XGraphics xgr = XGraphics.FromPdfPage(doc.Pages[0]);
 
             //get the image
-            XImage img = XImage.FromFile(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Fisiere\test.jpg");
+            XImage img = XImage.FromFile(url+"\\Fisiere\\test.jpg");
             xgr.DrawImage(img, 0, 0);
             //save the image in format pdf
-            doc.Save(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Fisiere\test.pdf");
+            doc.Save(url+"\\Fisiere\\test.pdf");
             doc.Close();
 
 
@@ -234,7 +235,9 @@ namespace eNotaryWebRole.Controllers
         //sign pdf
         public void signPDF()
         {
-            using (FileStream inFile = new FileStream(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Fisiere\test.pdf", FileMode.Open, FileAccess.Read))
+
+            var url = HttpContext.Request.PhysicalApplicationPath;
+            using (FileStream inFile = new FileStream(url+"\\Fisiere\\test.pdf", FileMode.Open, FileAccess.Read))
             {
                 //Existing document
                 Document document = new Document(inFile);
@@ -263,7 +266,7 @@ namespace eNotaryWebRole.Controllers
                 //    string psswd = "jerrycora";
                 //    ks = new Pkcs12Store(file.BaseStream, psswd);
                 //}
-                var ks = new X509Certificate2(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Certificate\certificat12.p12", "jerrycora", X509KeyStorageFlags.Exportable);
+                var ks = new X509Certificate2(url+"\\Certificate\\certificat12.p12", "jerrycora", X509KeyStorageFlags.Exportable);
                 Pkcs12Store k = new Pkcs12Store(ks);
 
                 //let the Create factory decide which type should be used.
@@ -286,7 +289,7 @@ namespace eNotaryWebRole.Controllers
                 //optional code to set image;
                 SignatureAppearance signedAppearance = new SignatureAppearance();
                 signedAppearance.Style = SignatureAppearanceStyle.ImageAndText;
-                using (System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Content\logo_pdfkit.gif"))
+                using (System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(url+"\\Content\\logo_pdfkit.gif"))
                 {
                     signedAppearance.Bitmap = bmp;
                 }
@@ -299,7 +302,7 @@ namespace eNotaryWebRole.Controllers
                 document.Fields.Add(field);
 
                 // write the modified document to disk, note: signing requires read-write file access
-                using (FileStream outFile = new FileStream(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Fisiere\test_signed.pdf", FileMode.Create, FileAccess.ReadWrite))
+                using (FileStream outFile = new FileStream(url+"\\Fisiere\\test_signed.pdf", FileMode.Create, FileAccess.ReadWrite))
                 {
                     document.Write(outFile);
                 }
@@ -590,14 +593,19 @@ namespace eNotaryWebRole.Controllers
             // Retrieve a reference to a container
             CloudBlobContainer container = blobClient.GetContainerReference("testcontainer");
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(extUniqueRef);
+            var url = HttpContext.Request.PhysicalApplicationPath;
+           
             try
             {
-                using (var stream = System.IO.File.OpenWrite(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Fisiere\temp_jpeg.jpg"))
+                using (var stream = System.IO.File.OpenWrite(url+"\\Fisiere\\temp_jpeg.jpg"))
                 {
+                    blockBlob.BeginDownloadToStream(stream, null, null);
                     blockBlob.DownloadToStream(stream);
+                    blockBlob.EndDownloadToStream(blockBlob.BeginDownloadToStream(stream, null /* callback */, null /* state */));
                     
                    
                 }
+                
             }
             catch (Exception ex)
             {
