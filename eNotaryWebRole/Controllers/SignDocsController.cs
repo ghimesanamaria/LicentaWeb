@@ -172,7 +172,7 @@ namespace eNotaryWebRole.Controllers
             var url = HttpContext.Request.PhysicalApplicationPath;
             try
             {
-                using (FileStream fileStream = new FileStream(url+"\\Fisere\\test.jpg", FileMode.Create))
+                using (FileStream fileStream = new FileStream(url+"\\Fisiere\\test.jpg", FileMode.Create))
                 {
                     blockBlob.DownloadToStream(fileStream);
                     

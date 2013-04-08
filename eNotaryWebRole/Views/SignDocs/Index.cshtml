@@ -2,16 +2,147 @@
 
 
 <h2>Index</h2>
-<div id ="documentTree" style="float:left;width:30%; margin-left:3%;">
-    @Html.Action("Index", "Tree")
+<div id ="signDocsContent">   
+        <div id="tree-container" >
+            
+                    <div id="tree-toggle">
+                        <i class="icon-chevron-left"></i>
+                    </div>     
+   
+                        <div id="jstree">
+                             <p id="chooseVariables"  style="margin-bottom: 10px;">
+                                <b></b>
+                            </p>                  
 
+                            @Html.Action("Index", "Tree")
+
+                            <div class="clear-all"></div>
+                        </div>                        
+            
+                     
+                        <div class="clear-all"></div>
+                    </div>
+
+
+         <div id="accordion-and-doc">
+        <div class="accordion-group" id="doc-controls-accordion">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" href="#collapse-doc-controls-top">
+                                <b>
+                                    ff
+                                </b>
+                                <i class="icon-chevron-up"></i>
+                            </a>
+                        </div>
+            
+                        <div id="collapse-doc-controls-top" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                <div id="doc-controls-top">                       
+
+        
+
+                                    <div class="clear-all"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+         </div>
+        <div id="documentListed" class=".is-doc-container"style="float:right;">
+            <iframe src="" frameborder="0" id="iframeDoc" style="width:100%; height:700px;"></iframe>
+         </div>
 </div>
-<div id="documentListed" style="float:right;width:65%;">
-
-    <iframe src="" frameborder="0" id="listDoc" style="width:100%; height:700px;"></iframe>
-    </div>
-
 <script>
 
+    $(function () {
+
+
+        // toggle icon from up to down
+        // when details controls collapse
+        $('a.accordion-toggle').click(function () {
+            var iconElem = $(this).children('i'),
+                currentClassAttr = iconElem.attr('class');
+
+            if (currentClassAttr == 'icon-chevron-up') {
+                iconElem.attr('class', 'icon-chevron-down');
+            } else {
+                iconElem.attr('class', 'icon-chevron-up');
+            }
+        });
+
+        // iframe container width
+        var parentContainer = $('#signDocsContent');
+            treeContainer = $('#tree-container'),
+            reportContainer = $('#documentListed'),
+            docControlsContainer = $('#accordion-and-doc');
+            docContainer = reportContainer.find('#documentListed')
+                        .first();
+       
+
+        reportContainer.width(docControlsContainer.width());
+       
+
+
+        $(window).resize(function () {
+            reportContainer.width(docControlsContainer.width());
+        });
+
+        $('#tree-toggle').click(function () {
+            $("#filters").hide();
+            var $this = $(this),
+                parent = treeContainer,
+                icon = $this.children('i');
+
+            docContainer = reportContainer.find('.is-doc-container')
+                            .first();
+
+            parent.addClass('closing');
+
+            if (parent.hasClass('closed')) { // if expand
+
+                parent.removeClass('closed');
+                parent.animate({
+                    width: '29%'
+                }, 300, function () {
+                    parent.removeClass('closing');
+                    icon.attr('class', 'icon-chevron-left');
+                });
+                docControlsContainer.animate({
+                    width: '69%'
+                }, 300, function () {
+                    // make the report take the size of the doc controls
+                    reportContainer.width(docControlsContainer.width());
+                    
+
+                    // call reflow on report if one exists
+                    if (typeof $report !== 'undefined') {
+                        $report.reflow();
+                    }
+                });
+
+            } else {
+
+                parent.animate({
+                    width: '25px'
+                }, 300, function () {
+                    reportContainer.width(docControlsContainer.width());
+                    
+
+                    // call reflow on report if one exists
+                    if (typeof $report !== 'undefined') {
+                        $report.reflow();
+                    }
+
+                    parent.addClass('closed');
+                    parent.removeClass('closing');
+                    icon.attr('class', 'icon-chevron-right');
+                });
+
+                docControlsContainer.animate({
+                    width: '95%'
+                }, 300);
+            }
+        });
+
+    });
 
 </script>

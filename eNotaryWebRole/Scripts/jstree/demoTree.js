@@ -206,7 +206,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 
-                 $("#listDoc").attr('src', urlServerImage);
+                $("#iframeDoc").attr('src', urlServerImage);
                 return true;
             },
             error: function () {
