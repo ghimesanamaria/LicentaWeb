@@ -2,6 +2,10 @@
 
 
 <h2>Index</h2>
+
+<div id="ErrorMessageSignDocs"></div>
+
+@using (@Ajax.BeginForm("Index", "SignDocs", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "formSignDocs" })){
 <div id ="signDocsContent" >   
         <div id="tree-container" >
             
@@ -24,7 +28,7 @@
                     </div>
 
 
-         <div id="accordion-and-doc">
+        <div id="accordion-and-doc">
         <div class="accordion-group" id="doc-controls-accordion">
                         <div class="accordion-heading">
                             <a class="accordion-toggle" data-toggle="collapse" href="#collapse-doc-controls-top">
@@ -37,24 +41,89 @@
             
                         <div id="collapse-doc-controls-top" class="accordion-body collapse in">
                             <div class="accordion-inner">
-                                <div id="doc-controls-top">                       
+                                <div id="doc-controls-top"> 
+                                    <div id="personDetail-shadow "></div>
+                                    <div id="sgpersonDetail" class="disabled">
+                                        <input type="text" id="sdPersonFirstName" class="inputSignDocs" placeholder="Prenume 1" />
+                                        <input type="text" id="sdPersonMiddleName" class="inputSignDocs" placeholder ="Prenume 2" />
+                                        <input type="text" id="sdPersonLastName" class="inputSignDocs" placeholder="Nume" />
+                                   
+                                        <input type="text" id="sdGender" class="inputSignDocs" placeholder="Sex " />
+                                        <input type="text" id="sdAge" class="inputSignDocs" placeholder="Varsta" />
+                                        <input type="text" id="sdBirthday" class="inputSignDocs" placeholder="Data Nasterii" />
+                                        
+                                        
+                                    </div>
+                                    <button id="btnViewFullProfile"  class="btn "><i class=" icon-play"></i></button>
 
-        
+                                    <div id="sgActDetail">
+                                        <input type="text" id="sgActType" class="inputSignDocs" placeholder ="inlocuieste cu dropdowntypect" />
+                                        <input type="text" id="sgActName" class="inputSignDocs" placeholder ="Nume Act" />
+                                        <input type="text" id="sgCreationDate" class="inputSignDocs" placeholder="Data crearii" disabled/>
+                                        <input type="text" id="sgReason" class="inputSignDocs" placeholder="Necesar la .." />
+                                        <input type="text" id="sgState" class="inputSignDocs" placeholder ="Stare document" />
+                                        <input type="text" id ="sgReasonState" class="inputSignDocs" placeholder ="Motiv stare" />
+                                        <div style="float:left;margin-bottom:20px;">
+                                        <input type="checkbox" id="sgSentToClient" style="float:left;" /> <label id ="sgSentToClientText" style="float:left;padding-left:10px;" >A fost anuntat clientul</label>
+                                        </div>
+
+                                    </div>
+                                    
+                                    
+                                
 
                                     <div class="clear-all"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-         </div>
+        </div>
         <div id="documentListed" class=".is-doc-container"style="float:right;">
             <iframe src="" frameborder="0" id="iframeDoc" style="width:100%; height:700px;"></iframe>
          </div>
 </div>
+}
 <script>
+
+    var onBegin = function (data) {
+        return true;
+    };
+    var onSuccess = function (data) {
+       
+        count = data[0];
+
+        if (count != null) {
+
+
+            if (data == "Datele nu au fost salvate!") {
+                $("#ErrorMessageSignDocs").removeClass('alert alert-success');
+                $("#ErrorMessageSignDocs").addClass('alert alert-error');
+
+            } else {
+
+                $("#ErrorMessageSignDocs").removeClass('alert alert-error');
+                $("#ErrorMessageSignDocs").addClass('alert alert-success');
+            }
+
+            $("#ErrorMessageSignDocs").html(data);
+
+        } else {
+
+            $("#ErrorMessageSignDocs").html("Datele nu au fost salvate!");
+
+
+            $("#ErrorMessageSignDocs").addClass('alert alert-error');
+
+            $("#ErrorMessageSignDocs").html(data);
+        }
+    };
 
     $(function () {
 
+        // view full profile tooltip
+        $("#btnViewFullProfile").tooltip({
+            title: 'Vizualizati intreg profilul'
+        });
 
         // toggle icon from up to down
         // when details controls collapse

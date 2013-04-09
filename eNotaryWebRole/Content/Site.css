@@ -7,9 +7,40 @@
 }
 /* signed docs css*/
 
-#signDocsContent {
-    padding : 10px;
+#btnViewFullProfile{
+    float:left;
+    margin-top: 5px;
 }
+.inputSignDocs {
+    float:left;
+    width:28%;
+    margin:5px;
+    
+    
+    
+}
+
+#personDetail-shadow {
+    width: 243px;
+    height: 150px;
+    background-color: white;
+    right: 0;
+    position: absolute;
+    opacity: 0.5;
+}
+
+div.disabled
+{
+  pointer-events: none;
+
+  /* for "disabled" effect */
+  opacity: 0.5;
+  background: #CCC;
+}
+
+/*#signDocsContent {
+    padding : 10px;
+}*/
 #tree-container
 {
     position: relative;
@@ -99,7 +130,7 @@
         #accordion-and-doc
 {
     width: 69%;
-    margin-left: 22px;
+    margin-left: 1%;
     float: right;
     position: relative;
 }
@@ -144,6 +175,19 @@ div.accordion-inner
     border-top: none;
     padding-top: 15px;
 }
+/*HomePage*/
+#dragAndDropFiles {
+    float:left;
+    width:90%;
+    padding: 20px;
+}
+#demoFiler {
+    float:left;
+    width: 90%;
+    padding:20px;
+}
+
+
 
 
 /*default*/

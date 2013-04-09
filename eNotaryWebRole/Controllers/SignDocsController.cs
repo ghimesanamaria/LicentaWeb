@@ -232,6 +232,11 @@ namespace eNotaryWebRole.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Index(FormCollection collection)
+        {
+            return View();
+        }
         //sign pdf
         public void signPDF()
         {
