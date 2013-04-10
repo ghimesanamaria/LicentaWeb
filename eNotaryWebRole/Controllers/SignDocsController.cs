@@ -227,7 +227,13 @@ namespace eNotaryWebRole.Controllers
             // signPDF();
            // signAdvancedPDF();
 
-
+            var actTypeList = (from at in _db.ActTypes
+                              select new
+                              {
+                                  ID = at.ID,
+                                  Name = at.ActTypeName
+                              }).ToList();
+            ViewBag.ActTypeList = new SelectList(actTypeList,"ID","Name",0);
 
             return View(model);
         }
@@ -575,12 +581,34 @@ namespace eNotaryWebRole.Controllers
                 }
             }
 
+       
         [HttpPost]
         public ActionResult DisplayImage(long id)
         {
-            string extUniqueRef = (from a in _db.Acts.Where(o => o.ID == id)
-                               select
-                               a.ExternalUniqueReference).FirstOrDefault();
+            var model = (from a in _db.Acts.Where(o => o.ID == id)
+                         select new
+                         {
+                             a.ActTypeID,
+                             a.Name,
+                             a.CreationDate,
+                             a.Reason,
+                             a.State,
+                             a.ReasonState
+                            
+                         }).FirstOrDefault();
+            var personDetail = (from p in _db.PersonDetails
+                                join a in _db.Acts.Where(o => o.ID == id)
+                                on p.ID equals a.PersonDetailsID
+                                select new
+                                {
+                                    p.FirstName,
+                                    p.MiddleName,
+                                    p.LastName,
+                                    p.Gender, 
+                                    p.Birthday
+                                    
+                                }).FirstOrDefault();
+
 
             // get the specified document 
             // verify its extension, because the signed document will have the pdf extension
@@ -597,7 +625,7 @@ namespace eNotaryWebRole.Controllers
 
             // Retrieve a reference to a container
             CloudBlobContainer container = blobClient.GetContainerReference("testcontainer");
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(extUniqueRef);
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(_db.Acts.Where(o=>o.ID == id ).FirstOrDefault().ExternalUniqueReference);
             var url = HttpContext.Request.PhysicalApplicationPath;
            
             try
@@ -616,7 +644,15 @@ namespace eNotaryWebRole.Controllers
             {
             }
 
-            return Json("OK");
+
+           // PersonActViewModel pa = new PersonActViewModel(personDetail,model);
+
+
+            return Json(new  {
+             act = model, 
+             person = personDetail
+            
+            });
 
         }
             

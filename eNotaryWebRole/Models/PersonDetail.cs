@@ -39,13 +39,13 @@ namespace eNotaryWebRole.Models
         public string FacebookID { get; set; }
         public string CommunicationMode { get; set; }
     
-        public virtual ICollection<Act> Acts { get; set; }
-        public virtual EducationLevel EducationLevel { get; set; }
-        public virtual JobType JobType { get; set; }
-        public virtual ICollection<Payment> Payments { get; set; }
-        public virtual ICollection<SignedAct> SignedActs { get; set; }
-        public virtual ICollection<User> Users { get; set; }
-        public virtual Address Address { get; set; }
+        public  ICollection<Act> Acts { get; set; }
+        public  EducationLevel EducationLevel { get; set; }
+        public  JobType JobType { get; set; }
+        public  ICollection<Payment> Payments { get; set; }
+        public  ICollection<SignedAct> SignedActs { get; set; }
+        public  ICollection<User> Users { get; set; }
+        public  Address Address { get; set; }
 
 
         // add  function for verify if model in view is empty

@@ -30,8 +30,8 @@ namespace eNotaryWebRole.Models
         public bool Signed { get; set; }
         public string ExternalUniqueReference { get; set; }
     
-        public virtual ActType ActType { get; set; }
-        public virtual PersonDetail PersonDetail { get; set; }
-        public virtual ICollection<SignedAct> SignedActs { get; set; }
+        public  ActType ActType { get; set; }
+        public  PersonDetail PersonDetail { get; set; }
+        public  ICollection<SignedAct> SignedActs { get; set; }
     }
 }

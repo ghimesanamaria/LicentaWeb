@@ -203,10 +203,49 @@
             dataType: 'json',
             data: parameter,
 
-            contentType: 'application/json; charset=utf-8',
+            contentType: 'application/json',
             success: function (data) {
                 
                 $("#iframeDoc").attr('src', urlServerImage);
+
+                // complete the forms with dates 
+                $("#sdPersonFirstName").val(data.person.FirstName);
+                $("#sdPersonMiddleName").val(data.person.MiddleName);
+                $("#sdPersonLastName").val(data.person.LastName);
+                // calculate age
+                    
+                    birthday = new Date(parseFloat(data.person.Birthday.split('(')[1].split(')')[0]));
+                    todayDate = new Date();
+                    todayYear = todayDate.getFullYear();
+                    todayMonth = todayDate.getMonth();
+                    todayDay = todayDate.getDate();
+                    age = todayYear - birthday.getFullYear();
+
+                    if (todayMonth < birthday.getMonth() - 1) {
+                        age--;
+                    }
+
+                    if (birthday.getMonth() - 1 == todayMonth && todayDay < birthday.getDate()) {
+                        age--;
+                    }
+                
+
+
+                $("#sdGender").val(data.person.Gender);
+                $("#sdAge").val(age);
+                $("#sdBirthday").val(birthday.getDate() + "/" + birthday.getMonth() + 1 + "/" + birthday.getFullYear());
+                $('#ActTypeList option[value="' + data.act.ActTypeID + '"]').attr('selected', 'selected');
+                
+                $("#sdActName").val(data.act.Name);
+
+                var creationdate = new Date(new Date(parseFloat(data.act.CreationDate.split('(')[1].split(')')[0])));
+                $("#sdCreationDate").val(creationdate.getDay() + "/" + creationdate.getMonth()+1 + "/" + creationdate.getFullYear());
+                $("#sdReason").val(data.act.Reason);
+                $("#sdState").val(data.act.State);
+                $("#sdReasonState").val(data.act.ReasonState);
+
+
+
                 return true;
             },
             error: function () {

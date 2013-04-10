@@ -14,8 +14,8 @@
                     </div>     
    
                         <div id="jstree">
-                             <p id="chooseVariables"  style="margin-bottom: 10px;">
-                                <b></b>
+                             <p id="chooseVariables"  style="margin-bottom: 10px; margin-top:20px;">
+                                <b> Documente </b>
                             </p>                  
 
                             @Html.Action("Index", "Tree")
@@ -57,14 +57,14 @@
                                     <button id="btnViewFullProfile"  class="btn "><i class=" icon-play"></i></button>
 
                                     <div id="sgActDetail">
-                                        <input type="text" id="sgActType" class="inputSignDocs" placeholder ="inlocuieste cu dropdowntypect" />
-                                        <input type="text" id="sgActName" class="inputSignDocs" placeholder ="Nume Act" />
-                                        <input type="text" id="sgCreationDate" class="inputSignDocs" placeholder="Data crearii" disabled/>
-                                        <input type="text" id="sgReason" class="inputSignDocs" placeholder="Necesar la .." />
-                                        <input type="text" id="sgState" class="inputSignDocs" placeholder ="Stare document" />
-                                        <input type="text" id ="sgReasonState" class="inputSignDocs" placeholder ="Motiv stare" />
+                                        @Html.DropDownList("ActTypeList","Tipul actului")
+                                        <input type="text" id="sdActName" class="inputSignDocs" placeholder ="Nume Act" />
+                                        <input type="text" id="sdCreationDate" class="inputSignDocs" placeholder="Data crearii" disabled/>
+                                        <input type="text" id="sdReason" class="inputSignDocs" placeholder="Necesar la .." />
+                                        <input type="text" id="sdState" class="inputSignDocs" placeholder ="Stare document" />
+                                        <input type="text" id ="sdReasonState" class="inputSignDocs" placeholder ="Motiv stare" />
                                         <div style="float:left;margin-bottom:20px;">
-                                        <input type="checkbox" id="sgSentToClient" style="float:left;" /> <label id ="sgSentToClientText" style="float:left;padding-left:10px;" >A fost anuntat clientul</label>
+                                        <input type="checkbox" id="sdSentToClient" style="float:left;" /> <label id ="sgSentToClientText" style="float:left;padding-left:10px;" >A fost anuntat clientul</label>
                                         </div>
 
                                     </div>
@@ -78,7 +78,11 @@
                         </div>
                     </div>
         </div>
-        <div id="documentListed" class=".is-doc-container"style="float:right;">
+    <div id="buttonControls" style="float:right;margin-right:20px; margin-bottom:20px;">
+        <button id="sgSignDocument" class="btn">Semneaza</button>
+        <button id="sgSalveaza" class="btn">Salveaza</button>
+    </div>
+        <div id="documentListed" class=".is-doc-container"style="float:right; margin-top:20px;">
             <iframe src="" frameborder="0" id="iframeDoc" style="width:100%; height:700px;"></iframe>
          </div>
 </div>
@@ -120,6 +124,8 @@
 
     $(function () {
 
+        $("#ActTypeList").addClass('inputSignDocs');
+        $("#ActTypeList").width($("#sdGender").width()+14);
         // view full profile tooltip
         $("#btnViewFullProfile").tooltip({
             title: 'Vizualizati intreg profilul'
