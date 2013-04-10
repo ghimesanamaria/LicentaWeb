@@ -12,12 +12,24 @@
     margin-top: 5px;
 }
 .inputSignDocs {
-    float:left;
-    width:28%;
+  position:relative;
+    width:250px;
     margin:5px;
     
     
     
+}
+#buttonControla {
+    height: 40px;
+    position: relative;
+    width: 100%;
+}
+#buttons {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    z-index: 1;
+    margin-bottom: 20px;
 }
 
 #personDetail-shadow {

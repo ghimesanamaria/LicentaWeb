@@ -655,6 +655,55 @@ namespace eNotaryWebRole.Controllers
             });
 
         }
+
+
+
+
+        [HttpPost]
+        public ActionResult PersonDetails(long id)
+        {
+
+            var model = from a in _db.Acts.Where(o => o.ID == id)
+                        join p in _db.PersonDetails
+                        on a.PersonDetailsID equals p.ID
+                        join ad in _db.Addresses
+                        on p.AddressID equals ad.ID
+                        select new
+                        {
+                            p.Birthday,
+                            p.CommunicationMode,
+                            p.EducationLevel.EducationLevel1,
+                            p.Email,
+                            p.FacebookID,
+                            p.FirstName,
+                            p.Gender,
+                            p.HomePhoneNumber,
+                            p.JobPlace,
+                            p.JobType.JobName,
+                            p.LastName,
+                            p.MiddleName,
+                            p.MobilePhoneNumber,
+                            p.Nationality,
+                            ad.Address1,
+                            ad.City,
+                            ad.Country,
+                            ad.Street_1,
+                            ad.Street_2,
+                            ad.Street_3,
+                            ad.ZIP
+                            
+                            
+                        };
+            var actTypeList = (from at in _db.ActTypes
+                               select new
+                               {
+                                   ID = at.ID,
+                                   Name = at.ActTypeName
+                               }).ToList();
+            ViewBag.ActTypeList = new SelectList(actTypeList, "ID", "Name", 0);
+
+            return Json(model);
+        }
             
         }
 

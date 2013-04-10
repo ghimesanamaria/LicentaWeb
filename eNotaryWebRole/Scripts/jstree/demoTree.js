@@ -243,7 +243,7 @@
                 $("#sdReason").val(data.act.Reason);
                 $("#sdState").val(data.act.State);
                 $("#sdReasonState").val(data.act.ReasonState);
-
+            
 
 
                 return true;
