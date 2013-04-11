@@ -153,75 +153,9 @@ namespace eNotaryWebRole.Controllers
             }
 
 
-            // get the specified document 
-            // verify its extension, because the signed document will have the pdf extension
-            // if the extension is different convert document in pdf, then sign
-
-            // Step 1. Get the document wished
-
-            CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
-
-
-
-            // Second step
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-            // Retrieve a reference to a container
-            CloudBlobContainer container = blobClient.GetContainerReference("testcontainer");
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference("Tulips.jpg");
-            var url = HttpContext.Request.PhysicalApplicationPath;
-            try
-            {
-                using (FileStream fileStream = new FileStream(url+"\\Fisiere\\test.jpg", FileMode.Create))
-                {
-                    blockBlob.DownloadToStream(fileStream);
-                    
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-
-            List<string> listAllContainerDoc = new List<string>();
-            foreach (IListBlobItem item in container.ListBlobs(null, false))
-            {
-                if (item.GetType() == typeof(CloudBlockBlob))
-                {
-                    CloudBlockBlob blob = (CloudBlockBlob)item;
-
-                    listAllContainerDoc.Add(blob.Uri.ToString());
-
-                }
-                else if (item.GetType() == typeof(CloudPageBlob))
-                {
-                    CloudPageBlob pageBlob = (CloudPageBlob)item;
-
-                    listAllContainerDoc.Add(pageBlob.Uri.ToString());
-
-                }
-                else if (item.GetType() == typeof(CloudBlobDirectory))
-                {
-                    CloudBlobDirectory directory = (CloudBlobDirectory)item;
-
-                    listAllContainerDoc.Add(directory.Uri.ToString());
-                }
-            }
-
             UnsignedDocumentsViewModel model = new UnsignedDocumentsViewModel();
-            model.List = listAllContainerDoc;
-
-            // Step 2. Create a new PdfDocument
-
-            PdfSharp.Pdf.PdfDocument doc = new PdfSharp.Pdf.PdfDocument();
-            doc.Pages.Add(new PdfSharp.Pdf.PdfPage());
-            XGraphics xgr = XGraphics.FromPdfPage(doc.Pages[0]);
-
-            //get the image
-            XImage img = XImage.FromFile(url+"\\Fisiere\\test.jpg");
-            xgr.DrawImage(img, 0, 0);
-            //save the image in format pdf
-            doc.Save(url+"\\Fisiere\\test.pdf");
-            doc.Close();
+            List<string> nimic = new List<string>();
+            model.List = nimic;
 
 
             // signPDF();
@@ -241,6 +175,35 @@ namespace eNotaryWebRole.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
+            // verify which action was triggered sign document or save the details about act
+            long idAct = 0;
+            if (!string.IsNullOrEmpty(collection["sgSignDocument"]))
+            {
+                foreach (string coll in collection.AllKeys)
+                {
+                    if (coll.Contains("check_act"))
+                    {
+                         idAct = long.Parse(collection[coll]);
+                    }
+                }
+
+                string externalUniqueRef = _db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
+
+                signAdvancedPDF(externalUniqueRef);
+            }
+            else
+                if(!string.IsNullOrEmpty(collection["sgSave"]))
+                {
+
+                }
+
+            var actTypeList = (from at in _db.ActTypes
+                               select new
+                               {
+                                   ID = at.ID,
+                                   Name = at.ActTypeName
+                               }).ToList();
+            ViewBag.ActTypeList = new SelectList(actTypeList, "ID", "Name", long.Parse(collection["ActTypeList"]));
             return View();
         }
         //sign pdf
@@ -473,7 +436,8 @@ namespace eNotaryWebRole.Controllers
 
         public void function_init_document()
         {
-             PrepareTemporaryFile(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Fisiere\test.pdf");
+            var url = HttpContext.Request.PhysicalApplicationPath;
+            PrepareTemporaryFile(url + "\\Fisiere\\test.pdf");
                 try
                 {
                     m_CurrDoc = new TElPDFDocument();
@@ -530,8 +494,53 @@ namespace eNotaryWebRole.Controllers
            
         
        
-        public void signAdvancedPDF()
+        public void signAdvancedPDF(string extUniqueRefAct)
         {
+
+            // get the specified document 
+            // verify its extension, because the signed document will have the pdf extension
+            // if the extension is different convert document in pdf, then sign
+
+            // Step 1. Get the document wished
+
+            CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+
+
+
+            // Second step
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+            // Retrieve a reference to a container
+            CloudBlobContainer container = blobClient.GetContainerReference("testcontainer");
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(extUniqueRefAct);
+            var url = HttpContext.Request.PhysicalApplicationPath;
+            try
+            {
+                using (FileStream fileStream = new FileStream(url + "\\Fisiere\\test.jpg", FileMode.Create))
+                {
+                    blockBlob.DownloadToStream(fileStream);
+
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            
+
+            // Step 2. Create a new PdfDocument
+
+            PdfSharp.Pdf.PdfDocument doc = new PdfSharp.Pdf.PdfDocument();
+            doc.Pages.Add(new PdfSharp.Pdf.PdfPage());
+            XGraphics xgr = XGraphics.FromPdfPage(doc.Pages[0]);
+
+            //get the image
+            XImage img = XImage.FromFile(url + "\\Fisiere\\test.jpg");
+            xgr.DrawImage(img, 0, 0);
+            //save the image in format pdf
+            doc.Save(url + "\\Fisiere\\test.pdf");
+            doc.Close();
+
+
             m_TspClient = new TElHTTPTSPClient();
             init_function();
             function_init_document();

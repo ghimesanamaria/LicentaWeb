@@ -5,7 +5,8 @@
 
 <div id="ErrorMessageSignDocs"></div>
 
-@using (@Ajax.BeginForm("Index", "SignDocs", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "formSignDocs" })){
+@using (@Ajax.BeginForm("Index", "SignDocs", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "formSignDocs" }))
+{
 <div id ="signDocsContent" >   
         <div id="tree-container" >
             
@@ -56,20 +57,21 @@
                                     </div>
                                     
                                    <div style="height:40px;width:100%;">
-                                       <button id="btnViewFullProfile"  class="btn "><i class="icon-chevron-down"></i></button>
+                                       <button id="btnViewFullProfile"  class="btn " style="float:right;"><i class="icon-chevron-down"></i></button>
                                    </div>
 
                                     <div id="sgActDetail">
                                         @Html.DropDownList("ActTypeList","Tipul actului")
-                                        <input type="text" id="sdActName" class="inputSignDocs" placeholder ="Nume Act" />
-                                        <input type="text" id="sdCreationDate" class="inputSignDocs" placeholder="Data crearii" disabled/>
-                                        <input type="text" id="sdReason" class="inputSignDocs" placeholder="Necesar la .." />
-                                        <input type="text" id="sdState" class="inputSignDocs" placeholder ="Stare document" />
-                                        <input type="text" id ="sdReasonState" class="inputSignDocs" placeholder ="Motiv stare" />
-                                        <div style="float:left;margin-bottom:20px;">
-                                        <input type="checkbox" id="sdSentToClient" style="float:left;" /> <label id ="sgSentToClientText" style="float:left;padding-left:10px;" >A fost anuntat clientul</label>
-                                        </div>
+                                        <input type="text" id="sdActName" class="inputSignDocs"  name="sdActName" placeholder ="Nume Act" />
+                                        <input type="text" id="sdCreationDate" class="inputSignDocs" name="sdCreationDate" placeholder="Data crearii" disabled/>
+                                        <input type="text" id="sdReason" class="inputSignDocs" name="sdReason" placeholder="Necesar la .." />
+                                        <input type="text" id="sdState" class="inputSignDocs" name="sdState" placeholder ="Stare document" />
+                                        <input type="text" id ="sdReasonState" class="inputSignDocs" name ="sdReasonState" placeholder ="Motiv stare" />
+                                       
 
+                                    </div>
+                                     <div style="float:left;margin-bottom:20px;">
+                                        <input type="checkbox" id="sdSentToClient" name="sdSentToClient" style="float:left;" /> <label id ="sgSentToClientText" style="float:left;padding-left:10px;" >A fost anuntat clientul</label>
                                     </div>
                                     
                                     
@@ -82,8 +84,8 @@
                     </div>
              <div id="buttonControls" >
                 <div id="buttons">
-                    <button id="sgSignDocument" class="btn">Semneaza</button>
-                    <button id="sgSalveaza" class="btn">Salveaza</button>
+                    <button id="sgSignDocument" name="sgSignDocument"  value="Semneaza" class="btn">Semneaza</button>
+                    <button id="sgSave" name="sgSave" value="Salveaza"  class="btn">Salveaza</button>
             </div>
 
             
@@ -178,7 +180,7 @@
                     $("#divFullProfile").html(  
                         "<input type=\"text\" id =\"sdNationality\" class=\"inputSignDocs\" placeholder =\"" + data[0].Nationality + "\"/>" +
                         "<input type=\"text\" id =\"sdAddress\" style=\"margin-left:10px\" class=\"inputSignDocs\" placeholder =\"" + data[0].Address1 + "\"/>" +
-                         "<input type=\"text\" id =\"sdEducationLevel\" style=\"margin-left:10px\" class=\"inputSignDocs\" placeholder =\"" + data[0].EducationLevel + "\"/>" +
+                         "<input type=\"text\" id =\"sdEducationLevel\" style=\"margin-left:10px\" class=\"inputSignDocs\" placeholder =\"" + data[0].EducationLevel1 + "\"/>" +
                         "<input type=\"text\" id =\"sdNJobName\"  class=\"inputSignDocs\" placeholder =\"" + data[0].JobName + "\"/>" +
                         "<input type=\"text\" id =\"sdJobPlace\" style=\"margin-left:10px\" class=\"inputSignDocs\" placeholder =\"" + data[0].JobPlace + "\"/>" +
                         "<input type=\"text\" id =\"sdStreet_1\" style=\"margin-left:10px\" class=\"inputSignDocs\" placeholder =\"" + data[0].Street_1 + "\"/>" +
@@ -216,6 +218,7 @@
         $("#btnViewFullProfile").tooltip({
             title: 'Vizualizati intreg profilul'
         });
+        
 
         // toggle icon from up to down
         // when details controls collapse
