@@ -30,17 +30,24 @@
                         else
                             filterUM = filterUM + ',' + value;
                     });
-                    if (typeof $("#" + node[0].id).attr('description') === "undefined" || $("#" + node[0].id).attr('description').indexOf('UnsignedUnvDocs') < 0) {
+                    var typeAct;
 
-                    } else {
-                        DevicesOpen = DevicesOpen + "," + node[0].id;
+                    if (node[0].id == "-1" || node[0].id == "-2" || node[0].id == "-3") {
+                        typeAct = 0;
                     }
+                    else
+                        if ($("#" + node[0].id).attr('description').indexOf('person') > 0) {
+                           typeAct = 0;
+                        }
+                        else {
+                            typeAct = $("#" + node[0].id).parent().parent()[0].id;
+                        }
 
                     //if (typeof $("#" + node[0].id).attr('description') === "undefined" || $("#" + node[0].id).attr('description').indexOf('UnsignedUnvDocs') < 0) {
                     //    return urlGetData + '?id=' + node[0].id + '&modelID=' + filter + '&umID=' + filterUM + '&openedDeviceIDs=' + '' + '&isPlant=' + isPlant;
                     //} else {
                     //    DevicesOpen = DevicesOpen + "," + node[0].id;
-                        return urlGetData + '?id=' + node[0].id + '&modelID=' + filter + '&umID=' + filterUM + '&openedDeviceIDs=' + DevicesOpen + '&isPlant=' + isPlant;
+                        return urlGetData + '?id=' + node[0].id + '&modelID=' + filter + '&umID=' + filterUM + '&openedDeviceIDs=' + DevicesOpen + '&isPlant=' + isPlant+'&typeAct='+typeAct;
                     //}
 
                 },

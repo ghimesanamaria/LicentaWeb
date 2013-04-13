@@ -87,7 +87,7 @@ namespace eNotaryWebRole.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetTreeData(long id, string modelID, string umID, string openedDeviceIDs, int isPlant)
+        public ActionResult GetTreeData(long id, string modelID, string umID, string openedDeviceIDs, int isPlant, int typeAct)
         {
             string username="";
 
@@ -178,16 +178,46 @@ namespace eNotaryWebRole.Controllers
                 default:
                     {
                         // must verify what type of act must be  displayed - signed, unsigned or visualized but unsigned
-                        var q4 = (from a in _db.Acts
-                                  select
-                                  new
-                                  {
-                                      data = a.ExternalUniqueReference,
-                                      id = a.ID,
-                                      attr = new { id = a.ID, description ="act" },
-                                      state = String.Empty
-                                  });
-                        return Json(q4);
+                        if (typeAct == -1)
+                        {
+                            var q4 = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat")
+                                      select
+                                      new
+                                      {
+                                          data = a.ExternalUniqueReference,
+                                          id = a.ID,
+                                          attr = new { id = a.ID, description = "act" },
+                                          state = String.Empty
+                                      });
+                            return Json(q4);
+                        }
+                        else
+                            if (typeAct == -2)
+                            {
+                                var q5 = (from a in _db.Acts.Where(o => o.State == "vizualizat" && o.Signed == false)
+                                          select
+                                          new
+                                          {
+                                              data = a.ExternalUniqueReference,
+                                              id = a.ID,
+                                              attr = new { id =a.ID, description = "act" },
+                                              state = String.Empty
+                                          });
+                                return Json(q5);
+                            }
+                            else
+                            {
+                                var q4 = (from a in _db.SignedActs
+                                          select
+                                          new
+                                          {
+                                              data = a.ExternalUniqueReference,
+                                              id = a.ID,
+                                              attr = new { id = a.ID, description = "act" },
+                                              state = String.Empty
+                                          });
+                                return Json(q4);
+                            }
                     }
                     break;
             }
