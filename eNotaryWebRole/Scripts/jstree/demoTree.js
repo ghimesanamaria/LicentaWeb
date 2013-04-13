@@ -208,6 +208,7 @@
         // because the access on a blob it's private make an ajax request to load the image on server temporarily
         var param = new Object();
         param.id = data.args[0].parentNode.parentNode.id;
+        param.parentID = data.args[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.id;
         var parameter = JSON.stringify(param);
         $.ajax({                  
             type: "POST",
@@ -218,7 +219,7 @@
             contentType: 'application/json',
             success: function (data) {
                 
-                $("#iframeDoc").attr('src', urlServerImage);
+                $("#iframeDoc").attr('src', urlServerImage+data.nameFile);
 
                 // complete the forms with dates 
                 $("#sdPersonFirstName").val(data.person.FirstName);

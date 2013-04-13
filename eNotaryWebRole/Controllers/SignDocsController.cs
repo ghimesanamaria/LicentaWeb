@@ -618,13 +618,15 @@ namespace eNotaryWebRole.Controllers
 
                     SignedAct act = new SignedAct()
                     {
-                        CreatePersonID = 1,
+                        
+                        CreatePersonID = 2,
                         Name = "Certificat nastere semnat",
                         CreationDate =DateTime.Now,
                         ActID = 1,
                         ExternalUniqueReference = "test.pdf",
                         SentToClient = true,
-                        Signed = true
+                        Signed = true,
+                        
                         
                     };
                     _db.SignedActs.Add(act);
@@ -635,20 +637,49 @@ namespace eNotaryWebRole.Controllers
 
        
         [HttpPost]
-        public ActionResult DisplayImage(long id)
+        public ActionResult DisplayImage(long id, long parentID)
         {
-            var model = (from a in _db.Acts.Where(o => o.ID == id)
+            object model = new object();
+
+            if (parentID == -1 || parentID == -3)
+            {
+                model = (from a in _db.Acts.Where(o => o.ID == id)
                          select new
                          {
+                             
                              a.ActTypeID,
                              a.Name,
                              a.CreationDate,
                              a.Reason,
                              a.State,
-                             a.ReasonState
-                            
+                             a.ReasonState,
+                             a.ExternalUniqueReference
+
                          }).FirstOrDefault();
-            var personDetail = (from p in _db.PersonDetails
+            }
+            else
+            {
+                model = (from sa in _db.SignedActs.Where(o => o.ID == id)
+                         join a in _db.Acts
+                         on sa.ActID equals a.ID
+                         select new
+                         {
+                             a.ActTypeID,
+                             sa.Name,
+                             sa.CreationDate,
+                             a.Reason,
+                             State = "semnat",
+                             sa.ReasonSigned
+                             
+
+                         }).FirstOrDefault();
+            }
+
+
+            object personDetail = new object();
+            if (parentID == -1 || parentID == -3)
+            {
+                personDetail = (from p in _db.PersonDetails
                                 join a in _db.Acts.Where(o => o.ID == id)
                                 on p.ID equals a.PersonDetailsID
                                 select new
@@ -656,10 +687,26 @@ namespace eNotaryWebRole.Controllers
                                     p.FirstName,
                                     p.MiddleName,
                                     p.LastName,
-                                    p.Gender, 
+                                    p.Gender,
                                     p.Birthday
-                                    
+
                                 }).FirstOrDefault();
+            }
+            else
+            {
+                personDetail = (from p in _db.PersonDetails
+                                join a in _db.SignedActs.Where(o => o.ID == id)
+                                on p.ID equals a.CreatePersonID
+                                select new
+                                {
+                                    p.FirstName,
+                                    p.MiddleName,
+                                    p.LastName,
+                                    p.Gender,
+                                    p.Birthday
+
+                                }).FirstOrDefault();
+            }
 
 
             // get the specified document 
@@ -677,13 +724,35 @@ namespace eNotaryWebRole.Controllers
 
             // Retrieve a reference to a container
             CloudBlobContainer container = blobClient.GetContainerReference("acte");
-            CloudBlobDirectory subDirectory = container.GetDirectoryReference("actenesemnate");
-            CloudBlockBlob blockBlob = subDirectory.GetBlockBlobReference(_db.Acts.Where(o=>o.ID == id ).FirstOrDefault().ExternalUniqueReference);
+            CloudBlockBlob blockBlob;
+            CloudBlobDirectory subDirectory;
+            if (parentID == -1 || parentID == -3)
+            {
+                subDirectory = container.GetDirectoryReference("actenesemnate");
+               blockBlob = subDirectory.GetBlockBlobReference(_db.Acts.Where(o => o.ID == id).FirstOrDefault().ExternalUniqueReference);
+            }
+            else
+            {
+                subDirectory = container.GetDirectoryReference("actesemnate");
+                blockBlob = subDirectory.GetBlockBlobReference(_db.SignedActs.Where(o => o.ID == id).FirstOrDefault().ExternalUniqueReference);
+            }
+            
             var url = HttpContext.Request.PhysicalApplicationPath;
+            string type;
+            // must extract the type of file 
+            if (parentID == -1 || parentID == -3)
+            {
+                type = "jpg";
+            }
+            else
+            {
+                type = "pdf";
+            }
+
            
             try
             {
-                using (var stream = System.IO.File.OpenWrite(url+"\\Fisiere\\temp_jpeg.jpg"))
+                using (var stream = System.IO.File.OpenWrite(url+"\\Fisiere\\temp_jpeg."+type))
                 {
                     blockBlob.BeginDownloadToStream(stream, null, null);
                     blockBlob.DownloadToStream(stream);
@@ -703,7 +772,8 @@ namespace eNotaryWebRole.Controllers
 
             return Json(new  {
              act = model, 
-             person = personDetail
+             person = personDetail,
+             nameFile = "temp_jpeg."+type
             
             });
 

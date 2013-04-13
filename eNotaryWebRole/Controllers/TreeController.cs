@@ -139,9 +139,9 @@ namespace eNotaryWebRole.Controllers
                     break;
                 case -2:
                     {
-                        var q2 = ( from  a in _db.Acts.Where( o=> o.Signed== true && o.State == "semnat")
+                        var q2 = ( from  a in _db.SignedActs
                                    join p in _db.PersonDetails
-                                  on a.PersonDetailsID equals p.ID
+                                  on a.CreatePersonID equals p.ID
 
                                    select
                                    new
@@ -194,19 +194,7 @@ namespace eNotaryWebRole.Controllers
                         else
                             if (typeAct == -2)
                             {
-                                var q5 = (from a in _db.Acts.Where(o => o.State == "vizualizat" && o.Signed == false)
-                                          select
-                                          new
-                                          {
-                                              data = a.ExternalUniqueReference,
-                                              id = a.ID,
-                                              attr = new { id =a.ID, description = "act" },
-                                              state = String.Empty
-                                          });
-                                return Json(q5);
-                            }
-                            else
-                            {
+
                                 var q4 = (from a in _db.SignedActs
                                           select
                                           new
@@ -217,6 +205,21 @@ namespace eNotaryWebRole.Controllers
                                               state = String.Empty
                                           });
                                 return Json(q4);
+
+                            }
+                            else
+                            {
+
+                                var q5 = (from a in _db.Acts.Where(o => o.State == "vizualizat" && o.Signed == false)
+                                          select
+                                          new
+                                          {
+                                              data = a.ExternalUniqueReference,
+                                              id = a.ID,
+                                              attr = new { id = a.ID, description = "act" },
+                                              state = String.Empty
+                                          });
+                                return Json(q5);
                             }
                     }
                     break;
