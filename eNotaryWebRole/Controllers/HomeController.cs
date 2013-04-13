@@ -234,19 +234,23 @@ namespace eNotaryWebRole.Controllers
                  CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
                  // Retrieve a reference to a container
-                 CloudBlobContainer container = blobClient.GetContainerReference("testcontainer");
+               CloudBlobContainer container = blobClient.GetContainerReference("acte");
 
 
                  // Create the container if it doesn't already exist.
                  container.CreateIfNotExists();
                  // By default, the new container is private and you must specify your storage access key to download the blobs from this container.
-                
+
+
+                 CloudBlobDirectory subDirectory = container.GetDirectoryReference("actenesemnate");
+                                
+
                  // upload a blob into a container
                  // Create or overwrite the "testContainer" blob with contents from an uploaded fike
                  var contentType = file.ContentType;
                  var streamContents = file.InputStream;
                  var blobName = file.FileName;
-                 var blob = container.GetBlockBlobReference(blobName);
+                 var blob = subDirectory.GetBlockBlobReference(blobName);
                  blob.Properties.ContentType = contentType;
                  blob.UploadFromStream(streamContents);
 

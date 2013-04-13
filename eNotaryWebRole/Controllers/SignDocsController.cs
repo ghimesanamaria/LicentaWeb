@@ -175,7 +175,7 @@ namespace eNotaryWebRole.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
-            // verify which action was triggered sign document or save the details about act
+            // verify which action was triggered sign document or save details about act
             long idAct = 0;
             if (!string.IsNullOrEmpty(collection["sgSignDocument"]))
             {
@@ -190,6 +190,9 @@ namespace eNotaryWebRole.Controllers
                 string externalUniqueRef = _db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
 
                 signAdvancedPDF(externalUniqueRef);
+
+
+
             }
             else
                 if(!string.IsNullOrEmpty(collection["sgSave"]))
@@ -343,6 +346,9 @@ namespace eNotaryWebRole.Controllers
             System.IO.File.Delete(m_CurrTempFile);
             m_CurrTempFile = "";
             m_CurrOrigFile = "";
+
+
+            
         }
 
         private void CloseCurrentDocument(bool saveChanges)
@@ -511,8 +517,10 @@ namespace eNotaryWebRole.Controllers
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
             // Retrieve a reference to a container
-            CloudBlobContainer container = blobClient.GetContainerReference("testcontainer");
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(extUniqueRefAct);
+            CloudBlobContainer container = blobClient.GetContainerReference("acte");
+            CloudBlobDirectory subDirectory = container.GetDirectoryReference("actenesemnate");
+
+            CloudBlockBlob blockBlob = subDirectory.GetBlockBlobReference(extUniqueRefAct);
             var url = HttpContext.Request.PhysicalApplicationPath;
             try
             {
@@ -533,7 +541,8 @@ namespace eNotaryWebRole.Controllers
             doc.Pages.Add(new PdfSharp.Pdf.PdfPage());
             XGraphics xgr = XGraphics.FromPdfPage(doc.Pages[0]);
 
-            //get the image
+            //get the image            
+
             XImage img = XImage.FromFile(url + "\\Fisiere\\test.jpg");
             xgr.DrawImage(img, 0, 0);
             //save the image in format pdf
@@ -586,6 +595,40 @@ namespace eNotaryWebRole.Controllers
                 }
                 finally
                 {
+                // save the signed document to blob
+
+                    FileStream file = new FileStream(url+"\\Fisiere\\test.pdf", FileMode.Open, FileAccess.ReadWrite); ;
+                  
+                        
+
+                    CloudBlobDirectory subDirectory2 = container.GetDirectoryReference("actesemnate");
+                    var contentType = "pdf";
+                    var streamContents = file;
+                
+                // subdirectory name as username to identify from the blob hierarchy who uploaded the file
+                    // get a unique name 
+                        var blobName = "test.pdf";
+
+                    var blob = subDirectory2.GetBlockBlobReference(blobName);
+                    blob.Properties.ContentType = contentType;
+                    blob.UploadFromStream(streamContents);
+
+
+                // save the signed act to db 
+
+                    SignedAct act = new SignedAct()
+                    {
+                        CreatePersonID = 1,
+                        Name = "Certificat nastere semnat",
+                        CreationDate =DateTime.Now,
+                        ActID = 1,
+                        ExternalUniqueReference = "test.pdf",
+                        SentToClient = true,
+                        Signed = true
+                        
+                    };
+                    _db.SignedActs.Add(act);
+                    _db.SaveChanges();
                    
                 }
             }
@@ -633,8 +676,9 @@ namespace eNotaryWebRole.Controllers
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
             // Retrieve a reference to a container
-            CloudBlobContainer container = blobClient.GetContainerReference("testcontainer");
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(_db.Acts.Where(o=>o.ID == id ).FirstOrDefault().ExternalUniqueReference);
+            CloudBlobContainer container = blobClient.GetContainerReference("acte");
+            CloudBlobDirectory subDirectory = container.GetDirectoryReference("actenesemnate");
+            CloudBlockBlob blockBlob = subDirectory.GetBlockBlobReference(_db.Acts.Where(o=>o.ID == id ).FirstOrDefault().ExternalUniqueReference);
             var url = HttpContext.Request.PhysicalApplicationPath;
            
             try
