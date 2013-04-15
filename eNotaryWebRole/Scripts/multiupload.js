@@ -35,7 +35,7 @@ function multiUploader(config){
 				var sampleIcon = '<img src="images/image.png" />';
 				var errorClass = "";
 				if(typeof this.items[i] != undefined){
-					if(self._validate(this.items[i].type) <= 0) {
+					if(self._validate(this.items[i].type) < 0) { // if the first type is the looking one it will return 0
 						sampleIcon = '<img src="images/unknown.png" />';
 						errorClass =" invalid";
 					} 

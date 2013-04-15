@@ -112,7 +112,7 @@ namespace eNotaryWebRole.Controllers
                 case -1:
                     {
                         // we must find all people that has unsigned and unvisualized acts 
-                        // we have to sort them depending on thei role
+                        // we have to sort them depending on their role
 
                         // 1.
 
