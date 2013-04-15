@@ -32,12 +32,14 @@ function multiUploader(config){
 			var uId = "";
  			for(var i = 0; i<this.items.length; i++){
 				uId = this.items[i].name._unique();
-				var sampleIcon = '<img src="images/pdf-grey.png" style="height:20px; width:20px;" />';
+				var sampleIcon = '<img src="images/pdf-grey.png" style="height:30px; width:30px; margin-right:10px;" />';
 				var errorClass = "";
 				if(typeof this.items[i] != undefined){
 					if(self._validate(this.items[i].type) < 0) { // if the first type is the looking one it will return 0
 						sampleIcon = '<img src="images/unknown.png" />';
-						errorClass =" invalid";
+						errorClass = " invalid";
+						$("#errorMessage").append('Fisierul '+this.items[i].name+' nu respecta formatul impus. Fisierul trebuie sa fie pdf.');
+						$("#errorMessage").addClass('alert alert-error');
 					} 
 					html += '<div class="dfiles' + errorClass + '" rel="' + uId + '"><h5>' + sampleIcon + this.items[i].name + '</h5><div id="' + uId + '" class="progress" style="display:none;"><img src="images/ajax-loader.gif" /></div  ><div  ><img id="' + uId + ':trash" onclick=" myFunction(this); "  src="images/trash.png"/></div></div>';
 					

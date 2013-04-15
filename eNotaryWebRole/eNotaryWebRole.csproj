@@ -435,6 +435,8 @@
     </Content>
     <Content Include="Fisiere\test.pdf" />
     <Content Include="Fisiere\test2.pdf" />
+    <Content Include="Content\fonts\kberry.ttf" />
+    <Content Include="Content\fonts\atlandsketchesbb_ital.ttf" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\ajax-loader.gif" />
     <Content Include="Images\ajax-loaderback.gif" />

@@ -2,6 +2,16 @@
     display:none;
 }
 
+
+/* layout css*/
+.navbar-inner {
+    background-image: linear-gradient(to bottom, #ffffff, rgb(187, 218, 218));
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/*end layout css*/
+
 #bttClearSearch {
     height:31px;
 }
@@ -192,6 +202,7 @@ div.accordion-inner
     float:left;
     width:90%;
     padding: 20px;
+    background-image: linear-gradient(to bottom, #ffffff, rgb(187, 218, 218));
 }
 #demoFiler {
     float:left;
