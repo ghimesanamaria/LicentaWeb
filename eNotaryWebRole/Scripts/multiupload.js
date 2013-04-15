@@ -32,19 +32,22 @@ function multiUploader(config){
 			var uId = "";
  			for(var i = 0; i<this.items.length; i++){
 				uId = this.items[i].name._unique();
-				var sampleIcon = '<img src="images/image.png" />';
+				var sampleIcon = '<img src="images/pdf-grey.png" style="height:20px; width:20px;" />';
 				var errorClass = "";
 				if(typeof this.items[i] != undefined){
 					if(self._validate(this.items[i].type) < 0) { // if the first type is the looking one it will return 0
 						sampleIcon = '<img src="images/unknown.png" />';
 						errorClass =" invalid";
 					} 
-					html += '<div class="dfiles'+errorClass+'" rel="'+uId+'"><h5>'+sampleIcon+this.items[i].name+'</h5><div id="'+uId+'" class="progress" style="display:none;"><img src="images/ajax-loader.gif" /></div></div>';
+					html += '<div class="dfiles' + errorClass + '" rel="' + uId + '"><h5>' + sampleIcon + this.items[i].name + '</h5><div id="' + uId + '" class="progress" style="display:none;"><img src="images/ajax-loader.gif" /></div  ><div  ><img id="' + uId + ':trash" onclick=" myFunction(this); "  src="images/trash.png"/></div></div>';
+					
 				}
 			}
 			$("#dragAndDropFiles").append(html);
 		}
 	}
+
+	
 
 	multiUploader.prototype._read = function(evt){
 		if(evt.target.files){
@@ -66,7 +69,7 @@ function multiUploader(config){
 	}
 	
 	multiUploader.prototype._uploader = function(file,f){
-		if(typeof file[f] != undefined && self._validate(file[f].type) > 0){
+		if(typeof file[f] != undefined && self._validate(file[f].type) >= 0){
 		    var data = new FormData();
 		    
 			var ids = file[f].name._unique();
