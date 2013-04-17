@@ -87,7 +87,7 @@ namespace eNotaryWebRole.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetTreeData(long id, string modelID, string umID, string openedDeviceIDs, int isPlant, int typeAct)
+        public ActionResult GetTreeData(string id, string modelID, string umID, string openedDeviceIDs, int isPlant, int typeAct)
         {
             string username="";
 
@@ -109,14 +109,14 @@ namespace eNotaryWebRole.Controllers
 
             switch (id)
             {
-                case -1:
+                case "-1":
                     {
                         // we must find all people that has unsigned and unvisualized acts 
                         // we have to sort them depending on their role
 
                         // 1.
 
-                        var q = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat")
+                        var q = ((from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat")
                                  join p in _db.PersonDetails
                                  on a.PersonDetailsID equals p.ID
 
@@ -126,18 +126,28 @@ namespace eNotaryWebRole.Controllers
                                      
                                      data = p.LastName,
                                      id = p.ID,
-                                     attr = new { id = p.ID , description="person"},
+                                     attr = new { id = p.ID, description = "person" },
                                      state = "closed"
-                                     
-                                 });
+
+                                 })).ToList();
+                        List<JsTreeModel> list_Person = new List<JsTreeModel>();
+                        foreach (var v in q)
+                        {
+                            JsTreeData data = new JsTreeData(v.data, "");
+                            JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedUV", false, "","person");
+                            list_Person.Add(
+                                new JsTreeModel(data,"closed","",attr,null)
+                                );
+                        }
+                     
 
                        
-                        return Json(q);
+                        return Json(list_Person);
 
 
                     } 
                     break;
-                case -2:
+                case "-2":
                     {
                         var q2 = ( from  a in _db.SignedActs
                                    join p in _db.PersonDetails
@@ -156,7 +166,7 @@ namespace eNotaryWebRole.Controllers
                         return Json(q2);
                     }
                     break;
-                case -3:
+                case "-3":
                     {
                         var q3 = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "vizualizat")
                                   join p in _db.PersonDetails
@@ -168,7 +178,7 @@ namespace eNotaryWebRole.Controllers
 
                                       data = p.LastName,
                                       id = p.ID,
-                                      attr = new { id = p.ID , description = "person"},
+                                      attr = new { id = p.ID , description = "person" },
                                       state = "closed"
 
                                   });

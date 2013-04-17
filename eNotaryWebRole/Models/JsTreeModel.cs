@@ -29,12 +29,14 @@ namespace eNotaryWebRole.Models
       public string id { get; set; }
       public bool selected { get; set; }
       public string style { get; set; }
+      public string description { get; set; }
 
-      public  JsTreeAttribute(string i, bool sel, string sty)
+      public  JsTreeAttribute(string i, bool sel, string sty, string desc)
       {
           id = i;
           selected = sel;
           style = sty;
+          description = description;
       }
   }
     public  class JsTreeData
