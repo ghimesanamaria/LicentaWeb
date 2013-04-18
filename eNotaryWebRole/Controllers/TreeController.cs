@@ -163,7 +163,18 @@ namespace eNotaryWebRole.Controllers
                                        state = "closed"
 
                                    });
-                        return Json(q2);
+
+
+                        List<JsTreeModel> list_Person = new List<JsTreeModel>();
+                        foreach (var v in q2)
+                        {
+                            JsTreeData data = new JsTreeData(v.data, "");
+                            JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedVI", false, "", "person");
+                            list_Person.Add(
+                                new JsTreeModel(data, "closed", "", attr, null)
+                                );
+                        }
+                        return Json(list_Person);
                     }
                     break;
                 case "-3":
@@ -182,7 +193,16 @@ namespace eNotaryWebRole.Controllers
                                       state = "closed"
 
                                   });
-                        return Json(q3);
+                        List<JsTreeModel> list_Person = new List<JsTreeModel>();
+                        foreach (var v in q3)
+                        {
+                            JsTreeData data = new JsTreeData(v.data, "");
+                            JsTreeAttribute attr = new JsTreeAttribute(v.id + "_signed", false, "", "person");
+                            list_Person.Add(
+                                new JsTreeModel(data, "closed", "", attr, null)
+                                );
+                        }
+                        return Json(list_Person);
                     }
                     break;
                 default:
@@ -199,7 +219,18 @@ namespace eNotaryWebRole.Controllers
                                           attr = new { id = a.ID, description = "act" },
                                           state = String.Empty
                                       });
-                            return Json(q4);
+
+
+                            List<JsTreeModel> list_acts = new List<JsTreeModel>();
+                            foreach (var v in q4)
+                            {
+                                JsTreeData data = new JsTreeData(v.data, "");
+                                JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedUVAct", false, "", "act");
+                                list_acts.Add(
+                                    new JsTreeModel(data, "", "", attr, null)
+                                    );
+                            }
+                            return Json(list_acts);
                         }
                         else
                             if (typeAct == -2)
@@ -214,7 +245,17 @@ namespace eNotaryWebRole.Controllers
                                               attr = new { id = a.ID, description = "act" },
                                               state = String.Empty
                                           });
-                                return Json(q4);
+
+                                List<JsTreeModel> list_acts = new List<JsTreeModel>();
+                                foreach (var v in q4)
+                                {
+                                    JsTreeData data = new JsTreeData(v.data, "");
+                                    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedVIAct", false, "", "act");
+                                    list_acts.Add(
+                                        new JsTreeModel(data, "", "", attr, null)
+                                        );
+                                }
+                                return Json(list_acts);
 
                             }
                             else
@@ -229,7 +270,16 @@ namespace eNotaryWebRole.Controllers
                                               attr = new { id = a.ID, description = "act" },
                                               state = String.Empty
                                           });
-                                return Json(q5);
+                                List<JsTreeModel> list_acts = new List<JsTreeModel>();
+                                foreach (var v in q5)
+                                {
+                                    JsTreeData data = new JsTreeData(v.data, "");
+                                    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_signedAct", false, "", "act");
+                                    list_acts.Add(
+                                        new JsTreeModel(data, "", "", attr, null)
+                                        );
+                                }
+                                return Json(list_acts);
                             }
                     }
                     break;

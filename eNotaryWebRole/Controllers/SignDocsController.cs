@@ -637,13 +637,15 @@ namespace eNotaryWebRole.Controllers
 
        
         [HttpPost]
-        public ActionResult DisplayImage(long id, long parentID)
+        public ActionResult DisplayImage(string id, long parentID)
         {
+            long idAct = long.Parse(id.Split('_')[0]);
+
             object model = new object();
 
             if (parentID == -1 || parentID == -3)
             {
-                model = (from a in _db.Acts.Where(o => o.ID == id)
+                model = (from a in _db.Acts.Where(o => o.ID == idAct)
                          select new
                          {
                              
@@ -659,7 +661,7 @@ namespace eNotaryWebRole.Controllers
             }
             else
             {
-                model = (from sa in _db.SignedActs.Where(o => o.ID == id)
+                model = (from sa in _db.SignedActs.Where(o => o.ID == idAct)
                          join a in _db.Acts
                          on sa.ActID equals a.ID
                          select new
@@ -680,7 +682,7 @@ namespace eNotaryWebRole.Controllers
             if (parentID == -1 || parentID == -3)
             {
                 personDetail = (from p in _db.PersonDetails
-                                join a in _db.Acts.Where(o => o.ID == id)
+                                join a in _db.Acts.Where(o => o.ID == idAct)
                                 on p.ID equals a.PersonDetailsID
                                 select new
                                 {
@@ -695,7 +697,7 @@ namespace eNotaryWebRole.Controllers
             else
             {
                 personDetail = (from p in _db.PersonDetails
-                                join a in _db.SignedActs.Where(o => o.ID == id)
+                                join a in _db.SignedActs.Where(o => o.ID == idAct)
                                 on p.ID equals a.CreatePersonID
                                 select new
                                 {
@@ -729,12 +731,12 @@ namespace eNotaryWebRole.Controllers
             if (parentID == -1 || parentID == -3)
             {
                 subDirectory = container.GetDirectoryReference("actenesemnate");
-               blockBlob = subDirectory.GetBlockBlobReference(_db.Acts.Where(o => o.ID == id).FirstOrDefault().ExternalUniqueReference);
+               blockBlob = subDirectory.GetBlockBlobReference(_db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference);
             }
             else
             {
                 subDirectory = container.GetDirectoryReference("actesemnate");
-                blockBlob = subDirectory.GetBlockBlobReference(_db.SignedActs.Where(o => o.ID == id).FirstOrDefault().ExternalUniqueReference);
+                blockBlob = subDirectory.GetBlockBlobReference(_db.SignedActs.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference);
             }
             
             var url = HttpContext.Request.PhysicalApplicationPath;

@@ -36,7 +36,7 @@ namespace eNotaryWebRole.Models
           id = i;
           selected = sel;
           style = sty;
-          description = description;
+          description = desc;
       }
   }
     public  class JsTreeData
