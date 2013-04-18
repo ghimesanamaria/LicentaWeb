@@ -300,6 +300,7 @@
     </Compile>
     <Compile Include="Models\ICard.cs" />
     <Compile Include="Models\IDataAccessRepository.cs" />
+    <Compile Include="Models\ISignatureFunctions.cs" />
     <Compile Include="Models\JobType.cs">
       <DependentUpon>eNotaryDB.tt</DependentUpon>
     </Compile>
