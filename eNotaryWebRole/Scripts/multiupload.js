@@ -100,6 +100,12 @@ function multiUploader(config){
 					if (f+1 < file.length) {
 						self._uploader(file,f+1);
 					}
+
+
+					console.log(rponse);
+					$("#areaToUpload").hide();
+					$("#showAreaToUpload").show();
+					
 				}
 				,
 				error: function(error) {

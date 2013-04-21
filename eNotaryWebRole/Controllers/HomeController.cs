@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
+//Windows Azure
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using System.Configuration;
@@ -12,7 +14,12 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Configuration;
 using CloudStorageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount;
+
+// Models and ViewModels
 using eNotaryWebRole.Models;
+using eNotaryWebRole.ViewModel;
+
+// Security
 using System.Security;
 using System.Security.Cryptography;
 using System.Globalization;
@@ -21,16 +28,14 @@ using System.Security.Cryptography.X509Certificates;
 using System.IdentityModel.Selectors;
 using System.IdentityModel.Tokens;
 
+// secure BlackBox
+
 using SBConstants;
 using SBPKCS11Base;
 using SBPKCS11Common;
 using SBPKCS11CertStorage;
 using SBX509;
 using SBUtils;
-
-
-// secure BlackBox
-
 using SBPDF;
 using SBPDFCore;
 using SBPAdES;
@@ -235,7 +240,9 @@ namespace eNotaryWebRole.Controllers
         public ActionResult Upload()
       {
           var tmp = Request;
+          string messages = "";
           init_function();
+          Dictionary<string, List<SignatureDetailsViewModel>> docsSigs = new Dictionary<string, List<SignatureDetailsViewModel>>();
 
           if (Request.Files.Count > 0)
           {
@@ -273,52 +280,76 @@ namespace eNotaryWebRole.Controllers
                 }
                 catch (Exception ex)
                 {
+                    messages = messages + "In timpul verificarii semnaturii au intervenit erori . Va rugam reluati actiunea de upload!";
                 }
 
-                 // verify the signature
+                 // verify the signatures
+                List<SignatureDetailsViewModel> list_Signatures = new List<SignatureDetailsViewModel>();
                 for (int i = 0; i < m_CurrDoc.SignatureCount; i++)
                 {
-                  VerifyIfIsSigned( m_CurrDoc.get_Signatures(i));
+                  list_Signatures.Add( VerifyIfIsSigned( m_CurrDoc.get_Signatures(i)));
                   
                 }
 
+                docsSigs.Add(file.FileName, list_Signatures);
+                if (list_Signatures.Count > 0)
+                {
+
+                    try
+                    {
+
+                        // create a container
+
+                        // First step
+                        // If your creating an application with no reference to Microsoft.WindowsAzure.CloudConfigurationManager
+                        // and your connection string is located in the web.config or app.config , the you can use ConfigurationManger to retrieve the connection string.
+                        // 
+                        CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
 
 
-                 // create a container
 
-                 // First step
-                 // If your creating an application with no reference to Microsoft.WindowsAzure.CloudConfigurationManager
-                 // and your connection string is located in the web.config or app.config , the you can use ConfigurationManger to retrieve the connection string.
-                 // 
-                 CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+                        // Second step
+                        CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
+                        // Retrieve a reference to a container
+                        CloudBlobContainer container = blobClient.GetContainerReference("acte");
 
 
-                 // Second step
-                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-                 // Retrieve a reference to a container
-               CloudBlobContainer container = blobClient.GetContainerReference("acte");
+                        // Create the container if it doesn't already exist.
+                        container.CreateIfNotExists();
+                        // By default, the new container is private and you must specify your storage access key to download the blobs from this container.
 
 
-                 // Create the container if it doesn't already exist.
-                 container.CreateIfNotExists();
-                 // By default, the new container is private and you must specify your storage access key to download the blobs from this container.
+                        CloudBlobDirectory subDirectory = container.GetDirectoryReference("actenesemnate");
 
 
-                 CloudBlobDirectory subDirectory = container.GetDirectoryReference("actenesemnate");
-                                
+                        // upload a blob into a container
+                        // Create or overwrite the "testContainer" blob with contents from an uploaded fike
+                        var contentType = file.ContentType;
 
-                 // upload a blob into a container
-                 // Create or overwrite the "testContainer" blob with contents from an uploaded fike
-                 var contentType = file.ContentType;
-                 
-                 var blobName = file.FileName;
-                 var blob = subDirectory.GetBlockBlobReference(blobName);
-                 blob.Properties.ContentType = contentType;
-                 blob.UploadFromStream(streamContents);
-
+                        var blobName = file.FileName;
+                        var blob = subDirectory.GetBlockBlobReference(blobName);
+                        blob.Properties.ContentType = contentType;
+                        blob.UploadFromStream(streamContents);
+                    }
+                    catch (Exception)
+                    {
+                        messages = messages+ "In timpul incarcarii fisierului " + file.FileName + " pe server a intervenit o problema va rugam reluati actiunea de upload";
+                    }
+                    finally
+                    {
+                        messages = messages + "Fiserul " + file.FileName + " a fost  incarcat cu succes!";
+                    }
+                }
              }
+
+             return Json(
+                 new
+                 {
+                     list = docsSigs,
+                     messages = messages
+                 }
+                 );
           }
 
             
@@ -368,61 +399,63 @@ namespace eNotaryWebRole.Controllers
           handler.OnCertValidatorPrepared += new TSBPDFCertValidatorPreparedEvent(handler_OnCertValidatorPrepared);
       }
      
-      public bool VerifyIfIsSigned(TElPDFSignature sig)
+      public SignatureDetailsViewModel VerifyIfIsSigned(TElPDFSignature sig)
       {
-          string typeOfSignature = "";
+
+          SignatureDetailsViewModel model = new SignatureDetailsViewModel();
+          model.typeOfSignature = "";
           TElPDFAdvancedPublicKeySecurityHandler handler = null;
           if (sig.Handler is TElPDFAdvancedPublicKeySecurityHandler)
           {
               handler = (TElPDFAdvancedPublicKeySecurityHandler)sig.Handler;
               if (handler.PAdESSignatureType == TSBPAdESSignatureType.pastBasic)
               {
-                  typeOfSignature = "Basic";
+                  model.typeOfSignature = "Basic";
               }
               else if (handler.PAdESSignatureType == TSBPAdESSignatureType.pastEnhanced)
               {
-                  typeOfSignature = "Enhanced (long-term)";
+                  model.typeOfSignature = "Enhanced (long-term)";
               }
               else if (handler.PAdESSignatureType == TSBPAdESSignatureType.pastDocumentTimestamp)
               {
-                  typeOfSignature = "Document timestamp";
+                  model.typeOfSignature = "Document timestamp";
               }
               else
               {
-                  typeOfSignature = "Unknown";
+                  model.typeOfSignature = "Unknown";
               }
           }
           else if (sig.Handler is TElPDFPublicKeySecurityHandler)
           {
-              typeOfSignature = "Standard";
+              model.typeOfSignature = "Standard";
           }
           else
           {
-              typeOfSignature = "Unknown";
+              model.typeOfSignature = "Unknown";
           }
 
-          string issuerName = "";
-          string timeStampDetails = "";
-          string signatureDetails = "";
-          string t = "";
+          model.issuerName = "";
+         model.timeStampDetails = "";
+          model.signatureDetails = "";
+          model.errorDoc = "";
           if (handler != null)
             {
-                issuerName = "Issuer: " + handler.CMS.get_Signatures(0).Signer.Issuer.SaveToDNString() + ", S/N: " +
+                model.issuerName = "Issuer: " + handler.CMS.get_Signatures(0).Signer.Issuer.SaveToDNString() + ", S/N: " +
                     SBUtils.Unit.BinaryToString(handler.CMS.get_Signatures(0).Signer.SerialNumber);
                 
                 if (handler.TimestampCount > 0)
                 {
-                    timeStampDetails= handler.get_Timestamps(0).Time.ToShortDateString() + " " + handler.get_Timestamps(0).Time.ToShortTimeString()+" yes";
+                    model.timeStampDetails = handler.get_Timestamps(0).Time.ToShortDateString() + " " + handler.get_Timestamps(0).Time.ToShortTimeString() + " yes";
                     
                 }
                 else if (handler.PAdESSignatureType == TSBPAdESSignatureType.pastDocumentTimestamp)
                 {
-                    timeStampDetails= handler.DocumentTimestamp.Time.ToShortDateString() + " " + handler.DocumentTimestamp.Time.ToShortTimeString() +" yes";
+                    model.timeStampDetails = handler.DocumentTimestamp.Time.ToShortDateString() + " " + handler.DocumentTimestamp.Time.ToShortTimeString() + " yes";
                     
                 }
                 else
                 {
-                    timeStampDetails= sig.SigningTime.ToShortDateString() + " " + sig.SigningTime.ToShortTimeString()+ " no";
+                    model.timeStampDetails = sig.SigningTime.ToShortDateString() + " " + sig.SigningTime.ToShortTimeString() + " no";
                    
                 }
                
@@ -434,65 +467,65 @@ namespace eNotaryWebRole.Controllers
                         sig.Validate();
 
                         if (!sig.IsDocumentSigned())
-                            t = "Signature does not cover the entire document";
+                            model.errorDoc = "Signature does not cover the entire document";
                     }
                     catch (Exception e)
                     {
-                        t = e.Message;
+                        model.errorDoc = e.Message;
                     }
                 }
                 switch (handler.ValidationDetails)
                 {
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvValid :
-                        signatureDetails = "Valid";
+                        model.signatureDetails = "Valid";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvSignatureCorrupted :
-                        signatureDetails = "Signature corrupted";
+                        model.signatureDetails = "Signature corrupted";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvSignerNotFound:
-                        signatureDetails = "Signer not found";
+                        model.signatureDetails = "Signer not found";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvIncompleteChain:
-                        signatureDetails = "Incomplete chain";
+                        model.signatureDetails = "Incomplete chain";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvBadCountersignature:
-                        signatureDetails = "Bad countersignature";
+                        model.signatureDetails = "Bad countersignature";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvBadTimestamp:
-                        signatureDetails = "Bad timestamp";
+                        model.signatureDetails = "Bad timestamp";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvCertificateExpired:
-                        signatureDetails = "Certificate expired";
+                        model.signatureDetails = "Certificate expired";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvCertificateRevoked:
-                        signatureDetails = "Certificate revoked";
+                        model.signatureDetails = "Certificate revoked";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvCertificateCorrupted:
-                        signatureDetails = "Certificate corrupted";
+                        model.signatureDetails = "Certificate corrupted";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvUntrustedCA:
-                        signatureDetails = "Untrusted CA";
+                        model.signatureDetails = "Untrusted CA";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvRevInfoNotFound:
-                        signatureDetails = "Revocation information not found";
+                        model.signatureDetails = "Revocation information not found";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvTimestampInfoNotFound:
-                        signatureDetails = "Timestamp information not found";
+                        model.signatureDetails = "Timestamp information not found";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvFailure:
-                        signatureDetails = "General failure";
+                        model.signatureDetails = "General failure";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvCertificateMalformed:
-                        signatureDetails = "Certificate malformed";
+                        model.signatureDetails = "Certificate malformed";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvUnknown:
-                        signatureDetails = "Unknown";
+                        model.signatureDetails = "Unknown";
                         break;
                     case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvChainValidationFailed:
-                        signatureDetails = "Chain validation failed";
+                        model.signatureDetails = "Chain validation failed";
                         break;
                     default:
-                        signatureDetails = "";
+                        model.signatureDetails = "";
                         break;
                 }
 
@@ -500,15 +533,17 @@ namespace eNotaryWebRole.Controllers
             }
             else
             {
-                //item.SubItems.Add(sig.AuthorName);
-                //item.SubItems.Add(sig.SigningTime.ToShortDateString() + " " + sig.SigningTime.ToShortTimeString());
-                //item.SubItems.Add("N/A");
-                //item.SubItems.Add("N/A");
+                model.issuerName = sig.AuthorName;
+                model.signatureDetails = "Semnat la data de :"+sig.SigningTime.ToShortDateString() + " " + sig.SigningTime.ToShortTimeString();
+                model.timeStampDetails = "N/A";
+                model.typeOfSignature = "N/A";
+                model.errorDoc = "N/A";
+                model.reason = sig.Reason;
             }
            
 
 
-          return true;
+          return model;
       }
     }
 }

@@ -25,6 +25,9 @@
 
 
  </script>
+@section AddToHead{
+    <link href='@Url.Content("~/Content/home/index_home.css")' rel="stylesheet" />
+}
 
 <div id="infoMessage " class="alert alert-info" style="float:left;margin:30px; margin-right:60px;">
     1. Cererile pentru intocmirea unui act notarial electronic pot fi inaintate notarului public, in forma electronica, in acest caz fiind semnate cu semnatura electronica extinsa a solicitantului. <br />
@@ -32,15 +35,18 @@
 
 </div>
 <div id="errorMessage" style="float:left; margin-left:30px; margin-right: 60px;"></div>
-
-<div id="dragAndDropFiles" class="uploadArea hero-unit" style="margin-left:30px;">
-<p style="text-align:center;">Realizati drag and drop in aceasta zona pentru a incarca fisierele dorite</p>
-<p style="text-align:center; color: grey;">(fisierele trebuie sa fie in format pdf si sa contina semnatura electronica extinsa) </p>
+<button id ="showAreaToUpload" style="display:none"><i class="icon-chevron-left"></i></button>
+<div id="areaToUpload">
+    
+    <div id="dragAndDropFiles" class="uploadArea hero-unit" style="margin-left:30px;">
+        <p style="text-align:center;">Realizati drag and drop in aceasta zona pentru a incarca fisierele dorite</p>
+        <p style="text-align:center; color: grey;">(fisierele trebuie sa fie in format pdf si sa contina semnatura electronica extinsa) </p>
+    </div>
+    <form name="demoFiler" id="demoFiler" enctype="multipart/form-data" style="margin-left:10px;">
+        <input type="file" name="multiUpload" id="multiUpload" multiple="multiple" />
+        <input type="submit" name="submitHandler" id="submitHandler" value="Upload" class="btn btn-info"/>
+    </form>
 </div>
-<form name="demoFiler" id="demoFiler" enctype="multipart/form-data" style="margin-left:10px;">
-<input type="file" name="multiUpload" id="multiUpload" multiple="multiple" />
-<input type="submit" name="submitHandler" id="submitHandler" value="Upload" class="btn btn-info"/>
-</form>
 <div class="progressBar">
 <div class="status"></div>
 </div>
