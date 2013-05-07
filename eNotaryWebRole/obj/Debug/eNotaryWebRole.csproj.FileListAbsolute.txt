@@ -227,7 +227,6 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\DotNetOpenAuth.Ope
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\de\PdfSharp.resources.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\de\PdfSharp.Charting.resources.dll
-C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.csprojResolveAssemblyReference.cache
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\Interop.CERTCLIENTLib.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\Interop.CERTENROLLLib.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.csproj.ResolveComReference.cache
@@ -239,3 +238,6 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Mono.Math.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\DotNetOpenAuth.InfoCard.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Org.Mentalis.Security.Cryptography.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Mono.Math.xml
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\PdfViewer.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\PdfViewer.pdb
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.csprojResolveAssemblyReference.cache

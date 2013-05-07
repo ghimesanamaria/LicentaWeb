@@ -785,12 +785,17 @@ namespace eNotaryWebRole.Controllers
 
 
         [HttpPost]
-        public ActionResult PersonDetails(long id)
+        public ActionResult PersonDetails(long parentID, long id)
         {
 
-            var model = from a in _db.Acts.Where(o => o.ID == id)
+            
+             var q = parentID ==-2 ? _db.SignedActs.Where(o => o.ID == id).Select(o=>o.CreatePersonID): _db.Acts.Where(o=> o.ID == id).Select(o=> o.PersonDetailsID);
+            
+
+
+            var model = from a in q
                         join p in _db.PersonDetails
-                        on a.PersonDetailsID equals p.ID
+                        on a equals p.ID
                         join ad in _db.Addresses
                         on p.AddressID equals ad.ID
                         select new

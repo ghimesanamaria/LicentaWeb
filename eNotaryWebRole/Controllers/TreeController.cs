@@ -169,7 +169,7 @@ namespace eNotaryWebRole.Controllers
                         foreach (var v in q2)
                         {
                             JsTreeData data = new JsTreeData(v.data, "");
-                            JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedVI", false, "", "person");
+                            JsTreeAttribute attr = new JsTreeAttribute(v.id + "_signed", false, "", "person");
                             list_Person.Add(
                                 new JsTreeModel(data, "closed", "", attr, null)
                                 );
@@ -197,7 +197,7 @@ namespace eNotaryWebRole.Controllers
                         foreach (var v in q3)
                         {
                             JsTreeData data = new JsTreeData(v.data, "");
-                            JsTreeAttribute attr = new JsTreeAttribute(v.id + "_signed", false, "", "person");
+                            JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedVI", false, "", "person");
                             list_Person.Add(
                                 new JsTreeModel(data, "closed", "", attr, null)
                                 );

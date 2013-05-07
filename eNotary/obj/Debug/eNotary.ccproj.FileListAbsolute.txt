@@ -203,6 +203,8 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\PdfSharp.Charting.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\PdfSharp.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\PdfSharp.xml
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\PdfViewer.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\PdfViewer.pdb
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\SecureBlackbox.PKIPDF.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\System.Net.Http.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\System.Net.Http.Formatting.dll

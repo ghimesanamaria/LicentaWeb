@@ -116,6 +116,9 @@
     <Reference Include="PdfSharp.Charting">
       <HintPath>..\packages\PDFsharp.1.32.2602.0\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
+    <Reference Include="PdfViewer">
+      <HintPath>..\..\..\..\Downloads\Pdf-Test-Site\Bin\PdfViewer.dll</HintPath>
+    </Reference>
     <Reference Include="SecureBlackbox, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.dll</HintPath>

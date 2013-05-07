@@ -219,7 +219,8 @@
             contentType: 'application/json',
             success: function (data) {
                 
-                $("#iframeDoc").attr('src', urlServerImage+data.nameFile);
+                $("#iframeDoc").attr('src', urlServerImage + data.nameFile);
+               
 
                 // complete the forms with dates 
                 $("#sdPersonFirstName").val(data.person.FirstName);

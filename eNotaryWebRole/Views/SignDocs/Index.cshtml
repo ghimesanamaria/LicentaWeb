@@ -1,11 +1,10 @@
 ﻿@model eNotaryWebRole.Models.UnsignedDocumentsViewModel
-
+@using PdfViewer;
 
 <h2>Index</h2>
 @section AddToHead{
     <link href='@Url.Content("~/Content/signed/index_singed.css")' rel="stylesheet" />
 }
-
 <div id="ErrorMessageSignDocs"></div>
 
 @using (@Ajax.BeginForm("Index", "SignDocs", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "formSignDocs" }))
@@ -95,6 +94,8 @@
     </div>
             <div id="documentListed" class=".is-doc-container"style="float:right; margin-top:40px;">
                 <iframe src="" frameborder="0" id="iframeDoc" style="width:100%; height:700px;"></iframe>
+          
+               
             </div>
         </div>
    
@@ -167,8 +168,10 @@
                 id = $("#" + id).find('li')[0].id;
               
             }
-
+            param.parentID = $("#"+id).parent().parent().parent().parent()[0].id;
+            id = id.split('_')[0];
             param.id = id;
+           
             var parameter = JSON.stringify(param);
             $.ajax({
                 type: "POST",
