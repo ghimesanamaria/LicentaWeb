@@ -51,6 +51,9 @@ using SBWinCertStorage;
 
 namespace eNotaryWebRole.Controllers
 {
+    using eNotaryWebRole.Code;
+
+    [AlteredAuthorize]
     public class HomeController : Controller
     {
 
@@ -188,10 +191,7 @@ namespace eNotaryWebRole.Controllers
             //{            
             //}
 
-            if (Request.IsAuthenticated)
-            {
-                return RedirectToAction("LogOn", "Account");
-            }
+           
 
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
 
@@ -209,9 +209,13 @@ namespace eNotaryWebRole.Controllers
             LocalResource resouce = RoleEnvironment.GetLocalResource("eNotarySpace");
             ViewBag.LocalStorage =resouce.RootPath ;
 
-          
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
 
-            return View();
+            
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]

@@ -340,6 +340,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigFiles\AuthConfig.xml" />
+    <Content Include="Content\account\account.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\home\index_home.css" />

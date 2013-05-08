@@ -1,25 +1,22 @@
 ﻿@model eNotaryWebRole.Models.LoginModel
 
-@{
-    ViewBag.Title = "Log in";
-}
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+<div class="row">
+
+
+</div>
 
 
 
 
+<div id="loginForm">
 
-
-<section id="loginForm">
-<h2>Use a local account to log in.</h2>
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
+    <fieldset style="margin-top:20px;">
         <legend>Log in Form</legend>
         <ol>
             <li>
@@ -37,19 +34,28 @@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
+        
+        
+        </fieldset>
+        <div id="loginButtons">
         <input type="submit" value="Log in" class="btn btn-info" />
-    </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
-}
-</section>
+            <p>
+                @Html.ActionLink("Register", "Register") if you don't have an account.
+            </p>
+        </div>
+    }
+      
 
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
+</div>
+
+<div class="row">
+
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}
+
+@section AddToHead{
+    @Styles.Render("~/Content/account/account.css")
 }
