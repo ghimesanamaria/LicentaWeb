@@ -187,7 +187,12 @@ namespace eNotaryWebRole.Controllers
             //catch (Exception ex)
             //{            
             //}
-          
+
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("LogOn", "Account");
+            }
+
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
 
             // to test if your service is running in the compute emulator or in a classic webserver
@@ -195,7 +200,7 @@ namespace eNotaryWebRole.Controllers
             // true measns the service is running a WA fabric, either local or live
 
             if(RoleEnvironment.IsAvailable)
-            ViewBag.EmailAdmin = RoleEnvironment.GetConfigurationSettingValue("EmailAdmin");
+                 ViewBag.EmailAdmin = RoleEnvironment.GetConfigurationSettingValue("EmailAdmin");
             else
             {
                 ViewBag.EmailAdmin = ConfigurationManager.AppSettings["EnailAdmin"];

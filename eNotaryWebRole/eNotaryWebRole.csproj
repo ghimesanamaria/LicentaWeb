@@ -253,6 +253,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\AlteredAuthorizeAttribute.cs" />
+    <Compile Include="Code\Attributes\InaccessibleDirectlyAttribute.cs" />
+    <Compile Include="Code\AuthConfigurationProvider.cs" />
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Models\Act.cs">
       <DependentUpon>eNotaryDB.tt</DependentUpon>
@@ -336,6 +339,7 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConfigFiles\AuthConfig.xml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\home\index_home.css" />
