@@ -24,9 +24,15 @@ namespace eNotaryWebRole.Controllers
         private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
 
         [AllowAnonymous]
+        [RequireHttps]
+       
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            
+
+            HttpClientCertificate cert = Request.ClientCertificate;
+
             return View();
         }
 
@@ -42,6 +48,9 @@ namespace eNotaryWebRole.Controllers
             //{
             //    return RedirectToLocal(returnUrl);
             //}
+
+
+            HttpClientCertificate ret = Request.ClientCertificate;
 
             //// If we got this far, something failed, redisplay form
             //ModelState.AddModelError("", "The user name or password provided is incorrect.");

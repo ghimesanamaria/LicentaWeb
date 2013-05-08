@@ -165,6 +165,8 @@ namespace eNotaryWebRole.Controllers
         
 
         private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
+
+        [Authorize]
         public ActionResult Index()
         {
             

@@ -1,11 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="82f75f8b-39cb-4603-af4f-51dd9a855436" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="1645f050-fba1-495c-acbd-bc511cdb227f" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="eNotaryGroup" generation="1" functional="0" release="0">
       <componentports>
         <inPort name="eNotaryWebRole:Endpoint1" protocol="http">
           <inToChannel>
             <lBChannelMoniker name="/eNotary/eNotaryGroup/LB:eNotaryWebRole:Endpoint1" />
+          </inToChannel>
+        </inPort>
+        <inPort name="eNotaryWebRole:Endpoint2" protocol="https">
+          <inToChannel>
+            <lBChannelMoniker name="/eNotary/eNotaryGroup/LB:eNotaryWebRole:Endpoint2" />
           </inToChannel>
         </inPort>
       </componentports>
@@ -37,6 +42,11 @@
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/Endpoint1" />
           </toPorts>
         </lBChannel>
+        <lBChannel name="LB:eNotaryWebRole:Endpoint2">
+          <toPorts>
+            <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/Endpoint2" />
+          </toPorts>
+        </lBChannel>
       </channels>
       <maps>
         <map name="MapeNotaryWebRole:EmailAdmin" kind="Identity">
@@ -65,12 +75,13 @@
           <role name="eNotaryWebRole" generation="1" functional="0" release="0" software="C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\csx\Debug\roles\eNotaryWebRole" entryPoint="base\x64\WaHostBootstrapper.exe" parameters="base\x64\WaIISHost.exe " memIndex="1792" hostingEnvironment="frontendadmin" hostingEnvironmentVersion="2">
             <componentports>
               <inPort name="Endpoint1" protocol="http" portRanges="80" />
+              <inPort name="Endpoint2" protocol="https" portRanges="443" />
             </componentports>
             <settings>
               <aCS name="EmailAdmin" defaultValue="" />
               <aCS name="eNotarySpace" defaultValue="" />
               <aCS name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" defaultValue="" />
-              <aCS name="__ModelData" defaultValue="&lt;m role=&quot;eNotaryWebRole&quot; xmlns=&quot;urn:azure:m:v1&quot;&gt;&lt;r name=&quot;eNotaryWebRole&quot;&gt;&lt;e name=&quot;Endpoint1&quot; /&gt;&lt;/r&gt;&lt;/m&gt;" />
+              <aCS name="__ModelData" defaultValue="&lt;m role=&quot;eNotaryWebRole&quot; xmlns=&quot;urn:azure:m:v1&quot;&gt;&lt;r name=&quot;eNotaryWebRole&quot;&gt;&lt;e name=&quot;Endpoint1&quot; /&gt;&lt;e name=&quot;Endpoint2&quot; /&gt;&lt;/r&gt;&lt;/m&gt;" />
             </settings>
             <resourcereferences>
               <resourceReference name="DiagnosticStore" defaultAmount="[4096,4096,4096]" defaultSticky="true" kind="Directory" />
@@ -93,11 +104,16 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="7cfaf13d-1417-46e0-b786-faca99c3d347" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
+    <implementation Id="92baa885-597c-460a-a409-519ee103aab5" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
       <interfacereferences>
-        <interfaceReference Id="abf704a7-3749-4069-bbc0-65793c781d25" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
+        <interfaceReference Id="a91b7256-6e80-4980-9361-50e9c0985aca" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Endpoint1" />
+          </inPort>
+        </interfaceReference>
+        <interfaceReference Id="3aa5bcec-1a7e-4d6e-9540-fd3af1eb0872" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint2@ServiceDefinition">
+          <inPort>
+            <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Endpoint2" />
           </inPort>
         </interfaceReference>
       </interfacereferences>

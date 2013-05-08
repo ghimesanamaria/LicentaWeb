@@ -40,6 +40,7 @@
     <Site name="Web" physicalDirectory="C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\">
       <Bindings>
         <Binding name="Endpoint1" endpointName="Endpoint1" />
+        <Binding name="Endpoint2" endpointName="Endpoint2" />
       </Bindings>
     </Site>
   </Sites>
