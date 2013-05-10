@@ -240,4 +240,3 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Org.Mentalis.Secur
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Mono.Math.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\PdfViewer.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\PdfViewer.pdb
-C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.csprojResolveAssemblyReference.cache

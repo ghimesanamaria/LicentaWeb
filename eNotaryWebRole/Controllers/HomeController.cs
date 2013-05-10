@@ -166,7 +166,7 @@ namespace eNotaryWebRole.Controllers
 
         private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
 
-        [Authorize]
+        //[Authorize]
         public ActionResult Index()
         {
             
@@ -211,13 +211,13 @@ namespace eNotaryWebRole.Controllers
             LocalResource resouce = RoleEnvironment.GetLocalResource("eNotarySpace");
             ViewBag.LocalStorage =resouce.RootPath ;
 
-            if (Request.IsAuthenticated)
-            {
+            //if (Request.IsAuthenticated)
+            //{
                 return View();
-            }
+            //}
 
             
-            return RedirectToAction("Login", "Account");
+            //return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
