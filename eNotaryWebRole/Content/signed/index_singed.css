@@ -109,7 +109,7 @@ div.disabled
             display: none;
         }
 
-        #tree-toggle
+        #areaContainerUploadToggle
 {
     z-index: 1;
     position: absolute;

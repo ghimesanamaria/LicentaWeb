@@ -35,8 +35,29 @@
 
 </div>
 <div id="errorMessage" style="float:left; margin-left:30px; margin-right: 60px;"></div>
-<button id ="showAreaToUpload" style="display:none"><i class="icon-chevron-left"></i></button>
-<div id="areaToUpload">
+
+
+
+
+<div class="progressBar">
+<div class="status"></div>
+</div>
+
+
+<div id="areaContainerUpload" >
+           
+        <div id="areaContainerUploadToggle">
+           
+          <i class="icon-chevron-left"></i>
+        </div>  
+    <div id="messageContainerUpload">
+        <span id="headerMessageContainerUpload">
+        Incarcare fisiere
+        </span>
+
+    </div>
+    
+    <div id="areaToUpload">
     
     <div id="dragAndDropFiles" class="uploadArea hero-unit" style="margin-left:30px;">
         <p style="text-align:center;">Realizati drag and drop in aceasta zona pentru a incarca fisierele dorite</p>
@@ -46,10 +67,22 @@
         <input type="file" name="multiUpload" id="multiUpload" multiple="multiple" />
         <input type="submit" name="submitHandler" id="submitHandler" value="Upload" class="btn btn-info"/>
     </form>
+    </div>  
+    <div class="clear-all"></div>
+                   
 </div>
-<div class="progressBar">
-<div class="status"></div>
-</div>
+
+
+@section AddToBottom{
+    <script src='@Url.Content("~/Scripts/home/home.js")'></script>
+    <script>
+
+        $(function () {
+            addEvents();
+        });
+
+    </script>
+}
 
 
 
