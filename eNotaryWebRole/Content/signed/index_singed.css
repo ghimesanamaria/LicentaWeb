@@ -109,7 +109,29 @@ div.disabled
             display: none;
         }
 
-        #areaContainerUploadToggle
+        #tree-toggle
+{
+    z-index: 1;
+    position: absolute;
+    right: 0;
+    text-align: center;
+
+    margin: 0;
+    padding: 8px 0 0 0;
+
+    height: 28px;
+    width: 25px;
+
+    background-color: #F5F5F5;
+
+    -moz-box-shadow: #808080 1px 1px 3px;
+    box-shadow: #808080 1px 1px 3px;
+
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+
+    cursor: pointer;
+}
 {
     z-index: 1;
     position: absolute;

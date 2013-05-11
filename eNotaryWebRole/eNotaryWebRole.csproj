@@ -345,20 +345,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\home\index_home.css" />
-    <Content Include="Content\Icons\Bar Chart.png" />
-    <Content Include="Content\Icons\Bar-Chart-icon.png" />
-    <Content Include="Content\Icons\bl.png" />
-    <Content Include="Content\Icons\br.png" />
-    <Content Include="Content\Icons\carel_icons_32.png" />
-    <Content Include="Content\Icons\chart-line-icon.png" />
-    <Content Include="Content\Icons\chart-pie-icon.png" />
-    <Content Include="Content\Icons\Line Chart.png" />
-    <Content Include="Content\Icons\Multi chart.png" />
-    <Content Include="Content\Icons\multi-chart-icon.png" />
-    <Content Include="Content\Icons\Pie Chart.png" />
-    <Content Include="Content\Icons\Table Report.png" />
-    <Content Include="Content\Icons\tl.png" />
-    <Content Include="Content\Icons\tr.png" />
     <Content Include="Content\Icons\x.png" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
@@ -459,6 +445,7 @@
     <Content Include="Images\unknown.png" />
     <Content Include="Scripts\bootstrap\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\gDocViewer\jquery.gdocsviewer.js" />
     <Content Include="Scripts\home\home.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -540,6 +527,7 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\multiupload.js" />
     <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\signedDoc\index_signedDoc.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
