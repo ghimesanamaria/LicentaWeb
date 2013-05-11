@@ -24,10 +24,10 @@ using System.Configuration;
 using Microsoft.Web.Helpers;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
-using System.Configuration;
+using eNotaryWebRole.Code;
 using CloudStorageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount;
 using eNotaryWebRole.Models;
-using System.Security.Cryptography.X509Certificates;
+
 using TallComponents.PDF;
 using TallComponents.PDF.Forms.Fields;
 using TallComponents.PDF.Annotations.Widgets;
@@ -197,7 +197,7 @@ namespace eNotaryWebRole.Controllers
             else
                 if(!string.IsNullOrEmpty(collection["sgSave"]))
                 {
-
+                    MailProvider.SendEmailToUser("test", "test", "adrian.ionita01@yahoo.com", "ghimes.ana@compu-cons.ro");
                 }
 
             var actTypeList = (from at in _db.ActTypes
@@ -206,7 +206,12 @@ namespace eNotaryWebRole.Controllers
                                    ID = at.ID,
                                    Name = at.ActTypeName
                                }).ToList();
-            ViewBag.ActTypeList = new SelectList(actTypeList, "ID", "Name", long.Parse(collection["ActTypeList"]));
+
+            long tempActType = 0;
+            if (long.TryParse(collection["ActTypeList"], out tempActType))
+            {
+            }
+            ViewBag.ActTypeList = new SelectList(actTypeList, "ID", "Name", tempActType);
             return View();
         }
         //sign pdf

@@ -256,6 +256,7 @@
     <Compile Include="Code\AlteredAuthorizeAttribute.cs" />
     <Compile Include="Code\Attributes\InaccessibleDirectlyAttribute.cs" />
     <Compile Include="Code\AuthConfigurationProvider.cs" />
+    <Compile Include="Code\MailProvider.cs" />
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\Act.cs">
@@ -344,6 +345,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigFiles\AuthConfig.xml" />
+    <None Include="ConfigFiles\MailConfig.config" />
     <Content Include="Content\account\account.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\datepicker.css" />
