@@ -219,7 +219,9 @@
             contentType: 'application/json',
             success: function (data) {
                 
-                $("#iframeDoc").attr('src', urlServerImage + data.nameFile);
+                $("#iframeDoc").show();
+                $("#iframeDoc").attr('src', urlServerImage + data.nameFile+"#toolbar=0");
+                //$("#iframeDocA").attr('href', urlServerImage + data.nameFile );
                
 
                 // complete the forms with dates 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="f5ed58b9-6cfc-48a7-aebe-01596004a7ac" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="403575c2-55ab-4b9a-a73f-35f7897e50e9" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="eNotaryGroup" generation="1" functional="0" release="0">
       <componentports>
@@ -15,6 +15,11 @@
         </inPort>
       </componentports>
       <settings>
+        <aCS name="Certificate|eNotaryWebRole:ServerCertificate" defaultValue="">
+          <maps>
+            <mapMoniker name="/eNotary/eNotaryGroup/MapCertificate|eNotaryWebRole:ServerCertificate" />
+          </maps>
+        </aCS>
         <aCS name="eNotaryWebRole:EmailAdmin" defaultValue="">
           <maps>
             <mapMoniker name="/eNotary/eNotaryGroup/MapeNotaryWebRole:EmailAdmin" />
@@ -49,6 +54,11 @@
         </lBChannel>
       </channels>
       <maps>
+        <map name="MapCertificate|eNotaryWebRole:ServerCertificate" kind="Identity">
+          <certificate>
+            <certificateMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/ServerCertificate" />
+          </certificate>
+        </map>
         <map name="MapeNotaryWebRole:EmailAdmin" kind="Identity">
           <setting>
             <aCSMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/EmailAdmin" />
@@ -75,7 +85,11 @@
           <role name="eNotaryWebRole" generation="1" functional="0" release="0" software="C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\csx\Debug\roles\eNotaryWebRole" entryPoint="base\x64\WaHostBootstrapper.exe" parameters="base\x64\WaIISHost.exe " memIndex="1792" hostingEnvironment="frontendadmin" hostingEnvironmentVersion="2">
             <componentports>
               <inPort name="Endpoint1" protocol="http" portRanges="80" />
-              <inPort name="Endpoint2" protocol="https" portRanges="443" />
+              <inPort name="Endpoint2" protocol="https" portRanges="8080">
+                <certificate>
+                  <certificateMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/ServerCertificate" />
+                </certificate>
+              </inPort>
             </componentports>
             <settings>
               <aCS name="EmailAdmin" defaultValue="" />
@@ -88,6 +102,16 @@
               <resourceReference name="eNotarySpace" defaultAmount="[30000,30000,30000]" defaultSticky="true" kind="Directory" />
               <resourceReference name="EventStore" defaultAmount="[1000,1000,1000]" defaultSticky="false" kind="LogStore" />
             </resourcereferences>
+            <storedcertificates>
+              <storedCertificate name="Stored0ServerCertificate" certificateStore="My" certificateLocation="System">
+                <certificate>
+                  <certificateMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/ServerCertificate" />
+                </certificate>
+              </storedCertificate>
+            </storedcertificates>
+            <certificates>
+              <certificate name="ServerCertificate" />
+            </certificates>
           </role>
           <sCSPolicy>
             <sCSPolicyIDMoniker name="/eNotary/eNotaryGroup/eNotaryWebRoleInstances" />
@@ -104,14 +128,14 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="d897bc34-33bb-49cb-b76c-72add31b2da1" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
+    <implementation Id="70215412-bdc4-4f5c-9acd-2070155528f7" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
       <interfacereferences>
-        <interfaceReference Id="7eed6f91-e056-408b-a4a0-65beb4487f79" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
+        <interfaceReference Id="8bcfaec1-4ff1-4f30-973b-fffda91b66fa" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Endpoint1" />
           </inPort>
         </interfaceReference>
-        <interfaceReference Id="6dd5e1f6-0ea4-4361-8b31-df4ec430a70b" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint2@ServiceDefinition">
+        <interfaceReference Id="35154f15-eb70-4643-8244-3166f5867995" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint2@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Endpoint2" />
           </inPort>

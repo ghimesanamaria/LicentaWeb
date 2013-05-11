@@ -7,5 +7,8 @@
       <Setting name="EmailAdmin" value="ghimesanamaria@yahoo.com" />
       <Setting name="eNotarySpace" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="ServerCertificate" thumbprint="F8ACE24A36F93B006BFAF495F6C14FB827AC61A3" thumbprintAlgorithm="sha1" />
+    </Certificates>
   </Role>
 </ServiceConfiguration>

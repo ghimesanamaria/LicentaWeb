@@ -11,7 +11,7 @@
     </Sites>
     <Endpoints>
       <InputEndpoint name="Endpoint1" protocol="http" port="80" />
-      <InputEndpoint name="Endpoint2" protocol="https" port="443" />
+      <InputEndpoint name="Endpoint2" protocol="https" port="8080" certificate="ServerCertificate" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
@@ -23,5 +23,8 @@
     <LocalResources>
       <LocalStorage name="eNotarySpace" cleanOnRoleRecycle="false" sizeInMB="30000" />
     </LocalResources>
+    <Certificates>
+      <Certificate name="ServerCertificate" storeLocation="LocalMachine" storeName="My" />
+    </Certificates>
   </WebRole>
 </ServiceDefinition>
