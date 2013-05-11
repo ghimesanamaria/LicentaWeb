@@ -36,5 +36,6 @@ namespace eNotaryWebRole.Models
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Mail> Mails { get; set; }
     }
 }

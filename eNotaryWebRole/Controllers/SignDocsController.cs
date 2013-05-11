@@ -656,6 +656,7 @@ namespace eNotaryWebRole.Controllers
                              a.State,
                              a.ReasonState,
                              a.ExternalUniqueReference
+                             
 
                          }).FirstOrDefault();
             }
@@ -671,7 +672,8 @@ namespace eNotaryWebRole.Controllers
                              sa.CreationDate,
                              a.Reason,
                              State = "semnat",
-                             sa.ReasonSigned
+                             sa.ReasonSigned,
+                             sa.SentToClient
                              
 
                          }).FirstOrDefault();
@@ -769,7 +771,6 @@ namespace eNotaryWebRole.Controllers
             }
 
 
-           // PersonActViewModel pa = new PersonActViewModel(personDetail,model);
 
 
             return Json(new  {

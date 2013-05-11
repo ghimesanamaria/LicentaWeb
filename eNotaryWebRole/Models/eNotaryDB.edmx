@@ -11,6 +11,17 @@
           <EntitySet Name="Address" EntityType="eNotaryDBModel.Store.Address" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="EducationLevel" EntityType="eNotaryDBModel.Store.EducationLevel" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="JobType" EntityType="eNotaryDBModel.Store.JobType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Mails" EntityType="eNotaryDBModel.Store.Mails" store:Type="Tables" store:Schema="dbo" store:Name="Mails">
+            <DefiningQuery>SELECT 
+      [Mails].[ID] AS [ID], 
+      [Mails].[To] AS [To], 
+      [Mails].[From] AS [From], 
+      [Mails].[Subject] AS [Subject], 
+      [Mails].[BodyMail] AS [BodyMail], 
+      [Mails].[DateCreated] AS [DateCreated], 
+      [Mails].[ID_SentPerson] AS [ID_SentPerson]
+      FROM [dbo].[Mails] AS [Mails]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Payments" EntityType="eNotaryDBModel.Store.Payments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PersonDetails" EntityType="eNotaryDBModel.Store.PersonDetails" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SignedActs" EntityType="eNotaryDBModel.Store.SignedActs" store:Type="Tables" Schema="dbo" />
@@ -111,6 +122,25 @@
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="JobName" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'eNotaryDB.dbo.Mails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Mails">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="To" />
+            <PropertyRef Name="From" />
+            <PropertyRef Name="DateCreated" />
+            <PropertyRef Name="ID_SentPerson" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="To" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="From" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar(max)" />
+          <Property Name="BodyMail" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="ID_SentPerson" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="Payments">
           <Key>
             <PropertyRef Name="ID" />
@@ -131,7 +161,7 @@
           <Property Name="MiddleName" Type="nvarchar(max)" />
           <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Birthday" Type="datetime" Nullable="false" />
-          <Property Name="Gender" Type="nchar" Nullable="false" MaxLength="1" />
+          <Property Name="Gender" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
           <Property Name="AddressID" Type="bigint" />
           <Property Name="MobilePhoneNumber" Type="varchar" MaxLength="12" />
@@ -141,7 +171,7 @@
           <Property Name="EducationLevelID" Type="bigint" />
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FacebookID" Type="nvarchar(max)" />
-          <Property Name="CommunicationMode" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="CommunicationMode" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="SignedActs">
           <Key>
@@ -174,7 +204,7 @@
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
@@ -381,6 +411,7 @@
             <End Role="Address" EntitySet="Addresses" />
             <End Role="PersonDetail" EntitySet="PersonDetails" />
           </AssociationSet>
+          <EntitySet Name="Mails" EntityType="eNotaryDBModel.Mail" />
         </EntityContainer>
         <EntityType Name="Act">
           <Key>
@@ -446,7 +477,7 @@
           <Property Name="MiddleName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Nationality" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="AddressID" Type="Int64" />
           <Property Name="MobilePhoneNumber" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
@@ -456,7 +487,7 @@
           <Property Name="EducationLevelID" Type="Int64" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="FacebookID" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="CommunicationMode" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="CommunicationMode" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
           <NavigationProperty Name="Acts" Relationship="eNotaryDBModel.FK_Acts_PersonDetails" FromRole="PersonDetails" ToRole="Acts" />
           <NavigationProperty Name="EducationLevel" Relationship="eNotaryDBModel.FK_PersonDetails_EducationLevel" FromRole="PersonDetails" ToRole="EducationLevel" />
           <NavigationProperty Name="JobType" Relationship="eNotaryDBModel.FK_PersonDetails_JobType" FromRole="PersonDetails" ToRole="JobType" />
@@ -499,7 +530,7 @@
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Users" Relationship="eNotaryDBModel.FK_Users_UserRoles" FromRole="UserRoles" ToRole="Users" />
         </EntityType>
@@ -663,6 +694,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Mail">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="To" />
+            <PropertyRef Name="From" />
+            <PropertyRef Name="DateCreated" />
+            <PropertyRef Name="ID_SentPerson" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="To" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="From" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Subject" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BodyMail" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
+          <Property Type="Int64" Name="ID_SentPerson" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -803,6 +850,19 @@
                 <ScalarProperty Name="Street_2" ColumnName="Street 2" />
                 <ScalarProperty Name="Street_1" ColumnName="Street 1" />
                 <ScalarProperty Name="Address1" ColumnName="Address" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mails">
+            <EntityTypeMapping TypeName="eNotaryDBModel.Mail">
+              <MappingFragment StoreEntitySet="Mails">
+                <ScalarProperty Name="ID_SentPerson" ColumnName="ID_SentPerson" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="BodyMail" ColumnName="BodyMail" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="From" ColumnName="From" />
+                <ScalarProperty Name="To" ColumnName="To" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

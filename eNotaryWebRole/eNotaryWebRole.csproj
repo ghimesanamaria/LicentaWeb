@@ -313,6 +313,9 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\JsTreeModel.cs" />
+    <Compile Include="Models\Mail.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Payment.cs">
       <DependentUpon>eNotaryDB.tt</DependentUpon>
     </Compile>

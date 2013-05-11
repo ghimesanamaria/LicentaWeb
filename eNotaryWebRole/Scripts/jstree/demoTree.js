@@ -259,6 +259,10 @@
                 $("#sdReason").val(data.act.Reason);
                 $("#sdState").val(data.act.State);
                 $("#sdReasonState").val(data.act.ReasonState);
+
+                console.log(data.act.SentToClient);
+                if(data.act.SentToClient == 1)
+                $("#sdSentToClient").attr('checked','checked');
             
 
 
