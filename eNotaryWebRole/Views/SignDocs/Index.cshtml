@@ -149,6 +149,9 @@
             <textarea id="mail-body" placeholder="Continut mail..."></textarea>
         </div>
     </div>
+    <div id="mail-footer">
+        <button id="btnSendMail" class="btn btn-info" >Trimite mail</button>
+    </div>
 
 
 </div>
@@ -158,33 +161,26 @@
 @section AddToBottom{
     <script>
 
-
-        $("#sgSendMailToClient").click(function (e) {
-
+        $("#btnSendMail").click(function (e) {
             e.preventDefault();
 
             var checked_variables = $("#demoTree")
-                    .jstree("get_checked", null, false);
-            if (checked_variables.length > 0) {
-                $("#mail-container").show();
-                $("#ErrorMessageSignDocs").removeClass('alert-error alert');
-                $("#ErrorMessageSignDocs").html();
+                   .jstree("get_checked", null, false);
+            var param = new Object();
+            var id = checked_variables[0].id;
+            var ok = 0;
+            while ($("#" + id).attr('description') != 'person' || ($("#" + id).attr('description') == 'person' && $("#" + id).hasClass('jstree-unchecked'))) {
+                id = $("#" + id).find('li')[0].id;
 
-                var param = new Object();
-                var id = checked_variables[0].id;
-                var ok = 0;
-                while ($("#" + id).attr('description') != 'person' || ($("#" + id).attr('description') == 'person' && $("#" + id).hasClass('jstree-unchecked'))) {
-                    id = $("#" + id).find('li')[0].id;
+            }
+            param.id = id.split('_')[0];
+            param.subject = $("#mail-subject").val();
+            param.body = $("#mail-body").val();
 
-                }
-                param.id = id.split('_')[0];
-                param.subject = $("#mail-subject").val();
-                param.body = $("#mail-body").val();
-
-                var parameter = JSON.stringify(param);
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Content("~/SignDocs/SendMailToUser")',
+            var parameter = JSON.stringify(param);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Content("~/SignDocs/SendMailToUser")',
                     dataType: 'json',
                     data: parameter,
 
@@ -197,6 +193,19 @@
                     }
                 });
 
+        });
+        $("#sgSendMailToClient").click(function (e) {
+
+            e.preventDefault();
+
+            var checked_variables = $("#demoTree")
+                    .jstree("get_checked", null, false);
+            if (checked_variables.length > 0) {
+                $("#mail-container").show();
+                $("#ErrorMessageSignDocs").removeClass('alert-error alert');
+                $("#ErrorMessageSignDocs").html();
+
+               
 
 
 
