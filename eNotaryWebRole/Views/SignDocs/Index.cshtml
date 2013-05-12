@@ -162,7 +162,19 @@
         $("#sgSendMailToClient").click(function (e) {
 
             e.preventDefault();
-            $("#mail-container").show();
+
+            var checked_variables = $("#demoTree")
+                    .jstree("get_checked", null, false);
+            if (checked_variables.length > 0) {
+                $("#mail-container").show();
+                $("#ErrorMessageSignDocs").removeClass('alert-error alert');
+                $("#ErrorMessageSignDocs").html();
+            }
+            else {
+
+                $("#ErrorMessageSignDocs").addClass('alert-error alert');
+                $("#ErrorMessageSignDocs").html('Alegeti un client caruia sa-i trimiteti mail');
+            }
 
 
         });
