@@ -118,7 +118,7 @@
 </div>
 }
 
-<div id="mail-container">
+<div id="mail-container" style="display:none;">
     
     <div id="mail-toolbar">
         <div id="mail-controls">
@@ -126,7 +126,7 @@
                 <i class="icon-minus icon-white"></i>
 
             </div>
-            <div id="mail-x-button" style="display:inline-block;">
+            <div id="mail-close-button" style="display:inline-block;">
                 <i class="icon-remove icon-white"></i>
             </div>
             
@@ -136,7 +136,7 @@
     </div>
     <div id="mail-header" >
         <div class="mail">
-            <span id="mail-header-text">Creare mail 
+            <span id="mail-header-text">Mail nou 
             </span>
         </div>
         <div class="mail">
@@ -162,15 +162,30 @@
         $("#sgSendMailToClient").click(function (e) {
 
             e.preventDefault();
-
-
-
-
-
+            $("#mail-container").show();
 
 
         });
 
+        $("#mail-minimize-button").click(function (e) {
+            e.preventDefault();
+            var type = $("#mail-minimize-button").find('i').attr('class');
+            if (type == 'icon-minus icon-white') {
+                $("#mail-container").height('30px');
+                $("#mail-container").width('200px');
+                $("#mail-minimize-button").find('i').attr('class', ' icon-resize-full icon-white');
+            } else {
+                $("#mail-container").height('400px');
+                $("#mail-container").width('700px');
+                $("#mail-minimize-button").find('i').attr('class', ' icon-minus icon-white');
+
+            }
+           
+        });
+
+        $("#mail-close-button").click(function (e) {
+            $("#mail-container").hide();
+        });
 
         $("#btnViewFullProfile").click(function (e) {
             e.preventDefault();

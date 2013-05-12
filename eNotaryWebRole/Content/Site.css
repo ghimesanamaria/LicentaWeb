@@ -4,10 +4,32 @@
 
 
 /* layout css*/
+.navbar {
+    margin-left:10px;
+    margin-right:10px;
+
+}
 .navbar-inner {
-    background-image: linear-gradient(to bottom, #ffffff, rgb(187, 218, 218));
+    background-image: none;
+    background-color: black;
     font-weight: bold;
     text-decoration: none;
+}
+
+.navbar .nav > li > a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar .brand {
+    color:white;
+    text-decoration: none;
+}
+
+#body {
+    margin-left:10px;
+    margin-right:10px;
 }
 
 /*end layout css*/
@@ -27,13 +49,14 @@ html {
 }
 
 body {
-    background-color: #fff;
+    background-color: white;
     border-top: solid 10px #000;
     color: #333;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding:50px;
+   
 }
 
 a {

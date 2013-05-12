@@ -54,6 +54,7 @@
 }
 #mail-body {
     width:98%;
-    height:400px;
+    height:280px;
+    max-height:280px;
   
 }
