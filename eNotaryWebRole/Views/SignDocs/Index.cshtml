@@ -169,6 +169,29 @@
                 $("#mail-container").show();
                 $("#ErrorMessageSignDocs").removeClass('alert-error alert');
                 $("#ErrorMessageSignDocs").html();
+
+                var param = new Object();
+
+               
+
+                var parameter = JSON.stringify(param);
+                $.ajax({
+                    type: "POST",
+                    url: '',
+                    dataType: 'json',
+                    data: parameter,
+
+                    contentType: 'application/json',
+                    success: function (data) {
+                    },
+
+                    error: function () {
+                    }
+                });
+
+
+
+
             }
             else {
 
