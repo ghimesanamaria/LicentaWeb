@@ -355,6 +355,7 @@
     <Content Include="Content\img\glyphicons-halflings.png" />
     <Content Include="Content\logo_pdfkit.gif" />
     <Content Include="Content\signed\index_singed.css" />
+    <Content Include="Content\signed\mail.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />

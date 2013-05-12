@@ -1,0 +1,59 @@
+﻿#mail-container {
+    background-color: #F5F5F5;
+    width:700px;
+    
+    height:400px; 
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index:1;
+
+    border: 1px solid #CCC;
+    
+
+    box-shadow: #CCC 0px 0px 5px 1px inset;
+}
+
+#mail-toolbar {
+    background-color: black;
+    height:25px;
+}
+
+.mail {
+    height:38px;
+    background-color: #F5F5F5;
+   
+    font-weight: bolder;
+    box-shadow: #CCC 0px 0px 5px 1px inset;
+  
+}
+
+
+#mail-header-text {
+    float: left; 
+    margin-left: 45%;
+    color: black;
+    padding: 10px;
+  
+}
+
+#mail-controls {
+    float:right;
+    display: inline-block;
+    margin-right:5px;
+    margin-top:2px;
+}
+#mail-subject {
+    width:98%;
+}
+
+
+#mail-content {
+    
+    height:100%;
+}
+#mail-body {
+    width:98%;
+    height:400px;
+  
+}

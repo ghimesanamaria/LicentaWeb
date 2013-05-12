@@ -197,8 +197,14 @@ namespace eNotaryWebRole.Controllers
             else
                 if(!string.IsNullOrEmpty(collection["sgSave"]))
                 {
-                    MailProvider.SendEmailToUser("test", "test", "adrian.ionita01@yahoo.com", "ghimes.ana@compu-cons.ro");
+                   
                 }
+                else
+                    if (!string.IsNullOrEmpty(collection["sgSendToClient"]))
+                    {
+
+                        MailProvider.SendEmailToUser("", "", "", "ghimes.ana@gmail.com");
+                    }
 
             var actTypeList = (from at in _db.ActTypes
                                select new

@@ -4,6 +4,7 @@
 <h2>Index</h2>
 @section AddToHead{
     <link href='@Url.Content("~/Content/signed/index_singed.css")' rel="stylesheet" />
+    <link href='@Url.Content("~/Content/signed/mail.css")' rel="stylesheet" />
 }
 <div id="ErrorMessageSignDocs"></div>
    
@@ -117,10 +118,60 @@
 </div>
 }
 
+<div id="mail-container">
+    
+    <div id="mail-toolbar">
+        <div id="mail-controls">
+            <div id="mail-minimize-button" style="display:inline-block;">
+                <i class="icon-minus icon-white"></i>
+
+            </div>
+            <div id="mail-x-button" style="display:inline-block;">
+                <i class="icon-remove icon-white"></i>
+            </div>
+            
+        </div>
+
+
+    </div>
+    <div id="mail-header" >
+        <div class="mail">
+            <span id="mail-header-text">Creare mail 
+            </span>
+        </div>
+        <div class="mail">
+            <input type="text" id="mail-subject" placeholder="Subiect ..." />
+                 
+        </div>
+    </div>
+    <div id="mail-content"  >
+        <div >
+            <textarea id="mail-body" placeholder="Continut mail..."></textarea>
+        </div>
+    </div>
+
+
+</div>
+
 
 
 @section AddToBottom{
     <script>
+
+
+        $("#sgSendMailToClient").click(function (e) {
+
+            e.preventDefault();
+
+
+
+
+
+
+
+        });
+
+
         $("#btnViewFullProfile").click(function (e) {
             e.preventDefault();
 
