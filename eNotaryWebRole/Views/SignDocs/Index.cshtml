@@ -171,18 +171,26 @@
                 $("#ErrorMessageSignDocs").html();
 
                 var param = new Object();
+                var id = checked_variables[0].id;
+                var ok = 0;
+                while ($("#" + id).attr('description') != 'person' || ($("#" + id).attr('description') == 'person' && $("#" + id).hasClass('jstree-unchecked'))) {
+                    id = $("#" + id).find('li')[0].id;
 
-               
+                }
+                param.id = id.split('_')[0];
+                param.subject = $("#mail-subject").val();
+                param.body = $("#mail-body").val();
 
                 var parameter = JSON.stringify(param);
                 $.ajax({
                     type: "POST",
-                    url: '',
+                    url: '@Url.Content("~/SignDocs/SendMailToUser")',
                     dataType: 'json',
                     data: parameter,
 
                     contentType: 'application/json',
                     success: function (data) {
+                        console.log('success');
                     },
 
                     error: function () {

@@ -203,7 +203,7 @@ namespace eNotaryWebRole.Controllers
                     if (!string.IsNullOrEmpty(collection["sgSendToClient"]))
                     {
 
-                        MailProvider.SendEmailToUser("", "", "", "ghimes.ana@gmail.com");
+                       
                     }
 
             var actTypeList = (from at in _db.ActTypes
@@ -845,6 +845,48 @@ namespace eNotaryWebRole.Controllers
             ViewBag.ActTypeList = new SelectList(actTypeList, "ID", "Name", 0);
 
             return Json(model);
+        }
+
+        [HttpPost]
+        public ActionResult SendMailToUser(long id, string subject, string body)
+        {
+            string message = "Emai-ul a fost transmis cu succes";
+
+            string username = "admin";
+
+
+
+
+            // username= User.Identity.Name;
+
+            string toMail = _db.PersonDetails.Where(p => p.ID == id).Select(x => x.Email).FirstOrDefault();
+           
+            try
+            {
+
+                if (username == "admin")
+                {
+                    MailProvider.SendEmailToUser(subject, body, toMail, "ghimes.ana@compu-cons.ro", 0);
+                }
+                else
+                {
+
+                    string fromMail = (from u in _db.Users.Where(o => o.Username == username)
+                                      join p in _db.PersonDetails
+                                      on u.PersonID equals p.ID
+                                      select p.Email).FirstOrDefault();
+
+                    MailProvider.SendEmailToUser(subject, body, "ghimes.ana@compu-cons.ro", fromMail, 1);
+                }
+            }
+            catch (Exception ex)
+            {
+                message = "Email-ul nu a fost trimis ";
+            }
+
+
+
+            return Json(message);
         }
             
         }

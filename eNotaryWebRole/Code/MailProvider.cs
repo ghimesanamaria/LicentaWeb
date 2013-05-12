@@ -7,7 +7,7 @@ namespace eNotaryWebRole.Code
 {
     public class MailProvider
     {
-        public static bool SendEmailToUser(string subj, string body,string to, string from)
+        public static bool SendEmailToUser(string subj, string body,string to, string from, long fromUser)
         {
 
 
@@ -15,19 +15,33 @@ namespace eNotaryWebRole.Code
           
 
             MailMessage mail = new System.Net.Mail.MailMessage();
-            mail.To.Add(to);
-             mail.From = new MailAddress(from, "Notariat" , System.Text.Encoding.UTF8);
+
+             mail.To.Add(to);
+             if (fromUser == 0)
+             {
+                 mail.From = new MailAddress(to, "Notariat", System.Text.Encoding.UTF8);
+             }
+             else
+             {
+                 mail.From = new MailAddress(from, from, System.Text.Encoding.UTF8);
+             }
             mail.Subject = subj ;
             mail.SubjectEncoding = System.Text.Encoding.UTF8; 
-            mail.Body = body; 
+            mail.Body = body +"<br>"+from+"</br>"; 
             mail.BodyEncoding = System.Text.Encoding.UTF8; 
             mail.IsBodyHtml = true ; 
             mail.Priority = MailPriority.High; 
  
             SmtpClient client = new SmtpClient(); 
             //Add the Creddentials- use your own email id and password
-
-             client.Credentials = new System.Net.NetworkCredential(from, "Ana123!@#");
+            if (fromUser == 0)
+            {
+                client.Credentials = new System.Net.NetworkCredential(from, "Ana123!@#");
+            }
+            else
+            {
+                client.Credentials = new System.Net.NetworkCredential(to, "Ana123!@#");
+            }
  
             client.Port = 587; // Gmail works on this port 
              client.Host = "smtp.gmail.com"; 
