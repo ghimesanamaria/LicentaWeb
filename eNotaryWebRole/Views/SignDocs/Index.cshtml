@@ -194,6 +194,24 @@
                 });
 
         });
+
+        $("#mail-minimize-button").click(function (e) {
+            e.preventDefault();
+            console.log('minimize');
+            var type = $("#mail-minimize-button").find('i').attr('class');
+            if (type == 'icon-minus icon-white') {
+                $("#mail-container").height('30px');
+                $("#mail-container").width('200px');
+                $("#mail-minimize-button").find('i').attr('class', 'icon-resize-full icon-white');
+            } else {
+                $("#mail-container").height('400px');
+                $("#mail-container").width('700px');
+                $("#mail-minimize-button").find('i').attr('class', 'icon-minus icon-white');
+
+            }
+
+        });
+
         $("#sgSendMailToClient").click(function (e) {
 
             e.preventDefault();
@@ -219,21 +237,7 @@
 
         });
 
-        $("#mail-minimize-button").click(function (e) {
-            e.preventDefault();
-            var type = $("#mail-minimize-button").find('i').attr('class');
-            if (type == 'icon-minus icon-white') {
-                $("#mail-container").height('30px');
-                $("#mail-container").width('200px');
-                $("#mail-minimize-button").find('i').attr('class', ' icon-resize-full icon-white');
-            } else {
-                $("#mail-container").height('400px');
-                $("#mail-container").width('700px');
-                $("#mail-minimize-button").find('i').attr('class', ' icon-minus icon-white');
-
-            }
-           
-        });
+       
 
         $("#mail-close-button").click(function (e) {
             $("#mail-container").hide();

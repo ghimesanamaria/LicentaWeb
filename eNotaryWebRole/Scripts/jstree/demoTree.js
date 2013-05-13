@@ -83,6 +83,7 @@
             }
         },
         "checkbox": {
+            "two_state": true,
             "override_ui": true,
             "real_checkboxes": true,
             "real_checkboxes_names": function (n) {
