@@ -13,5 +13,6 @@ namespace eNotaryWebRole.ViewModel
         public string signatureDetails { get; set; }
         public string errorDoc { get; set; }
         public string reason { get; set; }
+        
     }
 }

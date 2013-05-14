@@ -103,8 +103,8 @@ function multiUploader(config){
 
 
 					console.log(rponse);
-					$("#areaToUpload").hide();
-					$("#showAreaToUpload").show();
+					//$("#areaToUpload").hide();
+					//$("#showAreaToUpload").show();
 					
 				}
 				,
