@@ -252,7 +252,7 @@ namespace eNotaryWebRole.Controllers
         public ActionResult Upload()
       {
           var tmp = Request;
-          string messages = "Fiserul " + file.FileName + " a fost  incarcat cu succes!"; 
+          string messages = "Fiserele au fost  incarcat cu succes!"; 
           init_function();
           Dictionary<string, List<SignatureDetailsViewModel> > docsSigs = new Dictionary<string, List<SignatureDetailsViewModel>>();
           List<string> png_preview_List = new List<string>();

@@ -104,7 +104,8 @@ function multiUploader(config){
 
 					console.log(rponse);
 					//$("#areaToUpload").hide();
-					//$("#showAreaToUpload").show();
+				    //$("#showAreaToUpload").show();
+					get_preview_images(rponse.png_preview_List);
 					
 				}
 				,

@@ -545,6 +545,7 @@
     <Content Include="Scripts\gDocViewer\jquery.gdocsviewer.js" />
     <Content Include="Scripts\gDocViewer\jquery.zohoviewer.min.js" />
     <Content Include="Scripts\home\home.js" />
+    <Content Include="Scripts\home\preview_box.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
