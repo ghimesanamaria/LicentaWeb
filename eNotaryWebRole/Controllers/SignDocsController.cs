@@ -499,7 +499,9 @@ namespace eNotaryWebRole.Controllers
             }
 
 
-            int r = m_Cert.LoadFromFileAuto(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Certificate\certificat12.p12", "jerrycora");
+
+            var url = HttpContext.Request.PhysicalApplicationPath;
+            int r = m_Cert.LoadFromFileAuto(url+"\\Certificate\\certificat12.p12", "jerrycora");
                 if (r != 0)
                 {
                     //MessageBox.Show("Failed to load certificate, error " + r.ToString());

@@ -52,6 +52,7 @@ using SBWinCertStorage;
 namespace eNotaryWebRole.Controllers
 {
     using eNotaryWebRole.Code;
+    using eNotaryWebRole.ViewModel;
 
     [AlteredAuthorize]
     public class HomeController : Controller
@@ -309,6 +310,7 @@ namespace eNotaryWebRole.Controllers
                     try
                     {
 
+                       
                         // create a container
 
                         // First step
@@ -336,12 +338,31 @@ namespace eNotaryWebRole.Controllers
 
                         // upload a blob into a container
                         // Create or overwrite the "testContainer" blob with contents from an uploaded fike
-                        var contentType = file.ContentType;
 
+                        // create unique name for file adding the last record id from table
+
+
+                        var contentType = file.ContentType;
                         var blobName = file.FileName;
                         var blob = subDirectory.GetBlockBlobReference(blobName);
                         blob.Properties.ContentType = contentType;
                         blob.UploadFromStream(streamContents);
+
+                        var url = HttpContext.Request.PhysicalApplicationPath;
+                        //create png image from first page to use it for preview
+                        PdfFunctions pdf_to_bitmap = new PdfFunctions();
+
+
+                        ///must find an unique name
+                        ///
+                        long rand = 0;
+                        using (eNotaryDBEFEntities db = new eNotaryDBEFEntities()){
+                            rand = (from a in db.Acts
+                                   select a).FirstOrDefault().ID;
+                        }
+                        pdf_to_bitmap.create_bitmap(streamContents, file.FileName.Split('.')[0]+rand+".png", url);
+                      
+
                     }
                     catch (Exception)
                     {

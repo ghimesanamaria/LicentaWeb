@@ -231,6 +231,10 @@
     <Reference Include="TallComponents.PDF.Kit">
       <HintPath>C:\Users\Ana\Downloads\PDFKit.NET_4.0.12.0\Microsoft.NET 4.0\TallComponents.PDF.Kit.dll</HintPath>
     </Reference>
+    <Reference Include="TallComponents.PDF.Rasterizer, Version=3.0.90.0, Culture=neutral, PublicKeyToken=76bf2dedaa68ccb5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\TallComponents.PDF.Rasterizer.dll</HintPath>
+    </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -340,6 +344,7 @@
     </Compile>
     <Compile Include="ViewModel\CertificateWrapperViewModel.cs" />
     <Compile Include="Models\UnsignedDocumentsViewModel.cs" />
+    <Compile Include="ViewModel\PdfFunctions.cs" />
     <Compile Include="ViewModel\SignatureDetailsViewModel.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
@@ -442,6 +447,7 @@
     <Content Include="Fisiere\test2.pdf" />
     <Content Include="Content\fonts\kberry.ttf" />
     <Content Include="Content\fonts\atlandsketchesbb_ital.ttf" />
+    <Content Include="Content\pdf_preview\test" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\ajax-loader.gif" />
     <Content Include="Images\ajax-loaderback.gif" />

@@ -64,14 +64,13 @@
     cursor: pointer;
 }
 
-#areaContainerUpload
-{
+.container {
     position: relative;
     overflow: hidden;
 
     float: left;
     width: 50%;
-    height: 100%;
+    height: 500px;
 
     border: 1px solid #CCC;
 
@@ -85,6 +84,11 @@
     padding: 0;
     min-width:10px;
     min-height:30px;
+}
+
+.container #areaContainerUpload
+{
+    
 }
     #areaContainerUpload.closed
     {
@@ -166,3 +170,13 @@
     padding-bottom: 10px;
 }
 
+.home-container {
+    min-height: 500px;
+
+}
+
+#area-container-preview {
+   width:50%;
+  margin-left:9%;
+   
+}
