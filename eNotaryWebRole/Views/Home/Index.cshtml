@@ -1,8 +1,5 @@
 ﻿<script type="text/javascript">
 
-  
-
-
  </script>
 @section AddToHead{
     <link href='@Url.Content("~/Content/home/index_home.css")' rel="stylesheet" />
@@ -24,39 +21,69 @@
 <div class="status"></div>
 </div>
 
+    <div id="container-files-and-details">
+        <div id="areaContainerUpload" class="container">
 
-<div id="areaContainerUpload" class="container" >
-           
-        <div id="areaContainerUploadToggle">
-           
-          <i class="icon-chevron-up"></i>
-        </div>  
-    <div id="messageContainerUpload">
-        <span id="headerMessageContainerUpload">
-        Incarcare fisiere
-        </span>
+            <div id="areaContainerUploadToggle" class="toggle-button">
 
+                <i class="icon-chevron-up"></i>
+            </div>
+            <div id="messageContainerUpload">
+                <span class="headerMessage">Incarcare fisiere
+                </span>
+
+            </div>
+
+            <div id="areaToUpload">
+
+                <div id="dragAndDropFiles" class="uploadArea hero-unit" style="margin-left: 30px;">
+                    <p style="text-align: center;">Realizati drag and drop in aceasta zona pentru a incarca fisierele dorite</p>
+                    <p style="text-align: center; color: grey;">(fisierele trebuie sa fie in format pdf si sa contina semnatura electronica extinsa) </p>
+                </div>
+                <form name="demoFiler" id="demoFiler" enctype="multipart/form-data" style="margin-left: 10px;">
+                    <input type="file" name="multiUpload" id="multiUpload" multiple="multiple" />
+                    <input type="submit" name="submitHandler" id="submitHandler" value="Upload" class="btn btn-info" />
+                </form>
+            </div>
+            <div class="clear-all"></div>
+
+        </div>
+
+
+        <div id="details-container" class="container" >
+            <div id="details-Toggle" class="toggle-button">
+
+                <i class="icon-chevron-down"></i>
+            </div>
+
+            <div id="message-details">
+                <span class="headerMessage">Detalii fisier
+                </span>
+
+            </div>
+            <div id="file-details"  style="display:none;">
+                <label for="acttype">Tipul actului: <span class="required">*</span></label>
+                @Html.DropDownList("ActType")
+                <label for="name">Nume: <span class="required">*</span></label>
+                <input type="text" id="hName" name="name" value="" placeholder="Nume.." required="required" autofocus="autofocus" />
+
+                <label for="reason">Motiv: <span class="required">*</span></label>
+                <input type="email" id="hReason" name="reason" value="" placeholder="Motiv..." required="required" />
+
+                  <label for="message">Mentiuni: <span class="required">*</span></label>  
+                <textarea id="hMessage" name="message" placeholder="Mentiuni..." required="required" data-minlength="20"></textarea> 
+                <button id="saveFileDetails" class="btn btn-info">Salveaza datele</button>
+            </div>
+
+        </div>
     </div>
-    
-    <div id="areaToUpload">
-    
-    <div id="dragAndDropFiles" class="uploadArea hero-unit" style="margin-left:30px;">
-        <p style="text-align:center;">Realizati drag and drop in aceasta zona pentru a incarca fisierele dorite</p>
-        <p style="text-align:center; color: grey;">(fisierele trebuie sa fie in format pdf si sa contina semnatura electronica extinsa) </p>
-    </div>
-    <form name="demoFiler" id="demoFiler" enctype="multipart/form-data" style="margin-left:10px;">
-        <input type="file" name="multiUpload" id="multiUpload" multiple="multiple" />
-        <input type="submit" name="submitHandler" id="submitHandler" value="Upload" class="btn btn-info"/>
-    </form>
-    </div>  
-    <div class="clear-all"></div>
-                   
-</div>
-<div id="area-container-preview" class="container">
-
+    <div id="area-container-preview" class="container">
 </div>
 
 </div>
+
+
+
 
 
 @section AddToBottom{
@@ -87,6 +114,11 @@
     $(document).ready(function () {
         initMultiUploader(config);
 
+    });
+    $("#saveFileDetails").click(function (event) {
+        event.preventDefault();
+        console.log("click!!!");
+       
     });
 
       

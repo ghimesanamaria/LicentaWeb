@@ -212,6 +212,19 @@ namespace eNotaryWebRole.Controllers
             LocalResource resouce = RoleEnvironment.GetLocalResource("eNotarySpace");
             ViewBag.LocalStorage =resouce.RootPath ;
 
+           var act_type_list = from at in _db.ActTypes
+                                    select new
+                                    {
+                                        ID= at.ID,
+                                        Name = at.ActTypeName
+                                    };
+
+
+                     ViewBag.ActType = new SelectList(act_type_list, "ID", "Name", 0);
+        
+
+           
+
             //if (Request.IsAuthenticated)
             //{
                 return View();

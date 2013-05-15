@@ -87,6 +87,7 @@
           <Property Name="ReasonState" Type="nvarchar(max)" />
           <Property Name="Signed" Type="bit" Nullable="false" />
           <Property Name="ExternalUniqueReference" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Mentiuni" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ActType">
           <Key>
@@ -430,6 +431,7 @@
           <NavigationProperty Name="ActType" Relationship="eNotaryDBModel.FK_Acts_ActType" FromRole="Acts" ToRole="ActType" />
           <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_Acts_PersonDetails" FromRole="Acts" ToRole="PersonDetails" />
           <NavigationProperty Name="SignedActs" Relationship="eNotaryDBModel.FK_SignedActs_Acts" FromRole="Acts" ToRole="SignedActs" />
+          <Property Type="String" Name="Mentiuni" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ActType">
           <Key>
@@ -719,6 +721,7 @@
           <EntitySetMapping Name="Acts">
             <EntityTypeMapping TypeName="eNotaryDBModel.Act">
               <MappingFragment StoreEntitySet="Acts">
+                <ScalarProperty Name="Mentiuni" ColumnName="Mentiuni" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ActTypeID" ColumnName="ActTypeID" />
                 <ScalarProperty Name="PersonDetailsID" ColumnName="PersonDetailsID" />

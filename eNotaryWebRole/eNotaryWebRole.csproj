@@ -441,6 +441,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\home\index_home.css" />
+    <Content Include="Content\home\png_preview.css" />
     <Content Include="Content\Icons\x.png" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />

@@ -82,6 +82,7 @@
     <Property Name="ReasonState" Type="nvarchar(max)" />
     <Property Name="Signed" Type="bit" Nullable="false" />
     <Property Name="ExternalUniqueReference" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mentiuni" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="ActType">
     <Key>

@@ -13,12 +13,17 @@
 
 
         $(".png-preview").click(function (event) {
-            console.log(event.target);
-            
+            var id = event.target.id;
+            $("#file-details").show();
+            $("#areaToUpload").hide();
         });
 
 
+      
+
     }
+
+   
     
 
 

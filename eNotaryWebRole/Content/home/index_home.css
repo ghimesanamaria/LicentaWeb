@@ -24,7 +24,7 @@
     overflow: hidden;
 
     float: left;
-    width: 40%;
+    width: 100%;
     height: 100%;
 
     border: 1px solid #CCC;
@@ -40,7 +40,9 @@
 }
 
 
-#areaContainerUploadToggle
+#areaContainerUploadToggle {
+}
+.toggle-button
 {
     z-index: 1;
     position: absolute;
@@ -69,8 +71,8 @@
     overflow: hidden;
 
     float: left;
-    width: 50%;
-    height: 500px;
+    width: 100%;
+    /*height: 500px;*/
 
     border: 1px solid #CCC;
 
@@ -157,7 +159,7 @@
     cursor: pointer;
 }
 
-#headerMessageContainerUpload {
+.headerMessage {
     font-family: 'Century Gothic';
     font-weight: bold;
     font-size: 15px;
@@ -176,7 +178,71 @@
 }
 
 #area-container-preview {
-   width:50%;
-  margin-left:9%;
+   width:55%;
+   float:right;
+ 
+  min-height:535px;
    
+}
+
+#details-container {
+    width:100%;
+    
+    min-height:30px;
+}
+
+#container-files-and-details {
+    float:left;
+    width:40%;
+}
+
+#message-details {
+    padding-bottom:10px;
+    padding-top:10px;
+}
+#file-details {
+    margin:40px;
+}
+
+#file-details input, 
+#file-details select, 
+#file-details textarea {
+	width:450px;
+	border: 1px solid #CEE1E8;
+	margin-bottom:20px;
+	padding:4px;
+}
+
+#file-details input:focus, 
+#file-details select:focus, 
+#file-details textarea:focus {
+	border: 1px solid #AFCDD8;
+	background-color: #EBF2F4;
+}
+
+#file-details textarea {
+	height:150px;
+	resize: none;
+}
+
+#file-details label {
+	display:block;
+}
+
+#file-details .required {
+	font-weight:bold;
+	color:#F00;	
+}
+
+#file-details input, 
+#file-details select, 
+#file-details textarea, 
+#file-details label {
+	font-size:15px;
+	margin-bottom:2px;
+}
+
+#saveFileDetails {
+    margin-top:10px;
+    margin-bottom:10px;
 }
