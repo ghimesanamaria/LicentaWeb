@@ -24,6 +24,11 @@
        
     });
 
+    $("#submitHandler").click(function (e) {
+        $("#areaToUpload").hide();
+        $("#file-details").show();
+    });
+
     $("#details-Toggle").click(function (e) {
 
 

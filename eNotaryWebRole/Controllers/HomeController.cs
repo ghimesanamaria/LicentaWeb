@@ -355,10 +355,12 @@ namespace eNotaryWebRole.Controllers
                         // Create or overwrite the "testContainer" blob with contents from an uploaded fike
 
                         // create unique name for file adding the last record id from table
+                        long rand = 0;
+                        rand = (from a in _db.Acts
+                               select a.ID).Max();
 
-                        var last_act_Registration = _db.Acts.Last().ID;
                         var contentType = file.ContentType;
-                        var blobName = file.FileName+"_"+last_act_Registration;
+                        var blobName = file.FileName+"_"+rand;
                         var blob = subDirectory.GetBlockBlobReference(blobName);
                         blob.Properties.ContentType = contentType;
                         blob.UploadFromStream(streamContents);
@@ -378,6 +380,7 @@ namespace eNotaryWebRole.Controllers
                             Reason="",//must be edited after the upload is reloaded
                             Disabled = true
                         };
+                        _db.Acts.Add(new_act);
                         _db.SaveChanges();
 
                         var url = HttpContext.Request.PhysicalApplicationPath;
@@ -387,11 +390,8 @@ namespace eNotaryWebRole.Controllers
 
                         ///must find an unique name
                         ///
-                        long rand = 0;
-                        using (eNotaryDBEFEntities db = new eNotaryDBEFEntities()){
-                            rand = (from a in db.Acts
-                                   select a).Last().ID;
-                        }
+                       
+                       
                         pdf_to_bitmap.create_bitmap(streamContents, blobName.Split('.')[0]+rand+".png", url);
 
                         png_preview_List.Add(file.FileName.Split('.')[0] + rand + ".png");

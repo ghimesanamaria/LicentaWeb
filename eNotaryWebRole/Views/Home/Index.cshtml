@@ -41,8 +41,15 @@
                     <p style="text-align: center; color: grey;">(fisierele trebuie sa fie in format pdf si sa contina semnatura electronica extinsa) </p>
                 </div>
                 <form name="demoFiler" id="demoFiler" enctype="multipart/form-data" style="margin-left: 10px;">
-                    <input type="file" name="multiUpload" id="multiUpload" multiple="multiple" />
-                    <input type="submit" name="submitHandler" id="submitHandler" value="Upload" class="btn btn-info" />
+                    <div class="fileinputs">
+                    <input type="file" name="multiUpload" id="multiUpload" multiple="multiple" class="file" />
+                    <div class="fakefile input-append">
+                        <input value="Incarcati fisiere.." />
+                        <button class="btn" style="margin-top:5px; padding-top:6px; "><i class="icon-search"></i></button>
+                    </div>
+                         <input type="submit" name="submitHandler" id="submitHandler" value="Upload" class="btn btn-info" />
+                        </div>
+                   
                 </form>
             </div>
             <div class="clear-all"></div>
@@ -120,7 +127,31 @@
         console.log("click!!!");
        
     });
+        //script for upload style
 
+    var W3CDOM = (document.createElement && document.getElementsByTagName);
+
+    function initFileUploads() {
+        if (!W3CDOM) return;
+        var fakeFileUpload = document.createElement('div');
+        fakeFileUpload.className = 'fakefile';
+        fakeFileUpload.appendChild(document.createElement('input'));
+        var image = document.createElement('img');
+        image.src='pix/button_select.gif';
+        fakeFileUpload.appendChild(image);
+        var x = document.getElementsByTagName('input');
+        for (var i=0;i<x.length;i++) {
+            if (x[i].type != 'file') continue;
+            if (x[i].parentNode.className != 'fileinputs') continue;
+            x[i].className = 'file hidden';
+            var clone = fakeFileUpload.cloneNode(true);
+            x[i].parentNode.appendChild(clone);
+            x[i].relatedElement = clone.getElementsByTagName('input')[0];
+            x[i].onchange = x[i].onmouseout = function () {
+                this.relatedElement.value = this.value;
+            }
+        }
+    }
       
 
 
