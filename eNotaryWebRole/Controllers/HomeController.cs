@@ -59,6 +59,7 @@ namespace eNotaryWebRole.Controllers
     {
 
         private System.ComponentModel.Container components = null;
+        string username = "user_test";
 
 
         // variables to verify if pdfs are signed 
@@ -355,12 +356,29 @@ namespace eNotaryWebRole.Controllers
 
                         // create unique name for file adding the last record id from table
 
-
+                        var last_act_Registration = _db.Acts.Last().ID;
                         var contentType = file.ContentType;
-                        var blobName = file.FileName;
+                        var blobName = file.FileName+"_"+last_act_Registration;
                         var blob = subDirectory.GetBlockBlobReference(blobName);
                         blob.Properties.ContentType = contentType;
                         blob.UploadFromStream(streamContents);
+
+                        User user = _db.Users.Where(x => x.Username == username).FirstOrDefault();
+
+
+                        //save the file in database
+
+                        Act new_act = new Act()
+                        {
+                            PersonDetailsID = user.ID,
+                            ExternalUniqueReference = blobName,
+                            CreationDate = DateTime.Now,
+                            Signed = false,
+                            State="nevizualizat",
+                            Reason="",//must be edited after the upload is reloaded
+                            Disabled = true
+                        };
+                        _db.SaveChanges();
 
                         var url = HttpContext.Request.PhysicalApplicationPath;
                         //create png image from first page to use it for preview
@@ -372,9 +390,9 @@ namespace eNotaryWebRole.Controllers
                         long rand = 0;
                         using (eNotaryDBEFEntities db = new eNotaryDBEFEntities()){
                             rand = (from a in db.Acts
-                                   select a).FirstOrDefault().ID;
+                                   select a).Last().ID;
                         }
-                        pdf_to_bitmap.create_bitmap(streamContents, file.FileName.Split('.')[0]+rand+".png", url);
+                        pdf_to_bitmap.create_bitmap(streamContents, blobName.Split('.')[0]+rand+".png", url);
 
                         png_preview_List.Add(file.FileName.Split('.')[0] + rand + ".png");
                       

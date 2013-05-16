@@ -86,8 +86,9 @@
           <Property Name="State" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ReasonState" Type="nvarchar(max)" />
           <Property Name="Signed" Type="bit" Nullable="false" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
           <Property Name="ExternalUniqueReference" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Mentiuni" Type="nvarchar(max)" />
+          <Property Name="ExtraDetails" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ActType">
           <Key>
@@ -217,7 +218,7 @@
           <Property Name="PersonID" Type="bigint" Nullable="false" />
           <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="PsswdEncrypt" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="DigitalCertificate" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DigitalCertificate" Type="nvarchar(max)" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_Acts_ActType">
@@ -431,7 +432,8 @@
           <NavigationProperty Name="ActType" Relationship="eNotaryDBModel.FK_Acts_ActType" FromRole="Acts" ToRole="ActType" />
           <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_Acts_PersonDetails" FromRole="Acts" ToRole="PersonDetails" />
           <NavigationProperty Name="SignedActs" Relationship="eNotaryDBModel.FK_SignedActs_Acts" FromRole="Acts" ToRole="SignedActs" />
-          <Property Type="String" Name="Mentiuni" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Disabled" Nullable="false" />
+          <Property Type="String" Name="ExtraDetails" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ActType">
           <Key>
@@ -545,7 +547,7 @@
           <Property Name="PersonID" Type="Int64" Nullable="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="PsswdEncrypt" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="DigitalCertificate" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="DigitalCertificate" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_Users_PersonDetails" FromRole="Users" ToRole="PersonDetails" />
           <NavigationProperty Name="UserRole" Relationship="eNotaryDBModel.FK_Users_UserRoles" FromRole="Users" ToRole="UserRoles" />
@@ -721,7 +723,8 @@
           <EntitySetMapping Name="Acts">
             <EntityTypeMapping TypeName="eNotaryDBModel.Act">
               <MappingFragment StoreEntitySet="Acts">
-                <ScalarProperty Name="Mentiuni" ColumnName="Mentiuni" />
+                <ScalarProperty Name="ExtraDetails" ColumnName="ExtraDetails" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ActTypeID" ColumnName="ActTypeID" />
                 <ScalarProperty Name="PersonDetailsID" ColumnName="PersonDetailsID" />

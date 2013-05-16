@@ -4,7 +4,8 @@
     <EntitySetMapping Name="Acts">
       <EntityTypeMapping TypeName="eNotaryDBModel.Act">
         <MappingFragment StoreEntitySet="Acts">
-          <ScalarProperty Name="Mentiuni" ColumnName="Mentiuni" />
+          <ScalarProperty Name="ExtraDetails" ColumnName="ExtraDetails" />
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ActTypeID" ColumnName="ActTypeID" />
           <ScalarProperty Name="PersonDetailsID" ColumnName="PersonDetailsID" />

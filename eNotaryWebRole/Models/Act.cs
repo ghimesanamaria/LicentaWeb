@@ -29,7 +29,8 @@ namespace eNotaryWebRole.Models
         public string ReasonState { get; set; }
         public bool Signed { get; set; }
         public string ExternalUniqueReference { get; set; }
-        public string Mentiuni { get; set; }
+        public bool Disabled { get; set; }
+        public string ExtraDetails { get; set; }
     
         public virtual ActType ActType { get; set; }
         public virtual PersonDetail PersonDetail { get; set; }

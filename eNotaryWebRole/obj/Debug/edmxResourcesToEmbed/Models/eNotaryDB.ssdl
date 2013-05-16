@@ -81,8 +81,9 @@
     <Property Name="State" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ReasonState" Type="nvarchar(max)" />
     <Property Name="Signed" Type="bit" Nullable="false" />
+    <Property Name="Disabled" Type="bit" Nullable="false" />
     <Property Name="ExternalUniqueReference" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Mentiuni" Type="nvarchar(max)" />
+    <Property Name="ExtraDetails" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="ActType">
     <Key>
@@ -212,7 +213,7 @@
     <Property Name="PersonID" Type="bigint" Nullable="false" />
     <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="PsswdEncrypt" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DigitalCertificate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DigitalCertificate" Type="nvarchar(max)" />
     <Property Name="CreationDate" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="FK_Acts_ActType">
