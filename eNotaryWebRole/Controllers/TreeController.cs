@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using eNotaryWebRole.Models;
 using System.Web.Script.Serialization;
 using System.Data.SqlClient;
+using System.Data.Objects.SqlClient;
 
 namespace eNotaryWebRole.Controllers
 {
@@ -127,24 +128,24 @@ namespace eNotaryWebRole.Controllers
                                  {
                                      
                                      data = p.LastName,
-                                     id = p.ID,
-                                     attr = new { id = p.ID, description = "person" },
+                                     id = SqlFunctions.StringConvert((decimal?)p.ID).Trim() + "_unsignedUV",
+                                     attr = new { id = SqlFunctions.StringConvert((decimal?) p.ID).Trim()+"_unsignedUV", description = "person" },
                                      state = "closed"
 
-                                 })).ToList();
-                        List<JsTreeModel> list_Person = new List<JsTreeModel>();
-                        foreach (var v in q)
-                        {
-                            JsTreeData data = new JsTreeData(v.data, "");
-                            JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedUV", false, "","person");
-                            list_Person.Add(
-                                new JsTreeModel(data,"closed","",attr,null)
-                                );
-                        }
+                                 })).Distinct().ToList();
+                        //List<JsTreeModel> list_Person = new List<JsTreeModel>();
+                        //foreach (var v in q)
+                        //{
+                        //    JsTreeData data = new JsTreeData(v.data, "");
+                        //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedUV", false, "","person");
+                        //    list_Person.Add(
+                        //        new JsTreeModel(data,"closed","",attr,null)
+                        //        );
+                        //}
                      
 
                        
-                        return Json(list_Person);
+                        return Json(q);
 
 
                     } 
@@ -160,23 +161,23 @@ namespace eNotaryWebRole.Controllers
                                    {
 
                                        data = p.LastName,
-                                       id = p.ID,
-                                       attr = new { id = p.ID, description="person" },
+                                       id = SqlFunctions.StringConvert((decimal?)p.ID).Trim() + "_signed",
+                                       attr = new { id = SqlFunctions.StringConvert((decimal?)p.ID).Trim() + "_signed", description = "person" },
                                        state = "closed"
 
-                                   });
+                                   }).Distinct();
 
 
-                        List<JsTreeModel> list_Person = new List<JsTreeModel>();
-                        foreach (var v in q2)
-                        {
-                            JsTreeData data = new JsTreeData(v.data, "");
-                            JsTreeAttribute attr = new JsTreeAttribute(v.id + "_signed", false, "", "person");
-                            list_Person.Add(
-                                new JsTreeModel(data, "closed", "", attr, null)
-                                );
-                        }
-                        return Json(list_Person);
+                        //List<JsTreeModel> list_Person = new List<JsTreeModel>();
+                        //foreach (var v in q2)
+                        //{
+                        //    JsTreeData data = new JsTreeData(v.data, "");
+                        //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_signed", false, "", "person");
+                        //    list_Person.Add(
+                        //        new JsTreeModel(data, "closed", "", attr, null)
+                        //        );
+                        //}
+                        return Json(q2);
                     }
                     break;
                 case "-3":
@@ -190,21 +191,21 @@ namespace eNotaryWebRole.Controllers
                                   {
 
                                       data = p.LastName,
-                                      id = p.ID,
-                                      attr = new { id = p.ID , description = "person" },
+                                      id = SqlFunctions.StringConvert((decimal)p.ID) + "_unsignedVI",
+                                      attr = new { id =SqlFunctions.StringConvert((decimal) p.ID)+"_unsignedVI" , description = "person" },
                                       state = "closed"
 
-                                  });
-                        List<JsTreeModel> list_Person = new List<JsTreeModel>();
-                        foreach (var v in q3)
-                        {
-                            JsTreeData data = new JsTreeData(v.data, "");
-                            JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedVI", false, "", "person");
-                            list_Person.Add(
-                                new JsTreeModel(data, "closed", "", attr, null)
-                                );
-                        }
-                        return Json(list_Person);
+                                  }).Distinct();
+                        //List<JsTreeModel> list_Person = new List<JsTreeModel>();
+                        //foreach (var v in q3)
+                        //{
+                        //    JsTreeData data = new JsTreeData(v.data, "");
+                        //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedVI", false, "", "person");
+                        //    list_Person.Add(
+                        //        new JsTreeModel(data, "closed", "", attr, null)
+                        //        );
+                        //}
+                        return Json(q3);
                     }
                     break;
                 default:
@@ -217,22 +218,22 @@ namespace eNotaryWebRole.Controllers
                                       new
                                       {
                                           data = a.ExternalUniqueReference,
-                                          id = a.ID,
-                                          attr = new { id = a.ID, description = "act" },
+                                          id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_unsignedUVAct",
+                                          attr = new { id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_unsignedUVAct", description = "act" },
                                           state = String.Empty
-                                      });
+                                      }).Distinct();
 
 
-                            List<JsTreeModel> list_acts = new List<JsTreeModel>();
-                            foreach (var v in q4)
-                            {
-                                JsTreeData data = new JsTreeData(v.data, "");
-                                JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedUVAct", false, "", "act");
-                                list_acts.Add(
-                                    new JsTreeModel(data, "", "", attr, null)
-                                    );
-                            }
-                            return Json(list_acts);
+                            //List<JsTreeModel> list_acts = new List<JsTreeModel>();
+                            //foreach (var v in q4)
+                            //{
+                            //    JsTreeData data = new JsTreeData(v.data, "");
+                            //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedUVAct", false, "", "act");
+                            //    list_acts.Add(
+                            //        new JsTreeModel(data, "", "", attr, null)
+                            //        );
+                            //}
+                            return Json(q4);
                         }
                         else
                             if (typeAct == -2)
@@ -243,21 +244,21 @@ namespace eNotaryWebRole.Controllers
                                           new
                                           {
                                               data = a.ExternalUniqueReference,
-                                              id = a.ID,
-                                              attr = new { id = a.ID, description = "act" },
+                                              id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_unsignedVIAct",
+                                              attr = new { id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_unsignedVIAct", description = "act" },
                                               state = String.Empty
                                           });
 
-                                List<JsTreeModel> list_acts = new List<JsTreeModel>();
-                                foreach (var v in q4)
-                                {
-                                    JsTreeData data = new JsTreeData(v.data, "");
-                                    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedVIAct", false, "", "act");
-                                    list_acts.Add(
-                                        new JsTreeModel(data, "", "", attr, null)
-                                        );
-                                }
-                                return Json(list_acts);
+                                //List<JsTreeModel> list_acts = new List<JsTreeModel>();
+                                //foreach (var v in q4)
+                                //{
+                                //    JsTreeData data = new JsTreeData(v.data, "");
+                                //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedVIAct", false, "", "act");
+                                //    list_acts.Add(
+                                //        new JsTreeModel(data, "", "", attr, null)
+                                //        );
+                                //}
+                                return Json(q4);
 
                             }
                             else
@@ -268,20 +269,20 @@ namespace eNotaryWebRole.Controllers
                                           new
                                           {
                                               data = a.ExternalUniqueReference,
-                                              id = a.ID,
-                                              attr = new { id = a.ID, description = "act" },
+                                              id = SqlFunctions.StringConvert((decimal?) a.ID)+"_signedAct",
+                                              attr = new { id = SqlFunctions.StringConvert((decimal?)a.ID) + "_signedAct", description = "act" },
                                               state = String.Empty
-                                          });
-                                List<JsTreeModel> list_acts = new List<JsTreeModel>();
-                                foreach (var v in q5)
-                                {
-                                    JsTreeData data = new JsTreeData(v.data, "");
-                                    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_signedAct", false, "", "act");
-                                    list_acts.Add(
-                                        new JsTreeModel(data, "", "", attr, null)
-                                        );
-                                }
-                                return Json(list_acts);
+                                          }).Distinct();
+                                //List<JsTreeModel> list_acts = new List<JsTreeModel>();
+                                //foreach (var v in q5)
+                                //{
+                                //    JsTreeData data = new JsTreeData(v.data, "");
+                                //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_signedAct", false, "", "act");
+                                //    list_acts.Add(
+                                //        new JsTreeModel(data, "", "", attr, null)
+                                //        );
+                                //}
+                                return Json(q5);
                             }
                     }
                     break;

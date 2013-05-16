@@ -177,17 +177,26 @@ namespace eNotaryWebRole.Controllers
         {
             // verify which action was triggered sign document or save details about act
             long idAct = 0;
+            string type = "";
             if (!string.IsNullOrEmpty(collection["sgSignDocument"]))
             {
                 foreach (string coll in collection.AllKeys)
                 {
                     if (coll.Contains("check_act"))
                     {
-                         idAct = long.Parse(collection[coll]);
+                         idAct = long.Parse(collection[coll].Split('_')[0]);
+                        type=collection[coll].Split('_')[1];
                     }
                 }
 
-                string externalUniqueRef = _db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
+                string externalUniqueRef ="";
+                if(type!="signedAct"){
+                
+                externalUniqueRef= _db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
+                }
+                else{
+                    externalUniqueRef = _db.SignedActs.Where(o=>o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
+                }
 
                 signAdvancedPDF(externalUniqueRef);
 
@@ -537,7 +546,7 @@ namespace eNotaryWebRole.Controllers
             var url = HttpContext.Request.PhysicalApplicationPath;
             try
             {
-                using (FileStream fileStream = new FileStream(url + "\\Fisiere\\test.jpg", FileMode.Create))
+                using (FileStream fileStream = new FileStream(url + "\\Fisiere\\"+extUniqueRefAct, FileMode.Create))
                 {
                     blockBlob.DownloadToStream(fileStream);
 
@@ -550,18 +559,21 @@ namespace eNotaryWebRole.Controllers
 
             // Step 2. Create a new PdfDocument
 
-            PdfSharp.Pdf.PdfDocument doc = new PdfSharp.Pdf.PdfDocument();
-            doc.Pages.Add(new PdfSharp.Pdf.PdfPage());
-            XGraphics xgr = XGraphics.FromPdfPage(doc.Pages[0]);
+            if (extUniqueRefAct.Split('.')[1] != "pdf")
+            {
+                PdfSharp.Pdf.PdfDocument doc = new PdfSharp.Pdf.PdfDocument();
+                doc.Pages.Add(new PdfSharp.Pdf.PdfPage());
+                XGraphics xgr = XGraphics.FromPdfPage(doc.Pages[0]);
 
-            //get the image            
+                //get the image            
 
-            XImage img = XImage.FromFile(url + "\\Fisiere\\test.jpg");
-            xgr.DrawImage(img, 0, 0);
-            //save the image in format pdf
-            doc.Save(url + "\\Fisiere\\test.pdf");
-            doc.Close();
-
+                XImage img = XImage.FromFile(url + "\\Fisiere\\" + extUniqueRefAct);
+                xgr.DrawImage(img, 0, 0);
+                //save the image in format pdf
+                doc.Save(url + "\\Fisiere\\" + extUniqueRefAct.Split('.')[0] + ".pdf");
+                doc.Close();
+            }
+           
 
             m_TspClient = new TElHTTPTSPClient();
             init_function();
@@ -588,6 +600,9 @@ namespace eNotaryWebRole.Controllers
                         m_TspClient.URL = "http://inoa.net/ca/tsa";
                         m_TspClient.HashAlgorithm = SBConstants.Unit.SB_ALGORITHM_DGST_SHA1;
                         m_Handler.TSPClient = m_TspClient;
+
+                        sig.WidgetProps.StretchX = 200;
+                        sig.WidgetProps.StretchY = 200;
                       
                      
                         
@@ -610,7 +625,7 @@ namespace eNotaryWebRole.Controllers
                 {
                 // save the signed document to blob
 
-                    FileStream file = new FileStream(url+"\\Fisiere\\test.pdf", FileMode.Open, FileAccess.ReadWrite); ;
+                    FileStream file = new FileStream(url+"\\Fisiere\\"+extUniqueRefAct.Split('.')[0]+".pdf", FileMode.Open, FileAccess.ReadWrite); ;
                   
                         
 
@@ -620,7 +635,7 @@ namespace eNotaryWebRole.Controllers
                 
                 // subdirectory name as username to identify from the blob hierarchy who uploaded the file
                     // get a unique name 
-                        var blobName = "test.pdf";
+                    var blobName = extUniqueRefAct.Split('.')[0] + ".pdf";
 
                     var blob = subDirectory2.GetBlockBlobReference(blobName);
                     blob.Properties.ContentType = contentType;
@@ -636,7 +651,7 @@ namespace eNotaryWebRole.Controllers
                         Name = "Certificat nastere semnat",
                         CreationDate =DateTime.Now,
                         ActID = 1,
-                        ExternalUniqueReference = "test.pdf",
+                        ExternalUniqueReference = extUniqueRefAct.Split('.')[0] + ".pdf",
                         SentToClient = true,
                         Signed = true,
                         
@@ -755,21 +770,13 @@ namespace eNotaryWebRole.Controllers
             }
             
             var url = HttpContext.Request.PhysicalApplicationPath;
-            string type;
-            // must extract the type of file 
-            if (parentID == -1 || parentID == -3)
-            {
-                type = "jpg";
-            }
-            else
-            {
-                type = "pdf";
-            }
+            
+       
 
            
             try
             {
-                using (var stream = System.IO.File.OpenWrite(url+"\\Fisiere\\temp_jpeg."+type))
+                using (var stream = System.IO.File.OpenWrite(url+"\\Fisiere\\"+blockBlob.Name))
                 {
                     blockBlob.BeginDownloadToStream(stream, null, null);
                     blockBlob.DownloadToStream(stream);
@@ -789,7 +796,7 @@ namespace eNotaryWebRole.Controllers
             return Json(new  {
              act = model, 
              person = personDetail,
-             nameFile = "temp_jpeg."+type
+             nameFile = blockBlob.Name
             
             });
 

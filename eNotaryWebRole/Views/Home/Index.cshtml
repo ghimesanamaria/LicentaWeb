@@ -127,7 +127,7 @@
     $("#saveFileDetails").click(function (event) {
         event.preventDefault();
        var param = new Object();
-       param.id = $("div.div-preview").find("img.clicked")[0].id;
+       param.ID = $("div.div-preview").find("img.clicked")[0].id;
        param.Name = $("#hName").val();
        param.ActTypeID = $("#ActType").find(":selected").val();
        param.ExtraDetails = $("#hMessage").val();
@@ -139,7 +139,7 @@
             url: '@Url.Content("~/Home/SaveDataFile/")',
             dataType: 'json',
             data: parameter,
-
+            contentType: "application/json",
             success: function (data) {
                 console.log(data);
             },

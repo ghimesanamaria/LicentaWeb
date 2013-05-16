@@ -241,16 +241,16 @@ namespace eNotaryWebRole.Controllers
 
 
          [HttpPost]
-        public ActionResult SaveDataFile(string id, string Name, string ActTypeID, string ExtraDetails, string Reason)
+        public ActionResult SaveDataFile(string ID, string Name, string ActTypeID, string ExtraDetails, string Reason)
         {
 
             string message = "Datele au fost salvate cu succes!";
-             long ID=long.Parse(id);
+             long id=long.Parse(ID);
 
 
             try
             {
-                Act uploaded_Act = _db.Acts.Where(x => x.ID == ID).FirstOrDefault();
+                Act uploaded_Act = _db.Acts.Where(x => x.ID == id).FirstOrDefault();
                 uploaded_Act.Name = Name;
                 uploaded_Act.ActTypeID = long.Parse(ActTypeID);
                 uploaded_Act.ExtraDetails = ExtraDetails;
@@ -266,7 +266,7 @@ namespace eNotaryWebRole.Controllers
                 message = "In timpul salvarii datelor au avut loc niste probleme. Va rugam repetati completarea datelor si salvati din nou!";
             }
 
-            return Json("");
+            return Json(message);
         }
 
 
@@ -395,7 +395,7 @@ namespace eNotaryWebRole.Controllers
                                select a.ID).Max();
 
                         var contentType = file.ContentType;
-                        var blobName = file.FileName+"_"+rand;
+                        var blobName = file.FileName.Split('.')[0]+"_"+rand+"."+file.FileName.Split('.')[1];
                         var blob = subDirectory.GetBlockBlobReference(blobName);
                         blob.Properties.ContentType = contentType;
                         blob.UploadFromStream(streamContents);
@@ -426,11 +426,11 @@ namespace eNotaryWebRole.Controllers
 
                         ///must find an unique name
                         ///
-                       
-                       
-                        pdf_to_bitmap.create_bitmap(streamContents, blobName.Split('.')[0]+rand+".png", url);
 
-                        png_preview_List.Add(new_act.ID.ToString(),file.FileName.Split('.')[0] + rand + ".png");
+
+                        pdf_to_bitmap.create_bitmap(streamContents, file.FileName.Split('.')[0]+"_" + rand + ".png", url);
+
+                        png_preview_List.Add(new_act.ID.ToString(),file.FileName.Split('.')[0]+"_" + rand + ".png");
                       
 
                     }
