@@ -178,10 +178,10 @@
 }
 
 #area-container-preview {
-   width:55%;
+   width:57%;
    float:right;
  
-  min-height:535px;
+  min-height:510px;
    
 }
 
@@ -201,7 +201,7 @@
     padding-top:10px;
 }
 #file-details {
-    margin:40px;
+    margin:37px;
 }
 
 #file-details input, 

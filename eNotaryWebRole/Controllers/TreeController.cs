@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using eNotaryWebRole.Models;
 using System.Web.Script.Serialization;
+using System.Data.SqlClient;
 
 namespace eNotaryWebRole.Controllers
 {
@@ -119,6 +120,7 @@ namespace eNotaryWebRole.Controllers
                         var q = ((from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat")
                                  join p in _db.PersonDetails
                                  on a.PersonDetailsID equals p.ID
+                                 where a.Disabled ==false
 
                                  select
                                  new

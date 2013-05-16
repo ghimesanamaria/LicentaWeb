@@ -49,6 +49,9 @@ using SBHTTPTSPClient;
 using SBOCSPClient;
 using SBWinCertStorage;
 
+
+using System.Web.Script.Serialization;
+
 namespace eNotaryWebRole.Controllers
 {
     using eNotaryWebRole.Code;
@@ -235,6 +238,36 @@ namespace eNotaryWebRole.Controllers
             //return RedirectToAction("Login", "Account");
         }
 
+
+
+         [HttpPost]
+        public ActionResult SaveDataFile(string id, string Name, string ActTypeID, string ExtraDetails, string Reason)
+        {
+
+            string message = "Datele au fost salvate cu succes!";
+             long ID=long.Parse(id);
+
+
+            try
+            {
+                Act uploaded_Act = _db.Acts.Where(x => x.ID == ID).FirstOrDefault();
+                uploaded_Act.Name = Name;
+                uploaded_Act.ActTypeID = long.Parse(ActTypeID);
+                uploaded_Act.ExtraDetails = ExtraDetails;
+                uploaded_Act.Reason = Reason;
+                uploaded_Act.Disabled = false;
+
+
+
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return Json("");
+        }
+
+
         [HttpPost]
         public ActionResult Index(IEnumerable<HttpPostedFileBase> files)
         {
@@ -269,7 +302,7 @@ namespace eNotaryWebRole.Controllers
           string messages = "Fiserele au fost  incarcat cu succes!"; 
           init_function();
           Dictionary<string, List<SignatureDetailsViewModel> > docsSigs = new Dictionary<string, List<SignatureDetailsViewModel>>();
-          List<string> png_preview_List = new List<string>();
+          Dictionary<string,string> png_preview_List = new Dictionary<string,string>();
 
           if (Request.Files.Count > 0)
           {
@@ -378,7 +411,8 @@ namespace eNotaryWebRole.Controllers
                             Signed = false,
                             State="nevizualizat",
                             Reason="",//must be edited after the upload is reloaded
-                            Disabled = true
+                            Disabled = true,
+                            ActTypeID = 1// this will be changed
                         };
                         _db.Acts.Add(new_act);
                         _db.SaveChanges();
@@ -394,7 +428,7 @@ namespace eNotaryWebRole.Controllers
                        
                         pdf_to_bitmap.create_bitmap(streamContents, blobName.Split('.')[0]+rand+".png", url);
 
-                        png_preview_List.Add(file.FileName.Split('.')[0] + rand + ".png");
+                        png_preview_List.Add(new_act.ID.ToString(),file.FileName.Split('.')[0] + rand + ".png");
                       
 
                     }
@@ -408,12 +442,15 @@ namespace eNotaryWebRole.Controllers
                     }
                 }
              }
+             JavaScriptSerializer jsonserializer = new JavaScriptSerializer();
 
+              string png_list= jsonserializer.Serialize(png_preview_List);
+             
              return Json(
                  new
                  {
                      list = docsSigs,
-                     png_preview_List,
+                     png_list,
                      messages = messages
                  }
                  );
@@ -612,7 +649,7 @@ namespace eNotaryWebRole.Controllers
 
           return model;
       }
-
+       
 
      
     }

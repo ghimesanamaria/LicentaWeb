@@ -5,15 +5,24 @@
     window.get_preview_images = function (list_of_preview_images) {
 
         // dinamycally add the png files 
+        console.log(list_of_preview_images);
+        png_list = list_of_preview_images.replace("{", "").replace("}", "").replace(/"/g, "").split(",");
+        console.log(png_list);
 
-        $.each(list_of_preview_images, function (index, value) {
-            $("#area-container-preview").html("<div class='div-preview'><img src='Content/pdf_preview/" + value + "'  id=" + index + "  class='png-preview'> </div>");
+        $.each(png_list, function (index, value) {
+            temp = value.split(":");
+            console.log(temp);
+            $("#area-container-preview").html("<div class='div-preview'><img src='Content/pdf_preview/" + temp[1] + "'  id=" + temp[0] + "  class='png-preview'> </div>");
 
         });
 
 
         $(".png-preview").click(function (event) {
-            var id = event.target.id;
+            image_clicked = event.target.id;
+            $.each($("div.div-preview").find("img.clicked"), function (index, value) {
+                $(value.id).removeClass("clicked");
+            });
+            $("#" + image_clicked).addClass('clicked');
             $("#file-details").show();
             $("#areaToUpload").hide();
         });

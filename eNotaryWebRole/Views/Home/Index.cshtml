@@ -75,7 +75,7 @@
                 <input type="text" id="hName" name="name" value="" placeholder="Nume.." required="required" autofocus="autofocus" />
 
                 <label for="reason">Motiv: <span class="required">*</span></label>
-                <input type="email" id="hReason" name="reason" value="" placeholder="Motiv..." required="required" />
+                <input type="text" id="hReason" name="reason" value="" placeholder="Motiv..." required="required" />
 
                   <label for="message">Mentiuni: <span class="required">*</span></label>  
                 <textarea id="hMessage" name="message" placeholder="Mentiuni..." required="required" data-minlength="20"></textarea> 
@@ -84,8 +84,9 @@
 
         </div>
     </div>
+    <div id="information-preview-message" class="alert alert-error"> Fisiere incarcate trebuie sa fie editate. Dati click pe imagine si se va afisa un formular corespunzator! </div>
     <div id="area-container-preview" class="container">
-</div>
+    </div>
 
 </div>
 
@@ -120,38 +121,39 @@
     //Initiate file uploader.
     $(document).ready(function () {
         initMultiUploader(config);
-
+       
     });
+    var image_clicked = 0;
     $("#saveFileDetails").click(function (event) {
         event.preventDefault();
-        console.log("click!!!");
+       var param = new Object();
+       param.id = $("div.div-preview").find("img.clicked")[0].id;
+       param.Name = $("#hName").val();
+       param.ActTypeID = $("#ActType").find(":selected").val();
+       param.ExtraDetails = $("#hMessage").val();
+       param.Reason = $("#hReason").val();
+      
+        var parameter = JSON.stringify(param);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content("~/Home/SaveDataFile/")',
+            dataType: 'json',
+            data: parameter,
+
+            success: function (data) {
+                console.log(data);
+            },
+
+            error: function () {
+                console.log('eroare');
+
+            }
+        });
        
     });
         //script for upload style
 
-    var W3CDOM = (document.createElement && document.getElementsByTagName);
-
-    function initFileUploads() {
-        if (!W3CDOM) return;
-        var fakeFileUpload = document.createElement('div');
-        fakeFileUpload.className = 'fakefile';
-        fakeFileUpload.appendChild(document.createElement('input'));
-        var image = document.createElement('img');
-        image.src='pix/button_select.gif';
-        fakeFileUpload.appendChild(image);
-        var x = document.getElementsByTagName('input');
-        for (var i=0;i<x.length;i++) {
-            if (x[i].type != 'file') continue;
-            if (x[i].parentNode.className != 'fileinputs') continue;
-            x[i].className = 'file hidden';
-            var clone = fakeFileUpload.cloneNode(true);
-            x[i].parentNode.appendChild(clone);
-            x[i].relatedElement = clone.getElementsByTagName('input')[0];
-            x[i].onchange = x[i].onmouseout = function () {
-                this.relatedElement.value = this.value;
-            }
-        }
-    }
+    
       
 
 
