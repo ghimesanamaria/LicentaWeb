@@ -256,12 +256,14 @@ namespace eNotaryWebRole.Controllers
                 uploaded_Act.ExtraDetails = ExtraDetails;
                 uploaded_Act.Reason = Reason;
                 uploaded_Act.Disabled = false;
+                _db.SaveChanges();
 
 
 
             }
             catch (Exception ex)
             {
+                message = "In timpul salvarii datelor au avut loc niste probleme. Va rugam repetati completarea datelor si salvati din nou!";
             }
 
             return Json("");
