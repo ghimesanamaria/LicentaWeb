@@ -154,10 +154,9 @@ D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\obj\Debug\Interop.CERTENROLLLib.dl
 D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\obj\Debug\eNotaryWebRole.csproj.ResolveComReference.cache
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\eNotaryWebRole.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\eNotaryWebRole.pdb
-C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\EntityFramework.xml
-C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\System.Web.Mvc.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\Interop.CERTCLIENTLib.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\Interop.CERTENROLLLib.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.csproj.ResolveComReference.cache
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.pdb
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.csprojResolveAssemblyReference.cache
