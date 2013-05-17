@@ -159,3 +159,4 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\eNotaryWebRole.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\eNotaryWebRole.pdb
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.pdb
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.csprojResolveAssemblyReference.cache
