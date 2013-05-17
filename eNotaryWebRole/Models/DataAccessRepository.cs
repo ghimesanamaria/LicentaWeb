@@ -125,13 +125,18 @@ namespace eNotaryWebRole.Models
 
            new_Act.Name = act_name;
            new_Act.ReasonSigned = act_reason_signed;
-
            new_Act.SentToClient = act_sent_to_client;
            new_Act.Signed = act_signed;
            new_Act.ExtraDetails = act_extra_details;
            new_Act.CreatePersonID = user_ID;
            new_Act.CreationDate = DateTime.Now;
            new_Act.ActID = related_act.ID;
+
+
+           long max_id = _db.SignedActs.Select(x => x.ID).Max();
+
+           string unique_ref = "signed_act"+max_id+".pdf";
+           new_Act.ExternalUniqueReference = unique_ref;
 
            
 

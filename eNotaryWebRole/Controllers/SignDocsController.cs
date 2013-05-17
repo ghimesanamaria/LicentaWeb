@@ -512,10 +512,10 @@ namespace eNotaryWebRole.Controllers
             CertValidator.ForceCompleteChainValidationForTrusted = false;
         }
 
-        public void function_init_document()
+        public void function_init_document(string filename)
         {
             var url = HttpContext.Request.PhysicalApplicationPath;
-            PrepareTemporaryFile(url + "\\Fisiere\\test.pdf");
+            PrepareTemporaryFile(url + "\\Fisiere\\"+filename);
                 try
                 {
                     m_CurrDoc = new TElPDFDocument();
@@ -629,7 +629,7 @@ namespace eNotaryWebRole.Controllers
 
             m_TspClient = new TElHTTPTSPClient();
             init_function();
-            function_init_document();
+            function_init_document(extUniqueRefAct.Split('.')[0] + ".pdf");
             try
                 {
                     try
@@ -694,23 +694,23 @@ namespace eNotaryWebRole.Controllers
                     blob.UploadFromStream(streamContents);
 
 
-                // save the signed act to db 
+                //// save the signed act to db 
 
-                    SignedAct act = new SignedAct()
-                    {
+                //    SignedAct act = new SignedAct()
+                //    {
                         
-                        CreatePersonID = 2,
-                        Name = "Certificat nastere semnat",
-                        CreationDate =DateTime.Now,
-                        ActID = 1,
-                        ExternalUniqueReference = extUniqueRefAct.Split('.')[0] + ".pdf",
-                        SentToClient = true,
-                        Signed = true,
+                //        CreatePersonID = 2,
+                //        Name = "Certificat nastere semnat",
+                //        CreationDate =DateTime.Now,
+                //        ActID = 1,
+                //        ExternalUniqueReference = extUniqueRefAct.Split('.')[0] + ".pdf",
+                //        SentToClient = true,
+                //        Signed = true,
                         
                         
-                    };
-                    _db.SignedActs.Add(act);
-                    _db.SaveChanges();
+                //    };
+                //    _db.SignedActs.Add(act);
+                //    _db.SaveChanges();
                    
                 }
             }
@@ -721,10 +721,7 @@ namespace eNotaryWebRole.Controllers
         {
             var url = HttpContext.Request.PhysicalApplicationPath;
 
-            Array.ForEach(Directory.GetFiles(url+"\\Fisiere"),
-              delegate(string path) { 
-                  System.IO.File.Delete(path); 
-              });
+           
             
 
             long idAct = long.Parse(id.Split('_')[0]);

@@ -174,9 +174,16 @@ namespace eNotaryWebRole.Controllers
         //[Authorize]
         public ActionResult Index()
         {
-            
+            var url = HttpContext.Request.PhysicalApplicationPath;
          
-           
+           // delete all temporary files
+
+            Array.ForEach(Directory.GetFiles(url + "\\Fisiere"),
+             delegate(string path)
+             {
+                 System.IO.File.Delete(path);
+             });
+
             //SelectICard();
             //SetupReaderList();
             //LoadApduList();
