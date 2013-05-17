@@ -200,8 +200,10 @@ namespace eNotaryWebRole.Controllers
                 else{
                     externalUniqueRef = _db.SignedActs.Where(o=>o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
                 }
+                long id_Max = _db.SignedActs.Select(x => x.ID).Max();
+                string ext_unique_signed = externalUniqueRef.Split('.')[0]+id_Max+".pdf";
 
-                signAdvancedPDF(externalUniqueRef);
+                bool is_Signed = signAdvancedPDF(externalUniqueRef,ext_unique_signed);
                 bool state = false;
                 if (collection["sdSentToClient"] == "True")
                 {
@@ -213,9 +215,13 @@ namespace eNotaryWebRole.Controllers
                 {
                     signed = true;
                 }
-                SignedAct new_act = _reporsitory.create_SignedAct(idAct, long.Parse(collection["ActTypeList"]), collection["sdActName"], collection["sdReasonState"], state, signed, collection["sdExtraDetails"], collection["sdReason"]);
-                _db.SignedActs.Add(new_act);
-                _db.SaveChanges();
+
+                if (is_Signed)
+                {
+                    SignedAct new_act = _reporsitory.create_SignedAct(idAct, long.Parse(collection["ActTypeList"]), collection["sdActName"], collection["sdReasonState"], state, signed, collection["sdExtraDetails"], collection["sdReason"],ext_unique_signed);
+                    _db.SignedActs.Add(new_act);
+                    _db.SaveChanges();
+                }
 
 
 
@@ -574,7 +580,7 @@ namespace eNotaryWebRole.Controllers
            
         
        
-        public void signAdvancedPDF(string extUniqueRefAct)
+        public bool signAdvancedPDF(string extUniqueRefAct, string signed_ext)
         {
 
             // get the specified document 
@@ -631,50 +637,52 @@ namespace eNotaryWebRole.Controllers
             init_function();
             function_init_document(extUniqueRefAct.Split('.')[0] + ".pdf");
             try
+            {
+                try
                 {
-                    try
-                    {
-                        int idx = m_CurrDoc.AddSignature();
-                        TElPDFSignature sig = m_CurrDoc.get_Signatures(idx);
-                        sig.Handler = m_Handler;
-                        sig.Invisible = false;
-                        m_CertStorage.Clear();
-                        m_CertStorage.Add(add_sig(), true);
-                        m_Handler.CertStorage = m_CertStorage;
-                       
-                        m_Handler.PAdESSignatureType = TSBPAdESSignatureType.pastEnhanced;
-                      
-                        
-                        m_Handler.CustomName = "Adobe.PPKMS"; // article: http://www.eldos.com/security/articles/2992.php
-                        PrepareValidation(m_Handler);
+                    int idx = m_CurrDoc.AddSignature();
+                    TElPDFSignature sig = m_CurrDoc.get_Signatures(idx);
+                    sig.Handler = m_Handler;
+                    sig.Invisible = false;
+                    m_CertStorage.Clear();
+                    m_CertStorage.Add(add_sig(), true);
+                    m_Handler.CertStorage = m_CertStorage;
 
-                        m_TspClient.HTTPClient = m_HttpClient;
-                        m_TspClient.URL = "http://inoa.net/ca/tsa";
-                        m_TspClient.HashAlgorithm = SBConstants.Unit.SB_ALGORITHM_DGST_SHA1;
-                        m_Handler.TSPClient = m_TspClient;
+                    m_Handler.PAdESSignatureType = TSBPAdESSignatureType.pastEnhanced;
 
-                        sig.WidgetProps.StretchX = 200;
-                        sig.WidgetProps.StretchY = 200;
-                      
-                     
-                        
-                       
-                            m_Handler.CustomRevocationInfo.Assign(m_LocalRevInfo, true);
-                        
-                        m_Handler.AutoCollectRevocationInfo = true;
-                        m_Handler.IgnoreChainValidationErrors = true;
-                        sig.SigningTime = DateTime.UtcNow;
-                      
-                         CloseCurrentDocument(true);
-                       
-                    }
-                    catch (Exception ex)
-                    {
-                      
-                    }
+
+                    m_Handler.CustomName = "Adobe.PPKMS"; // article: http://www.eldos.com/security/articles/2992.php
+                    PrepareValidation(m_Handler);
+
+                    m_TspClient.HTTPClient = m_HttpClient;
+                    m_TspClient.URL = "http://inoa.net/ca/tsa";
+                    m_TspClient.HashAlgorithm = SBConstants.Unit.SB_ALGORITHM_DGST_SHA1;
+                    m_Handler.TSPClient = m_TspClient;
+
+                    sig.WidgetProps.StretchX = 200;
+                    sig.WidgetProps.StretchY = 200;
+
+
+
+
+                    m_Handler.CustomRevocationInfo.Assign(m_LocalRevInfo, true);
+
+                    m_Handler.AutoCollectRevocationInfo = true;
+                    m_Handler.IgnoreChainValidationErrors = true;
+                    sig.SigningTime = DateTime.UtcNow;
+
+                    CloseCurrentDocument(true);
+
                 }
-                finally
+                catch (Exception ex)
                 {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+               
                 // save the signed document to blob
 
                     FileStream file = new FileStream(url+"\\Fisiere\\"+extUniqueRefAct.Split('.')[0]+".pdf", FileMode.Open, FileAccess.ReadWrite); ;
@@ -687,13 +695,15 @@ namespace eNotaryWebRole.Controllers
                 
                 // subdirectory name as username to identify from the blob hierarchy who uploaded the file
                     // get a unique name 
-                    var blobName = extUniqueRefAct.Split('.')[0] + ".pdf";
+                    var blobName = signed_ext ;
 
                     var blob = subDirectory2.GetBlockBlobReference(blobName);
                     blob.Properties.ContentType = contentType;
                     blob.UploadFromStream(streamContents);
 
 
+
+                    return true;
                 //// save the signed act to db 
 
                 //    SignedAct act = new SignedAct()
@@ -712,7 +722,7 @@ namespace eNotaryWebRole.Controllers
                 //    _db.SignedActs.Add(act);
                 //    _db.SaveChanges();
                    
-                }
+               
             }
 
        

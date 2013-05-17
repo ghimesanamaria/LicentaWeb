@@ -109,7 +109,7 @@ namespace eNotaryWebRole.Models
 
 
 
-       public SignedAct create_SignedAct(long id, long act_type_id, string act_name, string act_reason_signed, bool act_sent_to_client, bool act_signed, string act_extra_details, string act_reason)
+       public SignedAct create_SignedAct(long id, long act_type_id, string act_name, string act_reason_signed, bool act_sent_to_client, bool act_signed, string act_extra_details, string act_reason, string unique_ref)
        {
            long user_ID = _db.Users.Where(x => x.Username == username).FirstOrDefault().PersonID;
            SignedAct new_Act = new SignedAct();
@@ -133,9 +133,7 @@ namespace eNotaryWebRole.Models
            new_Act.ActID = related_act.ID;
 
 
-           long max_id = _db.SignedActs.Select(x => x.ID).Max();
-
-           string unique_ref = "signed_act"+max_id+".pdf";
+          
            new_Act.ExternalUniqueReference = unique_ref;
 
            
