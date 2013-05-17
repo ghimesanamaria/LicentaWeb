@@ -93,7 +93,7 @@ namespace eNotaryWebRole.Models
            related_act.ActTypeID = act_type_id;
            related_act.Signed = true;
            related_act.State = "vizualizat";
-           related_act.ReasonState = act_reason;
+           related_act.Reason = act_reason;
            related_act.EditContactID = user_ID;
            related_act.EditDate = DateTime.Now;
 
