@@ -211,3 +211,8 @@ div.accordion-inner
     border-top: none;
     padding-top: 15px;
 }
+
+
+#sdExtraDetails {
+    width: 92%;
+}

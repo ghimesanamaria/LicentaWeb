@@ -69,17 +69,17 @@ namespace eNotaryWebRole.Controllers
                 state = "closed"
             };
 
-            var obj3 = new
-            {
-                data = "Documente nesemnate, dar in asteptare",
-                id = -3,
-                attr = new { id = -3, description = "UnsignedWtDocs" },
-                state = "closed"
-            };
+            //var obj3 = new
+            //{
+            //    data = "Documente nesemnate, dar in asteptare",
+            //    id = -3,
+            //    attr = new { id = -3, description = "UnsignedWtDocs" },
+            //    state = "closed"
+            //};
             List<object> list = new List<object>();
             list.Add(obj1);
             list.Add(obj2);
-            list.Add(obj3);
+           // list.Add(obj3);
 
 
             IList<JsTreeModel> tree = new List<JsTreeModel>();
@@ -182,20 +182,20 @@ namespace eNotaryWebRole.Controllers
                     break;
                 case "-3":
                     {
-                        var q3 = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "vizualizat")
-                                  join p in _db.PersonDetails
-                                 on a.PersonDetailsID equals p.ID
+                        //var q3 = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "vizualizat")
+                        //          join p in _db.PersonDetails
+                        //         on a.PersonDetailsID equals p.ID
 
-                                  select
-                                  new
-                                  {
+                        //          select
+                        //          new
+                        //          {
 
-                                      data = p.LastName,
-                                      id = SqlFunctions.StringConvert((decimal)p.ID) + "_unsignedVI",
-                                      attr = new { id =SqlFunctions.StringConvert((decimal) p.ID)+"_unsignedVI" , description = "person" },
-                                      state = "closed"
+                        //              data = p.LastName,
+                        //              id = SqlFunctions.StringConvert((decimal)p.ID) + "_unsignedVI",
+                        //              attr = new { id =SqlFunctions.StringConvert((decimal) p.ID)+"_unsignedVI" , description = "person" },
+                        //              state = "closed"
 
-                                  }).Distinct();
+                        //          }).Distinct();
                         //List<JsTreeModel> list_Person = new List<JsTreeModel>();
                         //foreach (var v in q3)
                         //{
@@ -205,7 +205,7 @@ namespace eNotaryWebRole.Controllers
                         //        new JsTreeModel(data, "closed", "", attr, null)
                         //        );
                         //}
-                        return Json(q3);
+                       // return Json(q3);
                     }
                     break;
                 default:
