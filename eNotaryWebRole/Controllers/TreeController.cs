@@ -213,7 +213,7 @@ namespace eNotaryWebRole.Controllers
                         // must verify what type of act must be  displayed - signed, unsigned or visualized but unsigned
                         if (typeAct == -1)
                         {
-                            var q4 = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat")
+                            var q4 = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat" && o.Disabled == false)
                                       select
                                       new
                                       {
@@ -244,8 +244,8 @@ namespace eNotaryWebRole.Controllers
                                           new
                                           {
                                               data = a.ExternalUniqueReference,
-                                              id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_unsignedVIAct",
-                                              attr = new { id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_unsignedVIAct", description = "act" },
+                                              id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_signedAct",
+                                              attr = new { id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_signedAct", description = "act" },
                                               state = String.Empty
                                           });
 
@@ -264,13 +264,13 @@ namespace eNotaryWebRole.Controllers
                             else
                             {
 
-                                var q5 = (from a in _db.Acts.Where(o => o.State == "vizualizat" && o.Signed == false)
+                                var q5 = (from a in _db.Acts.Where(o => o.State == "vizualizat" && o.Signed == false && o.Disabled == false)
                                           select
                                           new
                                           {
                                               data = a.ExternalUniqueReference,
-                                              id = SqlFunctions.StringConvert((decimal?) a.ID)+"_signedAct",
-                                              attr = new { id = SqlFunctions.StringConvert((decimal?)a.ID) + "_signedAct", description = "act" },
+                                              id = SqlFunctions.StringConvert((decimal?) a.ID)+"_unsignedVIAct",
+                                              attr = new { id = SqlFunctions.StringConvert((decimal?)a.ID) + "_unsignedVIAct", description = "act" },
                                               state = String.Empty
                                           }).Distinct();
                                 //List<JsTreeModel> list_acts = new List<JsTreeModel>();

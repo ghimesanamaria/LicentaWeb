@@ -49,6 +49,8 @@ using SBHTTPTSPClient;
 using SBOCSPClient;
 using SBWinCertStorage;
 
+using System.IO;
+
 
 
 namespace eNotaryWebRole.Controllers
@@ -114,6 +116,7 @@ namespace eNotaryWebRole.Controllers
         ////}
 
         private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
+        private IDataAccessRepository _reporsitory = new DataAccessRepository();
 
 
         public ActionResult Index()
@@ -206,7 +209,42 @@ namespace eNotaryWebRole.Controllers
             else
                 if(!string.IsNullOrEmpty(collection["sgSave"]))
                 {
-                   
+
+                   /// must save the details
+                   /// 
+
+                    // 1. Identify the type of act 
+                    foreach (string coll in collection.AllKeys)
+                    {
+                        if (coll.Contains("check_act"))
+                        {
+                            idAct = long.Parse(collection[coll].Split('_')[0]);
+                            type = collection[coll].Split('_')[1];
+                        }
+                    }
+
+                    // retain the details for specified act
+                    if (type != "signedAct")
+                    {
+                       // DateTime creation_Date = DateTime.ParseExact(collection["sdCreationDate"],"yyyy-MM-dd HH:mm:ss",System.Globalization.CultureInfo.InvariantCulture);
+
+                        _reporsitory.update_Act(idAct, long.Parse(collection["ActTypeList"]), collection["sdActName"], collection["sdReason"], collection["sdReasonState"], collection["sdState"], collection["sdExtraDetails"]);
+                        
+
+                    }
+                    else
+                    {
+                        bool state = false;
+                        if(collection["sdSentToClient"] == "True"){
+                            state = true;
+                        }
+
+                        bool signed = false;
+                        if(collection["sdState"] == "semnat"){
+                            signed = true;
+                        }
+                        _reporsitory.update_SignedAct(idAct, long.Parse(collection["ActTypeList"]), collection["sdActName"], collection["sdReasonState"], state, signed, collection["sdExtraDetails"], collection["sdReason"]);
+                    }
                 }
                 else
                     if (!string.IsNullOrEmpty(collection["sgSendToClient"]))
@@ -667,6 +705,14 @@ namespace eNotaryWebRole.Controllers
         [HttpPost]
         public ActionResult DisplayImage(string id, long parentID)
         {
+            var url = HttpContext.Request.PhysicalApplicationPath;
+
+            Array.ForEach(Directory.GetFiles(url+"\\Fisiere"),
+              delegate(string path) { 
+                  System.IO.File.Delete(path); 
+              });
+            
+
             long idAct = long.Parse(id.Split('_')[0]);
 
             object model = new object();
@@ -683,7 +729,8 @@ namespace eNotaryWebRole.Controllers
                              a.Reason,
                              a.State,
                              a.ReasonState,
-                             a.ExternalUniqueReference
+                             a.ExternalUniqueReference,
+                             a.ExtraDetails
                              
 
                          }).FirstOrDefault();
@@ -701,7 +748,8 @@ namespace eNotaryWebRole.Controllers
                              a.Reason,
                              State = "semnat",
                              sa.ReasonSigned,
-                             sa.SentToClient
+                             sa.SentToClient,
+                             sa.ExtraDetails
                              
 
                          }).FirstOrDefault();
@@ -758,25 +806,28 @@ namespace eNotaryWebRole.Controllers
             CloudBlobContainer container = blobClient.GetContainerReference("acte");
             CloudBlockBlob blockBlob;
             CloudBlobDirectory subDirectory;
+            string extUnique = "";
             if (parentID == -1 || parentID == -3)
             {
                 subDirectory = container.GetDirectoryReference("actenesemnate");
-               blockBlob = subDirectory.GetBlockBlobReference(_db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference);
+                extUnique = _db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
+               blockBlob = subDirectory.GetBlockBlobReference(extUnique);
             }
             else
             {
                 subDirectory = container.GetDirectoryReference("actesemnate");
-                blockBlob = subDirectory.GetBlockBlobReference(_db.SignedActs.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference);
+                extUnique = _db.SignedActs.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
+                blockBlob = subDirectory.GetBlockBlobReference(extUnique);
             }
             
-            var url = HttpContext.Request.PhysicalApplicationPath;
+           
             
        
 
            
             try
             {
-                using (var stream = System.IO.File.OpenWrite(url+"\\Fisiere\\"+blockBlob.Name))
+                using (var stream = System.IO.File.OpenWrite(url+"\\Fisiere\\"+extUnique))
                 {
                     blockBlob.BeginDownloadToStream(stream, null, null);
                     blockBlob.DownloadToStream(stream);
@@ -796,7 +847,7 @@ namespace eNotaryWebRole.Controllers
             return Json(new  {
              act = model, 
              person = personDetail,
-             nameFile = blockBlob.Name
+             nameFile = extUnique
             
             });
 

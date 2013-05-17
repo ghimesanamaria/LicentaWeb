@@ -229,6 +229,7 @@
                 $("#sdPersonFirstName").val(data.person.FirstName);
                 $("#sdPersonMiddleName").val(data.person.MiddleName);
                 $("#sdPersonLastName").val(data.person.LastName);
+                $("#sdExtraDetails").val(data.person.ExtraDetails);
                 // calculate age
                     
                     birthday = new Date(parseFloat(data.person.Birthday.split('(')[1].split(')')[0]));

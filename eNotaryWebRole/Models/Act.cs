@@ -31,6 +31,9 @@ namespace eNotaryWebRole.Models
         public string ExternalUniqueReference { get; set; }
         public bool Disabled { get; set; }
         public string ExtraDetails { get; set; }
+        public Nullable<System.DateTime> EditDate { get; set; }
+        public Nullable<long> EditContactID { get; set; }
+        public long CreateContactID { get; set; }
     
         public virtual ActType ActType { get; set; }
         public virtual PersonDetail PersonDetail { get; set; }

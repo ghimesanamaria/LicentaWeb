@@ -21,6 +21,7 @@ namespace eNotaryWebRole.Models
     
         public long ID { get; set; }
         public string ActTypeName { get; set; }
+        public bool Disabled { get; set; }
     
         public virtual ICollection<Act> Acts { get; set; }
     }

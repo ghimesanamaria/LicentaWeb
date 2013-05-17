@@ -395,9 +395,10 @@ namespace eNotaryWebRole.Controllers
                                select a.ID).Max();
 
                         var contentType = file.ContentType;
-                        var blobName = file.FileName.Split('.')[0]+"_"+rand;
+                        var blobName = file.FileName.Split('.')[0] + "_" + rand + "." + file.FileName.Split('.')[1];
                         var blob = subDirectory.GetBlockBlobReference(blobName);
                         blob.Properties.ContentType = contentType;
+                        streamContents.Position = 0;
                         blob.UploadFromStream(streamContents);
 
                         User user = _db.Users.Where(x => x.Username == username).FirstOrDefault();

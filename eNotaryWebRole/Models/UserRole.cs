@@ -23,6 +23,9 @@ namespace eNotaryWebRole.Models
         public string RoleName { get; set; }
         public string Description { get; set; }
         public System.DateTime CreationDate { get; set; }
+        public long CreateContactID { get; set; }
+        public Nullable<long> EditDate { get; set; }
+        public Nullable<long> EditContactID { get; set; }
     
         public virtual ICollection<User> Users { get; set; }
     }

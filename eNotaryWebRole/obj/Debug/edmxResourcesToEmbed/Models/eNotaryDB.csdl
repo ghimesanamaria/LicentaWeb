@@ -77,6 +77,9 @@
     <NavigationProperty Name="SignedActs" Relationship="eNotaryDBModel.FK_SignedActs_Acts" FromRole="Acts" ToRole="SignedActs" />
     <Property Type="Boolean" Name="Disabled" Nullable="false" />
     <Property Type="String" Name="ExtraDetails" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="EditDate" Precision="3" />
+    <Property Type="Int64" Name="EditContactID" />
+    <Property Type="Int64" Name="CreateContactID" Nullable="false" />
   </EntityType>
   <EntityType Name="ActType">
     <Key>
@@ -85,6 +88,7 @@
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ActTypeName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="Acts" Relationship="eNotaryDBModel.FK_Acts_ActType" FromRole="ActType" ToRole="Acts" />
+    <Property Type="Boolean" Name="Disabled" Nullable="false" />
   </EntityType>
   <EntityType Name="EducationLevel">
     <Key>
@@ -93,6 +97,7 @@
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="EducationLevel1" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_EducationLevel" FromRole="EducationLevel" ToRole="PersonDetails" />
+    <Property Type="Int64" Name="Disabled" Nullable="false" />
   </EntityType>
   <EntityType Name="JobType">
     <Key>
@@ -101,6 +106,7 @@
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="JobName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_JobType" FromRole="JobType" ToRole="PersonDetails" />
+    <Property Type="Boolean" Name="Disabled" Nullable="false" />
   </EntityType>
   <EntityType Name="Payment">
     <Key>
@@ -142,6 +148,11 @@
     <NavigationProperty Name="SignedActs" Relationship="eNotaryDBModel.FK_SignedActs_PersonDetails" FromRole="PersonDetails" ToRole="SignedActs" />
     <NavigationProperty Name="Users" Relationship="eNotaryDBModel.FK_Users_PersonDetails" FromRole="PersonDetails" ToRole="Users" />
     <NavigationProperty Name="Address" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="PersonDetail" ToRole="Address" />
+    <Property Type="Boolean" Name="Disabled" Nullable="false" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+    <Property Type="Int64" Name="CreateContactID" Nullable="false" />
+    <Property Type="DateTime" Name="EditDate" Precision="3" />
+    <Property Type="Int64" Name="EditContactID" />
   </EntityType>
   <EntityType Name="SignedAct">
     <Key>
@@ -160,6 +171,9 @@
     <NavigationProperty Name="Act" Relationship="eNotaryDBModel.FK_SignedActs_Acts" FromRole="SignedActs" ToRole="Acts" />
     <NavigationProperty Name="Payments" Relationship="eNotaryDBModel.FK_Payments_SignedActs" FromRole="SignedActs" ToRole="Payments" />
     <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_SignedActs_PersonDetails" FromRole="SignedActs" ToRole="PersonDetails" />
+    <Property Type="String" Name="ExtraDetails" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="EditDate" Precision="3" />
+    <Property Type="Int64" Name="EditContactID" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -180,6 +194,9 @@
     <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Users" Relationship="eNotaryDBModel.FK_Users_UserRoles" FromRole="UserRoles" ToRole="Users" />
+    <Property Type="Int64" Name="CreateContactID" Nullable="false" />
+    <Property Type="Int64" Name="EditDate" />
+    <Property Type="Int64" Name="EditContactID" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -194,6 +211,9 @@
     <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_Users_PersonDetails" FromRole="Users" ToRole="PersonDetails" />
     <NavigationProperty Name="UserRole" Relationship="eNotaryDBModel.FK_Users_UserRoles" FromRole="Users" ToRole="UserRoles" />
+    <Property Type="Int64" Name="CreateContactID" Nullable="false" />
+    <Property Type="DateTime" Name="EditDate" Precision="3" />
+    <Property Type="Int64" Name="EditContactID" />
   </EntityType>
   <Association Name="FK_Acts_ActType">
     <End Role="ActType" Type="eNotaryDBModel.ActType" Multiplicity="1" />
@@ -328,6 +348,7 @@
     <Property Type="String" Name="City" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Country" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="Address" ToRole="PersonDetail" />
+    <Property Type="Boolean" Name="Disabled" Nullable="false" />
   </EntityType>
   <Association Name="FK_PersonDetails_Address">
     <End Type="eNotaryDBModel.Address" Role="Address" Multiplicity="0..1" />

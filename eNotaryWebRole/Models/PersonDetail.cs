@@ -38,6 +38,11 @@ namespace eNotaryWebRole.Models
         public string Email { get; set; }
         public string FacebookID { get; set; }
         public string CommunicationMode { get; set; }
+        public bool Disabled { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public long CreateContactID { get; set; }
+        public Nullable<System.DateTime> EditDate { get; set; }
+        public Nullable<long> EditContactID { get; set; }
     
         public virtual ICollection<Act> Acts { get; set; }
         public virtual EducationLevel EducationLevel { get; set; }

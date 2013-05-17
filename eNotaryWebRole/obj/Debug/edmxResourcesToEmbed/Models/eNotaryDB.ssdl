@@ -77,6 +77,7 @@
     <Property Name="PersonDetailsID" Type="bigint" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreateContactID" Type="bigint" Nullable="false" />
     <Property Name="Reason" Type="nvarchar(max)" Nullable="false" />
     <Property Name="State" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ReasonState" Type="nvarchar(max)" />
@@ -84,6 +85,8 @@
     <Property Name="Disabled" Type="bit" Nullable="false" />
     <Property Name="ExternalUniqueReference" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ExtraDetails" Type="nvarchar(max)" />
+    <Property Name="EditDate" Type="datetime" />
+    <Property Name="EditContactID" Type="bigint" />
   </EntityType>
   <EntityType Name="ActType">
     <Key>
@@ -91,6 +94,7 @@
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="ActTypeName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Disabled" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Address">
     <Key>
@@ -104,6 +108,7 @@
     <Property Name="ZIP" Type="bigint" />
     <Property Name="City" Type="nvarchar(max)" />
     <Property Name="Country" Type="nvarchar(max)" />
+    <Property Name="Disabled" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="EducationLevel">
     <Key>
@@ -111,6 +116,7 @@
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="EducationLevel" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Disabled" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="JobType">
     <Key>
@@ -118,6 +124,7 @@
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="JobName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Disabled" Type="bit" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'eNotaryDB.dbo.Mails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -169,6 +176,11 @@
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="FacebookID" Type="nvarchar(max)" />
     <Property Name="CommunicationMode" Type="nchar" MaxLength="10" />
+    <Property Name="Disabled" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="CreateContactID" Type="bigint" Nullable="false" />
+    <Property Name="EditDate" Type="datetime" />
+    <Property Name="EditContactID" Type="bigint" />
   </EntityType>
   <EntityType Name="SignedActs">
     <Key>
@@ -184,6 +196,9 @@
     <Property Name="SentToClient" Type="bit" Nullable="false" />
     <Property Name="ResonSent" Type="nchar" MaxLength="10" />
     <Property Name="ExternalUniqueReference" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExtraDetails" Type="nvarchar(max)" />
+    <Property Name="EditDate" Type="datetime" />
+    <Property Name="EditContactID" Type="bigint" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -203,6 +218,9 @@
     <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreateContactID" Type="bigint" Nullable="false" />
+    <Property Name="EditDate" Type="bigint" />
+    <Property Name="EditContactID" Type="bigint" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -215,6 +233,9 @@
     <Property Name="PsswdEncrypt" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DigitalCertificate" Type="nvarchar(max)" />
     <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreateContactID" Type="bigint" Nullable="false" />
+    <Property Name="EditDate" Type="datetime" />
+    <Property Name="EditContactID" Type="bigint" />
   </EntityType>
   <Association Name="FK_Acts_ActType">
     <End Role="ActType" Type="eNotaryDBModel.Store.ActType" Multiplicity="1" />

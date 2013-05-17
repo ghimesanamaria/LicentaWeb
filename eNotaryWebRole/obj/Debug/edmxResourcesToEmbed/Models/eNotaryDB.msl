@@ -4,6 +4,9 @@
     <EntitySetMapping Name="Acts">
       <EntityTypeMapping TypeName="eNotaryDBModel.Act">
         <MappingFragment StoreEntitySet="Acts">
+          <ScalarProperty Name="CreateContactID" ColumnName="CreateContactID" />
+          <ScalarProperty Name="EditContactID" ColumnName="EditContactID" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
           <ScalarProperty Name="ExtraDetails" ColumnName="ExtraDetails" />
           <ScalarProperty Name="Disabled" ColumnName="Disabled" />
           <ScalarProperty Name="ID" ColumnName="ID" />
@@ -22,6 +25,7 @@
     <EntitySetMapping Name="ActTypes">
       <EntityTypeMapping TypeName="eNotaryDBModel.ActType">
         <MappingFragment StoreEntitySet="ActType">
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ActTypeName" ColumnName="ActTypeName" />
         </MappingFragment>
@@ -30,6 +34,7 @@
     <EntitySetMapping Name="EducationLevels">
       <EntityTypeMapping TypeName="eNotaryDBModel.EducationLevel">
         <MappingFragment StoreEntitySet="EducationLevel">
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="EducationLevel1" ColumnName="EducationLevel" />
         </MappingFragment>
@@ -38,6 +43,7 @@
     <EntitySetMapping Name="JobTypes">
       <EntityTypeMapping TypeName="eNotaryDBModel.JobType">
         <MappingFragment StoreEntitySet="JobType">
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="JobName" ColumnName="JobName" />
         </MappingFragment>
@@ -58,6 +64,11 @@
     <EntitySetMapping Name="PersonDetails">
       <EntityTypeMapping TypeName="eNotaryDBModel.PersonDetail">
         <MappingFragment StoreEntitySet="PersonDetails">
+          <ScalarProperty Name="EditContactID" ColumnName="EditContactID" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="CreateContactID" ColumnName="CreateContactID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
@@ -80,6 +91,9 @@
     <EntitySetMapping Name="SignedActs">
       <EntityTypeMapping TypeName="eNotaryDBModel.SignedAct">
         <MappingFragment StoreEntitySet="SignedActs">
+          <ScalarProperty Name="EditContactID" ColumnName="EditContactID" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="ExtraDetails" ColumnName="ExtraDetails" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ActID" ColumnName="ActID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -107,6 +121,9 @@
     <EntitySetMapping Name="UserRoles">
       <EntityTypeMapping TypeName="eNotaryDBModel.UserRole">
         <MappingFragment StoreEntitySet="UserRoles">
+          <ScalarProperty Name="EditContactID" ColumnName="EditContactID" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="CreateContactID" ColumnName="CreateContactID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
           <ScalarProperty Name="Description" ColumnName="Description" />
@@ -117,6 +134,9 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="eNotaryDBModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="EditContactID" ColumnName="EditContactID" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="CreateContactID" ColumnName="CreateContactID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="RoleID" ColumnName="RoleID" />
           <ScalarProperty Name="PersonID" ColumnName="PersonID" />
@@ -130,6 +150,7 @@
     <EntitySetMapping Name="Addresses">
       <EntityTypeMapping TypeName="eNotaryDBModel.Address">
         <MappingFragment StoreEntitySet="Address">
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
           <ScalarProperty Name="Country" ColumnName="Country" />
           <ScalarProperty Name="City" ColumnName="City" />
           <ScalarProperty Name="ZIP" ColumnName="ZIP" />

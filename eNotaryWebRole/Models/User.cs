@@ -21,6 +21,9 @@ namespace eNotaryWebRole.Models
         public string PsswdEncrypt { get; set; }
         public string DigitalCertificate { get; set; }
         public System.DateTime CreationDate { get; set; }
+        public long CreateContactID { get; set; }
+        public Nullable<System.DateTime> EditDate { get; set; }
+        public Nullable<long> EditContactID { get; set; }
     
         public virtual PersonDetail PersonDetail { get; set; }
         public virtual UserRole UserRole { get; set; }

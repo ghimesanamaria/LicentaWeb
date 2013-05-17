@@ -27,6 +27,7 @@ namespace eNotaryWebRole.Models
         public Nullable<long> ZIP { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+        public bool Disabled { get; set; }
     
         public virtual ICollection<PersonDetail> PersonDetails { get; set; }
     }

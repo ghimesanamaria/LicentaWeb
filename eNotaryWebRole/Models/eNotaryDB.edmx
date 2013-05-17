@@ -82,6 +82,7 @@
           <Property Name="PersonDetailsID" Type="bigint" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateContactID" Type="bigint" Nullable="false" />
           <Property Name="Reason" Type="nvarchar(max)" Nullable="false" />
           <Property Name="State" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ReasonState" Type="nvarchar(max)" />
@@ -89,6 +90,8 @@
           <Property Name="Disabled" Type="bit" Nullable="false" />
           <Property Name="ExternalUniqueReference" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ExtraDetails" Type="nvarchar(max)" />
+          <Property Name="EditDate" Type="datetime" />
+          <Property Name="EditContactID" Type="bigint" />
         </EntityType>
         <EntityType Name="ActType">
           <Key>
@@ -96,6 +99,7 @@
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ActTypeName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -109,6 +113,7 @@
           <Property Name="ZIP" Type="bigint" />
           <Property Name="City" Type="nvarchar(max)" />
           <Property Name="Country" Type="nvarchar(max)" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="EducationLevel">
           <Key>
@@ -116,6 +121,7 @@
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="EducationLevel" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Disabled" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="JobType">
           <Key>
@@ -123,6 +129,7 @@
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="JobName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'eNotaryDB.dbo.Mails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -174,6 +181,11 @@
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FacebookID" Type="nvarchar(max)" />
           <Property Name="CommunicationMode" Type="nchar" MaxLength="10" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateContactID" Type="bigint" Nullable="false" />
+          <Property Name="EditDate" Type="datetime" />
+          <Property Name="EditContactID" Type="bigint" />
         </EntityType>
         <EntityType Name="SignedActs">
           <Key>
@@ -189,6 +201,9 @@
           <Property Name="SentToClient" Type="bit" Nullable="false" />
           <Property Name="ResonSent" Type="nchar" MaxLength="10" />
           <Property Name="ExternalUniqueReference" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ExtraDetails" Type="nvarchar(max)" />
+          <Property Name="EditDate" Type="datetime" />
+          <Property Name="EditContactID" Type="bigint" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -208,6 +223,9 @@
           <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateContactID" Type="bigint" Nullable="false" />
+          <Property Name="EditDate" Type="bigint" />
+          <Property Name="EditContactID" Type="bigint" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -220,6 +238,9 @@
           <Property Name="PsswdEncrypt" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DigitalCertificate" Type="nvarchar(max)" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateContactID" Type="bigint" Nullable="false" />
+          <Property Name="EditDate" Type="datetime" />
+          <Property Name="EditContactID" Type="bigint" />
         </EntityType>
         <Association Name="FK_Acts_ActType">
           <End Role="ActType" Type="eNotaryDBModel.Store.ActType" Multiplicity="1" />
@@ -434,6 +455,9 @@
           <NavigationProperty Name="SignedActs" Relationship="eNotaryDBModel.FK_SignedActs_Acts" FromRole="Acts" ToRole="SignedActs" />
           <Property Type="Boolean" Name="Disabled" Nullable="false" />
           <Property Type="String" Name="ExtraDetails" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="EditDate" Precision="3" />
+          <Property Type="Int64" Name="EditContactID" />
+          <Property Type="Int64" Name="CreateContactID" Nullable="false" />
         </EntityType>
         <EntityType Name="ActType">
           <Key>
@@ -442,6 +466,7 @@
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ActTypeName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Acts" Relationship="eNotaryDBModel.FK_Acts_ActType" FromRole="ActType" ToRole="Acts" />
+          <Property Type="Boolean" Name="Disabled" Nullable="false" />
         </EntityType>
         <EntityType Name="EducationLevel">
           <Key>
@@ -450,6 +475,7 @@
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EducationLevel1" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_EducationLevel" FromRole="EducationLevel" ToRole="PersonDetails" />
+          <Property Type="Int64" Name="Disabled" Nullable="false" />
         </EntityType>
         <EntityType Name="JobType">
           <Key>
@@ -458,6 +484,7 @@
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="JobName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_JobType" FromRole="JobType" ToRole="PersonDetails" />
+          <Property Type="Boolean" Name="Disabled" Nullable="false" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -499,6 +526,11 @@
           <NavigationProperty Name="SignedActs" Relationship="eNotaryDBModel.FK_SignedActs_PersonDetails" FromRole="PersonDetails" ToRole="SignedActs" />
           <NavigationProperty Name="Users" Relationship="eNotaryDBModel.FK_Users_PersonDetails" FromRole="PersonDetails" ToRole="Users" />
           <NavigationProperty Name="Address" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="PersonDetail" ToRole="Address" />
+          <Property Type="Boolean" Name="Disabled" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="Int64" Name="CreateContactID" Nullable="false" />
+          <Property Type="DateTime" Name="EditDate" Precision="3" />
+          <Property Type="Int64" Name="EditContactID" />
         </EntityType>
         <EntityType Name="SignedAct">
           <Key>
@@ -517,6 +549,9 @@
           <NavigationProperty Name="Act" Relationship="eNotaryDBModel.FK_SignedActs_Acts" FromRole="SignedActs" ToRole="Acts" />
           <NavigationProperty Name="Payments" Relationship="eNotaryDBModel.FK_Payments_SignedActs" FromRole="SignedActs" ToRole="Payments" />
           <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_SignedActs_PersonDetails" FromRole="SignedActs" ToRole="PersonDetails" />
+          <Property Type="String" Name="ExtraDetails" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="EditDate" Precision="3" />
+          <Property Type="Int64" Name="EditContactID" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -537,6 +572,9 @@
           <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Users" Relationship="eNotaryDBModel.FK_Users_UserRoles" FromRole="UserRoles" ToRole="Users" />
+          <Property Type="Int64" Name="CreateContactID" Nullable="false" />
+          <Property Type="Int64" Name="EditDate" />
+          <Property Type="Int64" Name="EditContactID" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -551,6 +589,9 @@
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_Users_PersonDetails" FromRole="Users" ToRole="PersonDetails" />
           <NavigationProperty Name="UserRole" Relationship="eNotaryDBModel.FK_Users_UserRoles" FromRole="Users" ToRole="UserRoles" />
+          <Property Type="Int64" Name="CreateContactID" Nullable="false" />
+          <Property Type="DateTime" Name="EditDate" Precision="3" />
+          <Property Type="Int64" Name="EditContactID" />
         </EntityType>
         <Association Name="FK_Acts_ActType">
           <End Role="ActType" Type="eNotaryDBModel.ActType" Multiplicity="1" />
@@ -685,6 +726,7 @@
           <Property Type="String" Name="City" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Country" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="Address" ToRole="PersonDetail" />
+          <Property Type="Boolean" Name="Disabled" Nullable="false" />
         </EntityType>
         <Association Name="FK_PersonDetails_Address">
           <End Type="eNotaryDBModel.Address" Role="Address" Multiplicity="0..1" />
@@ -723,6 +765,9 @@
           <EntitySetMapping Name="Acts">
             <EntityTypeMapping TypeName="eNotaryDBModel.Act">
               <MappingFragment StoreEntitySet="Acts">
+                <ScalarProperty Name="CreateContactID" ColumnName="CreateContactID" />
+                <ScalarProperty Name="EditContactID" ColumnName="EditContactID" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
                 <ScalarProperty Name="ExtraDetails" ColumnName="ExtraDetails" />
                 <ScalarProperty Name="Disabled" ColumnName="Disabled" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -741,6 +786,7 @@
           <EntitySetMapping Name="ActTypes">
             <EntityTypeMapping TypeName="eNotaryDBModel.ActType">
               <MappingFragment StoreEntitySet="ActType">
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ActTypeName" ColumnName="ActTypeName" />
               </MappingFragment>
@@ -749,6 +795,7 @@
           <EntitySetMapping Name="EducationLevels">
             <EntityTypeMapping TypeName="eNotaryDBModel.EducationLevel">
               <MappingFragment StoreEntitySet="EducationLevel">
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="EducationLevel1" ColumnName="EducationLevel" />
               </MappingFragment>
@@ -757,6 +804,7 @@
           <EntitySetMapping Name="JobTypes">
             <EntityTypeMapping TypeName="eNotaryDBModel.JobType">
               <MappingFragment StoreEntitySet="JobType">
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="JobName" ColumnName="JobName" />
               </MappingFragment>
@@ -777,6 +825,11 @@
           <EntitySetMapping Name="PersonDetails">
             <EntityTypeMapping TypeName="eNotaryDBModel.PersonDetail">
               <MappingFragment StoreEntitySet="PersonDetails">
+                <ScalarProperty Name="EditContactID" ColumnName="EditContactID" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="CreateContactID" ColumnName="CreateContactID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
@@ -799,6 +852,9 @@
           <EntitySetMapping Name="SignedActs">
             <EntityTypeMapping TypeName="eNotaryDBModel.SignedAct">
               <MappingFragment StoreEntitySet="SignedActs">
+                <ScalarProperty Name="EditContactID" ColumnName="EditContactID" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="ExtraDetails" ColumnName="ExtraDetails" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ActID" ColumnName="ActID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -826,6 +882,9 @@
           <EntitySetMapping Name="UserRoles">
             <EntityTypeMapping TypeName="eNotaryDBModel.UserRole">
               <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="EditContactID" ColumnName="EditContactID" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="CreateContactID" ColumnName="CreateContactID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -836,6 +895,9 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="eNotaryDBModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="EditContactID" ColumnName="EditContactID" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="CreateContactID" ColumnName="CreateContactID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
@@ -849,6 +911,7 @@
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="eNotaryDBModel.Address">
               <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="ZIP" ColumnName="ZIP" />

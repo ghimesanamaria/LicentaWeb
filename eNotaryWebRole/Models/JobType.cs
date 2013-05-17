@@ -21,6 +21,7 @@ namespace eNotaryWebRole.Models
     
         public long ID { get; set; }
         public string JobName { get; set; }
+        public bool Disabled { get; set; }
     
         public virtual ICollection<PersonDetail> PersonDetails { get; set; }
     }

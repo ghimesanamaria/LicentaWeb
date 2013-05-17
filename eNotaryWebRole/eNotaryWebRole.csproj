@@ -504,8 +504,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Fisiere\temp_jpeg.jpg" />
-    <Content Include="Fisiere\test.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Certificate\certificat.crt" />
     <Content Include="Certificate\certificat12.p12" />
@@ -532,12 +530,8 @@
       <DependentUpon>eNotaryDB.edmx</DependentUpon>
       <LastGenOutput>eNotaryDB.cs</LastGenOutput>
     </Content>
-    <Content Include="Fisiere\test.pdf" />
-    <Content Include="Fisiere\test2.pdf" />
     <Content Include="Content\fonts\kberry.ttf" />
     <Content Include="Content\fonts\atlandsketchesbb_ital.ttf" />
-    <Content Include="Fisiere\temp_jpeg.pdf" />
-    <Content Include="Fisiere\actenesemnate\test_25.pdf" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\ajax-loader.gif" />
     <Content Include="Images\ajax-loaderback.gif" />
@@ -680,7 +674,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\pdf_preview\" />
-    <Folder Include="Fisiere\actesemnate\" />
+    <Folder Include="Fisiere\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

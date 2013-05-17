@@ -29,6 +29,9 @@ namespace eNotaryWebRole.Models
         public bool SentToClient { get; set; }
         public string ResonSent { get; set; }
         public string ExternalUniqueReference { get; set; }
+        public string ExtraDetails { get; set; }
+        public Nullable<System.DateTime> EditDate { get; set; }
+        public Nullable<long> EditContactID { get; set; }
     
         public virtual Act Act { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
