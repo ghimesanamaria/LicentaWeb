@@ -52,7 +52,7 @@ namespace eNotaryWebRole.Models
 
        public void update_Act(long id,long act_type_id, string act_name, string act_reason, string act_reason_state, string state, string act_extra_details)
         {
-            long user_ID = _db.Users.Where(x => x.Username == username).FirstOrDefault().ID;
+            long user_ID = _db.Users.Where(x => x.Username == username).FirstOrDefault().PersonID;
             
                 Act up_Act = _db.Acts.Where(x => x.ID == id).FirstOrDefault();
                 up_Act.ActTypeID = act_type_id;
@@ -75,7 +75,7 @@ namespace eNotaryWebRole.Models
 
        public void update_SignedAct(long id,long act_type_id, string act_name, string act_reason_signed,bool act_sent_to_client, bool act_signed, string act_extra_details, string act_reason)
        {
-           long user_ID = _db.Users.Where(x => x.Username == username).FirstOrDefault().ID;
+           long user_ID = _db.Users.Where(x => x.Username == username).FirstOrDefault().PersonID;
            SignedAct up_Act = _db.SignedActs.Where(x => x.ID == id).FirstOrDefault();
 
            Act related_act = _db.Acts.Where(x => x.ID == up_Act.ActID).FirstOrDefault();
@@ -102,6 +102,45 @@ namespace eNotaryWebRole.Models
 
 
            _db.SaveChanges();
+
+
+
+       }
+
+
+
+       public SignedAct create_SignedAct(long id, long act_type_id, string act_name, string act_reason_signed, bool act_sent_to_client, bool act_signed, string act_extra_details, string act_reason)
+       {
+           long user_ID = _db.Users.Where(x => x.Username == username).FirstOrDefault().PersonID;
+           SignedAct new_Act = new SignedAct();
+
+           Act related_act = _db.Acts.Where(x => x.ID == id).FirstOrDefault();
+           related_act.ActTypeID = act_type_id;
+           related_act.Signed = true;
+           related_act.State = "vizualizat";
+           related_act.Reason = act_reason;
+           related_act.EditContactID = user_ID;
+           related_act.EditDate = DateTime.Now;
+           _db.SaveChanges();
+
+           new_Act.Name = act_name;
+           new_Act.ReasonSigned = act_reason_signed;
+
+           new_Act.SentToClient = act_sent_to_client;
+           new_Act.Signed = act_signed;
+           new_Act.ExtraDetails = act_extra_details;
+           new_Act.CreatePersonID = user_ID;
+           new_Act.CreationDate = DateTime.Now;
+           new_Act.ActID = related_act.ID;
+
+           
+
+
+
+
+
+           
+           return new_Act;
 
 
 

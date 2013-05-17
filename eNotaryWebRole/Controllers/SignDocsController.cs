@@ -202,6 +202,20 @@ namespace eNotaryWebRole.Controllers
                 }
 
                 signAdvancedPDF(externalUniqueRef);
+                bool state = false;
+                if (collection["sdSentToClient"] == "True")
+                {
+                    state = true;
+                }
+
+                bool signed = false;
+                if (collection["sdState"] == "semnat")
+                {
+                    signed = true;
+                }
+                SignedAct new_act = _reporsitory.create_SignedAct(idAct, long.Parse(collection["ActTypeList"]), collection["sdActName"], collection["sdReasonState"], state, signed, collection["sdExtraDetails"], collection["sdReason"]);
+                _db.SignedActs.Add(new_act);
+                _db.SaveChanges();
 
 
 
