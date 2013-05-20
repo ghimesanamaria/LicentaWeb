@@ -217,7 +217,7 @@ namespace eNotaryWebRole.Controllers
                  ViewBag.EmailAdmin = RoleEnvironment.GetConfigurationSettingValue("EmailAdmin");
             else
             {
-                ViewBag.EmailAdmin = ConfigurationManager.AppSettings["EnailAdmin"];
+                ViewBag.EmailAdmin = ConfigurationManager.AppSettings["EmailAdmin"];
             }
 
             LocalResource resouce = RoleEnvironment.GetLocalResource("eNotarySpace");
@@ -245,6 +245,17 @@ namespace eNotaryWebRole.Controllers
             //return RedirectToAction("Login", "Account");
         }
 
+        [HttpGet]
+        public JsonResult GetActType()
+        {
+            var act_type = from at in _db.ActTypes
+                           select new
+                           {
+                               id=at.ID,
+                               name = at.ActTypeName
+                           };
+            return Json(act_type, JsonRequestBehavior.AllowGet);
+        }
 
 
          [HttpPost]

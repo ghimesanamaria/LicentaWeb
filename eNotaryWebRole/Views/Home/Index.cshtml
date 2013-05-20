@@ -4,6 +4,7 @@
 @section AddToHead{
     <link href='@Url.Content("~/Content/home/index_home.css")' rel="stylesheet" />
     <link href='@Url.Content("~/Content/home/png_preview.css")' rel="stylesheet" />
+    <link href='@Url.Content("~/Content/dropdown/simple.dropdown.css")' rel="stylesheet" />
 }
 
 <div class="home-container">
@@ -20,7 +21,10 @@
 <div class="progressBar">
 <div class="status"></div>
 </div>
-
+    <div class="dropdown" >
+        <label style="display:inline-block">Tipul actului/ actelor:</label>
+    <div id="choose-act-type"></div>
+        </div>
     <div id="container-files-and-details">
         <div id="areaContainerUpload" class="container">
 
@@ -97,10 +101,21 @@
 @section AddToBottom{
     <script src='@Url.Content("~/Scripts/home/home.js")'></script>
     <script src='@Url.Content("~/Scripts/home/preview_box.js")'></script>
+    <script src='@Url.Content("~/Scripts/dropdown/simple.dropdown.js")'></script>
     <script>
 
         $(function () {
             addEvents();
+
+
+
+            $('#choose-act-type').simpleDropdown({
+                selectedID: '@ViewBag.parentID',
+                defaultText: 'Select act type',
+                inputName: 'PActType',
+                url: '@Url.Action("GetActType", "Home")',
+            });
+
         });
 
         var myFunction = function (element) {
