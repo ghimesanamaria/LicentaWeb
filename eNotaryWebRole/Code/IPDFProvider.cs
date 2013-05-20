@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TallComponents.PDF;
+using TallComponents.PDF.Layout;
+using TallComponents.PDF.Layout.Paragraphs;
+using TallComponents.PDF.Layout.Fonts;
+using TallComponents.PDF.Layout.Shapes;
+using TallComponents.PDF.Layout.Shapes.Fields;
 
 namespace eNotaryWebRole.Code
 {
