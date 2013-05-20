@@ -1,0 +1,81 @@
+﻿<div id="container-upload-details" >
+<div id="container-files-and-details">
+        <div id="areaContainerUpload" class="container">
+
+            <div id="areaContainerUploadToggle" class="toggle-button">
+
+                <i class="icon-chevron-up"></i>
+            </div>
+            <div id="messageContainerUpload">
+                <span class="headerMessage">Incarcare fisiere
+                </span>
+
+            </div>
+
+            <div id="areaToUpload">
+
+                <div id="dragAndDropFiles" class="uploadArea hero-unit" style="margin-left: 30px;">
+                    <p style="text-align: center;">Realizati drag and drop in aceasta zona pentru a incarca fisierele dorite</p>
+                    <p style="text-align: center; color: grey;">(fisierele trebuie sa fie in format pdf si sa contina semnatura electronica extinsa) </p>
+                </div>
+                <form name="demoFiler" id="demoFiler" enctype="multipart/form-data" style="margin-left: 10px;">
+                    <div class="fileinputs">
+                    <input type="file" name="multiUpload" id="multiUpload" multiple="multiple" class="file" />
+                    <div class="fakefile input-append">
+                        <input value="Incarcati fisiere.." />
+                        <button class="btn" style="margin-top:5px; padding-top:6px; "><i class="icon-search"></i></button>
+                    </div>
+                         <input type="submit" name="submitHandler" id="submitHandler" value="Upload" class="btn btn-info" />
+                        </div>
+                   
+                </form>
+            </div>
+            <div class="clear-all"></div>
+
+        </div>
+
+
+        <div id="details-container" class="container" >
+            <div id="details-Toggle" class="toggle-button">
+
+                <i class="icon-chevron-down"></i>
+            </div>
+
+            <div id="message-details">
+                <span class="headerMessage">Detalii fisier
+                </span>
+
+            </div>
+            <div id="file-details"  style="display:none;">
+                <label for="acttype">Tipul actului: <span class="required">*</span></label>
+                <div id="act-type" name="act-type">
+
+                </div>
+                <label for="name">Nume: <span class="required">*</span></label>
+                <input type="text" id="hName" name="name" value="" placeholder="Nume.." required="required" autofocus="autofocus" />
+
+                <label for="reason">Motiv: <span class="required">*</span></label>
+                <input type="text" id="hReason" name="reason" value="" placeholder="Motiv..." required="required" />
+
+                  <label for="message">Mentiuni: <span class="required">*</span></label>  
+                <textarea id="hMessage" name="message" placeholder="Mentiuni..." required="required" data-minlength="20"></textarea> 
+                <button id="saveFileDetails" class="btn btn-info">Salveaza datele</button>
+            </div>
+
+        </div>
+    </div>
+    <div id="information-preview-message" class="alert alert-error"> Fisiere incarcate trebuie sa fie editate. Dati click pe imagine si se va afisa un formular corespunzator! </div>
+    <div id="area-container-preview" class="container">
+    </div>
+</div>
+<script>
+
+    $(function () {
+        $('#act-type').simpleDropdown({
+            selectedID: -1,
+            defaultText: 'Select act type',
+            inputName: 'UActType',
+            url: '@Url.Action("GetActType", "Home")',
+        });
+    });
+</script>

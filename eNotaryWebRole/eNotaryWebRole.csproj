@@ -447,6 +447,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\dropdown\simple.dropdown.css" />
+    <Content Include="Content\home\divorce_app.css" />
     <Content Include="Content\home\index_home.css" />
     <Content Include="Content\home\png_preview.css" />
     <Content Include="Content\Icons\x.png" />
@@ -678,6 +679,8 @@
     <Content Include="Scripts\jstree\_docs\_json_data.json" />
     <Content Include="Scripts\jstree\_docs\_search_data.json" />
     <Content Include="Scripts\jstree\_docs\_search_result.json" />
+    <Content Include="Views\Home\UploadAndDetails.cshtml" />
+    <Content Include="Views\Home\DivorceApplication.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

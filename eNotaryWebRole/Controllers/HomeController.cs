@@ -245,6 +245,22 @@ namespace eNotaryWebRole.Controllers
             //return RedirectToAction("Login", "Account");
         }
 
+        public ActionResult UploadAndDetails()
+        {
+            return PartialView("UploadAndDetails");
+        }
+
+        public ActionResult DivorceApplication()
+        {
+            return PartialView("DivorceApplication");
+        }
+        [HttpPost]
+        public ActionResult DivorceApplication(FormCollection collection)
+        {
+            return Json("");
+        }
+
+
         [HttpGet]
         public JsonResult GetActType()
         {

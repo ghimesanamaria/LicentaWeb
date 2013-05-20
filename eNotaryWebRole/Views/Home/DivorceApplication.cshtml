@@ -1,0 +1,24 @@
+﻿<div id="container-divorce-application">
+
+    @using (@Ajax.BeginForm("DivorceApplication", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "formDivorce" }))
+    {
+        <div id="husband-details">
+
+
+        </div>
+        
+        <div id="container-divorce-buttons">
+            <button id="GenerateDivorceAppBtn" class="btn btn-info">Genereaza cerere</button>
+        </div>
+    }
+
+</div>
+<script>
+
+
+    var onBegin = function (data) {
+    };
+    var onSuccess = function (data) {
+    };
+</script>
+<link href='@Url.Content("~/Content/home/divorce_app.css")' rel="stylesheet" />
