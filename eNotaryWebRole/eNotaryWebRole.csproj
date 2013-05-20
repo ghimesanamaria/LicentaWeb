@@ -449,6 +449,7 @@
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\dropdown\simple.dropdown.css" />
     <Content Include="Content\home\divorce_app.css" />
+    <Content Include="Content\home\divorce_person_details.css" />
     <Content Include="Content\home\index_home.css" />
     <Content Include="Content\home\png_preview.css" />
     <Content Include="Content\Icons\x.png" />
