@@ -231,6 +231,9 @@
     <Reference Include="TallComponents.PDF.Kit">
       <HintPath>C:\Users\Ana\Downloads\PDFKit.NET_4.0.12.0\Microsoft.NET 4.0\TallComponents.PDF.Kit.dll</HintPath>
     </Reference>
+    <Reference Include="TallComponents.PDF.Layout">
+      <HintPath>D:\Scoala\Licenta\Temp\GeneratePDFDocument\GeneratePDFDocument\bin\TallComponents.PDF.Layout.dll</HintPath>
+    </Reference>
     <Reference Include="TallComponents.PDF.Rasterizer, Version=3.0.90.0, Culture=neutral, PublicKeyToken=76bf2dedaa68ccb5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\TallComponents.PDF.Rasterizer.dll</HintPath>
@@ -260,7 +263,9 @@
     <Compile Include="Code\AlteredAuthorizeAttribute.cs" />
     <Compile Include="Code\Attributes\InaccessibleDirectlyAttribute.cs" />
     <Compile Include="Code\AuthConfigurationProvider.cs" />
+    <Compile Include="Code\IPDFProvider.cs" />
     <Compile Include="Code\MailProvider.cs" />
+    <Compile Include="Code\PDFProvider.cs" />
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\Act.cs">
@@ -437,6 +442,7 @@
     <Content Include="bin\WebMatrix.WebData.xml" />
     <Content Include="ConfigFiles\AuthConfig.xml" />
     <None Include="ConfigFiles\MailConfig.config" />
+    <Content Include="ConfigFiles\DivorceConfig.xml" />
     <Content Include="Content\account\account.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\datepicker.css" />

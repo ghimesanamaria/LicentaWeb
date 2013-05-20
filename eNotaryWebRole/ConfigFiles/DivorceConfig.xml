@@ -1,0 +1,50 @@
+﻿<divConfig>
+  <header>
+    <headerLine1>ROMÂNIA </headerLine1>
+    <headerLine2>BIROUL NOTARULUI PUBLIC Craciun Diana</headerLine2>
+    <headerLine3>Bd. Gheorghe Şincai nr. 2 bl. 4 sc. 1. et. 1. ap. 1 	  Termen </headerLine3>
+    <headerLine4>Bucureşti, sector 4</headerLine4>
+    <headerLine5>Nr._</headerLine5>
+    <headerLine6>Dată în faţă mea azi</headerLine6>
+    <headerLine7>Termen</headerLine7>
+  </header>
+  <title>                                         CERERE DE DIVORŢ</title>
+  <body>
+
+    <bodyContent1>
+
+      Subsemnatul [NumeBarbat] fiul lui [NumeFiu1] şi al [NumeFiu2] născut la data
+      de [DataNasteriiBarbat] în localitatea [LocalitateaNasteriiBarbat],
+      judeţul [JudetulNasteriiBarbat], titular al actului de identitate/paşaportului
+      seria [SerieActBarbat]nr.[NumarActBarbat], CNP [CNPPersoanaBarbat] cu domiciliul
+      în [DomiciliuPersoanaBarbat] şi subsemnata [NumeFemeie] fiica lui [NumeFiica1]
+      şi a [NumeFiica2] , născută în data de [DataNasteriiFemeie] , în localitatea
+      [LocalitateaNasteriiFemeie] , judeţul [JudetulNasteriiBarbat], titulară a actului
+      de identitate/paşaport  seria [SerieActFemeie], nr. [NumarActFemeie], CNP [CNPActFemeie],
+      cu domiciliul în [DomiciliuPersoanaFemeie], căsătoriţi la data de  [DataCasatoriei],
+      la Primăria localităţii [LocalitatePrimarie], judeţul [JudetulPrimariei],
+      conform certificatului de căsătorie seria [SeriaActCasatorie], eliberat în baza
+      actului nr. [NrAct], cu ultima locuinţă comună în[LocalitateLocuintaComuna],
+      str. [StradaLocuintaComuna] ,nr. [NrLocuintaComuna] bl. [BlocLocuintaComuna]
+      et.[EtajLocuintaComuna], ap.[ApartamentLocuintaComuna], sector/judeţ[JudetLocuintaComuna],
+      de comun acord, vă rugăm să   constataţi desfacerea căsătoriei şi să eliberaţi certificatul de divorţ.
+      Luând cunoştinţă de prevederile art.292 Cod Penal cu privire la falsul în declaraţii, declarăm că:
+      a)	ne exprimăm consimţământul liber cu privire la desfacerea căsătoriei;
+      b)	nu avem copii minori din căsătorie sau adoptaţi;
+      c)	niciunul dintre noi nu este pus sub interdicţie;
+      d)	nu am mai solicitat altor autorităţi desfacerea căsătoriei;
+      e)	locuinţa comună este cea declarată mai sus*;
+      f)	după divorţ dorim să purtăm numele de familie după cum urmează**:
+      -fostul soţ [NumeFostSot];
+      -fosta soţie[NumeFostaSotie];
+
+      Notă:
+      *Dacă dovada ultimei locuinţe comune nu rezultă din actele de identitate prezentate, această dovadă se va face prin declaraţie autentică care se anexează la cerere.
+      **Potrivit dispoziţiilor art. 40 din Codul Familiei: "La desfacerea căsătoriei prin divorţ, soţii se pot învoi ca soţul care, potrivit art. 27, a purtat în timpul căsătoriei numele de familie al celuilalt soţ, să poarte acest nume şi după desfacerea căsătoriei".
+
+
+
+    </bodyContent1>
+
+  </body>
+</divConfig>

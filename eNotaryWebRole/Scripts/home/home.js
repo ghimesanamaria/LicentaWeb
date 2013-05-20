@@ -26,7 +26,7 @@
 
     $("#submitHandler").click(function (e) {
         $("#areaToUpload").hide();
-        $("#file-details").show();
+       // $("#file-details").show();
     });
 
     $("#details-Toggle").click(function (e) {
