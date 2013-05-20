@@ -1,0 +1,66 @@
+﻿@model string
+@{
+    string name = "";
+    if(Model == "Husband"){
+        name = "Sot";
+    }
+    else{
+        name = "Sotie";
+    }
+}
+
+<link href='@Url.Content("~/Content/home/divorce_person_details.css")' rel="stylesheet" />
+   
+            <div id="daType">@name</div>
+            <div class="inputdetails">
+                <label class="labelinput">Nume si prenume </label>
+                <input type="text" id="daName"@Model name="daName"@Model />
+            </div>
+
+            <div class="inputdetails">
+                <label class="labelinput">Fiul lui </label>
+                <input type="text" id="daNameFather"@Model name="daNameFather"@Model />
+            </div>
+
+            <div class="inputdetails">
+                <label class="labelinput">si al </label>
+                <input type="text" id="daNameMother"@Model name="daNameMother"@Model />
+            </div>
+
+
+            <div class="inputdetails">
+                <label class="labelinput">Data nasterii  </label>
+                <input type="text" id="daBirthday"@Model name="daBirthday"@Model />
+            </div>
+
+            <div class="inputdetails">
+                <label class="labelinput">Localitate </label>
+                <input type="text" id="daCity"@Model name="daCity"@Model />
+            </div>
+
+
+            <div class="inputdetails">
+                <label class="labelinput">Judetul  </label>
+                <input type="text" id="daCounty"@Model name="daCounty"@Model />
+            </div>
+
+            <div class="inputdetails container" style="max-width:518px;">
+                <div class="mini-container">
+                <label class="labelinput">Act de identitate </label> <br />
+                <label class="labelinput" style="min-width:50px;">Seria </label>
+                <input type="text" id="daSerieAct"@Model name="daSerieAct"@Model style="width:35px;"/>
+                <label class="labelinput" style="min-width:80px;">Numarul </label>
+                <input type="text" id="daNoAct"@Model name="daNoAct"@Model  style="width:100px;"/>
+                </div>
+            </div>
+
+             <div class="inputdetails">
+                <label class="labelinput">CNP  </label>
+                <input type="text" id="daCNP"@Model name="daCNP"@Model />
+            </div>
+
+             <div class="inputdetails">
+                <label class="labelinput">Judetul  </label>
+                <input type="text"id="daAddress"@Model name="daAddress"@Model />
+            </div>
+

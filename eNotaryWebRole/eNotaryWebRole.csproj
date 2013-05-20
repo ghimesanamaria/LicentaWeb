@@ -266,6 +266,7 @@
     <Compile Include="Code\IPDFProvider.cs" />
     <Compile Include="Code\MailProvider.cs" />
     <Compile Include="Code\PDFProvider.cs" />
+    <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\Act.cs">
@@ -681,6 +682,7 @@
     <Content Include="Scripts\jstree\_docs\_search_result.json" />
     <Content Include="Views\Home\UploadAndDetails.cshtml" />
     <Content Include="Views\Home\DivorceApplication.cshtml" />
+    <Content Include="Views\Helper\DivorcePersonDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,8 +1,18 @@
-﻿<div id="container-divorce-application">
+﻿<div id="container-divorce-application" class="container">
 
     @using (@Ajax.BeginForm("DivorceApplication", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "formDivorce" }))
     {
         <div id="husband-details">
+
+            @Html.Action("DivorcePersonDetails","Helper",new{ type="Husband"})
+
+        </div>
+        <div id="wife-details">
+             @Html.Action("DivorcePersonDetails","Helper",new{ type="Wife"})
+
+        </div>
+        
+        <div id="common-details">
 
 
         </div>

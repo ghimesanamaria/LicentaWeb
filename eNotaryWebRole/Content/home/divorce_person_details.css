@@ -1,0 +1,40 @@
+﻿.inputDetails {
+    font-size:0.8em;
+    font-weight:bold;
+    display: inline-block;
+}
+.labelinput {
+    display: inline-block;
+    min-width:200px;
+    font-size:1em;
+   
+}
+
+#husband-details > input {
+    max-width:300px;
+}
+
+#husband-details, #wife-details {
+    float:left;
+    width:45%;
+    margin-right:10px;
+    margin-left:20px;
+}
+
+#daType {
+    margin:30px;
+    font-weight:bold;
+    font-size:1.5em;
+}
+
+#container-divorce-application {
+
+}
+
+#GenerateDivorceAppBtn {
+    margin-left:20px;
+}
+.mini-container {
+    max-width:400px;
+    margin-left:85px;
+}
