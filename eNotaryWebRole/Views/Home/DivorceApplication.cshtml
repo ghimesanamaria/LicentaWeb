@@ -44,6 +44,9 @@
             
     </div>
     }
+    <div id="container-generate-divorce">
+        <iframe id="application-divorce" style="display:none"></iframe>
+    </div>
 
 </div>
 
@@ -55,6 +58,8 @@
     var onBegin = function (data) {
     };
     var onSuccess = function (data) {
+
+        $("#application-divorce").attr('src', '');
     };
 </script>
 <link href='@Url.Content("~/Content/home/divorce_app.css")' rel="stylesheet" />

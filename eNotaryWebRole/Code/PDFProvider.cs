@@ -41,7 +41,7 @@ namespace eNotaryWebRole.Code
         {
             // generate a pdf form for divorce application
             TallComponents.PDF.Layout.Document pdf = new TallComponents.PDF.Layout.Document();
-            using (FileStream file = new FileStream(url + "\\PDFApplications\\" + filename, FileMode.Create, FileAccess.Write))
+            using (FileStream file = new FileStream(url + "PDFApplications\\" + filename, FileMode.Create, FileAccess.Write))
             {
             // read the xml configuration file for divorce
                 Section section = pdf.Sections.Add();
@@ -49,7 +49,7 @@ namespace eNotaryWebRole.Code
                 section.DoNotBreak = true;
                 TextParagraph text = new TextParagraph();
 
-            XmlTextReader reader = new XmlTextReader(url+"\\ConfigFiles\\DivorceConfig.xml");
+            XmlTextReader reader = new XmlTextReader(url+"ConfigFiles\\DivorceConfig.xml");
 
             string type = "";
 
@@ -78,12 +78,16 @@ namespace eNotaryWebRole.Code
                     fragment.PreserveWhiteSpace = true;
                     text.Fragments.Add(fragment);
                 }
+                else
+                {
+                    type = reader.Name;
+                }
             }
-                 
-        
 
 
 
+
+            pdf.Write(file);
 
                     return pdf;
                 }

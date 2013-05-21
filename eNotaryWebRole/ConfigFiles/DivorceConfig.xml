@@ -15,11 +15,11 @@
 
       Subsemnatul [daNameHusband] fiul lui [daNameFatherHusband] şi al [daNameMotherHusband] născut la data
       de [daBirthdayHusband] în localitatea [daCityHusband],  judeţul [daCountyHusband],
-      titular al actului de identitate/paşaportului  seria [daSerieActHusband]nr.[daNotActHusband],
+      titular al actului de identitate/paşaportului  seria [daSerieActHusband]nr.[daNoActHusband],
       CNP [daCNPHusband] cu domiciliul în [daAddressHusband] şi subsemnata [daNameWife]
       fiica lui [daNameFatherWife] şi a [daNameMotherWife] , născută în data de [daBirthdayWife] , în localitatea
       [daCityWife] , judeţul [daCountyWife], titulară a actului de identitate/paşaport
-      seria [daSerieActWife], nr. [daNotActWife], CNP [daCNPWife],  cu domiciliul în
+      seria [daSerieActWife], nr. [daNoActWife], CNP [daCNPWife],  cu domiciliul în
       [daAddressWife], căsătoriţi la data de  [daMarriageDate],
       la Primăria localităţii [daDownHallCity], judeţul [daDownHallCounty],
       conform certificatului de căsătorie seria [daMarriageCertificateSeries], eliberat în baza

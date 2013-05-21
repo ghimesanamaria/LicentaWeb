@@ -262,7 +262,7 @@ namespace eNotaryWebRole.Controllers
             Dictionary<string, string> formatPDF = new Dictionary<string, string>();
             foreach (string q in collection.AllKeys)
             {
-                formatPDF.Add(q, collection[q]);
+                formatPDF.Add("["+q+"]", collection[q]);
             }
             string url =HttpContext.Request.PhysicalApplicationPath;
             string filename = "out.pdf";
