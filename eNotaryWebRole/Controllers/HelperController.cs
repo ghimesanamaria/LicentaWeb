@@ -21,5 +21,10 @@ namespace eNotaryWebRole.Controllers
             return PartialView("DivorcePersonDetails", type);
         }
 
+        public ActionResult CommonDetails()
+        {
+            return PartialView("CommonDetails");
+        }
+
     }
 }

@@ -1,66 +1,89 @@
 ﻿@model string
 @{
     string name = "";
+    string type = "";
     if(Model == "Husband"){
         name = "Sot";
+        type = "Husband";
     }
     else{
         name = "Sotie";
+        type = "Wife";
     }
+    string daName = "daName" + type,
+        daNameFather = "daNameFather" + type,
+        daNameMother = "daNameMother" + type,
+        daBirthday = "daBirthday" + type,
+        daCity = "daCity" + type,
+        daCounty = "daCounty" + type,
+        daSerieAct = "daSerieAct" + type,
+        daNoAct = "daNoAct" + type,
+         daCNP = "daCNP" + type,
+         daAddress = "daAddress" + type;
+        
+        
 }
+<style>
+    textarea {
+        max-width:200px;
+
+        height: 200px;
+    }
+</style>
 
 <link href='@Url.Content("~/Content/home/divorce_person_details.css")' rel="stylesheet" />
    
-            <div id="daType">@name</div>
+            <div class="daType">@name</div>
             <div class="inputdetails">
                 <label class="labelinput">Nume si prenume </label>
-                <input type="text" id="daName"@Model name="daName"@Model />
+                <input type="text" id=@daName name=@daName />
             </div>
 
             <div class="inputdetails">
                 <label class="labelinput">Fiul lui </label>
-                <input type="text" id="daNameFather"@Model name="daNameFather"@Model />
+                <input type="text" id=@daNameFather name=@daNameFather />
             </div>
 
             <div class="inputdetails">
                 <label class="labelinput">si al </label>
-                <input type="text" id="daNameMother"@Model name="daNameMother"@Model />
+                <input type="text" id=@daNameMother name=@daNameMother />
             </div>
 
 
             <div class="inputdetails">
                 <label class="labelinput">Data nasterii  </label>
-                <input type="text" id="daBirthday"@Model name="daBirthday"@Model />
+                <input type="text" id=@daBirthday name=@daBirthday />
             </div>
 
             <div class="inputdetails">
                 <label class="labelinput">Localitate </label>
-                <input type="text" id="daCity"@Model name="daCity"@Model />
+                <input type="text" id=@daCity name=@daCity />
             </div>
 
 
             <div class="inputdetails">
                 <label class="labelinput">Judetul  </label>
-                <input type="text" id="daCounty"@Model name="daCounty"@Model />
+                <input type="text" id=@daCounty name=@daCounty />
             </div>
 
-            <div class="inputdetails container" style="max-width:518px;">
+            <div class="inputdetails container" style="max-width:368px;">
                 <div class="mini-container">
                 <label class="labelinput">Act de identitate </label> <br />
                 <label class="labelinput" style="min-width:50px;">Seria </label>
-                <input type="text" id="daSerieAct"@Model name="daSerieAct"@Model style="width:35px;"/>
+                <input type="text" id=@daSerieAct name=@daSerieAct style="width:35px;"/>
                 <label class="labelinput" style="min-width:80px;">Numarul </label>
-                <input type="text" id="daNoAct"@Model name="daNoAct"@Model  style="width:100px;"/>
+                <input type="text" id=@daNoAct name=@daNoAct  style="width:100px;"/>
                 </div>
             </div>
 
              <div class="inputdetails">
                 <label class="labelinput">CNP  </label>
-                <input type="text" id="daCNP"@Model name="daCNP"@Model />
+                <input type="text" id=@daCNP name=@daCNP />
             </div>
 
              <div class="inputdetails">
-                <label class="labelinput">Judetul  </label>
-                <input type="text"id="daAddress"@Model name="daAddress"@Model />
+                <label class="labelinput">Domiciliul  </label>
+                <textarea id=@daAddress name=@daAddress >
+                    </textarea>
             </div>
 

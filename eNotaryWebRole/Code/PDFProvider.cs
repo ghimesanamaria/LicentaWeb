@@ -41,7 +41,7 @@ namespace eNotaryWebRole.Code
         {
             // generate a pdf form for divorce application
             TallComponents.PDF.Layout.Document pdf = new TallComponents.PDF.Layout.Document();
-            using (FileStream file = new FileStream(url + "\\PDF\\" + filename, FileMode.Create, FileAccess.Write))
+            using (FileStream file = new FileStream(url + "\\PDFApplications\\" + filename, FileMode.Create, FileAccess.Write))
             {
             // read the xml configuration file for divorce
                 Section section = pdf.Sections.Add();

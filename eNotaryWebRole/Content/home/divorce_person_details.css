@@ -2,26 +2,31 @@
     font-size:0.8em;
     font-weight:bold;
     display: inline-block;
+    line-height:24px;
 }
 .labelinput {
     display: inline-block;
-    min-width:200px;
+    min-width:150px;
     font-size:1em;
    
 }
 
-#husband-details > input {
-    max-width:300px;
+.inputdetails input {
+    width: 200px;
 }
 
-#husband-details, #wife-details {
+#husband-details > input {
+    width:150px;
+}
+
+#husband-details, #wife-details, #common-details {
     float:left;
-    width:45%;
+    width:30%;
     margin-right:10px;
     margin-left:20px;
 }
 
-#daType {
+.daType {
     margin:30px;
     font-weight:bold;
     font-size:1.5em;
@@ -36,5 +41,8 @@
 }
 .mini-container {
     max-width:400px;
-    margin-left:85px;
+    margin:10px;
+}
+#buttons {
+    margin-top:30px;
 }

@@ -551,6 +551,7 @@
     <Content Include="Images\unknown.png" />
     <Content Include="Scripts\bootstrap\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\divorce_app\divorce_app.js" />
     <Content Include="Scripts\dropdown\simple.dropdown.js" />
     <Content Include="Scripts\gDocViewer\jquery.gdocsviewer.js" />
     <Content Include="Scripts\gDocViewer\jquery.zohoviewer.min.js" />
@@ -684,11 +685,13 @@
     <Content Include="Views\Home\UploadAndDetails.cshtml" />
     <Content Include="Views\Home\DivorceApplication.cshtml" />
     <Content Include="Views\Helper\DivorcePersonDetails.cshtml" />
+    <Content Include="Views\Helper\CommonDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\pdf_preview\" />
     <Folder Include="Fisiere\" />
+    <Folder Include="PDFApplications\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

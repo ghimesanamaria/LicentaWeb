@@ -1,28 +1,54 @@
-﻿<div id="container-divorce-application" class="container">
+﻿<div id="container-divorce-application" >
+    
 
     @using (@Ajax.BeginForm("DivorceApplication", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "formDivorce" }))
     {
+        <div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" href="#collapse-doc-controls-top">
+            <b>Generare cerere divort
+            </b>
+            <i class="icon-chevron-up"></i>
+        </a>
+    </div>
+
+    <div id="collapse-doc-controls-top" class="accordion-body collapse in">
+        <div class="accordion-inner">
+        </div>
         <div id="husband-details">
 
-            @Html.Action("DivorcePersonDetails","Helper",new{ type="Husband"})
+            @Html.Action("DivorcePersonDetails", "Helper", new { type = "Husband" })
 
         </div>
         <div id="wife-details">
-             @Html.Action("DivorcePersonDetails","Helper",new{ type="Wife"})
+            @Html.Action("DivorcePersonDetails", "Helper", new { type = "Wife" })
 
         </div>
-        
+
         <div id="common-details">
-
+            @Html.Action("CommonDetails", "Helper")
 
         </div>
-        
-        <div id="container-divorce-buttons">
-            <button id="GenerateDivorceAppBtn" class="btn btn-info">Genereaza cerere</button>
-        </div>
+
+
+
+        <div class="clear-all"></div>
+    </div>
+</div>
+                      
+             <div id="buttonControls" >
+                 <div id="buttons">
+                     <button id="GenerateDivorceAppBtn" class="btn btn-info">Genereaza cerere</button>
+                 </div>
+
+            
+    </div>
     }
 
 </div>
+
+
+
 <script>
 
 
@@ -32,3 +58,4 @@
     };
 </script>
 <link href='@Url.Content("~/Content/home/divorce_app.css")' rel="stylesheet" />
+<script src='@Url.Content("~/Scripts/divorce_app/divorce_app.js")'></script>

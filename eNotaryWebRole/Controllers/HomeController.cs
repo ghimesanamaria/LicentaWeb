@@ -63,6 +63,7 @@ namespace eNotaryWebRole.Controllers
 
         private System.ComponentModel.Container components = null;
         string username = "user_test";
+        private IPDFProvider _rep_pdf = new PDFProvider();
 
 
         // variables to verify if pdfs are signed 
@@ -257,6 +258,15 @@ namespace eNotaryWebRole.Controllers
         [HttpPost]
         public ActionResult DivorceApplication(FormCollection collection)
         {
+
+            Dictionary<string, string> formatPDF = new Dictionary<string, string>();
+            foreach (string q in collection.AllKeys)
+            {
+                formatPDF.Add(q, collection[q]);
+            }
+            string url =HttpContext.Request.PhysicalApplicationPath;
+            string filename = "out.pdf";
+            _rep_pdf.create_divorce_pdf(filename, url, formatPDF);
             return Json("");
         }
 
