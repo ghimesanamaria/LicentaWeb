@@ -1,4 +1,5 @@
 ﻿<div id="container-divorce-application" >
+   
     
 
     @using (@Ajax.BeginForm("DivorceApplication", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "formDivorce" }))
@@ -75,6 +76,19 @@
 
         if ($("#formDivorce").valid()) {
             $("#formDivorce").submit();
+            $("#formDivorce input").css('background-color', 'white');
+            $("#formDivorce textarea").css('background-color', 'white');
+            $("#ErrorMessageDivorce").removeClass('alert alert-error');
+            $("#ErrorMessageDivorce").addClass('alert alert-success');
+            $("#ErrorMessageDivorce").html('Cererea a fost generata cu succes!');
+
+        }
+        else {
+            $("#formDivorce input").css('background-color', 'rgb(253, 221, 231)');
+            $("#formDivorce textarea").css('background-color', 'rgb(253, 221, 231)');
+            $("#ErrorMessageDivorce").addClass('alert alert-error');
+            $("#ErrorMessageDivorce").removeClass('alert alert-success');
+            $("#ErrorMessageDivorce").html('Toate campurile sunt obligatorii!');
         }
     });
 
