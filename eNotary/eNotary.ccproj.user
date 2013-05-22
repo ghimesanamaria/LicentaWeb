@@ -4,5 +4,7 @@
     <UseIISExpress>True</UseIISExpress>
     <WebRoleSkipLaunchInBrowser>
     </WebRoleSkipLaunchInBrowser>
+    <WebRoleHttpsSkipLaunchInBrowser>
+    </WebRoleHttpsSkipLaunchInBrowser>
   </PropertyGroup>
 </Project>

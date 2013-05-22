@@ -1,7 +1,9 @@
 ﻿.hideDiv {
     display:none;
 }
-
+.error {
+    display: inline-block;
+}
 
 /* layout css*/
 .navbar {

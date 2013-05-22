@@ -179,11 +179,11 @@ namespace eNotaryWebRole.Controllers
          
            // delete all temporary files
 
-            Array.ForEach(Directory.GetFiles(url + "\\Fisiere"),
-             delegate(string path)
-             {
-                 System.IO.File.Delete(path);
-             });
+            //Array.ForEach(Directory.GetFiles(url + "\\Fisiere"),
+            // delegate(string path)
+            // {
+            //     System.IO.File.Delete(path);
+            // });
 
             //SelectICard();
             //SetupReaderList();

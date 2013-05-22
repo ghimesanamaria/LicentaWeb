@@ -64,3 +64,233 @@
 </script>
 <link href='@Url.Content("~/Content/home/divorce_app.css")' rel="stylesheet" />
 <script src='@Url.Content("~/Scripts/divorce_app/divorce_app.js")'></script>
+
+
+
+
+<script>
+
+    $("#GenerateDivorceAppBtn").click(function (e) {
+        e.preventDefault();
+
+        if ($("#formDivorce").valid()) {
+            $("#formDivorce").submit();
+        }
+    });
+
+
+    $(function () {
+        $("#formDivorce").validate({
+
+            onsubmit: false,
+            ignore: '.ignore',
+            debug: true,
+            onkeyup: false,
+            onclick: false,
+            rules: {
+                daNameHusband: {
+                    required: true
+                },
+                daNameFatherHusband: {
+                    required: true
+                },
+                daNameMotherHusband: {
+                    required: true
+                },
+                daCityHusband: {
+                    required: true
+                },
+                daCountyHusband: {
+                    required: true
+                },
+                daSerieActHusband: {
+                    required: true
+                },
+                daNoActHusband: {
+                    required: true
+                },
+                daCNPHusband: {
+                    required: true
+                },
+                daAddressHusband: {
+                    required: true
+                },
+                daBirthdayHusband: {
+                    required: true
+                },
+                daNameWife: {
+                    required: true
+                },
+                daNameFatherWife: {
+                    required: true
+                },
+                daNameMotherWife: {
+                    required: true
+                },
+                daCityWife: {
+                    required: true
+                },
+                daCountyWife: {
+                    required: true
+                },
+                daSerieActWife: {
+                    required: true
+                },
+                daNoActWife: {
+                    required: true
+                },
+                daCNPWife: {
+                    required: true
+                },
+                daAddressWife: {
+                    required: true
+                },
+                daBirthdayWife: {
+                    required: true
+                },
+                daMarriageDate: {
+                    required: true
+                },
+                daDownHallCity: {
+                    required: true
+                },
+                daDownHallCounty: {
+                    required: true
+                },
+                daMarriageCertificateSeries: {
+                    required: true
+                },
+                daMarriageCertificateNo: {
+                    required: true
+                },
+                daCommonCity: {
+                    required: true
+                },
+                daCommonStreet: {
+                    required: true
+                },
+                daCommonStreetNo: {
+                    required: true
+                },
+                daCommonStreetBl: {
+                    required: true
+                },
+                daCommonEt: {
+                    required: true
+                },
+                daCommonAp: {
+                    required: true
+                },
+                daCommonExHusbandName: {
+                    required: true
+                },
+                daCommonExWifeName: {
+                    required: true
+                }
+            },
+            messages: {
+
+                daNameHusband: {
+                    required: "*"
+                },
+                daNameFatherHusband: {
+                    required: "*"
+                },
+                daNameMotherHusband: {
+                    required: "*"
+                },
+                daCityHusband: {
+                    required: "*"
+                },
+                daCountyHusband: {
+                    required: "*"
+                },
+                daSerieActHusband: {
+                    required: "*"
+                },
+                daNoActHusband: {
+                    required: "*"
+                },
+                daCNPHusband: {
+                    required: "*"
+                },
+                daAddressHusband: {
+                    required: "*"
+                },
+                daBirthdayHusband: {
+                    required: "*"
+                },
+                daNameWife: {
+                    required: "*"
+                },
+                daNameFatherWife: {
+                    required: "*"
+                },
+                daNameMotherWife: {
+                    required: "*"
+                },
+                daCityWife: {
+                    required: "*"
+                },
+                daCountyWife: {
+                    required: "*"
+                },
+                daSerieActWife: {
+                    required: "*"
+                },
+                daNoActWife: {
+                    required: "*"
+                },
+                daCNPWife: {
+                    required: "*"
+                },
+                daAddressWife: {
+                    required: "*"
+                },
+                daBirthdayWife: {
+                    required: "*"
+                },
+                daMarriageDate: {
+                    required: "*"
+                },
+                daDownHallCity: {
+                    required: "*"
+                },
+                daDownHallCounty: {
+                    required: "*"
+                },
+                daMarriageCertificateSeries: {
+                    required: "*"
+                },
+                daMarriageCertificateNo: {
+                    required: "*"
+                },
+                daCommonCity: {
+                    required: "*"
+                },
+                daCommonStreet: {
+                    required: "*"
+                },
+                daCommonStreetNo: {
+                    required: "*"
+                },
+                daCommonStreetBl: {
+                    required: "*"
+                },
+                daCommonEt: {
+                    required: "*"
+                },
+                daCommonAp: {
+                    required: "*"
+                },
+                daCommonExHusbandName: {
+                    required: "*"
+                },
+                daCommonExWifeName: {
+                    required: "*"
+                }
+            }
+        });
+    });
+</script>
+    
