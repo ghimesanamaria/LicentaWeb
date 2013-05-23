@@ -53,36 +53,29 @@ namespace eNotaryWebRole.Controllers
 
            // long userID = _db.Contacts.Where(o => o.Username == username).First().ID;
 
-            var obj1 = new
-            {
-                data = "Documente nesemnate si nevizualizate",
-                id = -1,
-                attr = new { id = -1, description = "UnsignedUnvDocs" },
-                state = "closed"
-            };
-
-            var obj2 = new
-            {
-                data = "Documente semnate",
-                id =-2,
-                attr = new { id = -2, description = "SignedDocs" },
-                state = "closed"
-            };
-
-            //var obj3 = new
-            //{
-            //    data = "Documente nesemnate, dar in asteptare",
-            //    id = -3,
-            //    attr = new { id = -3, description = "UnsignedWtDocs" },
-            //    state = "closed"
-            //};
-            List<object> list = new List<object>();
-            list.Add(obj1);
-            list.Add(obj2);
-           // list.Add(obj3);
 
 
-            IList<JsTreeModel> tree = new List<JsTreeModel>();
+            List<JsTreeModel> tree = new List<JsTreeModel>();
+          
+           
+            JsTreeData data = new JsTreeData("Documente nesemnate si nevizualizate", "");
+            JsTreeAttribute attr = new JsTreeAttribute("-1", false, "", "UnsignedUnvDocs");
+            JsTreeModel root_node = new JsTreeModel(data, "closed", "-1", attr, null);
+            tree.Add(root_node);
+            data = new JsTreeData("Documente semnate", "");
+            attr = new JsTreeAttribute("-2", false, "", "SignedDocs");
+            root_node = new JsTreeModel(data, "closed", "-2", attr, null);
+            tree.Add(root_node);
+
+            
+            
+            string url = Url.Content("~/Images/User-Files-icon.png");
+             data = new JsTreeData("Documente", url);
+            attr = new JsTreeAttribute("0", false, "", "root");
+            root_node = new JsTreeModel(data, "open", "0", attr, tree);
+
+            List<JsTreeModel> list = new List<JsTreeModel>();
+            list.Add(root_node);
             return Json(list);
           
 
@@ -133,17 +126,7 @@ namespace eNotaryWebRole.Controllers
                                      state = "closed"
 
                                  })).Distinct().ToList();
-                        //List<JsTreeModel> list_Person = new List<JsTreeModel>();
-                        //foreach (var v in q)
-                        //{
-                        //    JsTreeData data = new JsTreeData(v.data, "");
-                        //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedUV", false, "","person");
-                        //    list_Person.Add(
-                        //        new JsTreeModel(data,"closed","",attr,null)
-                        //        );
-                        //}
-                     
-
+                
                        
                         return Json(q);
 
@@ -168,46 +151,10 @@ namespace eNotaryWebRole.Controllers
                                    }).Distinct();
 
 
-                        //List<JsTreeModel> list_Person = new List<JsTreeModel>();
-                        //foreach (var v in q2)
-                        //{
-                        //    JsTreeData data = new JsTreeData(v.data, "");
-                        //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_signed", false, "", "person");
-                        //    list_Person.Add(
-                        //        new JsTreeModel(data, "closed", "", attr, null)
-                        //        );
-                        //}
                         return Json(q2);
                     }
                     break;
-                case "-3":
-                    {
-                        //var q3 = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "vizualizat")
-                        //          join p in _db.PersonDetails
-                        //         on a.PersonDetailsID equals p.ID
-
-                        //          select
-                        //          new
-                        //          {
-
-                        //              data = p.LastName,
-                        //              id = SqlFunctions.StringConvert((decimal)p.ID) + "_unsignedVI",
-                        //              attr = new { id =SqlFunctions.StringConvert((decimal) p.ID)+"_unsignedVI" , description = "person" },
-                        //              state = "closed"
-
-                        //          }).Distinct();
-                        //List<JsTreeModel> list_Person = new List<JsTreeModel>();
-                        //foreach (var v in q3)
-                        //{
-                        //    JsTreeData data = new JsTreeData(v.data, "");
-                        //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedVI", false, "", "person");
-                        //    list_Person.Add(
-                        //        new JsTreeModel(data, "closed", "", attr, null)
-                        //        );
-                        //}
-                       // return Json(q3);
-                    }
-                    break;
+          
                 default:
                     {
                         // must verify what type of act must be  displayed - signed, unsigned or visualized but unsigned
@@ -223,16 +170,6 @@ namespace eNotaryWebRole.Controllers
                                           state = String.Empty
                                       }).Distinct();
 
-
-                            //List<JsTreeModel> list_acts = new List<JsTreeModel>();
-                            //foreach (var v in q4)
-                            //{
-                            //    JsTreeData data = new JsTreeData(v.data, "");
-                            //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedUVAct", false, "", "act");
-                            //    list_acts.Add(
-                            //        new JsTreeModel(data, "", "", attr, null)
-                            //        );
-                            //}
                             return Json(q4);
                         }
                         else
@@ -249,41 +186,10 @@ namespace eNotaryWebRole.Controllers
                                               state = String.Empty
                                           });
 
-                                //List<JsTreeModel> list_acts = new List<JsTreeModel>();
-                                //foreach (var v in q4)
-                                //{
-                                //    JsTreeData data = new JsTreeData(v.data, "");
-                                //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_unsignedVIAct", false, "", "act");
-                                //    list_acts.Add(
-                                //        new JsTreeModel(data, "", "", attr, null)
-                                //        );
-                                //}
                                 return Json(q4);
 
                             }
-                            else
-                            {
-
-                                var q5 = (from a in _db.Acts.Where(o => o.State == "vizualizat" && o.Signed == false && o.Disabled == false)
-                                          select
-                                          new
-                                          {
-                                              data = a.ExternalUniqueReference,
-                                              id = SqlFunctions.StringConvert((decimal?) a.ID)+"_unsignedVIAct",
-                                              attr = new { id = SqlFunctions.StringConvert((decimal?)a.ID) + "_unsignedVIAct", description = "act" },
-                                              state = String.Empty
-                                          }).Distinct();
-                                //List<JsTreeModel> list_acts = new List<JsTreeModel>();
-                                //foreach (var v in q5)
-                                //{
-                                //    JsTreeData data = new JsTreeData(v.data, "");
-                                //    JsTreeAttribute attr = new JsTreeAttribute(v.id + "_signedAct", false, "", "act");
-                                //    list_acts.Add(
-                                //        new JsTreeModel(data, "", "", attr, null)
-                                //        );
-                                //}
-                                return Json(q5);
-                            }
+                
                     }
                     break;
             }

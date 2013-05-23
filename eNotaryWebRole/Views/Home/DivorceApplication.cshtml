@@ -28,7 +28,7 @@
         </div>
 
         <div id="common-details">
-            @Html.Action("CommonDetails", "Helper")
+            @Html.Action("CommonDetails", "Helper", new { cd=Model.common })
 
         </div>
 
@@ -47,7 +47,7 @@
     </div>
     }
     <div id="container-generate-divorce">
-        <iframe id="application-divorce" src="" frameborder="0" id="iframeDoc" style="width:100%; height:700px;"></iframe>
+        <iframe id="application-divorce" src='~/PDFApplications/out.pdf' frameborder="0" id="iframeDoc" style="width:100%; height:700px;"></iframe>
     </div>
 
 </div>
@@ -60,8 +60,8 @@
     var onBegin = function (data) {
     };
     var onSuccess = function (data) {
-
-        $("#application-divorce").attr('src', '@Url.Content("~/PDFApplications/out.pdf")');
+        console.log('here');
+      
     };
 </script>
 <link href='@Url.Content("~/Content/home/divorce_app.css")' rel="stylesheet" />
@@ -91,6 +91,9 @@
             $("#ErrorMessageDivorce").removeClass('alert alert-success');
             $("#ErrorMessageDivorce").html('Toate campurile sunt obligatorii!');
         }
+        $("#application-divorce").show();
+        $("#application-divorce").attr('src', "~/PDFApplications/out.pdf");
+      //  $("#application-divorce").attr('src', '@Url.Content("~/PDFApplications/out.pdf")');
     });
 
 

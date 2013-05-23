@@ -278,7 +278,12 @@
 
        
         })
-    .bind("loaded.jstree", function (e, data) {})
+    .bind("loaded.jstree", function (e, data) {
+
+        $(".jstree-checkbox").hide();
+       
+
+    })
     .bind('after_open.jstree', function (e, data) {
 
         if (typeof path === "undefined") {

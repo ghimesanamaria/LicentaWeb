@@ -11,14 +11,16 @@ namespace eNotaryWebRole.Models
         public string state { get; set; }
         public string id { get; set; }
         public JsTreeAttribute attr { get; set; }
+        public List<JsTreeModel> children { get; set; }
        
 
-        public  JsTreeModel(JsTreeData d, string st, string i, JsTreeAttribute a, IList<JsTreeModel> ch )
+        public  JsTreeModel(JsTreeData d, string st, string i, JsTreeAttribute a, List<JsTreeModel> ch )
         {
             data = d;
             state = st;
             id = i;
             attr = a;
+            children = ch;
     
         }
   
@@ -30,13 +32,14 @@ namespace eNotaryWebRole.Models
       public bool selected { get; set; }
       public string style { get; set; }
       public string description { get; set; }
-
+     
       public  JsTreeAttribute(string i, bool sel, string sty, string desc)
       {
           id = i;
           selected = sel;
           style = sty;
           description = desc;
+         
       }
   }
     public  class JsTreeData
