@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using eNotaryWebRole.Models;
+using eNotaryWebRole.ViewModel;
 
 namespace eNotaryWebRole.Models
 {
@@ -147,6 +148,25 @@ namespace eNotaryWebRole.Models
 
 
 
+       }
+       public DivorcePersonDetailViewModel create_person(string name, string father_name, string mother_name, string city, string county, 
+           string serie_act, string serie_no, string sns, string address, DateTime birthday)
+       {
+           DivorcePersonDetailViewModel dv = new DivorcePersonDetailViewModel()
+           {
+               firstlast_name= name,
+               father_name = father_name,
+               mothere_name = mother_name, 
+               city = city,
+               county= county,
+               serieAct=serie_act,
+               noAct = serie_no,
+               SNS=sns,
+               Address =address,
+               BirthDay =birthday
+
+           };
+           return dv;
        }
 
 

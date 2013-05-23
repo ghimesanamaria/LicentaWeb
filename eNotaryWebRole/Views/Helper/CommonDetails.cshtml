@@ -1,10 +1,11 @@
-﻿<div id="container-common-details">
+﻿@model eNotaryWebRole.ViewModel.DivorceCommonDetailsViewModel
+<div id="container-common-details">
     <div class="daType"> Detalii comune</div>
     <div class="inputdetails">
         <label class="labelinput">
             Data casatoriei
         </label>
-        <input type="text" id="daMarriageDate" name="daMarriageDate" />
+        <input type="text" id="daMarriageDate" name="daMarriageDate" value="@Model.marriage_date"/>
     </div>
 
 
@@ -12,14 +13,14 @@
         <label class="labelinput">
             Primarie Localitate:
         </label>
-        <input type="text" id="daDownHallCity" name="daDownHallCity" />
+        <input type="text" id="daDownHallCity" name="daDownHallCity" value="@Model.downhall_city"/>
     </div>
 
      <div class="inputdetails">
         <label class="labelinput">
             Primarie Judet:
         </label>
-        <input type="text" id="daDownHallCounty" name="daDownHallCounty" />
+        <input type="text" id="daDownHallCounty" name="daDownHallCounty" value="@Model.downhall_county"/>
     </div>
 
      <div class="inputdetails">
@@ -30,12 +31,12 @@
           <label class="labelinput">
             Serie:
         </label>
-        <input type="text" id="daMarriageCertificateSeries" name="daMarriageCertificateSeries" />
+        <input type="text" id="daMarriageCertificateSeries" name="daMarriageCertificateSeries" value="@Model.marriage_certificate_serie"/>
 
          <label class="labelinput">
             Numar (folositi separatorul *):
         </label>
-        <input type="text" id="daMarriageCertificateNo" name="daMarriageCertificateNo" />
+        <input type="text" id="daMarriageCertificateNo" name="daMarriageCertificateNo" value="@Model.marriage_certificate_no" />
     </div>
 
      <div class="inputdetails">
@@ -48,22 +49,22 @@
         <label class="labelinput">
             Oras:
         </label>
-        <input type="text" id="daCommonCity" name="daCommonCity" />
+        <input type="text" id="daCommonCity" name="daCommonCity" value="@Model.common_city" />
     </div>
 
     <div class="inputdetails">
         <label class="labelinput">
             Strada :
         </label>
-        <input type="text" id="daCommonStreet" name="daCommonStreet" />
+        <input type="text" id="daCommonStreet" name="daCommonStreet" value="@Model.common_street" />
         <label class="labelinput" >
             Nr :
         </label>
-        <input type="text" id="daCommonStreetNo" name="daCommonStreetNo" style="width: 30px;" />
+        <input type="text" id="daCommonStreetNo" name="daCommonStreetNo" style="width: 30px;" value="@Model.common_street_no" />
         <label class="labelinput" style="min-width:40px;">
             Bl :
         </label>
-        <input type="text" id="daCommonStreetBl" name="daCommonStreetBl" style="width: 30px;" />
+        <input type="text" id="daCommonStreetBl" name="daCommonStreetBl" style="width: 30px;" value="@Model.common_street_bl"/>
 
     </div>
 
@@ -71,12 +72,12 @@
         <label class="labelinput" >
             Et:
         </label>
-        <input type="text" id="daCommonEt" name="daCommonEt" style="width: 30px; "/>
+        <input type="text" id="daCommonEt" name="daCommonEt" style="width: 30px; " value="@Model.common_et"/>
 
         <label class="labelinput" style="min-width:40px;">
             Ap:
         </label>
-        <input type="text" id="daCommonAp" name="daCommonAp" style="width: 30px;"/>
+        <input type="text" id="daCommonAp" name="daCommonAp" style="width: 30px;" value="@Model.common_ap"/>
 
         <label class="labelinput" style="display:block;">
             Sector/ Judet:
@@ -90,14 +91,19 @@
         <label class="labelinput">
             Nume fost sot:
         </label>
-        <input type="text" id="daCommonExHusbandName" name="daCommonExHusbandName" />
+        <input type="text" id="daCommonExHusbandName" name="daCommonExHusbandName" value="@Model.common_ex_husband_name"/>
     </div>
 
       <div class="inputdetails">
         <label class="labelinput">
             Nume fost sotie:
         </label>
-        <input type="text" id="daCommonExWifeName" name="daCommonExWifeName" />
+        <input type="text" id="daCommonExWifeName" name="daCommonExWifeName" value="@Model.common_ex_wife_name"/>
     </div>
 
 </div>
+<script>
+
+    $("#daMarriageDat").datepicker('show');
+
+</script>

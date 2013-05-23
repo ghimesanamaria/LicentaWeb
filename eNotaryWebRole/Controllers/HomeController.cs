@@ -64,6 +64,7 @@ namespace eNotaryWebRole.Controllers
         private System.ComponentModel.Container components = null;
         string username = "user_test";
         private IPDFProvider _rep_pdf = new PDFProvider();
+        private IDataAccessRepository _repository = new DataAccessRepository();
 
 
         // variables to verify if pdfs are signed 
@@ -253,7 +254,11 @@ namespace eNotaryWebRole.Controllers
 
         public ActionResult DivorceApplication()
         {
-            return PartialView("DivorceApplication");
+            DivorceViewModel dv = new DivorceViewModel();
+            dv.husband = new DivorcePersonDetailViewModel();
+            dv.wife = new DivorcePersonDetailViewModel();
+            dv.common = new DivorceCommonDetailsViewModel();
+            return PartialView("DivorceApplication",dv);
         }
         [HttpPost]
         public ActionResult DivorceApplication(FormCollection collection)
@@ -264,10 +269,31 @@ namespace eNotaryWebRole.Controllers
             {
                 formatPDF.Add("["+q+"]", collection[q]);
             }
+
+            // create divorce view model object
+            DivorceViewModel dv = new DivorceViewModel();
+            dv.husband = _repository.create_person(collection["daNameHusband"], collection["daNameFatherHusband"], collection["daNameMotherHusband"], collection["daCityHusband"], collection["daCountyHusband"], collection["daSerieActHusband"], collection["daNoActHusband"], collection["daCNPHusband"], collection["daAddressHusband"], DateTime.Parse(collection["daBirthdayHusband"]));
+            dv.wife = _repository.create_person(collection["daNameWife"], collection["daNameFatherWife"], collection["daNameMotherWife"], collection["daCityHusband"], collection["daCountyWife"], collection["daSerieActWife"], collection["daNoActWife"], collection["daCNPWife"], collection["daAddressHWife"], DateTime.Parse(collection["daBirthdayWife"]));
+            dv.common = new DivorceCommonDetailsViewModel()
+            {
+                downhall_city = collection["daDownHallCity"],
+                marriage_date = DateTime.Parse(collection["daMarriageDate"]),
+                downhall_county = collection["daDownHallCounty"],
+                marriage_certificate_serie = collection["daMarriageCertificateSeries"],
+                marriage_certificate_no = collection["daMarriageCertificateNo"],
+                common_city = collection["daCommonCity"],
+                common_street = collection["daCommonStreet"],
+                common_street_no = collection["daCommonStreetNo"],
+                common_street_bl = collection["daCommonStreetBl"],
+                common_et = collection["daCommonEt"],
+                common_ap = collection["daCommonAp"],
+                common_ex_husband_name = collection["daCommonExHusbandName"],
+                common_ex_wife_name=collection["daCommonExWifeName"]
+            };
             string url =HttpContext.Request.PhysicalApplicationPath;
             string filename = "out.pdf";
             _rep_pdf.create_divorce_pdf(filename, url, formatPDF);
-            return Json("");
+            return View(dv);
         }
 
 

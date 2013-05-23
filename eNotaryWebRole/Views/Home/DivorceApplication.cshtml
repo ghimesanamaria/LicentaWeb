@@ -1,4 +1,5 @@
-﻿<div id="container-divorce-application" >
+﻿@model eNotaryWebRole.ViewModel.DivorceViewModel
+<div id="container-divorce-application" >
    
     
 
@@ -18,11 +19,11 @@
         </div>
         <div id="husband-details">
 
-            @Html.Action("DivorcePersonDetails", "Helper", new { type = "Husband" })
+            @Html.Action("DivorcePersonDetails", "Helper", new { type = "Husband",pd= Model.husband })
 
         </div>
         <div id="wife-details">
-            @Html.Action("DivorcePersonDetails", "Helper", new { type = "Wife" })
+            @Html.Action("DivorcePersonDetails", "Helper", new { type = "Wife", pd = Model.wife })
 
         </div>
 
@@ -46,7 +47,7 @@
     </div>
     }
     <div id="container-generate-divorce">
-        <iframe id="application-divorce" style="display:none"></iframe>
+        <iframe id="application-divorce" src="" frameborder="0" id="iframeDoc" style="width:100%; height:700px;"></iframe>
     </div>
 
 </div>
@@ -60,7 +61,7 @@
     };
     var onSuccess = function (data) {
 
-        $("#application-divorce").attr('src', '');
+        $("#application-divorce").attr('src', '@Url.Content("~/PDFApplications/out.pdf")');
     };
 </script>
 <link href='@Url.Content("~/Content/home/divorce_app.css")' rel="stylesheet" />

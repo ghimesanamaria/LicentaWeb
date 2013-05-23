@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using eNotaryWebRole.ViewModel;
 
 namespace eNotaryWebRole.Controllers
 {
@@ -16,14 +17,16 @@ namespace eNotaryWebRole.Controllers
             return View();
         }
 
-        public ActionResult DivorcePersonDetails(string type)
+        public ActionResult DivorcePersonDetails(string type, DivorcePersonDetailViewModel pd)
         {
-            return PartialView("DivorcePersonDetails", type);
+            pd.type = type;
+            
+            return PartialView("DivorcePersonDetails",pd );
         }
 
-        public ActionResult CommonDetails()
+        public ActionResult CommonDetails(DivorceCommonDetailsViewModel cd)
         {
-            return PartialView("CommonDetails");
+            return PartialView("CommonDetails",cd);
         }
 
     }

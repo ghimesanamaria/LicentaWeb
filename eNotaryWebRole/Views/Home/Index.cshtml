@@ -61,7 +61,7 @@
             // change the view when the select type is changing
 
             $("[name=PActType]").change(function (e) {
-                if ($("[name=PActType]").val() == "16") {
+                if ($("[name=PActType]").val() == "16") { //16 represents the divorce application
                     
                     $('#render-partial-view').empty();
 
@@ -80,7 +80,7 @@
                   
                     $("#ErrorMessageDivorce").html("");
                     $("#ErrorMessageDivorce").removeClass('alert alert-error alert-success');
-                    console.log('render2');
+                   
                 }
 
                

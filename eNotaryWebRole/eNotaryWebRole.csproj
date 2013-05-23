@@ -350,6 +350,9 @@
     </Compile>
     <Compile Include="ViewModel\CertificateWrapperViewModel.cs" />
     <Compile Include="Models\UnsignedDocumentsViewModel.cs" />
+    <Compile Include="ViewModel\DivorceCommonDetailsViewModel.cs" />
+    <Compile Include="ViewModel\DivorcePersonDetailViewModel.cs" />
+    <Compile Include="ViewModel\DivorceViewModel.cs" />
     <Compile Include="ViewModel\PdfFunctions.cs" />
     <Compile Include="ViewModel\SignatureDetailsViewModel.cs" />
     <Compile Include="WebRole.cs" />

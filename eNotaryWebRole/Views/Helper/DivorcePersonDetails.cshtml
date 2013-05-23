@@ -1,8 +1,8 @@
-﻿@model string
+﻿@model eNotaryWebRole.ViewModel.DivorcePersonDetailViewModel
 @{
     string name = "";
     string type = "";
-    if(Model == "Husband"){
+    if(Model.type == "Husband"){
         name = "Sot";
         type = "Husband";
     }
@@ -36,54 +36,58 @@
             <div class="daType">@name</div>
             <div class="inputdetails">
                 <label class="labelinput">Nume si prenume </label>
-                <input type="text" id=@daName name=@daName />
+                <input type="text" id=@daName name=@daName value="@Model.firstlast_name"/>
             </div>
 
             <div class="inputdetails">
                 <label class="labelinput">Fiul lui </label>
-                <input type="text" id=@daNameFather name=@daNameFather />
+                <input type="text" id=@daNameFather name=@daNameFather  value="@Model.father_name"/>
             </div>
 
             <div class="inputdetails">
                 <label class="labelinput">si al </label>
-                <input type="text" id=@daNameMother name=@daNameMother />
+                <input type="text" id=@daNameMother name=@daNameMother value="@Model.mothere_name"/>
             </div>
 
 
             <div class="inputdetails">
                 <label class="labelinput">Data nasterii  </label>
-                <input type="text" id=@daBirthday name=@daBirthday />
+                <input type="text" id=@daBirthday name=@daBirthday value="@Model.BirthDay"/>
             </div>
 
             <div class="inputdetails">
                 <label class="labelinput">Localitate </label>
-                <input type="text" id=@daCity name=@daCity />
+                <input type="text" id=@daCity name=@daCity value="@Model.city" />
             </div>
 
 
             <div class="inputdetails">
                 <label class="labelinput">Judetul  </label>
-                <input type="text" id=@daCounty name=@daCounty />
+                <input type="text" id=@daCounty name=@daCounty value="@Model.county" />
             </div>
 
             <div class="inputdetails container" style="max-width:368px;">
                 <div class="mini-container">
                 <label class="labelinput">Act de identitate </label> <br />
                 <label class="labelinput" style="min-width:50px;">Seria </label>
-                <input type="text" id=@daSerieAct name=@daSerieAct style="width:35px;"/>
+                <input type="text" id=@daSerieAct name=@daSerieAct style="width:35px;" value="@Model.serieAct"/>
                 <label class="labelinput" style="min-width:80px;">Numarul </label>
-                <input type="text" id=@daNoAct name=@daNoAct  style="width:100px;"/>
+                <input type="text" id=@daNoAct name=@daNoAct  style="width:100px;" value="@Model.noAct"/>
                 </div>
             </div>
 
              <div class="inputdetails">
                 <label class="labelinput">CNP  </label>
-                <input type="text" id=@daCNP name=@daCNP />
+                <input type="text" id=@daCNP name=@daCNP value="@Model.SNS"/>
             </div>
 
              <div class="inputdetails">
                 <label class="labelinput">Domiciliul  </label>
-                <textarea id=@daAddress name=@daAddress >
+                <textarea id=@daAddress name=@daAddress value="@Model.Address">
                     </textarea>
             </div>
 
+<script>
+    $("#"+'@Html.Raw(daBirthday)').datepicker('show');
+
+</script>
