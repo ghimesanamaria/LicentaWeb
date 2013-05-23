@@ -13,13 +13,13 @@
 
     <bodyContent1>
 
-      Subsemnatul [daNameHusband] fiul lui [daNameFatherHusband] şi al [daNameMotherHusband] născut la data
+      Subsemnatul [daNameHusband/] fiul lui [daNameFatherHusband/] şi al [daNameMotherHusband/] născut la data
       de [daBirthdayHusband] în localitatea [daCityHusband],  judeţul [daCountyHusband],
       titular al actului de identitate/paşaportului  seria [daSerieActHusband]nr.[daNoActHusband],
-      CNP [daCNPHusband] cu domiciliul în [daAddressHusband] şi subsemnata [daNameWife]
-      fiica lui [daNameFatherWife] şi a [daNameMotherWife] , născută în data de [daBirthdayWife] , în localitatea
+      CNP [daCNPHusband/] cu domiciliul în [daAddressHusband] şi subsemnata [daNameWife/]
+      fiica lui [daNameFatherWife/] şi a [daNameMotherWife/] , născută în data de [daBirthdayWife/] , în localitatea
       [daCityWife] , judeţul [daCountyWife], titulară a actului de identitate/paşaport
-      seria [daSerieActWife], nr. [daNoActWife], CNP [daCNPWife],  cu domiciliul în
+      seria [daSerieActWife], nr. [daNoActWife], CNP [daCNPWife/],  cu domiciliul în
       [daAddressWife], căsătoriţi la data de  [daMarriageDate],
       la Primăria localităţii [daDownHallCity], judeţul [daDownHallCounty],
       conform certificatului de căsătorie seria [daMarriageCertificateSeries], eliberat în baza
@@ -35,7 +35,7 @@
       e)	locuinţa comună este cea declarată mai sus*;
       f)	după divorţ dorim să purtăm numele de familie după cum urmează**:
       -fostul soţ [daCommonExHusbandName];
-      -fosta soţie[daCommonExWifeName];
+      -fosta soţie [daCommonExWifeName];
 
       Notă:
       *Dacă dovada ultimei locuinţe comune nu rezultă din actele de identitate prezentate, această dovadă se va face prin declaraţie autentică care se anexează la cerere.

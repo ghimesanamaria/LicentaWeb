@@ -272,8 +272,8 @@ namespace eNotaryWebRole.Controllers
 
             // create divorce view model object
             DivorceViewModel dv = new DivorceViewModel();
-            dv.husband = _repository.create_person(collection["daNameHusband"], collection["daNameFatherHusband"], collection["daNameMotherHusband"], collection["daCityHusband"], collection["daCountyHusband"], collection["daSerieActHusband"], collection["daNoActHusband"], collection["daCNPHusband"], collection["daAddressHusband"], DateTime.Parse(collection["daBirthdayHusband"]));
-            dv.wife = _repository.create_person(collection["daNameWife"], collection["daNameFatherWife"], collection["daNameMotherWife"], collection["daCityHusband"], collection["daCountyWife"], collection["daSerieActWife"], collection["daNoActWife"], collection["daCNPWife"], collection["daAddressHWife"], DateTime.Parse(collection["daBirthdayWife"]));
+            dv.husband = _repository.create_person(collection["daNameHusband/"], collection["daNameFatherHusband/"], collection["daNameMotherHusband/"], collection["daCityHusband"], collection["daCountyHusband"], collection["daSerieActHusband"], collection["daNoActHusband"], collection["daCNPHusband/"], collection["daAddressHusband"], DateTime.Parse(collection["daBirthdayHusband"]));
+            dv.wife = _repository.create_person(collection["daNameWife/"], collection["daNameFatherWife/"], collection["daNameMotherWife/"], collection["daCityHusband"], collection["daCountyWife"], collection["daSerieActWife"], collection["daNoActWife"], collection["daCNPWife/"], collection["daAddressWife"], DateTime.Parse(collection["daBirthdayWife"]));
             dv.common = new DivorceCommonDetailsViewModel()
             {
                 downhall_city = collection["daDownHallCity"],
