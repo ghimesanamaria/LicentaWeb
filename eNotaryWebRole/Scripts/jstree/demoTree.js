@@ -2,7 +2,8 @@
    
     $("#demoTree").jstree({
         "themes": {
-            "theme": "classic"
+            "theme": "classic",
+            "dots" : false
         },
         "animation": 0,
         "json_data": {
@@ -169,13 +170,13 @@
     .bind("before.jstree", function (e, data) {
       
 
-            if (data.func === "check_node") {
+            //if (data.func === "check_node") {
 
-                $.jstree._reference('#demoTree').uncheck_all();
-                console.log(e);
+            //    $.jstree._reference('#demoTree').uncheck_all();
+            //    console.log(e);
 
 
-            }
+            //}
     })
     .bind('open_node.jstree', function (e, data) {
         var description = data.inst._get_node(data.rslt.obj).attr("description");
@@ -280,11 +281,46 @@
         })
     .bind("loaded.jstree", function (e, data) {
 
-        $(".jstree-checkbox").hide();
+        $("#demoTree a .jstree-icon").height('32px');
+        $("#demoTree a .jstree-icon").width('32px');
+
+        var line = "#0" ;
+        var bar = "#-1" ;
+        var pie = "#-2" ;
+        $(line + " a").first().css('height', '32px');
+        $(bar + " a").first().css('height', '32px');
+        $(pie + " a").first().css('height', '32px');
+
+        $(line + " a").first().css('line-height', '32px');
+        $(bar + " a").first().css('line-height', '32px');
+        $(pie + " a").first().css('line-height', '32px');
+
+        $(line).find('ins.jstree-checkbox').hide();
+        $(bar).find('ins.jstree-checkbox').hide();
+        $(pie).find('ins.jstree-checkbox').hide();
+        $(line).find('ins.jstree-icon').eq(1).height('32px');
+
+
+
+
+        $(bar).find('ins.jstree-icon').eq(1).height('32px');
+        $(pie).find('ins.jstree-icon').eq(1).height('32px');
+        $(line).find('ins.jstree-icon').eq(1).width('32px');
+        $(bar).find('ins.jstree-icon').eq(1).width('32px');
+        $(pie).find('ins.jstree-icon').eq(1).width('32px');
+
+
+        $(line).find('.jstree-icon').eq(0).hide();
+        $(bar).find('.jstree-icon').eq(0).hide();
+        $(pie).find('.jstree-icon').eq(0).hide();
        
 
     })
     .bind('after_open.jstree', function (e, data) {
+        $("#demoTree a .jstree-icon").height('32px');
+        $("#demoTree a .jstree-icon").width('32px');
+        $("#demoTree a ").height('32px');
+        $("#demoTree a ").width('32px');
 
         if (typeof path === "undefined") {
             // ???

@@ -56,20 +56,21 @@ namespace eNotaryWebRole.Controllers
 
 
             List<JsTreeModel> tree = new List<JsTreeModel>();
-          
-           
-            JsTreeData data = new JsTreeData("Documente nesemnate si nevizualizate", "");
+
+            string url = Url.Content("~/Images/unsigned.png");
+            JsTreeData data = new JsTreeData("Documente nesemnate", url);
             JsTreeAttribute attr = new JsTreeAttribute("-1", false, "", "UnsignedUnvDocs");
             JsTreeModel root_node = new JsTreeModel(data, "closed", "-1", attr, null);
             tree.Add(root_node);
-            data = new JsTreeData("Documente semnate", "");
+             url = Url.Content("~/Images/Stamp-icon.png");
+            data = new JsTreeData("Documente semnate", url);
             attr = new JsTreeAttribute("-2", false, "", "SignedDocs");
             root_node = new JsTreeModel(data, "closed", "-2", attr, null);
             tree.Add(root_node);
 
-            
-            
-            string url = Url.Content("~/Images/User-Files-icon.png");
+
+
+            url = Url.Content("~/Images/Document-Copy-icon.png");
              data = new JsTreeData("Documente", url);
             attr = new JsTreeAttribute("0", false, "", "root");
             root_node = new JsTreeModel(data, "open", "0", attr, tree);
@@ -99,7 +100,7 @@ namespace eNotaryWebRole.Controllers
                 username = "admin";
             }
 
-            
+             string url ;
 
 
             switch (id)
@@ -110,22 +111,23 @@ namespace eNotaryWebRole.Controllers
                         // we have to sort them depending on their role
 
                         // 1.
+                        url = Url.Content("~/Images/Person.png");
 
                         var q = ((from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat")
-                                 join p in _db.PersonDetails
-                                 on a.PersonDetailsID equals p.ID
-                                 where a.Disabled ==false
+                                  join p in _db.PersonDetails
+                                  on a.PersonDetailsID equals p.ID
+                                  where a.Disabled == false
 
-                                 select
-                                 new
-                                 {
-                                     
-                                     data = p.LastName,
-                                     id = SqlFunctions.StringConvert((decimal?)p.ID).Trim() + "_unsignedUV",
-                                     attr = new { id = SqlFunctions.StringConvert((decimal?) p.ID).Trim()+"_unsignedUV", description = "person" },
-                                     state = "closed"
+                                  select
+                                  new
+                                  {
 
-                                 })).Distinct().ToList();
+                                      data = new { title = p.LastName, icon = url},
+                                      id = SqlFunctions.StringConvert((decimal?)p.ID).Trim() + "_unsignedUV",
+                                      attr = new { id = SqlFunctions.StringConvert((decimal?)p.ID).Trim() + "_unsignedUV", description = "person" },
+                                      state = "closed"
+
+                                  })).Distinct().ToList();
                 
                        
                         return Json(q);
@@ -135,6 +137,7 @@ namespace eNotaryWebRole.Controllers
                     break;
                 case "-2":
                     {
+                        url = Url.Content("~/Images/Person.png");
                         var q2 = ( from  a in _db.SignedActs
                                    join p in _db.PersonDetails
                                   on a.CreatePersonID equals p.ID
@@ -143,7 +146,7 @@ namespace eNotaryWebRole.Controllers
                                    new
                                    {
 
-                                       data = p.LastName,
+                                       data = new {title=p.LastName, icon=url},
                                        id = SqlFunctions.StringConvert((decimal?)p.ID).Trim() + "_signed",
                                        attr = new { id = SqlFunctions.StringConvert((decimal?)p.ID).Trim() + "_signed", description = "person" },
                                        state = "closed"
@@ -157,14 +160,18 @@ namespace eNotaryWebRole.Controllers
           
                 default:
                     {
+
+
                         // must verify what type of act must be  displayed - signed, unsigned or visualized but unsigned
                         if (typeAct == -1)
                         {
+
+                            url = Url.Content("~/Images/normal.png");
                             var q4 = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat" && o.Disabled == false)
                                       select
                                       new
                                       {
-                                          data = a.ExternalUniqueReference,
+                                          data = new { title = a.ExternalUniqueReference, icon = url },
                                           id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_unsignedUVAct",
                                           attr = new { id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_unsignedUVAct", description = "act" },
                                           state = String.Empty
@@ -175,12 +182,12 @@ namespace eNotaryWebRole.Controllers
                         else
                             if (typeAct == -2)
                             {
-
+                                url = Url.Content("~/Images/cert.png");
                                 var q4 = (from a in _db.SignedActs
                                           select
                                           new
                                           {
-                                              data = a.ExternalUniqueReference,
+                                              data = new { title = a.ExternalUniqueReference, icon = url },
                                               id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_signedAct",
                                               attr = new { id = SqlFunctions.StringConvert((decimal?)a.ID).Trim() + "_signedAct", description = "act" },
                                               state = String.Empty

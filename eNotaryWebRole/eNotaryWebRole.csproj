@@ -527,12 +527,16 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>eNotaryDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Images\cert.jpg" />
+    <Content Include="Images\cert.png" />
     <Content Include="Images\Document-Copy-icon.png" />
     <Content Include="Images\Document-icon %281%29.png" />
     <Content Include="Images\Document-icon.png" />
+    <Content Include="Images\normal.png" />
     <Content Include="Images\pdf-grey.png" />
+    <Content Include="Images\Person.png" />
     <Content Include="Images\Stamp-icon.png" />
-    <Content Include="Images\unsigned.jpg" />
+    <Content Include="Images\unsigned.png" />
     <Content Include="Images\User-Files-icon.png" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
