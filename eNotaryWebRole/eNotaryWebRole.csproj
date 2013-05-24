@@ -266,6 +266,7 @@
     <Compile Include="Code\IPDFProvider.cs" />
     <Compile Include="Code\MailProvider.cs" />
     <Compile Include="Code\PDFProvider.cs" />
+    <Compile Include="Controllers\FilterTreeController.cs" />
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
@@ -699,6 +700,7 @@
     <Content Include="Views\Home\DivorceApplication.cshtml" />
     <Content Include="Views\Helper\DivorcePersonDetails.cshtml" />
     <Content Include="Views\Helper\CommonDetails.cshtml" />
+    <Content Include="Views\Shared\_FilterTree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

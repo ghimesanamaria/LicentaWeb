@@ -213,7 +213,40 @@ namespace eNotaryWebRole.Controllers
         [HttpPost]
         public ActionResult SearchTreeData(string id)
         {
-            return Json("");
+            // search in tree only after name documents 
+            // id represents search string
+
+            // first search in usigned data
+            var ua = from a in _db.Acts
+                    where a.ExternalUniqueReference.Contains(id)
+                    select a.PersonDetailsID;
+            // second search in signed data
+            var sa = from s in _db.SignedActs
+                     join a in _db.Acts
+                     on s.ActID equals a.ID
+                     where s.ExternalUniqueReference.Contains(id)
+                     select a.PersonDetailsID;
+            IList<string> found = new List<string>();
+
+            found.Add("#-1");
+            found.Add("#-2");
+
+            foreach (long pd in ua)
+            {
+                found.Add("#"+pd.ToString());
+            }
+            foreach(long pd in sa){
+                  found.Add("#"+pd.ToString());
+            }
+
+             var f = found.ToArray();
+
+
+
+            
+
+
+            return Json(f);
 
         }
 

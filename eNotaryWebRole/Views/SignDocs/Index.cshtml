@@ -13,28 +13,44 @@
 @using (@Ajax.BeginForm("Index", "SignDocs", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "formSignDocs" }))
 {
 <div id ="signDocsContent" >   
-        <div id="tree-container" >
-            
-                    <div id="tree-toggle">
-                        <i class="icon-chevron-left"></i>
-                    </div>     
+    <div id="tree-container">
+
+        <div id="tree-toggle">
+            <i class="icon-chevron-left"></i>
+        </div>
+
+        <div id="jstree">
+            <p id="chooseVariables" style="margin-bottom: 10px; margin-top: 20px;">
+                <b>Documente </b>
+            </p>
+
+            @Html.Action("Index", "Tree")
+
+            <div class="clear-all"></div>
+        </div>
+
+
+        <div class="clear-all"></div>
+    </div>
+
    
-                        <div id="jstree">
-                             <p id="chooseVariables"  style="margin-bottom: 10px; margin-top:20px;">
-                                <b> Documente </b>
-                            </p>                  
-
-                            @Html.Action("Index", "Tree")
-
-                            <div class="clear-all"></div>
-                        </div>                        
-            
-                     
-                        <div class="clear-all"></div>
-                    </div>
 
 
         <div id="accordion-and-doc">
+             <div id="filters">
+                 <div id="ModelsFilter">
+                     <p style="margin-top: 10px; margin-bottom: 10px;" id="ByModelP">
+                         <b>Filter tree </b>
+                     </p>
+
+                     @{
+                        string x = "FilterTree/GetDataFilterTree";
+                        Html.RenderPartial("_FilterTree", x);
+                     }
+                 </div>
+
+        <button class="btn" id="bttSearchFilter" value="Search" name="Search" style="float: right; margin-top: 10px; margin-right: 8px;"><i class="icon-search"></i></button>
+    </div>
         <div class="accordion-group" id="doc-controls-accordion">
                         <div class="accordion-heading">
                             <a class="accordion-toggle" data-toggle="collapse" href="#collapse-doc-controls-top">
@@ -237,6 +253,29 @@
 
 
         });
+
+        // popup filters
+        $("#bttFilters").click(function () {
+
+            var height = $("#jstree").parent().height();
+
+            if ($("#filters").css('display') == 'none') {
+                $("#filters").width('300px');
+                $("#filters").show();
+               
+         
+            }
+            else {
+                
+                $("#filters").hide();
+               
+                
+            }
+
+            return false;
+
+        });
+
 
        
 
