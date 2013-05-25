@@ -314,7 +314,7 @@ namespace eNotaryWebRole.Controllers
         public ActionResult SaveDataFile(string ID, string Name, string ActTypeID, string ExtraDetails, string Reason)
         {
 
-            string message = "Datele au fost salvate cu succes!";
+            string message = "Datele au fost salvate cu succes pentru fisierul "+Name+"!";
              long id=long.Parse(ID);
 
 

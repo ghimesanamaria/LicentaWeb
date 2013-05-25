@@ -110,32 +110,50 @@
 
        
     });
-    var image_clicked = 0;
+    function valid_form() {
+
+        if ($("#hName").val() != '' && $("#ActType").find(":selected").val() != '' && $("#hReason").val() != '' && $("div.div-preview").find("img.clicked")[0].id!=='undefined') {
+            return false;
+        }
+        return true;
+
+    }
+
+
     $("#saveFileDetails").click(function (event) {
         event.preventDefault();
-       var param = new Object();
-       param.ID = $("div.div-preview").find("img.clicked")[0].id;
-       param.Name = $("#hName").val();
-       param.ActTypeID = $("#ActType").find(":selected").val();
-       param.ExtraDetails = $("#hMessage").val();
-       param.Reason = $("#hReason").val();
-      
-        var parameter = JSON.stringify(param);
-        $.ajax({
-            type: "POST",
-            url: '@Url.Content("~/Home/SaveDataFile/")',
-            dataType: 'json',
-            data: parameter,
-            contentType: "application/json",
-            success: function (data) {
-                console.log(data);
-            },
+        var param = new Object();
+        if (valid_form == true) {
+            param.ID = $("div.div-preview").find("img.clicked")[0].id;
+            param.Name = $("#hName").val();
+            param.ActTypeID = $("#ActType").find(":selected").val();
+            param.ExtraDetails = $("#hMessage").val();
+            param.Reason = $("#hReason").val();
 
-            error: function () {
-                console.log('eroare');
+            var parameter = JSON.stringify(param);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Content("~/Home/SaveDataFile/")',
+                dataType: 'json',
+                data: parameter,
+                contentType: "application/json",
+                success: function (data) {
+                    $("#error-message").html(data);
 
-            }
-        });
+                    $("#error-message").removeClass('alert alert-error');
+                    $("#error-message").addClass('alert ');
+                },
+
+                error: function (data) {
+                    console.log('eroare');
+
+                }
+            });
+        } else {
+            $("#error-message").html("Campurile marcate cu * sunt obligatorii!");
+
+            $("#error-message").addClass('alert alert-error');
+        }
        
     });
         //script for upload style
