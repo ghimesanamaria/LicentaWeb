@@ -260,7 +260,7 @@
             var height = $("#jstree").parent().height();
 
             if ($("#filters").css('display') == 'none') {
-                $("#filters").width('300px');
+                $("#filters").width('410px');
                 $("#filters").show();
                
          
@@ -274,6 +274,24 @@
 
             return false;
 
+        });
+
+        $("#bttSearchFilter").click(function (e) {
+            e.preventDefault();
+
+
+
+
+                $("#demoTree").jstree("destroy");
+                $("#demoTree").html('');
+
+                var selFilters = [];
+                $.each($("#_filter").jstree("get_checked", null, false), function (index, value) {
+                    selFilters.push(value.id);
+                });
+               
+                loadJstree(treeModelTree, [], selFilters, [], [], '@Url.Content("~/Tree/GetTreeData/")', '@Url.Content("~/Tree/SearchTreeData/")', 0,'','@Url.Content("~/SignDocs/DisplayImage")','@Url.Content("~/Fisiere/")');
+           
         });
 
 

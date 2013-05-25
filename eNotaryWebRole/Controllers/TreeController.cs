@@ -83,7 +83,7 @@ namespace eNotaryWebRole.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetTreeData(string id, string modelID, string umID, string openedDeviceIDs, int isPlant, int typeAct)
+        public ActionResult GetTreeData(string id, string filter, int typeAct)
         {
             string username="";
 
@@ -116,7 +116,10 @@ namespace eNotaryWebRole.Controllers
                         var q = ((from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat")
                                   join p in _db.PersonDetails
                                   on a.PersonDetailsID equals p.ID
+                                  join at in _db.ActTypes 
+                                  on a.ActTypeID equals at.ID
                                   where a.Disabled == false
+                                  && (string.IsNullOrEmpty(filter)||(at.ActTypeName == filter))
 
                                   select
                                   new
@@ -141,7 +144,12 @@ namespace eNotaryWebRole.Controllers
                         var q2 = ( from  a in _db.SignedActs
                                    join p in _db.PersonDetails
                                   on a.CreatePersonID equals p.ID
-
+                                  join sa in _db.Acts
+                                  on a.ActID equals sa.ID
+                                  join at in _db.ActTypes
+                                  on sa.ActTypeID equals at.ID
+                                  
+                                  where  (string.IsNullOrEmpty(filter)||(at.ActTypeName == filter))
                                    select
                                    new
                                    {
@@ -168,6 +176,9 @@ namespace eNotaryWebRole.Controllers
 
                             url = Url.Content("~/Images/normal.png");
                             var q4 = (from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat" && o.Disabled == false)
+                                      join at in _db.ActTypes
+                                      on a.ActTypeID equals at.ID
+                                      where   (string.IsNullOrEmpty(filter)||(at.ActTypeName == filter))
                                       select
                                       new
                                       {
@@ -184,6 +195,11 @@ namespace eNotaryWebRole.Controllers
                             {
                                 url = Url.Content("~/Images/cert.png");
                                 var q4 = (from a in _db.SignedActs
+                                          join sa in _db.Acts
+                                          on a.ActID equals sa.ID
+                                          join at in _db.ActTypes
+                                          on sa.ActTypeID equals at.ID
+                                           where (string.IsNullOrEmpty(filter) || (at.ActTypeName == filter))
                                           select
                                           new
                                           {

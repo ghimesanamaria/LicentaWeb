@@ -1,4 +1,4 @@
-﻿function loadJstree(treeModel, arrayTest, filterModels, selUM, DevicesOpen, urlGetData, urlSearchData, isPlant, selectedVariablesString, urlDisplayImage,urlServerImage) {
+﻿function loadJstree(treeModel, arrayTest, filters, selUM, DevicesOpen, urlGetData, urlSearchData, isPlant, selectedVariablesString, urlDisplayImage,urlServerImage) {
    
     $("#demoTree").jstree({
         "themes": {
@@ -14,23 +14,16 @@
                     return { id: n.attr ? n.attr("id") : 0 };
                 },
                 "url": function (node) {
-                    // model filter
+                    //  filters
                     var filter = "";
-                    $.each(filterModels, function (index, value) {
+                    $.each(filters, function (index, value) {
                         if (index == 0)
                             filter = value;
                         else
                             filter = filter + ',' + value;
                     });
 
-                    //UM filter
-                    var filterUM = "";
-                    $.each(selUM, function (index, value) {
-                        if (index == 0)
-                            filterUM = value;
-                        else
-                            filterUM = filterUM + ',' + value;
-                    });
+               
                     var typeAct;
 
                     if (node[0].id == "-1" || node[0].id == "-2" || node[0].id == "-3") {
@@ -44,12 +37,9 @@
                             typeAct = $("#" + node[0].id).parent().parent()[0].id;
                         }
 
-                    //if (typeof $("#" + node[0].id).attr('description') === "undefined" || $("#" + node[0].id).attr('description').indexOf('UnsignedUnvDocs') < 0) {
-                    //    return urlGetData + '?id=' + node[0].id + '&modelID=' + filter + '&umID=' + filterUM + '&openedDeviceIDs=' + '' + '&isPlant=' + isPlant;
-                    //} else {
-                    //    DevicesOpen = DevicesOpen + "," + node[0].id;
-                        return urlGetData + '?id=' + node[0].id + '&modelID=' + filter + '&umID=' + filterUM + '&openedDeviceIDs=' + DevicesOpen + '&isPlant=' + isPlant+'&typeAct='+typeAct;
-                    //}
+                   
+                        return urlGetData + '?id=' + node[0].id + '&filter=' + filter +'&typeAct='+typeAct;
+                  
 
                 },
                 "success": function (new_data) {
@@ -89,16 +79,7 @@
             "real_checkboxes": true,
             "real_checkboxes_names": function (n) {
                 var t = n[0].attributes.description;
-                
-                if (typeof t !== 'undefined') {
-
-                    if (t.value.indexOf('Variable') > -1)
-                        return [("check_" + (n[0].id || Math.ceil(Math.random() * 10000))), n[0].id];
-                    else
-                        return [("check_" + t.value + (n[0].id || Math.ceil(Math.random() * 10000))), n[0].id];
-                }
-                else
-                    return [("check_" + (n[0].id || Math.ceil(Math.random() * 10000))), n[0].id];
+                return [("check_" + t.value + (n[0].id || Math.ceil(Math.random() * 10000))), n[0].id];
             }
         },
 
@@ -106,46 +87,9 @@
     })
     .delegate("a", "click", function (event, data) {
 
-        if (window.g_forDashBoard) {
-            // reload the grid when new element is checked or 
-            // unchecked in tree
-            var checkedNodes = $("#demoTree").jstree("get_checked", null, true);
+       
 
-            var siteIDs = [];
 
-            $.each(checkedNodes, function (i, node) {
-                //if ($(node).attr('description') == 'LiveVariable') {
-                siteIDs.push(node.id);
-                //}
-            });
-
-            if (siteIDs.length > 0) {
-
-                //
-                //selectedVariablesString = siteIDs;
-                LoadLiveDashboard(dashboardUrl, siteIDs);
-            }
-        }
-
-        if (window.g_forSetpoints) {
-            // reload the grid when new element is checked or 
-            // unchecked in tree
-            var checkedNodes = $("#demoTree").jstree("get_checked", null, true);
-
-            var setPointIDs = [];
-
-            $.each(checkedNodes, function (i, node) {
-                if ($(node).attr('description') == 'LiveVariable') {
-                    setPointIDs.push(node.id);
-                }
-            });
-
-            if (setPointIDs.length > 0) {
-                $grid.fill(setPointIDs, function () {
-                    console.log('Filled grid with setpoints: ', setPointIDs);
-                });
-            }
-        }
 
         $(event.target).find('.jstree-checkbox').attr("checked", "checked");
 
@@ -157,51 +101,21 @@
 
         }
 
-        var sel = $(this).parent().attr('id');
-        if (typeof selectedVariablesString === "undefined") {
-            // ???
-        }
-        else {
-            selectedVariablesString = jQuery.grep(selectedVariablesString, function (value) {
-                return value != sel;
-            });
-        }
     })
     .bind("before.jstree", function (e, data) {
       
 
-            //if (data.func === "check_node") {
+            if (data.func === "check_node") {
 
-            //    $.jstree._reference('#demoTree').uncheck_all();
-            //    console.log(e);
+                $.jstree._reference('#demoTree').uncheck_all();
+                console.log(e);
 
 
-            //}
+            }
     })
     .bind('open_node.jstree', function (e, data) {
-        var description = data.inst._get_node(data.rslt.obj).attr("description");
-
-        if (description != undefined) {
-            if (description == 'dv') {
-                var device = data.args[0][0].id;
-                if (device != undefined)
-                    openedNodes.push(device);
-            }
-            if (description == 'sv') {
-                var device = data.args[0][0].id;
-                if (device != undefined) {
-                    openedParentNodes.push(device);
-                } else {
-                    //pt prima incarcare a raportului default
-                    var device2 = data.args[0];
-                    if (device2 != undefined) {
-                        var d = device2.split('#');
-                        openedParentNodes.push(d[1]);
-                    }
-                }
-
-            }
-        }
+        
+        
     })
     .bind("check_node.jstree", function (e, data) {
         console.log('aici');
@@ -322,44 +236,6 @@
         $("#demoTree a ").height('32px');
         $("#demoTree a ").width('32px');
 
-        if (typeof path === "undefined") {
-            // ???
-        } else {
-            $('#demoTree').jstree("open_all", "#" + path[0]);
-
-            if (typeof selectedVariables == "undefined") { var selectedVariables; }
-
-            $.jstree._reference('#demoTree').check_node("#" + selectedVariablesString);
-        }
-
-        var description = data.args[0][0].attributes[1].value;
-        var getVariables = [];
-
-        if (typeof selectedVariablesString === "undefined" || selectedVariablesString == "") {
-            // ???
-        } else {
-            getVariables = selectedVariablesString.split(',');
-        }
-
-        $.each(getVariables, function (index, value) {
-                if (value != '') {
-                //var varNode = '\#' + value + '\'';
-                var varNode = '#' + value;
-
-                $.jstree._reference('#demoTree').check_node(varNode);
-            }
-        });
-
-        if (description == 'sv') {
-            $.each(uncheckedModelFilters, function (index, value) {
-                hideFilteredNodesmodelFilterTree(value, openedParentNodes);
-            });
-        }
-
-        if (description == 'dv') {
-            $.each(uncheckedUnitsFilters, function (index, value) {
-                hideFilteredNodesunitsFilterTree(value, openedNodes);
-            });
-        }
+        
     });
 }

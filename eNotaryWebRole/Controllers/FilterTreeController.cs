@@ -17,7 +17,7 @@ namespace eNotaryWebRole.Controllers
     public class FilterTreeController : Controller
     {
 
-
+        private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
 
         private string username = "";
 
@@ -36,16 +36,50 @@ namespace eNotaryWebRole.Controllers
             return PartialView("Index", model);
         }
 
+
+        public JsTreeModel getNode(string data_title, string data_icon, string attr_id, bool attr_selected, string attr_style, string attr_description, string node_state, List<JsTreeModel> children)
+        {
+
+            JsTreeData dataObj = new JsTreeData(data_title, data_icon);
+            JsTreeAttribute attrOBj = new JsTreeAttribute(attr_id, attr_selected, attr_style, attr_description);
+            JsTreeModel objNode = new JsTreeModel(dataObj, node_state, attr_id, attrOBj, children);
+
+
+            return objNode;
+        }
+
         [HttpPost]
         public ActionResult GetDataFilterTree()
         {
 
-            List<JsTreeModel> list_nodes = new List<JsTreeModel>();
-            JsTreeData data = new JsTreeData("Data crearii", "");
-            JsTreeAttribute attr = new JsTreeAttribute("date", false, "", "date");
-            JsTreeModel node = new JsTreeModel(data, "opened", "date", attr, null);
-            list_nodes.Add(node);
-            return this.Json(list_nodes, JsonRequestBehavior.AllowGet);
+            List<object> list_nodes = new List<object>();
+
+            //JsTreeModel node = getNode("Data crearii", "", "date", false, "", "date", "", null);
+            //list_nodes.Add(node);
+
+            //node = getNode("Doar documentele semnate", "", "signed", false, "", "signed", "", null);
+            //list_nodes.Add(node);
+
+            //node = getNode("Doar documentele nesemnate", "", "unsigned", false, "", "unsigned", "", null);
+            //list_nodes.Add(node);
+
+            //node = getNode("Ordonare document initial-document nesemnat", "", "orderd", false, "", "ordered", "", null);
+            //list_nodes.Add(node);
+            var list = (from at in _db.ActTypes
+                           select
+                                  new
+                                  {
+
+                                      data = new { title = at.ActTypeName, icon = ""},
+                                      id = at.ActTypeName ,
+                                      attr = new { id = at.ActTypeName , description = at.ActTypeName },
+                                      state = "opened"
+
+                                  }).Distinct().ToList();
+            var union_list = list.Union(list_nodes);
+
+           
+            return this.Json(union_list, JsonRequestBehavior.AllowGet);
 
         }
 
