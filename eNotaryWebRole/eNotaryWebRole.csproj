@@ -269,6 +269,7 @@
     <Compile Include="Controllers\FilterTreeController.cs" />
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\TreeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\Act.cs">
       <DependentUpon>eNotaryDB.tt</DependentUpon>
@@ -452,6 +453,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\dropdown\simple.dropdown.css" />
+    <Content Include="Content\grid\ui.jqgrid.css" />
     <Content Include="Content\home\divorce_app.css" />
     <Content Include="Content\home\divorce_person_details.css" />
     <Content Include="Content\home\index_home.css" />
@@ -517,6 +519,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\users\users.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Certificate\certificat.crt" />
@@ -569,6 +572,9 @@
     <Content Include="Scripts\dropdown\simple.dropdown.js" />
     <Content Include="Scripts\gDocViewer\jquery.gdocsviewer.js" />
     <Content Include="Scripts\gDocViewer\jquery.zohoviewer.min.js" />
+    <Content Include="Scripts\gridView\grid.locale-en.js" />
+    <Content Include="Scripts\gridView\jquery.jqGrid.min.js" />
+    <Content Include="Scripts\gridView\jquery.jqGrid.src-fixed3.js" />
     <Content Include="Scripts\home\home.js" />
     <Content Include="Scripts\home\preview_box.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
@@ -701,6 +707,7 @@
     <Content Include="Views\Helper\DivorcePersonDetails.cshtml" />
     <Content Include="Views\Helper\CommonDetails.cshtml" />
     <Content Include="Views\Shared\_FilterTree.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

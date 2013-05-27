@@ -214,6 +214,7 @@
     <Property Type="Int64" Name="CreateContactID" Nullable="false" />
     <Property Type="DateTime" Name="EditDate" Precision="3" />
     <Property Type="Int64" Name="EditContactID" />
+    <Property Type="Boolean" Name="Disabled" Nullable="false" />
   </EntityType>
   <Association Name="FK_Acts_ActType">
     <End Role="ActType" Type="eNotaryDBModel.ActType" Multiplicity="1" />

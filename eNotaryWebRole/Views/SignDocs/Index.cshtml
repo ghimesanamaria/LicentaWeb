@@ -290,7 +290,7 @@
                     selFilters.push(value.id);
                 });
                
-                loadJstree(treeModelTree, [], selFilters, [], [], '@Url.Content("~/Tree/GetTreeData/")', '@Url.Content("~/Tree/SearchTreeData/")', 0,'','@Url.Content("~/SignDocs/DisplayImage")','@Url.Content("~/Fisiere/")');
+                loadJstree(treeModelTree, [], selFilters, [], [], '@Url.Content("~/Tree/GetTreeData/")', '@Url.Content("~/Tree/SearchTreeData/")', 0,'','@Url.Content("~/SignDocs/DisplayImage")','@Url.Content("~/Fisiere/")','@Html.Raw(ViewBag.Role)');
            
         });
 

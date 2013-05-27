@@ -24,6 +24,7 @@ namespace eNotaryWebRole.Models
         public long CreateContactID { get; set; }
         public Nullable<System.DateTime> EditDate { get; set; }
         public Nullable<long> EditContactID { get; set; }
+        public bool Disabled { get; set; }
     
         public virtual PersonDetail PersonDetail { get; set; }
         public virtual UserRole UserRole { get; set; }

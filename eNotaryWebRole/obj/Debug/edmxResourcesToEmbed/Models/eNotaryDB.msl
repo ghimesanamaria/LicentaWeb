@@ -134,6 +134,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="eNotaryDBModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
           <ScalarProperty Name="EditContactID" ColumnName="EditContactID" />
           <ScalarProperty Name="EditDate" ColumnName="EditDate" />
           <ScalarProperty Name="CreateContactID" ColumnName="CreateContactID" />

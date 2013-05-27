@@ -9,17 +9,21 @@
         <meta name="viewport" content="width=device-width" />
        
         @Styles.Render("~/Content/bootstrap.css")
+       
         @Styles.Render("~/Content/datepicker.css")
        @* @Scripts.Render("~/bundles/modernizr")*@
         <link href="@Url.Content("~/Scripts/jstree/themes/classic/style.css")" rel="stylesheet" type="text/css" />
          @Styles.Render("~/Content/css")
-     @*   @Styles.Render("http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css")*@
-
-         
+         <link href='@Url.Content("~/Content/grid/ui.jqgrid.css")' rel="stylesheet" />
+        @Styles.Render("http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
+        
+        
         @Scripts.Render("~/Scripts/jquery-1.7.1.min.js")       
         @Scripts.Render("~/Scripts/jquery-ui-1.8.20.min.js")
          <script src="~/Scripts/multiupload.js" type="text/javascript"></script>
         <script src='@Url.Content("~/Scripts/jstree/jquery.jstree.js")' type="text/javascript"></script>
+        <script src="~/Scripts/gridView/grid.locale-en.js"></script>
+        <script src='@Url.Content("~/Scripts/gridView/jquery.jqGrid.src-fixed3.js")'></script>
         <script src='@Url.Content("~/Scripts/bootstrap/bootstrap.js")' type="text/javascript"></script>
         <script src='@Url.Content("~/Scripts/bootstrap/bootstrap-datepicker.js")' type="text/javascript"></script>
       

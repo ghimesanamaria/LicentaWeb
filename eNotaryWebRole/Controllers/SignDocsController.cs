@@ -57,6 +57,9 @@ namespace eNotaryWebRole.Controllers
 {
     public class SignDocsController : Controller
     {
+
+        string username = "user_test";
+
         //
         // GET: /SignDocs/
         // If the X.509 certificate is used to authenticate a client or service, Windows Communication Foundation (WCF) by default uses the Windows certificate store and Crypto API to validate the certificate and to ensure that it is trusted. Sometimes the built-in certificate validation functionality is not enough and must be changed. WCF provides an easy way to change the validation logic by allowing users to add a custom certificate validator. If a custom certificate validator is specified, WCF does not use the built-in certificate validation logic but relies on the custom validator instead.
@@ -933,7 +936,8 @@ namespace eNotaryWebRole.Controllers
         {
             string message = "Emai-ul a fost transmis cu succes";
 
-            string username = "admin";
+           // string username = "admin";
+            
 
 
 

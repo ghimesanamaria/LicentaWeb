@@ -15,7 +15,7 @@ namespace eNotaryWebRole.Controllers
 
         private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
         private IDataAccessRepository _rep = new DataAccessRepository();
-        private string _username = "admin";
+        private string _username = "user_test";
         //
         // GET: /Tree/
 
@@ -28,6 +28,7 @@ namespace eNotaryWebRole.Controllers
             var treemodel = GetTreeRootData();
             TreeNodesViewModel model = new TreeNodesViewModel();
             model.treeVariables = new JavaScriptSerializer().Serialize(treemodel.Data);
+            ViewBag.Role = role;
 
             return PartialView("Index", model);
         }
@@ -83,25 +84,22 @@ namespace eNotaryWebRole.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetTreeData(string id, string filter, int typeAct)
+        public ActionResult GetTreeData(string id, string filter, int typeAct,string role)
         {
-            string username="";
+            
 
-            if (!string.IsNullOrEmpty(User.Identity.Name))
-            {
-                string[] usernameSplit = User.Identity.Name.Split('\\');
-                username = usernameSplit[usernameSplit.Count() - 1];
+          
+            //long id_person = long.Parse(id.Split('_')[0]);
 
-                //pt geoscart
-                //username =User.Identity.Name;
-            }
-            else
-            {
-                username = "admin";
-            }
-
+            long id_person = 0;
              string url ;
-
+           // change the interface to tree if the user is not admin or notar
+             if (role != "angajat")
+             {
+                 id_person = _db.Users.Where(u => u.Username == _username).FirstOrDefault().ID;
+                 typeAct = int.Parse(id);
+                 id = "";
+             }
 
             switch (id)
             {
@@ -150,6 +148,7 @@ namespace eNotaryWebRole.Controllers
                                   on sa.ActTypeID equals at.ID
                                   
                                   where  (string.IsNullOrEmpty(filter)||(at.ActTypeName == filter))
+                                 
                                    select
                                    new
                                    {
@@ -179,6 +178,7 @@ namespace eNotaryWebRole.Controllers
                                       join at in _db.ActTypes
                                       on a.ActTypeID equals at.ID
                                       where   (string.IsNullOrEmpty(filter)||(at.ActTypeName == filter))
+                                      && a.PersonDetailsID == id_person
                                       select
                                       new
                                       {
@@ -200,6 +200,7 @@ namespace eNotaryWebRole.Controllers
                                           join at in _db.ActTypes
                                           on sa.ActTypeID equals at.ID
                                            where (string.IsNullOrEmpty(filter) || (at.ActTypeName == filter))
+                                           && sa.PersonDetailsID == id_person
                                           select
                                           new
                                           {
