@@ -28,6 +28,8 @@
         <EntityTypeShape EntityType="eNotaryDBModel.Address" Width="1.5" PointX="4.0228271167831622" PointY="30.387120663368666" />
         <AssociationConnector Association="eNotaryDBModel.FK_PersonDetails_Address" />
         <EntityTypeShape EntityType="eNotaryDBModel.Mail" Width="1.5" PointX="3.0835376023703898" PointY="1.1302903895873067" />
+        <EntityTypeShape EntityType="eNotaryDBModel.RoleSecurityPoint" Width="1.5" PointX="11.358693714886295" PointY="2.8026693625388059" />
+        <EntityTypeShape EntityType="eNotaryDBModel.SecurityPoint" Width="1.5" PointX="0.65995498032307021" PointY="16.269667081660437" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

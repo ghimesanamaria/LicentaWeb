@@ -335,6 +335,12 @@
     <Compile Include="Models\PersonDetail.cs">
       <DependentUpon>eNotaryDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RoleSecurityPoint.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SecurityPoint.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SmartCardException.cs" />
     <Compile Include="Models\TreeNodesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -74,9 +74,20 @@ namespace eNotaryWebRole.Controllers
         // GET: /Account/Register
 
        [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(long id = 0) // id =0 when you create a new account
         {
-            PersonDetail model = new PersonDetail();
+            PersonDetail model;
+            if (id != 0)
+            {
+                model = _db.PersonDetails.Where(p => p.ID == id && p.Disabled == false).FirstOrDefault();
+                ViewBag.Button = "Salveaza";
+            }
+            else
+            {
+                model = new PersonDetail();
+                ViewBag.Button = "Inregistrati-va acum";
+            }
+           
 
             List<string> jobTypeList = new List<string>();
            jobTypeList = ( from j in _db.JobTypes
@@ -176,6 +187,8 @@ namespace eNotaryWebRole.Controllers
                     _db.PersonDetails.Add(personDetail);
 
                     _db.SaveChanges();
+
+                    // create user object 
 
                   
                    

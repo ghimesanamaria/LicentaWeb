@@ -126,7 +126,7 @@ namespace eNotaryWebRole.Controllers
             return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
+        
         public ActionResult Delete(long id)
         {
              try
@@ -145,7 +145,7 @@ namespace eNotaryWebRole.Controllers
                 return Json("The user was not deleted!");
             }
 
-            return Json("The user was deleted successfully!")
+             return Json("The user was deleted successfully!", JsonRequestBehavior.AllowGet);
         }
 
 

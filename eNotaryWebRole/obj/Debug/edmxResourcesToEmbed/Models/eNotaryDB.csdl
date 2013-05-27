@@ -57,6 +57,8 @@
       <End Role="PersonDetail" EntitySet="PersonDetails" />
     </AssociationSet>
     <EntitySet Name="Mails" EntityType="eNotaryDBModel.Mail" />
+    <EntitySet Name="RoleSecurityPoints" EntityType="eNotaryDBModel.RoleSecurityPoint" />
+    <EntitySet Name="SecurityPoints" EntityType="eNotaryDBModel.SecurityPoint" />
   </EntityContainer>
   <EntityType Name="Act">
     <Key>
@@ -378,5 +380,39 @@
     <Property Type="String" Name="BodyMail" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
     <Property Type="Int64" Name="ID_SentPerson" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoleSecurityPoint">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="SecurityPointID" />
+      <PropertyRef Name="RoleID" />
+      <PropertyRef Name="CreateDate" />
+      <PropertyRef Name="CreateID" />
+      <PropertyRef Name="Disabled" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int64" Name="SecurityPointID" Nullable="false" />
+    <Property Type="Int64" Name="RoleID" Nullable="false" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+    <Property Type="Int64" Name="CreateID" Nullable="false" />
+    <Property Type="DateTime" Name="EditDate" Precision="3" />
+    <Property Type="Int64" Name="EditID" />
+    <Property Type="Boolean" Name="Disabled" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SecurityPoint">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="CreateDate" />
+      <PropertyRef Name="CreateID" />
+      <PropertyRef Name="Disabled" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+    <Property Type="Int64" Name="CreateID" Nullable="false" />
+    <Property Type="DateTime" Name="EditDate" Precision="3" />
+    <Property Type="Int64" Name="EditID" />
+    <Property Type="Boolean" Name="Disabled" Nullable="false" />
   </EntityType>
 </Schema>

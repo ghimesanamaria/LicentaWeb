@@ -93,7 +93,7 @@
                 console.log(ids);
                 for (var i = 0; i < ids.length; i++) {
                     var temp = $("#listUsers").getRowData(ids[i]);
-                    op = '<a style="color:#000000; margin-right:10px; " class="link"  href="@Url.Content("~/Users/MyAccount?id=")' + jQuery("#listUsers").getCell(ids[i], 'ID') + '">Edit <i class="icon-pencil" style="padding:2px;"/></a >';
+                    op = '<a style="color:#000000; margin-right:10px; " class="link"  href="@Url.Content("~/Account/Register?id=")' + jQuery("#listUsers").getCell(ids[i], 'ID') + '">Edit <i class="icon-pencil" style="padding:2px;"/></a >';
                     del = op+ '<a style="color:#000000; margin-right:10px; " class="link" onclick="return confirm(\'Sunteti sigur ca doriti sa stergeti acest utilizator?\');return false;"   href="@Url.Content("~/Users/Delete?id=")' + jQuery("#listUsers").getCell(ids[i], 'ID') + '">Delete <i class="icon-trash" style="padding:2px;"/></a >';
                   
                     jQuery("#listUsers").jqGrid('setRowData', ids[i], { Options: del });
@@ -139,14 +139,11 @@
 <div style="display:none">    @Html.DropDownList("RoleList", "")</div>
 <div id="noResultsDiv" style="float:left;  " class="alert hideDiv">
     <button type="button" class="close" data-dismiss="alert"><img src='@Url.Content("~/Content/Icons/x.png")'/></button>
- <strong>Warning!</strong> No reports found.
+ <strong>Important!</strong> Nu exista utilizatori.
 
 </div>
 
-<div id ="divCreate" style="width:100%;position:relative; height:30px;">
-    <button id="btnCreateNewUser" class ="btn"><a href="@Url.Content("~/Users/MyAccount?id=-1")">Add new user</a ></button>
 
-</div>
 <div id="grid" class="box-container" style="float:left;">
     <p></p>
     <table id="listUsers"  ></table>
