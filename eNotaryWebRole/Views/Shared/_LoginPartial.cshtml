@@ -8,14 +8,15 @@
     </text>
 } else {
     <ul>
-        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>*@
-        <button class="btn" id="btnRegister"><li><a id ="registerLink" href ='@Url.Content("~/Account/Register")'>Register</a></li></button>
+        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <button class="btn" id="btnRegister"><li><a id ="registerLink" href ='@Url.Content("~/Account/Register")'>Inregistrati-va acum</a></li></button>
     </ul>
 }
 <script>
     $("#btnRegister").popover({
-        title: 'Inregistreaza-te acum!'
+        title: 'Inregistreaza-te acum!',
+        placement: 'left'
     });
 
 </script>

@@ -187,12 +187,19 @@
             var id = checked_variables[0].id;
             var ok = 0;
             while ($("#" + id).attr('description') != 'person' || ($("#" + id).attr('description') == 'person' && $("#" + id).hasClass('jstree-unchecked'))) {
-                id = $("#" + id).find('li')[0].id;
+                if($("#" + id).attr('description')=='act'){
+                    id = id;
+                    break;
+                }
+                else{
+                    id = $("#" + id).find('li')[0].id;
+                }
 
             }
             param.id = id.split('_')[0];
             param.subject = $("#mail-subject").val();
             param.body = $("#mail-body").val();
+            param.attachment = $("#iframeDoc").attr('src');
 
             var parameter = JSON.stringify(param);
             $.ajax({

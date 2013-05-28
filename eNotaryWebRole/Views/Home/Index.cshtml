@@ -112,10 +112,10 @@
     });
     function valid_form() {
 
-        if ($("#hName").val() != '' && $("#ActType").find(":selected").val() != '' && $("#hReason").val() != '' && $("div.div-preview").find("img.clicked")[0].id!=='undefined') {
-            return false;
+        if ($("#hName").val() != '' && $("[name=UActType]").val()!='-1' && $("#hReason").val() != '' && $("div.div-preview").find("img.clicked")[0].id !== 'undefined') {
+            return true;
         }
-        return true;
+        return false;
 
     }
 
@@ -123,10 +123,10 @@
     $("#saveFileDetails").click(function (event) {
         event.preventDefault();
         var param = new Object();
-        if (valid_form == true) {
+        if (valid_form() == true) {
             param.ID = $("div.div-preview").find("img.clicked")[0].id;
             param.Name = $("#hName").val();
-            param.ActTypeID = $("#ActType").find(":selected").val();
+            param.ActTypeID = $("[name=UActType]").val();
             param.ExtraDetails = $("#hMessage").val();
             param.Reason = $("#hReason").val();
 
@@ -142,6 +142,14 @@
 
                     $("#error-message").removeClass('alert alert-error');
                     $("#error-message").addClass('alert ');
+                    if (data.indexOf("succes") > -1) {
+                        id = $("div.div-preview").find("img.clicked")[0].id;
+                        $("#" + $("div.div-preview").find("img.clicked")[0].id).addClass('png-ok');
+                        $.each($("#" + id).parent().find("i"), function (index, value) {
+                            if(value.id == id+"sign")
+                           $("#"+id+"sign").removeClass('icon-question-sign').addClass('icon-ok-sign');
+                        });
+                    }
                 },
 
                 error: function (data) {

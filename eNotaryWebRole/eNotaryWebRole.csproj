@@ -467,6 +467,7 @@
     <Content Include="Content\Icons\x.png" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="Content\logo_pdfkit.gif" />
     <Content Include="Content\signed\index_singed.css" />
     <Content Include="Content\signed\mail.css" />
@@ -714,6 +715,7 @@
     <Content Include="Views\Helper\CommonDetails.cshtml" />
     <Content Include="Views\Shared\_FilterTree.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Account\Username.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

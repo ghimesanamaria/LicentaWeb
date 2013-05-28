@@ -11,6 +11,8 @@ using WebMatrix.WebData;
 using eNotaryWebRole.Filters;
 using eNotaryWebRole.Models;
 using SBClient;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace eNotaryWebRole.Controllers
 {
@@ -51,6 +53,33 @@ namespace eNotaryWebRole.Controllers
             //}
 
 
+            if (ModelState.IsValid)
+            {
+
+                string userNameLdap = model.UserName;
+                if (Membership.ValidateUser(model.UserName, model.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Utilizatorul sau parola sunt incorecte!");
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+
+
             HttpClientCertificate ret = Request.ClientCertificate;
 
             //// If we got this far, something failed, redisplay form
@@ -81,11 +110,13 @@ namespace eNotaryWebRole.Controllers
             {
                 model = _db.PersonDetails.Where(p => p.ID == id && p.Disabled == false).FirstOrDefault();
                 ViewBag.Button = "Salveaza";
+                ViewBag.Action = "Edit";
             }
             else
             {
                 model = new PersonDetail();
                 ViewBag.Button = "Inregistrati-va acum";
+                ViewBag.Action = "Register";
             }
            
 
@@ -102,6 +133,28 @@ namespace eNotaryWebRole.Controllers
             return View(model);
         }
 
+
+       [AllowAnonymous]
+       public ActionResult Username(long id )
+       {
+           User user;
+
+           if (id == 0)
+           {
+               // register
+               user = new User();
+           }
+           else
+           {
+               user = (from p in  _db.PersonDetails
+                       join u in _db.Users
+                       on p.ID equals u.PersonID
+                       select u).FirstOrDefault() ;
+           }
+           return PartialView("Username",user);
+       }
+
+
         // GET
          [AllowAnonymous]
         //partial view for address module
@@ -110,20 +163,23 @@ namespace eNotaryWebRole.Controllers
            // change this 
 
            string username = "admin";
-
+           string message = "";
 
            // verify more careful if the address is for that specific user
 
-           Address model = new Address();
+           Address model ;
            if (id != 0)
            {
-               model = (from u in _db.Users.Where(o => o.Username == username)
-                        join p in _db.PersonDetails
-                        on u.PersonID equals p.ID
+               model = (
+                        from p in _db.PersonDetails                        
                         join a in _db.Addresses
                         on p.AddressID equals a.ID
                         where a.ID == id
                         select a).SingleOrDefault();
+           }
+           else
+           {
+               model = new Address();
            }
 
            return PartialView(model);
@@ -143,66 +199,148 @@ namespace eNotaryWebRole.Controllers
                 // Attempt to register the user
                 try
                 {
-
+                    string message = "";
+                    long user_id = 0;
+                    Address addressPerson;
+                       PersonDetail personDetail;
 
                 // create address object for this person and get the id 
+                    if (!string.IsNullOrEmpty(collection["iPersonID"])) {
 
-                    Address addressPerson = new Address()
-                    {
-                        Address1 = collection["Address1"],
-                        Street_1 = collection["Street_1"],
-                        Street_2 = collection["Street_2"],
-                        Street_3 = collection["Street_3"],
-                        ZIP = long.Parse(collection["ZIP"]),
-                        City = collection["City"],
-                        Country = collection["Country"]
-                    };
+                        long person_id = long.Parse(collection["iPersonID"]);
+                        var q = (from p in _db.PersonDetails
+                                join a in _db.Addresses
+                                on p.AddressID equals a.ID
+                                where p.ID == person_id
+                                select new
+                        { 
+                            address = a,
+                            person = p
+                        }).FirstOrDefault();
 
-                    _db.Addresses.Add(addressPerson);
+                        addressPerson = q.address;
+                        personDetail = q.person;
+                        addressPerson.Address1 = collection["Address1"];
+                        addressPerson.Street_1 = collection["Street_1"];
+                        addressPerson.Street_2 = collection["Street_2"];
+                        addressPerson.Street_3 = collection["Street_3"];
+                        addressPerson.ZIP = long.Parse(collection["ZIP"]);
+                        addressPerson.City = collection["City"];
+                        addressPerson.Country = collection["Country"];
+                        addressPerson.Disabled = false;
 
-                    
 
-                    _db.Entry(addressPerson).GetDatabaseValues();
 
-                    long addressID = addressPerson.ID;
-
-                // create new object for person details
-                    PersonDetail personDetail = new PersonDetail()
-                    {
-                        FirstName =collection["FirstName"],
-                        LastName =collection["LastName"],
-                        MiddleName=collection["LastName"],
-                        Birthday = DateTime.Parse(collection["Birthday"]),
-                        Gender = collection["genderList"],
-                        Nationality = collection["Nationality"],
-                        JobPlace = collection["JobPlace"],
-                        MobilePhoneNumber = collection["MobilePhoneNumber"],
-                        HomePhoneNumber = collection["HomePhoneNumber"],
-                        Email = collection["Email"],
-                        FacebookID = collection["FacebookID"],
-                        AddressID = addressID
-
+                          personDetail.FirstName = collection["FirstName"];
+                             personDetail.LastName = collection["LastName"];
+                             personDetail.MiddleName = collection["LastName"];
+                             personDetail.Birthday = DateTime.Parse(collection["Birthday"]);
+                             personDetail.Gender = collection["genderList"];
+                             personDetail.Nationality = collection["Nationality"];
+                             personDetail.JobPlace = collection["JobPlace"];
+                             personDetail.MobilePhoneNumber = collection["MobilePhoneNumber"];
+                             personDetail.HomePhoneNumber = collection["HomePhoneNumber"];
+                             personDetail.Email = collection["Email"];
+                             personDetail.FacebookID = collection["FacebookID"];
+                            
+                             personDetail.Disabled = false;
+                             personDetail.EditContactID = user_id;
+                             personDetail.EditDate = DateTime.Now;
                         
-                    };
-                    _db.PersonDetails.Add(personDetail);
+                    }
+                    else
+                    {
+
+                       addressPerson = new Address()
+                        {
+                            Address1 = collection["Address1"],
+                            Street_1 = collection["Street_1"],
+                            Street_2 = collection["Street_2"],
+                            Street_3 = collection["Street_3"],
+                            ZIP = long.Parse(collection["ZIP"]),
+                            City = collection["City"],
+                            Country = collection["Country"],
+                            Disabled = false
+
+                        };
+
+                        _db.Addresses.Add(addressPerson);
+
+
+                        _db.SaveChanges();
+                        ///.Entry(addressPerson).GetDatabaseValues();
+
+                        long addressID = addressPerson.ID;
+
+                        // create new object for person details
+                       personDetail = new PersonDetail()
+                        {
+                            FirstName = collection["FirstName"],
+                            LastName = collection["LastName"],
+                            MiddleName = collection["LastName"],
+                            Birthday = DateTime.Parse(collection["Birthday"]),
+                            Gender = collection["genderList"],
+                            Nationality = collection["Nationality"],
+                            JobPlace = collection["JobPlace"],
+                            MobilePhoneNumber = collection["MobilePhoneNumber"],
+                            HomePhoneNumber = collection["HomePhoneNumber"],
+                            Email = collection["Email"],
+                            FacebookID = collection["FacebookID"],
+                            AddressID = addressID,
+                            Disabled = false,
+                            CreateContactID = 1,
+                            CreateDate = DateTime.Now
+
+
+                        };
+                        _db.PersonDetails.Add(personDetail);
+                        _db.SaveChanges();
+
+
+                        // create new user for this person
+                        MD5 md5 = new MD5CryptoServiceProvider();
+                        Byte[] originalBytes = ASCIIEncoding.Default.GetBytes(collection["IPassword"]);
+                        Byte[] encodedBytes = md5.ComputeHash(originalBytes);
+
+                        long role_ID = 0; // by default roleID would be "utilizator"
+                        role_ID = (from r in _db.UserRoles
+                                   where r.RoleName == "utilizator"
+                                   select r.ID).FirstOrDefault();
+
+                        User user = new User()
+                        {
+                            Username = collection["iUsername"],
+                            PsswdEncrypt = BitConverter.ToString(encodedBytes),
+                            CreateContactID = 1,
+                            CreationDate = DateTime.Now,
+                            PersonID = personDetail.ID,
+                            RoleID = role_ID,
+                            Disabled = false
+                        };
+
+
+                        _db.Users.Add(user);
+                    }
 
                     _db.SaveChanges();
 
                     // create user object 
 
-                  
+                    message = "Modificarile au fost efectuate cu succes!";
                    
-                    return RedirectToAction("Index", "Home");
+                   
                 }
                 catch (MembershipCreateUserException e)
                 {
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    return Json("Modificarile nu au fost salvate in baza de date!");
+
                 }
             }
 
             // If we got this far, something failed, redisplay form
             PersonDetail model = new PersonDetail();
-            return View(model);
+            return Json("Modificarile au fost efectuate cu succes!");
         }
 
         //

@@ -75,14 +75,8 @@
     </div>
 
     <div id="divAddress" class ="hideDiv container">
-        @{
-    long? idAddress = 0;
-            if (Model != null)
-            {
-                idAddress = Model.AddressID;
-            }
-        }
-       @Html.Action("Address", "Account", new {id  = idAddress })
+      
+       @Html.Action("Address", "Account", new {id  = Model!=null? Model.AddressID: 0  })
     </div>
     
     <div id="divContactDetails" class="hideDiv container" style="margin:2px; margin-bottom:5px;">
@@ -109,25 +103,16 @@
      </div>   
     <br />
     <br />
-    <div  style ="float:left; width:100%; margin-left:10px; margin-bottom:10px;" id="btnRegisterNow"> <input type="submit" class ="btn" value="@ViewBag.Button" style="float:left; " data-toggle="modal" data-target="#divUserPopUp"/></div> 
-    <div id="divUserPopUp" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">Formular pentru Username si parola</h3>
-        </div>
-        <div class="modal-body">
-            <p id="pUsername" >Username</p>
-            <input type ="text" id="iUsername" name="iUsername" />
-            <p id="pPassword">Parola</p>
-            <input type="password" id="iPassword"  name="iPassword"/>
-            <p id="pConfirmPassword">Confirmare parola</p>
-            <input type="password" id="iConfirmPassword" name="iConfirmPassword" />
-        </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Inchide</button>
-            <button class="btn btn-primary" id="btnSaveRegister">Salveaza</button>
-         </div>
+    <div  style ="float:left; width:100%; margin-left:10px; margin-bottom:10px;" id="btnRegisterNow"> <button  class ="btn" value="@ViewBag.Button" style="float:left; " data-toggle="modal" data-target="#divUserPopUp" id="btnPopUp">@ViewBag.Button</button></div> 
+    <div>
+
+        @if (ViewBag.Action == "Register") {   
+ 
+            @Html.Action("Username", "Account", new { id = Model.ID })
+        }
     </div>
+    <input type="hidden" value="@Model.ID" name ="iPersonID"/>
+    
 }
 
   <div id="divMessagePopUp" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -162,6 +147,8 @@
     var onSuccess = function(data)
     {
         $("#pMessage").text(data);
+        console.log('here1');
+
         $("#divMessagePopUp").modal('show');
         count=data[0];
             
@@ -314,7 +301,12 @@
                 }
 
 
-                },
+            },
+            success: function (data) {
+                
+                    
+
+            },
              showErrors: function (e, el) {
 
                  this.defaultShowErrors();
@@ -393,20 +385,26 @@
            return isCorrect;
        });
 
-        $('#btnRegisterNow').click(function (e) {
+        $('#btnPopUp').click(function (e) {
 
-            e.preventDefault();
-
+          e.preventDefault();
+            
 
             if ($("#registrationForm").valid()) {
                 
-                $('#divUserPopUp').modal('show');
+                // $('#divUserPopUp').modal('toggle');
+                if('@Html.Raw(ViewBag.Action)' !='Register')
+
+                $.post('@Url.Action("Register", "Account")', $("#registrationForm").serialize(), onSuccess);
+
+
 
             } else {
 
                 $("#ErrorMessage").text("Campurile marcate cu (*) sunt obligatorii!");
                 $("#ErrorMessage").addClass('alert alert-error');
             }
+            
             
         });
        
@@ -432,13 +430,13 @@
            var commMode = '@Html.Raw(Model.CommunicationMode)';
 
            if(commMode !=''){
-               if(commMode.Contains('S')){
+               if(commMode.indexOf('S')>-1){
                    $("#chkSMS").attr('checked',true);
                }
-               else if(commMode.Contains('T')){
+               else if(commMode.indexOf('T')>-1){
                    $("#chkEmail").attr('checked',true);
                }
-               else if(commMode.Contains('F')){
+               else if(commMode.indexOf('F')>-1){
                    $("#chkFacebookID").attr('checked',true);
                }
            }

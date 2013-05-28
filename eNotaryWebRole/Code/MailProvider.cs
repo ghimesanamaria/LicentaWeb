@@ -7,7 +7,7 @@ namespace eNotaryWebRole.Code
 {
     public class MailProvider
     {
-        public static bool SendEmailToUser(string subj, string body,string to, string from, long fromUser)
+        public static bool SendEmailToUser(string subj, string body,string to, string from, long fromUser, string attachment)
         {
 
 
@@ -30,10 +30,11 @@ namespace eNotaryWebRole.Code
             mail.Body = body +"<br>"+from+"</br>"; 
             mail.BodyEncoding = System.Text.Encoding.UTF8; 
             mail.IsBodyHtml = true ; 
-            mail.Priority = MailPriority.High; 
+            mail.Priority = MailPriority.High;
+           // mail.Attachments(new System.Net.Mail.Attachment());
  
             SmtpClient client = new SmtpClient(); 
-            //Add the Creddentials- use your own email id and password
+            //Add the Credentials- use your own email id and password
             if (fromUser == 0)
             {
                 client.Credentials = new System.Net.NetworkCredential(from, "Ana123!@#");

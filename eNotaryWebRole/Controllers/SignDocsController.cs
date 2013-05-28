@@ -932,7 +932,7 @@ namespace eNotaryWebRole.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendMailToUser(long id, string subject, string body)
+        public ActionResult SendMailToUser(long id, string subject, string body, string attachment)
         {
             string message = "Emai-ul a fost transmis cu succes";
 
@@ -951,7 +951,7 @@ namespace eNotaryWebRole.Controllers
 
                 if (username == "admin")
                 {
-                    MailProvider.SendEmailToUser(subject, body, toMail, "ghimes.ana@compu-cons.ro", 0);
+                    MailProvider.SendEmailToUser(subject, body, toMail, "ghimes.ana@compu-cons.ro", 0,attachment);
                 }
                 else
                 {
@@ -961,7 +961,7 @@ namespace eNotaryWebRole.Controllers
                                       on u.PersonID equals p.ID
                                       select p.Email).FirstOrDefault();
 
-                    MailProvider.SendEmailToUser(subject, body, "ghimes.ana@compu-cons.ro", fromMail, 1);
+                    MailProvider.SendEmailToUser(subject, body, "ghimes.ana@compu-cons.ro", fromMail, 1,attachment);
                 }
             }
             catch (Exception ex)
