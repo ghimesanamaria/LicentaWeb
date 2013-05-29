@@ -1,0 +1,77 @@
+﻿
+     <link href='@Url.Content("~/Content/dropdown/simple.dropdown.css")' rel="stylesheet" />
+<link href='@Url.Content("~/Content/users/roles.css")' rel="stylesheet" />
+
+
+<div id="group-roles">
+    <div id="group">
+    <div id="group-type"></div>
+        <label>Puncte de securitate pentru tipul de grup</label>
+    <div id="group-type-security-point-per-group"> </div>
+    </div>
+   
+   
+    <div id="user-sec-points">
+        @Html.Action("UsersSecurityPoints", "Users")
+    </div>
+
+     <button id="ChangeGroupRoles" class="btn">Salveaza noile schimbari</button>
+    
+
+</div>
+
+     <script src='@Url.Content("~/Scripts/dropdown/simple.dropdown.js")'></script>
+<script>
+    $(function () {
+
+        $('#group-type').simpleDropdown({
+            selectedID: -1,
+            defaultText: 'Select group type',
+            inputName: 'UGroupType',
+            url: '@Url.Action("GetGroupType", "Users")',
+        });
+       
+
+       
+    });
+
+    $("[name=UGroupType]").live("change",function (e) {
+
+        console.log('change');
+        if ($("[name=UGroupType]").val() != "-1") {
+            var param = new Object();
+            param.id = $("[name=UGroupType]").val();
+
+            var parameter = JSON.stringify(param);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Content("~/Users/GetSecurityPointPerUser/")',
+                    dataType: 'json',
+                    data: parameter,
+                    contentType: "application/json",
+                    success: function (data) {
+                        sec_p = data.replace("{", "").replace("}", "").replace(/"/g, "").split(",");
+                        console.log(data);
+
+                        $.each(sec_p, function (index, value) {
+                            temp = value.split(":");
+                            value = "";
+                            if (temp[1] == 1)
+                                value = "checked";
+                            $("#group-type-security-point-per-group").append('<div class="option"><label style="display:inline-block">' + temp[0] + '</label>  <input type = "checkbox" class="s-checkbox" id = "'+temp[0]+'" name="'+temp[0]+'" value = "'+temp[0]+'" '+value+'/></div>');
+                           
+                        });
+
+                    },
+
+                    error: function (data) {
+                        console.log('eroare');
+
+                    }
+                });
+
+            }
+     });
+
+</script>
+    

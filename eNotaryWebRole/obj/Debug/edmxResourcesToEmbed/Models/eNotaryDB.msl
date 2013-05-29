@@ -179,6 +179,8 @@
     <EntitySetMapping Name="RoleSecurityPoints">
       <EntityTypeMapping TypeName="eNotaryDBModel.RoleSecurityPoint">
         <MappingFragment StoreEntitySet="RoleSecurityPoint">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="Disabled" ColumnName="Disabled" />
           <ScalarProperty Name="EditID" ColumnName="EditID" />
           <ScalarProperty Name="EditDate" ColumnName="EditDate" />

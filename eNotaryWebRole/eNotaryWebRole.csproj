@@ -527,6 +527,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\users\roles.css" />
     <Content Include="Content\users\users.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -717,6 +718,8 @@
     <Content Include="Views\Shared\_FilterTree.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Account\Username.cshtml" />
+    <Content Include="Views\Users\GroupRoles.cshtml" />
+    <Content Include="Views\Users\UsersSecurityPoints.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

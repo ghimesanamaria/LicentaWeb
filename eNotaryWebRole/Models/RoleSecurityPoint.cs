@@ -22,5 +22,7 @@ namespace eNotaryWebRole.Models
         public Nullable<System.DateTime> EditDate { get; set; }
         public Nullable<long> EditID { get; set; }
         public bool Disabled { get; set; }
+        public long State { get; set; }
+        public Nullable<long> UserID { get; set; }
     }
 }

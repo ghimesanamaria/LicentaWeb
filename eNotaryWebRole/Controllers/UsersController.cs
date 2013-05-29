@@ -9,6 +9,7 @@ using System.Web.Security;
 using System.Transactions;
 using eNotaryWebRole.ViewModel;
 using eNotaryWebRole.Models;
+using System.Web.Script.Serialization;
 
 namespace eNotaryWebRole.Controllers
 {
@@ -148,6 +149,120 @@ namespace eNotaryWebRole.Controllers
              return Json("The user was deleted successfully!", JsonRequestBehavior.AllowGet);
         }
 
+
+        public ActionResult GroupRoles()
+        {
+
+
+            return PartialView("GroupRoles");
+
+        }
+        [HttpGet]
+        public JsonResult GetGroupType()
+        {
+
+            username = User.Identity.Name;
+
+           long user_role_id = (from  u in _db.Users
+                                join ur in _db.UserRoles
+                                on u.RoleID equals ur.ID
+                                select ur.ID
+                ).FirstOrDefault();
+
+            var group_type = from gt in _db.UserRoles
+                           select new
+                           {
+                               id = gt.ID,
+                               name = gt.RoleName
+                           };
+            return Json(group_type, JsonRequestBehavior.AllowGet);
+        }
+
+        long find_Sec(long id, string key)
+        {
+            long q = (from sp in _db.SecurityPoints
+                     join rsp in _db.RoleSecurityPoints
+                     on sp.ID equals rsp.SecurityPointID
+                     where rsp.RoleID == id
+                     && sp.Name == key
+                    select
+                          rsp.State
+                     ).FirstOrDefault();
+
+            return q;
+        }
+
+        [HttpPost]
+        public ActionResult GetSecurityPointPerUser(long id)
+        {
+            Dictionary<string, long> security_point = new Dictionary<string, long>();
+            List<string> get_all_security_point = new List<string>();
+            get_all_security_point = _db.SecurityPoints.Select(x=>x.Name).ToList();
+
+            
+            foreach (var t in get_all_security_point)
+            {
+
+                long val = find_Sec(id, t);
+                security_point.Add(t, val);
+            }
+            JavaScriptSerializer jsonserializer = new JavaScriptSerializer();
+            string s_point = jsonserializer.Serialize(security_point);
+          
+
+
+            return Json(
+                s_point
+        );
+        }
+
+        long find_sec_point_user(string key)
+        {
+            // default on user type
+            long list_role =0;
+            list_role  = (from u in _db.Users.Where(o => o.Username == username)
+                       join rs in _db.RoleSecurityPoints
+                       
+                       on u.RoleID equals rs.RoleID
+                       join s in _db.SecurityPoints
+                       on rs.SecurityPointID equals s.ID
+                       where s.Name == key
+                       select rs.State).FirstOrDefault();
+            if (list_role!= 0)
+            {
+                return list_role;
+            }
+                // only for this user
+                long list_user = (from u in _db.Users.Where(o => o.Username == username)
+                                        join rs in _db.RoleSecurityPoints
+                                        on u.ID equals rs.UserID
+                                        join s in _db.SecurityPoints
+                                        on rs.SecurityPointID equals s.ID
+                                        where s.Name == key
+                                        select rs.State).FirstOrDefault();
+           
+
+            
+
+            return list_user;
+        }
+
+        public ActionResult UsersSecurityPoints()
+        {
+            username = User.Identity.Name;
+            List<string> get_all_security_point = new List<string>();
+            get_all_security_point = _db.SecurityPoints.Select(x => x.Name).ToList();          
+
+            Dictionary<string, long> sec_access = new Dictionary<string, long>();
+            foreach (var sec in get_all_security_point)
+            {
+                long value = find_sec_point_user(sec);
+                sec_access.Add(sec, value);
+            }
+
+            return PartialView("UsersSecurityPoints",sec_access);
+                 
+        }
 
     }
 }

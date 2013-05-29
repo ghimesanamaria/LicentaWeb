@@ -389,6 +389,7 @@
       <PropertyRef Name="CreateDate" />
       <PropertyRef Name="CreateID" />
       <PropertyRef Name="Disabled" />
+      <PropertyRef Name="State" />
     </Key>
     <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="Int64" Name="SecurityPointID" Nullable="false" />
@@ -398,6 +399,8 @@
     <Property Type="DateTime" Name="EditDate" Precision="3" />
     <Property Type="Int64" Name="EditID" />
     <Property Type="Boolean" Name="Disabled" Nullable="false" />
+    <Property Type="Int64" Name="State" Nullable="false" />
+    <Property Type="Int64" Name="UserID" />
   </EntityType>
   <EntityType Name="SecurityPoint">
     <Key>
