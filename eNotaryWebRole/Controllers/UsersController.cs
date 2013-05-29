@@ -150,10 +150,17 @@ namespace eNotaryWebRole.Controllers
         }
 
 
-        public ActionResult GroupRoles()
+        public ActionResult GroupRoles(long type)
         {
+            if (type == 0)
+            {
 
-
+                ViewBag.Action = "";
+            }
+            else
+            {
+                ViewBag.Action = "disabled";
+            }
             return PartialView("GroupRoles");
 
         }
