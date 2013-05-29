@@ -18,7 +18,7 @@ namespace eNotaryWebRole.Controllers
         // GET: /Users/
         private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
         private IDataAccessRepository _repository = new DataAccessRepository();
-        string username = "user_test";
+        string username = "";
 
         public ActionResult Index()
         {
@@ -35,7 +35,7 @@ namespace eNotaryWebRole.Controllers
         public ActionResult List(bool _search, int rows, int page, string sidx, string sord, string FirstName = "",
            string LastName = "", string Email = "", string Telephone = "", string Company = "", string Role = "")
         {
-            //string username = User.Identity.Name;
+            string username = User.Identity.Name;
             string role = _repository.getRole(username); ;
             int pageSize = rows;
             int pageIndex = Convert.ToInt32(page) - 1;

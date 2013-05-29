@@ -131,7 +131,7 @@
     <Property Name="FirstName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="MiddleName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-    <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Gender" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="Nationality" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
     <Property Name="AddressID" Type="Int64" />

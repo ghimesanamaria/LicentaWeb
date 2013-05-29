@@ -263,6 +263,7 @@
     <Compile Include="Code\AlteredAuthorizeAttribute.cs" />
     <Compile Include="Code\Attributes\InaccessibleDirectlyAttribute.cs" />
     <Compile Include="Code\AuthConfigurationProvider.cs" />
+    <Compile Include="Code\eNotaryMembershipProvider.cs" />
     <Compile Include="Code\IPDFProvider.cs" />
     <Compile Include="Code\MailProvider.cs" />
     <Compile Include="Code\PDFProvider.cs" />

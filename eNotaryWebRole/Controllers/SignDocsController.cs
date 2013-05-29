@@ -58,7 +58,7 @@ namespace eNotaryWebRole.Controllers
     public class SignDocsController : Controller
     {
 
-        string username = "user_test";
+        string username = "";
 
         //
         // GET: /SignDocs/
@@ -942,7 +942,7 @@ namespace eNotaryWebRole.Controllers
 
 
 
-            // username= User.Identity.Name;
+            username= User.Identity.Name;
 
             string toMail = _db.PersonDetails.Where(p => p.ID == id).Select(x => x.Email).FirstOrDefault();
            

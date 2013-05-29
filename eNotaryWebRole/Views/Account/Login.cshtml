@@ -20,12 +20,12 @@
         <legend>Log in Form</legend>
         <ol>
             <li>
-                @Html.LabelFor(m => m.UserName)
+                <label>Utilizator</label>
                 @Html.TextBoxFor(m => m.UserName)
                 @Html.ValidationMessageFor(m => m.UserName)
             </li>
             <li>
-                @Html.LabelFor(m => m.Password)
+               <label>Parola</label>
                 @Html.PasswordFor(m => m.Password)
                 @Html.ValidationMessageFor(m => m.Password)
             </li>
@@ -40,7 +40,7 @@
         <div id="loginButtons">
         <input type="submit" value="Log in" class="btn btn-info" />
             <p>
-                @Html.ActionLink("Register", "Register") if you don't have an account.
+                @Html.ActionLink("Inregistrati-va acum", "Register") daca nu aveti cont.
             </p>
         </div>
     }

@@ -15,13 +15,13 @@ namespace eNotaryWebRole.Controllers
 
         private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
         private IDataAccessRepository _rep = new DataAccessRepository();
-        private string _username = "user_test";
+        private string _username = "";
         //
         // GET: /Tree/
 
         public ActionResult Index()
         {
-
+            _username = User.Identity.Name;
             
 
             string role = _rep.getRole(_username);
@@ -37,20 +37,8 @@ namespace eNotaryWebRole.Controllers
         [HttpPost]
         public JsonResult GetTreeRootData()
         {
-            string username = "";
 
-            if (!string.IsNullOrEmpty(User.Identity.Name))
-            {
-                string[] usernameSplit = User.Identity.Name.Split('\\');
-                username = usernameSplit[usernameSplit.Count() - 1];
-
-                //pt geoscart
-                //username =User.Identity.Name;
-            }
-            else
-            {
-                username = "admin";
-            }
+            _username = User.Identity.Name;
 
            // long userID = _db.Contacts.Where(o => o.Username == username).First().ID;
 
@@ -93,6 +81,7 @@ namespace eNotaryWebRole.Controllers
 
             long id_person = 0;
              string url ;
+             _username = User.Identity.Name;
            // change the interface to tree if the user is not admin or notar
              if (role != "angajat")
              {
@@ -256,11 +245,7 @@ namespace eNotaryWebRole.Controllers
                   found.Add("#"+pd.ToString());
             }
 
-             var f = found.ToArray();
-
-
-
-            
+             var f = found.ToArray();            
 
 
             return Json(f);

@@ -13,6 +13,7 @@ using eNotaryWebRole.Models;
 using SBClient;
 using System.Security.Cryptography;
 using System.Text;
+using eNotaryWebRole.Code;
 
 namespace eNotaryWebRole.Controllers
 {
@@ -94,9 +95,10 @@ namespace eNotaryWebRole.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            WebSecurity.Logout();
+           // WebSecurity.Logout();
+            FormsAuthentication.SignOut();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
@@ -162,7 +164,8 @@ namespace eNotaryWebRole.Controllers
        {
            // change this 
 
-           string username = "admin";
+          // string username = "admin";
+           string username = User.Identity.Name;
            string message = "";
 
            // verify more careful if the address is for that specific user
@@ -205,7 +208,7 @@ namespace eNotaryWebRole.Controllers
                        PersonDetail personDetail;
 
                 // create address object for this person and get the id 
-                    if (!string.IsNullOrEmpty(collection["iPersonID"])) {
+                    if (collection["iPersonID"]!="0") {
 
                         long person_id = long.Parse(collection["iPersonID"]);
                         var q = (from p in _db.PersonDetails

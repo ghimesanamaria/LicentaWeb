@@ -187,7 +187,7 @@
     <Property Name="FirstName" Type="nvarchar(max)" />
     <Property Name="MiddleName" Type="nvarchar(max)" />
     <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Birthday" Type="datetime" Nullable="false" />
+    <Property Name="Birthday" Type="date" Nullable="false" />
     <Property Name="Gender" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
     <Property Name="AddressID" Type="bigint" />

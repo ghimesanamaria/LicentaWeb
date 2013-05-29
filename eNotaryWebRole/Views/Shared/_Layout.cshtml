@@ -69,10 +69,13 @@
                           <div class="navbar-inner">
                             <a class="brand" href="#" >eNotary</a>
                             <ul class="nav" id="tabMenu">
-                              <li id="liHome">@Html.ActionLink("Acasa", "Index", "Home")</li>
+                               @if (Request.IsAuthenticated) {
+                                    <li id="liHome">@Html.ActionLink("Acasa", "Index", "Home")</li>
+                                    <li id="liDocs">@Html.ActionLink("Documente", "Index", "SignDocs")</li>
+                               }
                               <li id="liAbout">@Html.ActionLink("Despre noi", "About", "Home")</li>
                               <li id="liContact">@Html.ActionLink("Contact", "Contact", "Home")</li>
-                              <li id="liDocs">@Html.ActionLink("Documente", "Index", "SignDocs")</li>
+                             
                             </ul>
                           </div>
                     </nav>

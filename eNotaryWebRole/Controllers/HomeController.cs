@@ -62,7 +62,7 @@ namespace eNotaryWebRole.Controllers
     {
 
         private System.ComponentModel.Container components = null;
-        string username = "user_test";
+        string username = "";
         private IPDFProvider _rep_pdf = new PDFProvider();
         private IDataAccessRepository _repository = new DataAccessRepository();
 
@@ -173,7 +173,7 @@ namespace eNotaryWebRole.Controllers
 
         private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
 
-        //[Authorize]
+        [Authorize]
         public ActionResult Index()
         {
             var url = HttpContext.Request.PhysicalApplicationPath;
@@ -370,6 +370,7 @@ namespace eNotaryWebRole.Controllers
       [HttpPost]
         public ActionResult Upload()
       {
+          username = User.Identity.Name;
           var tmp = Request;
           string messages = "Fiserele au fost  incarcat cu succes!"; 
           init_function();
