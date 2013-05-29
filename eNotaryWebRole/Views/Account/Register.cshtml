@@ -10,6 +10,7 @@
 <h4 id="ErrorMessage" ></h4>
 <h4 id="InformationMessage" class="alert alert-info" style="margin-top:10px;"> Campurile marcate cu * sunt obligatorii !</h4>
 
+
 @using (@Ajax.BeginForm("Register", "Account", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "registrationForm" }))
 { 
    @Html.AntiForgeryToken()
@@ -79,8 +80,8 @@
        @Html.Action("Address", "Account", new {id  = Model!=null? Model.AddressID: 0  })
     </div>
     
-    <div id="divContactDetails" class="hideDiv container" style="margin:2px; margin-bottom:5px;">
-        <div style="margin:10px; ">
+    <div id="divContactDetails" class="hideDiv container" style="margin:2px; margin-bottom:5px; height:100%;">
+        <div style="margin:10px; float:left; width:45%; ">
             <p id="pMobilePhoneNumber">Numar de telefon mobil *</p>
             @Html.TextBoxFor(m => m.MobilePhoneNumber)
             <p id="pHomePhoneNumber">Numar de telefon fix (acasa)</p>
@@ -99,6 +100,17 @@
             <input type="checkbox" id="chkFacebookID" name="chkFacebookID" />
             <b id="bFacebookID">Facebook ID </b>
         </div>
+        
+            <div style="float: left; width: 48% ;margin:10px;">
+                <label>Configurati rolurile acestui utilizator </label>
+              
+
+        @if (ViewBag.Action != "Register") {   
+ 
+              @Html.Action("GroupRoles", "Users", new { type = 1 })
+        }
+                
+            </div>
     </div>
      </div>   
     <br />
@@ -110,6 +122,8 @@
  
             @Html.Action("Username", "Account", new { id = Model.ID })
         }
+       
+        
     </div>
     <input type="hidden" value="@Model.ID" name ="iPersonID"/>
     

@@ -17,7 +17,7 @@ namespace eNotaryWebRole.Controllers
     {
         //
         // GET: /Users/
-        private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
+        private eNotaryDBEntities1 _db = new eNotaryDBEntities1();
         private IDataAccessRepository _repository = new DataAccessRepository();
         string username = "";
 
@@ -271,57 +271,186 @@ namespace eNotaryWebRole.Controllers
                  
         }
 
+        public void SaveGroupSecurityPoint(long roleID, string ids)
+        {
+            string[] id_list = ids.Split(',');
+            foreach (string id in id_list)
+            {
+                RoleSecurityPoint role = (
+                    from rs in _db.RoleSecurityPoints.Where(r => r.RoleID == roleID)
+                    join s in _db.SecurityPoints
+                    on rs.SecurityPointID equals s.ID
+                    where s.Name == id
+                    select rs
+                    ).FirstOrDefault();
+                if (role != null)
+                {
+                    role.EditDate = DateTime.Now;
+                    role.EditID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID;
+                    role.State = 1;
+                    role.Disabled = false;
+                    role.RoleID = roleID;
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    role = new RoleSecurityPoint()
+                    {
+                        CreateDate = DateTime.Now,
+                        CreateID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID,
+                        Disabled = false,
+                        SecurityPointID = _db.SecurityPoints.Where(x => x.Name == id).FirstOrDefault().ID,
+                        State = 1,
+                        RoleID = roleID
+                    };
+                    _db.RoleSecurityPoints.Add(role);
+                    _db.SaveChanges();
+
+                }
+            }
+
+            // foreach security point in db for that group set state 0
+            (from r in _db.RoleSecurityPoints.Where(x => x.RoleID == roleID)
+             join s in _db.SecurityPoints
+             on r.SecurityPointID equals s.ID
+             where !id_list.Contains(s.Name)
+             select r).ToList().ForEach(x => x.State = 0);
+            _db.SaveChanges();
+        }
+        public void SaveUserSecurityPoint(long id_role,string ids)
+        {
+            username = User.Identity.Name;
+            User user = (from u in _db.Users.Where(u => u.Username == username) select u).FirstOrDefault();
+            user.RoleID = id_role;
+            _db.SaveChanges();
+
+            long roleID = (from u in _db.Users
+                           select u.RoleID).FirstOrDefault();
+            long userID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID;
+            List<string> id_list = ids.Split(',').ToList();
+            foreach (string id in id_list)
+            {
+                RoleSecurityPoint role = (
+                    from rs in _db.RoleSecurityPoints.Where(r => r.UserID == userID)
+                    join s in _db.SecurityPoints
+                    on rs.SecurityPointID equals s.ID
+                    where s.Name == id
+                    select rs
+                    ).FirstOrDefault();
+                if (role != null)
+                {
+                    role.EditDate = DateTime.Now;
+                    role.EditID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID;
+                    role.State = 1;
+                    role.Disabled = false;
+                    role.UserID = userID;
+                    _db.SaveChanges();
+                }
+                else
+                {
+
+                    role = (
+                    from rs in _db.RoleSecurityPoints.Where(r => r.RoleID == roleID)
+                    join s in _db.SecurityPoints
+                    on rs.SecurityPointID equals s.ID
+                    where s.Name == id
+                    select rs
+                    ).FirstOrDefault();
+                    if (role == null)
+                    {
+                        role = new RoleSecurityPoint()
+                        {
+                            CreateDate = DateTime.Now,
+                            CreateID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID,
+                            Disabled = false,
+                            SecurityPointID = _db.SecurityPoints.Where(x => x.Name == id).FirstOrDefault().ID,
+                            State = 1,
+                            UserID = userID
+                        };
+                        _db.RoleSecurityPoints.Add(role);
+                    }
+
+                    _db.SaveChanges();
+
+                }
+            }
+
+            // foreach security point in db for that user set state 0
+            (from r in _db.RoleSecurityPoints.Where(x => x.UserID == userID)
+             join s in _db.SecurityPoints
+             on r.SecurityPointID equals s.ID
+             where !id_list.Contains(s.Name)
+             select r).ToList().ForEach(x => x.State = 0);
+            _db.SaveChanges();
+
+
+            //if a default security point is deselected , add in db a record to say that
+            List<string> list_default = (from rs in _db.RoleSecurityPoints
+                                         join s in _db.SecurityPoints
+                                         on rs.SecurityPointID equals s.ID
+                                         join u in _db.Users.Where(u => u.ID == userID)
+                                         on rs.UserID equals u.ID
+                                         select s.Name).ToList().Except(id_list).ToList();
+            if (list_default.Count() > 0)
+            {
+
+                foreach (string id in list_default)
+                {
+                    RoleSecurityPoint role = (
+                              from rs in _db.RoleSecurityPoints.Where(r => r.UserID == userID)
+                              join s in _db.SecurityPoints
+                              on rs.SecurityPointID equals s.ID
+                              where s.Name == id
+                              select rs
+                              ).FirstOrDefault();
+                    if (role == null)
+                    {
+                        role = new RoleSecurityPoint()
+                        {
+                            CreateDate = DateTime.Now,
+                            CreateID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID,
+                            Disabled = false,
+                            SecurityPointID = _db.SecurityPoints.Where(x => x.Name == id).FirstOrDefault().ID,
+                            State = 0,
+                            UserID = userID
+                        };
+                        _db.RoleSecurityPoints.Add(role);
+                        _db.SaveChanges();
+                    }
+                    else
+                    {
+                        role.EditDate = DateTime.Now;
+                        role.EditID = userID;
+                        role.State = 0;
+                        _db.SaveChanges();
+                    }
+                }
+            }
+        }
+
         public ActionResult SaveSecurityPoint(long roleID, string ids, long type)
         {
             username = User.Identity.Name;
-
-            // 0 means group 1 users
-            if (type == 0)
+            try
             {
-                string[] id_list = ids.Split(',');
-                foreach (string id in id_list)
+                // 0 means group 1 users
+                if (type == 0)
                 {
-                   RoleSecurityPoint role =(
-                       from rs in _db.RoleSecurityPoints.Where(r=>r.RoleID == roleID)
-                       join s in _db.SecurityPoints
-                       on rs.SecurityPointID equals s.ID
-                       where s.Name == id                       
-                       select rs                       
-                       ).FirstOrDefault();
-                   if (role != null)
-                   {
-                       role.EditDate = DateTime.Now;
-                       role.EditID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID;
-                       role.State = 1;
-                       role.Disabled = false;
-                       _db.SaveChanges();
-                   }
-                   else
-                   {
-                       role = new RoleSecurityPoint()
-                       {
-                           CreateDate = DateTime.Now,
-                           CreateID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID,
-                           Disabled =false,
-                           SecurityPointID = _db.SecurityPoints.Where(x=>x.Name == id).FirstOrDefault().ID,
-                           State =1 
-                       };
-                       _db.RoleSecurityPoints.Add(role);
-                       _db.SaveChanges();
+                    SaveGroupSecurityPoint(roleID, ids);
 
-                   }
                 }
+                else
+                {
+                    
+                    SaveUserSecurityPoint(roleID,ids);
 
-                // foreach security point in db for that group set state 0
-              (from r in _db.RoleSecurityPoints.Where(x => x.RoleID == roleID)
-                            join s in _db.SecurityPoints
-                            on r.SecurityPointID equals s.ID
-                            where !id_list.Contains(s.Name)
-                            select r).ToList().ForEach(x => x.State = 0);
-              _db.SaveChanges();
-
+                }
             }
-            return Json("");
+            catch (Exception ex)
+            {
+                return Json("Punctele de securitate nu au fost salvate! Repetati actiune");
+            }
+            return Json("Salvarea s-a efectuat cu succes");
         }
 
     }

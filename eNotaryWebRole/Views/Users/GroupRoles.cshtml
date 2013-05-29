@@ -14,7 +14,7 @@
    
     <div id="user-sec-points">
         @{ 
-            if(ViewBag.Action == "Users"){
+            if(ViewBag.Action == "disabled"){
                 @Html.Action("UsersSecurityPoints", "Users")
             }
         }
@@ -55,6 +55,7 @@
                     else
                         ids = ids + "," + value.id;
                 });
+                ids = ids.replace(/_user/g, '');
             }
 
             var param = new Object();

@@ -29,7 +29,7 @@ namespace eNotaryWebRole.Code
         private int _MinRequiredNonalphanumericCharacters;
         private string _PasswordStrengthRegularExpression;
         private MembershipPasswordFormat _PasswordFormat = MembershipPasswordFormat.Hashed;
-        private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
+        private eNotaryDBEntities1 _db = new eNotaryDBEntities1();
         private IDataAccessRepository _repository = new DataAccessRepository();
 
 

@@ -10,7 +10,7 @@ namespace eNotaryWebRole.Models
     public class DataAccessRepository:IDataAccessRepository
     {
         string username = "user_test"; 
-        private static eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
+        private static eNotaryDBEntities1 _db = new eNotaryDBEntities1();
 
         public  string getRole(string username)
         {

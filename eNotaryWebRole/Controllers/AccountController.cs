@@ -24,7 +24,7 @@ namespace eNotaryWebRole.Controllers
         //
         // GET: /Account/Login
 
-        private eNotaryDBEFEntities _db = new eNotaryDBEFEntities();
+        private eNotaryDBEntities1 _db = new eNotaryDBEntities1();
 
         [AllowAnonymous]
         [RequireHttps]

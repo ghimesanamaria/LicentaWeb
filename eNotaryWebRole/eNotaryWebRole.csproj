@@ -271,7 +271,34 @@
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Models\Act.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ActType.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EducationLevel.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\eNotaryDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>eNotaryDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\eNotaryDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\eNotaryDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>eNotaryDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Helpers\HtmlHelpers.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -288,21 +315,6 @@
     <Compile Include="Models\CardBase.cs" />
     <Compile Include="Models\CardNative.cs" />
     <Compile Include="Models\DataAccessRepository.cs" />
-    <Compile Include="Models\eNotaryDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>eNotaryDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\eNotaryDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\eNotaryDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>eNotaryDB.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -311,9 +323,39 @@
     <Compile Include="Models\IDataAccessRepository.cs" />
     <Compile Include="Models\ISignatureFunctions.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\JobType.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\JsTreeModel.cs" />
+    <Compile Include="Models\Mail.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payment.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PersonDetail.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RoleSecurityPoint.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SecurityPoint.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SignedAct.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SmartCardException.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TreeNodesViewModel.cs" />
+    <Compile Include="Models\User.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRole.cs">
+      <DependentUpon>eNotaryDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\CertificateWrapperViewModel.cs" />
     <Compile Include="Models\UnsignedDocumentsViewModel.cs" />
@@ -494,10 +536,6 @@
     <Content Include="Certificate\200605167004010F3E.crt" />
     <Content Include="Certificate\certificatVeriSignTest.cer" />
     <Content Include="Certificate\certificatVeriSignTest.pem" />
-    <EntityDeploy Include="Models\eNotaryDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>eNotaryDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <Content Include="Images\cert.jpg" />
     <Content Include="Images\cert.png" />
     <Content Include="Images\Document-Copy-icon.png" />
@@ -511,6 +549,12 @@
     <Content Include="Images\User-Files-icon.png" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="Content\fonts\kberry.ttf" />
+    <Content Include="Content\fonts\atlandsketchesbb_ital.ttf" />
+    <EntityDeploy Include="Models\eNotaryDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>eNotaryDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <Content Include="Models\eNotaryDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>eNotaryDB.edmx</DependentUpon>
@@ -524,8 +568,6 @@
       <DependentUpon>eNotaryDB.edmx</DependentUpon>
       <LastGenOutput>eNotaryDB.cs</LastGenOutput>
     </Content>
-    <Content Include="Content\fonts\kberry.ttf" />
-    <Content Include="Content\fonts\atlandsketchesbb_ital.ttf" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\ajax-loader.gif" />
     <Content Include="Images\ajax-loaderback.gif" />

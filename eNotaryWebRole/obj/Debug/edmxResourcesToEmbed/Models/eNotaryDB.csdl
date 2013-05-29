@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="eNotaryDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-  <EntityContainer Name="eNotaryDBEFEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="eNotaryDBEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Acts" EntityType="eNotaryDBModel.Act" />
     <EntitySet Name="ActTypes" EntityType="eNotaryDBModel.ActType" />
+    <EntitySet Name="Addresses" EntityType="eNotaryDBModel.Address" />
     <EntitySet Name="EducationLevels" EntityType="eNotaryDBModel.EducationLevel" />
     <EntitySet Name="JobTypes" EntityType="eNotaryDBModel.JobType" />
+    <EntitySet Name="Mails" EntityType="eNotaryDBModel.Mail" />
     <EntitySet Name="Payments" EntityType="eNotaryDBModel.Payment" />
     <EntitySet Name="PersonDetails" EntityType="eNotaryDBModel.PersonDetail" />
+    <EntitySet Name="RoleSecurityPoints" EntityType="eNotaryDBModel.RoleSecurityPoint" />
+    <EntitySet Name="SecurityPoints" EntityType="eNotaryDBModel.SecurityPoint" />
     <EntitySet Name="SignedActs" EntityType="eNotaryDBModel.SignedAct" />
     <EntitySet Name="sysdiagrams" EntityType="eNotaryDBModel.sysdiagram" />
     <EntitySet Name="UserRoles" EntityType="eNotaryDBModel.UserRole" />
@@ -22,6 +26,10 @@
     <AssociationSet Name="FK_SignedActs_Acts" Association="eNotaryDBModel.FK_SignedActs_Acts">
       <End Role="Acts" EntitySet="Acts" />
       <End Role="SignedActs" EntitySet="SignedActs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonDetails_Address" Association="eNotaryDBModel.FK_PersonDetails_Address">
+      <End Role="Address" EntitySet="Addresses" />
+      <End Role="PersonDetails" EntitySet="PersonDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_PersonDetails_EducationLevel" Association="eNotaryDBModel.FK_PersonDetails_EducationLevel">
       <End Role="EducationLevel" EntitySet="EducationLevels" />
@@ -51,14 +59,6 @@
       <End Role="UserRoles" EntitySet="UserRoles" />
       <End Role="Users" EntitySet="Users" />
     </AssociationSet>
-    <EntitySet Name="Addresses" EntityType="eNotaryDBModel.Address" />
-    <AssociationSet Name="FK_PersonDetails_Address" Association="eNotaryDBModel.FK_PersonDetails_Address">
-      <End Role="Address" EntitySet="Addresses" />
-      <End Role="PersonDetail" EntitySet="PersonDetails" />
-    </AssociationSet>
-    <EntitySet Name="Mails" EntityType="eNotaryDBModel.Mail" />
-    <EntitySet Name="RoleSecurityPoints" EntityType="eNotaryDBModel.RoleSecurityPoint" />
-    <EntitySet Name="SecurityPoints" EntityType="eNotaryDBModel.SecurityPoint" />
   </EntityContainer>
   <EntityType Name="Act">
     <Key>
@@ -69,19 +69,19 @@
     <Property Name="PersonDetailsID" Type="Int64" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateContactID" Type="Int64" Nullable="false" />
     <Property Name="Reason" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="State" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="ReasonState" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="Signed" Type="Boolean" Nullable="false" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
     <Property Name="ExternalUniqueReference" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ExtraDetails" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditContactID" Type="Int64" />
     <NavigationProperty Name="ActType" Relationship="eNotaryDBModel.FK_Acts_ActType" FromRole="Acts" ToRole="ActType" />
     <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_Acts_PersonDetails" FromRole="Acts" ToRole="PersonDetails" />
     <NavigationProperty Name="SignedActs" Relationship="eNotaryDBModel.FK_SignedActs_Acts" FromRole="Acts" ToRole="SignedActs" />
-    <Property Type="Boolean" Name="Disabled" Nullable="false" />
-    <Property Type="String" Name="ExtraDetails" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="DateTime" Name="EditDate" Precision="3" />
-    <Property Type="Int64" Name="EditContactID" />
-    <Property Type="Int64" Name="CreateContactID" Nullable="false" />
   </EntityType>
   <EntityType Name="ActType">
     <Key>
@@ -89,8 +89,23 @@
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ActTypeName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Acts" Relationship="eNotaryDBModel.FK_Acts_ActType" FromRole="ActType" ToRole="Acts" />
-    <Property Type="Boolean" Name="Disabled" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Street_1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Street_2" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Street_3" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ZIP" Type="Int64" />
+    <Property Name="City" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Country" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="Address" ToRole="PersonDetails" />
   </EntityType>
   <EntityType Name="EducationLevel">
     <Key>
@@ -98,8 +113,8 @@
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="EducationLevel1" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Disabled" Type="Int64" Nullable="false" />
     <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_EducationLevel" FromRole="EducationLevel" ToRole="PersonDetails" />
-    <Property Type="Int64" Name="Disabled" Nullable="false" />
   </EntityType>
   <EntityType Name="JobType">
     <Key>
@@ -107,8 +122,24 @@
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="JobName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_JobType" FromRole="JobType" ToRole="PersonDetails" />
-    <Property Type="Boolean" Name="Disabled" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mail">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="To" />
+      <PropertyRef Name="From" />
+      <PropertyRef Name="DateCreated" />
+      <PropertyRef Name="ID_SentPerson" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="To" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="From" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Subject" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="BodyMail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ID_SentPerson" Type="Int64" Nullable="false" />
   </EntityType>
   <EntityType Name="Payment">
     <Key>
@@ -143,18 +174,45 @@
     <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="FacebookID" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="CommunicationMode" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateContactID" Type="Int64" Nullable="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditContactID" Type="Int64" />
     <NavigationProperty Name="Acts" Relationship="eNotaryDBModel.FK_Acts_PersonDetails" FromRole="PersonDetails" ToRole="Acts" />
+    <NavigationProperty Name="Address" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="PersonDetails" ToRole="Address" />
     <NavigationProperty Name="EducationLevel" Relationship="eNotaryDBModel.FK_PersonDetails_EducationLevel" FromRole="PersonDetails" ToRole="EducationLevel" />
     <NavigationProperty Name="JobType" Relationship="eNotaryDBModel.FK_PersonDetails_JobType" FromRole="PersonDetails" ToRole="JobType" />
     <NavigationProperty Name="Payments" Relationship="eNotaryDBModel.FK_Payments_PersonDetails" FromRole="PersonDetails" ToRole="Payments" />
     <NavigationProperty Name="SignedActs" Relationship="eNotaryDBModel.FK_SignedActs_PersonDetails" FromRole="PersonDetails" ToRole="SignedActs" />
     <NavigationProperty Name="Users" Relationship="eNotaryDBModel.FK_Users_PersonDetails" FromRole="PersonDetails" ToRole="Users" />
-    <NavigationProperty Name="Address" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="PersonDetail" ToRole="Address" />
-    <Property Type="Boolean" Name="Disabled" Nullable="false" />
-    <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
-    <Property Type="Int64" Name="CreateContactID" Nullable="false" />
-    <Property Type="DateTime" Name="EditDate" Precision="3" />
-    <Property Type="Int64" Name="EditContactID" />
+  </EntityType>
+  <EntityType Name="RoleSecurityPoint">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SecurityPointID" Type="Int64" Nullable="false" />
+    <Property Name="RoleID" Type="Int64" />
+    <Property Name="UserID" Type="Int64" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateID" Type="Int64" Nullable="false" />
+    <Property Name="State" Type="Int64" Nullable="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditID" Type="Int64" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SecurityPoint">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateID" Type="Int64" Nullable="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditID" Type="Int64" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="SignedAct">
     <Key>
@@ -170,12 +228,12 @@
     <Property Name="SentToClient" Type="Boolean" Nullable="false" />
     <Property Name="ResonSent" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
     <Property Name="ExternalUniqueReference" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ExtraDetails" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditContactID" Type="Int64" />
     <NavigationProperty Name="Act" Relationship="eNotaryDBModel.FK_SignedActs_Acts" FromRole="SignedActs" ToRole="Acts" />
     <NavigationProperty Name="Payments" Relationship="eNotaryDBModel.FK_Payments_SignedActs" FromRole="SignedActs" ToRole="Payments" />
     <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_SignedActs_PersonDetails" FromRole="SignedActs" ToRole="PersonDetails" />
-    <Property Type="String" Name="ExtraDetails" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="DateTime" Name="EditDate" Precision="3" />
-    <Property Type="Int64" Name="EditContactID" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -195,10 +253,10 @@
     <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
     <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateContactID" Type="Int64" Nullable="false" />
+    <Property Name="EditDate" Type="Int64" />
+    <Property Name="EditContactID" Type="Int64" />
     <NavigationProperty Name="Users" Relationship="eNotaryDBModel.FK_Users_UserRoles" FromRole="UserRoles" ToRole="Users" />
-    <Property Type="Int64" Name="CreateContactID" Nullable="false" />
-    <Property Type="Int64" Name="EditDate" />
-    <Property Type="Int64" Name="EditContactID" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -211,12 +269,12 @@
     <Property Name="PsswdEncrypt" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="DigitalCertificate" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateContactID" Type="Int64" Nullable="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditContactID" Type="Int64" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_Users_PersonDetails" FromRole="Users" ToRole="PersonDetails" />
     <NavigationProperty Name="UserRole" Relationship="eNotaryDBModel.FK_Users_UserRoles" FromRole="Users" ToRole="UserRoles" />
-    <Property Type="Int64" Name="CreateContactID" Nullable="false" />
-    <Property Type="DateTime" Name="EditDate" Precision="3" />
-    <Property Type="Int64" Name="EditContactID" />
-    <Property Type="Boolean" Name="Disabled" Nullable="false" />
   </EntityType>
   <Association Name="FK_Acts_ActType">
     <End Role="ActType" Type="eNotaryDBModel.ActType" Multiplicity="1" />
@@ -251,6 +309,18 @@
       </Principal>
       <Dependent Role="SignedActs">
         <PropertyRef Name="ActID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonDetails_Address">
+    <End Role="Address" Type="eNotaryDBModel.Address" Multiplicity="0..1" />
+    <End Role="PersonDetails" Type="eNotaryDBModel.PersonDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PersonDetails">
+        <PropertyRef Name="AddressID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -338,84 +408,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="Address">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="Address1" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="Street_1" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="Street_2" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="Street_3" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="Int64" Name="ZIP" />
-    <Property Type="String" Name="City" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="Country" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="Address" ToRole="PersonDetail" />
-    <Property Type="Boolean" Name="Disabled" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_PersonDetails_Address">
-    <End Type="eNotaryDBModel.Address" Role="Address" Multiplicity="0..1" />
-    <End Type="eNotaryDBModel.PersonDetail" Role="PersonDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Address">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="PersonDetail">
-        <PropertyRef Name="AddressID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="Mail">
-    <Key>
-      <PropertyRef Name="ID" />
-      <PropertyRef Name="To" />
-      <PropertyRef Name="From" />
-      <PropertyRef Name="DateCreated" />
-      <PropertyRef Name="ID_SentPerson" />
-    </Key>
-    <Property Type="Int64" Name="ID" Nullable="false" />
-    <Property Type="String" Name="To" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="From" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="Subject" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="BodyMail" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
-    <Property Type="Int64" Name="ID_SentPerson" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RoleSecurityPoint">
-    <Key>
-      <PropertyRef Name="ID" />
-      <PropertyRef Name="SecurityPointID" />
-      <PropertyRef Name="RoleID" />
-      <PropertyRef Name="CreateDate" />
-      <PropertyRef Name="CreateID" />
-      <PropertyRef Name="Disabled" />
-      <PropertyRef Name="State" />
-    </Key>
-    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Int64" Name="SecurityPointID" Nullable="false" />
-    <Property Type="Int64" Name="RoleID" />
-    <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
-    <Property Type="Int64" Name="CreateID" Nullable="false" />
-    <Property Type="DateTime" Name="EditDate" Precision="3" />
-    <Property Type="Int64" Name="EditID" />
-    <Property Type="Boolean" Name="Disabled" Nullable="false" />
-    <Property Type="Int64" Name="State" Nullable="false" />
-    <Property Type="Int64" Name="UserID" />
-  </EntityType>
-  <EntityType Name="SecurityPoint">
-    <Key>
-      <PropertyRef Name="ID" />
-      <PropertyRef Name="Name" />
-      <PropertyRef Name="CreateDate" />
-      <PropertyRef Name="CreateID" />
-      <PropertyRef Name="Disabled" />
-    </Key>
-    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
-    <Property Type="Int64" Name="CreateID" Nullable="false" />
-    <Property Type="DateTime" Name="EditDate" Precision="3" />
-    <Property Type="Int64" Name="EditID" />
-    <Property Type="Boolean" Name="Disabled" Nullable="false" />
-  </EntityType>
 </Schema>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="3c82fe02-6485-454d-a57c-c21de81ca0bd" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="4359f12c-1180-4890-b4a8-2ce701a58d1c" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="eNotaryGroup" generation="1" functional="0" release="0">
       <componentports>
@@ -128,14 +128,14 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="afa61d31-6b36-4005-b54d-8165c78b03b5" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
+    <implementation Id="036ebfe1-d054-4857-844c-fde1d438aa9b" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
       <interfacereferences>
-        <interfaceReference Id="ce1d4a64-80bb-4071-a828-5c0fc89ad31d" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
+        <interfaceReference Id="4cdddc4b-6e62-44b4-bdc0-d740fb182676" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Endpoint1" />
           </inPort>
         </interfaceReference>
-        <interfaceReference Id="e4017ddd-78e5-4772-b435-ab1291d49d86" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint2@ServiceDefinition">
+        <interfaceReference Id="14292cca-ab84-4ebb-a17e-c235b30cf45e" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint2@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Endpoint2" />
           </inPort>
