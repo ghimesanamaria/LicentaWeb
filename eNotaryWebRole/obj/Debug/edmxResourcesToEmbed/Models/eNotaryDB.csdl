@@ -393,7 +393,7 @@
     </Key>
     <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="Int64" Name="SecurityPointID" Nullable="false" />
-    <Property Type="Int64" Name="RoleID" Nullable="false" />
+    <Property Type="Int64" Name="RoleID" />
     <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
     <Property Type="Int64" Name="CreateID" Nullable="false" />
     <Property Type="DateTime" Name="EditDate" Precision="3" />

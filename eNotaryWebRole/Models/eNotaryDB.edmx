@@ -24,31 +24,8 @@
           </EntitySet>
           <EntitySet Name="Payments" EntityType="eNotaryDBModel.Store.Payments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PersonDetails" EntityType="eNotaryDBModel.Store.PersonDetails" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RoleSecurityPoint" EntityType="eNotaryDBModel.Store.RoleSecurityPoint" store:Type="Tables" store:Schema="dbo" store:Name="RoleSecurityPoint">
-            <DefiningQuery>SELECT 
-      [RoleSecurityPoint].[ID] AS [ID], 
-      [RoleSecurityPoint].[SecurityPointID] AS [SecurityPointID], 
-      [RoleSecurityPoint].[RoleID] AS [RoleID], 
-      [RoleSecurityPoint].[UserID] AS [UserID], 
-      [RoleSecurityPoint].[CreateDate] AS [CreateDate], 
-      [RoleSecurityPoint].[CreateID] AS [CreateID], 
-      [RoleSecurityPoint].[State] AS [State], 
-      [RoleSecurityPoint].[EditDate] AS [EditDate], 
-      [RoleSecurityPoint].[EditID] AS [EditID], 
-      [RoleSecurityPoint].[Disabled] AS [Disabled]
-      FROM [dbo].[RoleSecurityPoint] AS [RoleSecurityPoint]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="SecurityPoints" EntityType="eNotaryDBModel.Store.SecurityPoints" store:Type="Tables" store:Schema="dbo" store:Name="SecurityPoints">
-            <DefiningQuery>SELECT 
-      [SecurityPoints].[ID] AS [ID], 
-      [SecurityPoints].[Name] AS [Name], 
-      [SecurityPoints].[CreateDate] AS [CreateDate], 
-      [SecurityPoints].[CreateID] AS [CreateID], 
-      [SecurityPoints].[EditDate] AS [EditDate], 
-      [SecurityPoints].[EditID] AS [EditID], 
-      [SecurityPoints].[Disabled] AS [Disabled]
-      FROM [dbo].[SecurityPoints] AS [SecurityPoints]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="RoleSecurityPoint" EntityType="eNotaryDBModel.Store.RoleSecurityPoint" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SecurityPoints" EntityType="eNotaryDBModel.Store.SecurityPoints" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SignedActs" EntityType="eNotaryDBModel.Store.SignedActs" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="eNotaryDBModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRoles" EntityType="eNotaryDBModel.Store.UserRoles" store:Type="Tables" Schema="dbo" />
@@ -212,22 +189,13 @@
           <Property Name="EditDate" Type="datetime" />
           <Property Name="EditContactID" Type="bigint" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'eNotaryDB.dbo.RoleSecurityPoint' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="RoleSecurityPoint">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="SecurityPointID" />
-            <PropertyRef Name="CreateDate" />
-            <PropertyRef Name="CreateID" />
-            <PropertyRef Name="State" />
-            <PropertyRef Name="Disabled" />
-            <PropertyRef Name="RoleID" />
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="SecurityPointID" Type="bigint" Nullable="false" />
-          <Property Name="RoleID" Type="bigint" Nullable="false" />
+          <Property Name="RoleID" Type="bigint" />
           <Property Name="UserID" Type="bigint" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="CreateID" Type="bigint" Nullable="false" />
@@ -236,16 +204,9 @@
           <Property Name="EditID" Type="bigint" />
           <Property Name="Disabled" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'eNotaryDB.dbo.SecurityPoints' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="SecurityPoints">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="CreateDate" />
-            <PropertyRef Name="CreateID" />
-            <PropertyRef Name="Disabled" />
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
@@ -840,7 +801,7 @@
           </Key>
           <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int64" Name="SecurityPointID" Nullable="false" />
-          <Property Type="Int64" Name="RoleID" Nullable="false" />
+          <Property Type="Int64" Name="RoleID" />
           <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
           <Property Type="Int64" Name="CreateID" Nullable="false" />
           <Property Type="DateTime" Name="EditDate" Precision="3" />
