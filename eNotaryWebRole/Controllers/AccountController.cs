@@ -107,6 +107,7 @@ namespace eNotaryWebRole.Controllers
        [AllowAnonymous]
         public ActionResult Register(long id = 0) // id =0 when you create a new account
         {
+            string username = User.Identity.Name;
             PersonDetail model;
             if (id != 0)
             {
@@ -131,7 +132,26 @@ namespace eNotaryWebRole.Controllers
            educationLevelList = (from e in _db.EducationLevels
                                  select e.EducationLevel1).ToList();
            ViewBag.EducationLevel = new SelectList(educationLevelList);
-
+           ViewBag.RoleID = _db.Users.Where(x => x.Username == username).FirstOrDefault().RoleID;
+           long edr = (from s in _db.SecurityPoints
+                       join rs in _db.RoleSecurityPoints
+                       on s.ID equals rs.SecurityPointID
+                       join u in _db.Users.Where(u => u.Username == username)
+                       on rs.RoleID equals u.RoleID
+                       where s.Name == "editare roluri per utilizator"
+                       select rs.State).FirstOrDefault();
+           long edr_edr = (from u in _db.Users.Where(u => u.Username == username)
+                           join r in _db.RoleSecurityPoints
+                           on u.ID equals r.UserID
+                           join s in _db.SecurityPoints
+                           on r.SecurityPointID equals s.ID
+                           where s.Name == "editare roluri per utilizator"
+                           select r.State).FirstOrDefault();
+           if (edr_edr == 1)
+           {
+               edr = edr_edr;
+           }
+           ViewBag.EditRoles = edr.ToString();
             return View(model);
         }
 

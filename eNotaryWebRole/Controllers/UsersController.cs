@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using System.Web.Security;
-
+using System.IO;
 using System.Transactions;
 using eNotaryWebRole.ViewModel;
 using eNotaryWebRole.Models;
@@ -23,12 +23,149 @@ namespace eNotaryWebRole.Controllers
 
         public ActionResult Index()
         {
+            var url = HttpContext.Request.PhysicalApplicationPath;
+            // delete all temporary files
+
+            Array.ForEach(Directory.GetFiles(url + "\\Fisiere"),
+             delegate(string path)
+             {
+                 System.IO.File.Delete(path);
+             });
+
+            // delete all temporary files
+
+            Array.ForEach(Directory.GetFiles(url + "\\PDFApplications"),
+             delegate(string path)
+             {
+                 System.IO.File.Delete(path);
+             });
+            Array.ForEach(Directory.GetFiles(url + "\\Content\\pdf_preview"),
+            delegate(string path)
+            {
+                System.IO.File.Delete(path);
+            });
             var role_list = from ur in _db.UserRoles
                             select new {
                                 ID= ur.ID,
                                 Name = ur.RoleName
                             };
             ViewBag.RoleList = new SelectList(role_list, "ID", "Name", 0);
+            // verify security points 
+
+            username = User.Identity.Name;
+            long us = (from s in _db.SecurityPoints
+                       join rs in _db.RoleSecurityPoints
+                       on s.ID equals rs.SecurityPointID
+                       join u in _db.Users.Where(u => u.Username == username)
+                       on rs.RoleID equals u.RoleID
+                       where s.Name == "vizualizare utilizatori"
+                       select rs.State).FirstOrDefault();
+            // verify if per user is set this security point
+            long us_us = (from u in _db.Users.Where(u => u.Username == username)
+                          join r in _db.RoleSecurityPoints
+                          on u.ID equals r.UserID
+                          join s in _db.SecurityPoints
+                          on r.SecurityPointID equals s.ID
+                          where s.Name == "vizualizare utilizatori"
+                          select r.State).FirstOrDefault();
+
+            if (us_us == 1)
+            {
+                us = us_us;
+            }
+            if (us == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.ViewUsers = us;
+
+            long doc = (from s in _db.SecurityPoints
+                        join rs in _db.RoleSecurityPoints
+                        on s.ID equals rs.RoleID
+                        join u in _db.Users.Where(u => u.Username == username)
+                        on rs.RoleID equals u.RoleID
+                        where s.Name == "vizualizare documente"
+                        select rs.State).FirstOrDefault();
+            long doc_doc = (from u in _db.Users.Where(u => u.Username == username)
+                            join r in _db.RoleSecurityPoints
+                            on u.ID equals r.UserID
+                            join s in _db.SecurityPoints
+                            on r.SecurityPointID equals s.ID
+                            where s.Name == "vizualizare documente"
+                            select r.State).FirstOrDefault();
+            if (doc_doc == 1)
+            {
+                doc = doc_doc;
+            }
+           
+            ViewBag.ViewDocuments = doc;
+
+
+
+            long edu = (from s in _db.SecurityPoints
+                        join rs in _db.RoleSecurityPoints
+                        on s.ID equals rs.SecurityPointID
+                        join u in _db.Users.Where(u => u.Username == username)
+                        on rs.RoleID equals u.RoleID
+                        where s.Name == "editare utilizatori"
+                        select rs.State).FirstOrDefault();
+            long edu_edu = (from u in _db.Users.Where(u => u.Username == username)
+                            join r in _db.RoleSecurityPoints
+                            on u.ID equals r.UserID
+                            join s in _db.SecurityPoints
+                            on r.SecurityPointID equals s.ID
+                            where s.Name == "editare utilizatori"
+                            select r.State).FirstOrDefault();
+            if (edu_edu == 1)
+            {
+                edu = edu_edu;
+            }
+            ViewBag.EditUsers = edu.ToString();
+
+            long delu = (from s in _db.SecurityPoints
+                        join rs in _db.RoleSecurityPoints
+                        on s.ID equals rs.SecurityPointID
+                        join u in _db.Users.Where(u => u.Username == username)
+                        on rs.RoleID equals u.RoleID
+                        where s.Name == "editare utilizatori"
+                        select rs.State).FirstOrDefault();
+            long delu_delu = (from u in _db.Users.Where(u => u.Username == username)
+                            join r in _db.RoleSecurityPoints
+                            on u.ID equals r.UserID
+                            join s in _db.SecurityPoints
+                            on r.SecurityPointID equals s.ID
+                            where s.Name == "editare utilizatori"
+                            select r.State).FirstOrDefault();
+            if (delu_delu == 1)
+            {
+                delu = delu_delu;
+            }
+            ViewBag.DeleteUsers = delu.ToString();
+
+
+
+            long edr = (from s in _db.SecurityPoints
+                        join rs in _db.RoleSecurityPoints
+                        on s.ID equals rs.SecurityPointID
+                        join u in _db.Users.Where(u => u.Username == username)
+                        on rs.RoleID equals u.RoleID
+                        where s.Name == "editare roluri"
+                        select rs.State).FirstOrDefault();
+            long edr_edr = (from u in _db.Users.Where(u => u.Username == username)
+                            join r in _db.RoleSecurityPoints
+                            on u.ID equals r.UserID
+                            join s in _db.SecurityPoints
+                            on r.SecurityPointID equals s.ID
+                            where s.Name == "editare roluri"
+                            select r.State).FirstOrDefault();
+            if (edr_edr == 1)
+            {
+                edr = edr_edr;
+            }
+            ViewBag.EditRoles = edr.ToString();
+
+
             return View();
         }
 
@@ -161,6 +298,9 @@ namespace eNotaryWebRole.Controllers
             {
                 ViewBag.Action = "disabled";
             }
+
+         
+
             return PartialView("GroupRoles");
 
         }
@@ -224,34 +364,43 @@ namespace eNotaryWebRole.Controllers
         }
 
         long find_sec_point_user(string key)
+
+
+
         {
+
+            // only for this user
+            RoleSecurityPoint list_user = (from u in _db.Users.Where(o => o.Username == username)
+                              join rs in _db.RoleSecurityPoints
+                              on u.ID equals rs.UserID
+                              join s in _db.SecurityPoints
+                              on rs.SecurityPointID equals s.ID
+                              where s.Name == key && rs.Disabled == false && s.Disabled == false && u.Disabled == false
+                              select rs).FirstOrDefault();
+
+            if (list_user != null)
+            {
+                return list_user.State;
+            }
             // default on user type
-            long list_role =0;
-            list_role  = (from u in _db.Users.Where(o => o.Username == username)
+         
+            RoleSecurityPoint list_role  = (from u in _db.Users.Where(o => o.Username == username)
                        join rs in _db.RoleSecurityPoints
                        
                        on u.RoleID equals rs.RoleID
                        join s in _db.SecurityPoints
                        on rs.SecurityPointID equals s.ID
                        where s.Name == key && u.Disabled ==false && s.Disabled == false && rs.Disabled == false
-                       select rs.State).FirstOrDefault();
-            if (list_role!= 0)
+                       select rs).FirstOrDefault();
+            if (list_role!= null)
             {
-                return list_role;
+                return list_role.State;
             }
-                // only for this user
-                long list_user = (from u in _db.Users.Where(o => o.Username == username)
-                                        join rs in _db.RoleSecurityPoints
-                                        on u.ID equals rs.UserID
-                                        join s in _db.SecurityPoints
-                                        on rs.SecurityPointID equals s.ID
-                                        where s.Name == key && rs.Disabled ==false && s.Disabled == false && u.Disabled == false
-                                        select rs.State).FirstOrDefault();
-           
 
+            ViewBag.RoleID = _db.Users.Where(x => x.Username == username).FirstOrDefault().RoleID;
             
 
-            return list_user;
+            return 0;
         }
 
         public ActionResult UsersSecurityPoints()
@@ -266,6 +415,7 @@ namespace eNotaryWebRole.Controllers
                 long value = find_sec_point_user(sec);
                 sec_access.Add(sec, value);
             }
+            ViewBag.RoleID = _db.Users.Where(x => x.Username == username).FirstOrDefault().RoleID;
 
             return PartialView("UsersSecurityPoints",sec_access);
                  
@@ -276,6 +426,7 @@ namespace eNotaryWebRole.Controllers
             string[] id_list = ids.Split(',');
             foreach (string id in id_list)
             {
+                
                 RoleSecurityPoint role = (
                     from rs in _db.RoleSecurityPoints.Where(r => r.RoleID == roleID)
                     join s in _db.SecurityPoints
@@ -294,17 +445,20 @@ namespace eNotaryWebRole.Controllers
                 }
                 else
                 {
-                    role = new RoleSecurityPoint()
+                    if (_db.SecurityPoints.Where(x => x.Name == id).Count()> 0)
                     {
-                        CreateDate = DateTime.Now,
-                        CreateID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID,
-                        Disabled = false,
-                        SecurityPointID = _db.SecurityPoints.Where(x => x.Name == id).FirstOrDefault().ID,
-                        State = 1,
-                        RoleID = roleID
-                    };
-                    _db.RoleSecurityPoints.Add(role);
-                    _db.SaveChanges();
+                        role = new RoleSecurityPoint()
+                        {
+                            CreateDate = DateTime.Now,
+                            CreateID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID,
+                            Disabled = false,
+                            SecurityPointID = _db.SecurityPoints.Where(x => x.Name == id).FirstOrDefault().ID,
+                            State = 1,
+                            RoleID = roleID
+                        };
+                        _db.RoleSecurityPoints.Add(role);
+                        _db.SaveChanges();
+                    }
 
                 }
             }

@@ -90,12 +90,21 @@
             loadComplete: function () {
                 $(".ui-jqgrid-titlebar").hide();
                 var ids = jQuery("#listUsers").jqGrid('getDataIDs');
-                console.log(ids);
+                var edit_perm = '@Html.Raw(ViewBag.EditUsers)';
+                var del_perm = '@Html.Raw(ViewBag.DeleteUsers)'
                 for (var i = 0; i < ids.length; i++) {
                     var temp = $("#listUsers").getRowData(ids[i]);
-                    op = '<a style="color:#000000; margin-right:10px; " class="link"  href="@Url.Content("~/Account/Register?id=")' + jQuery("#listUsers").getCell(ids[i], 'ID') + '">Edit <i class="icon-pencil" style="padding:2px;"/></a >';
-                    del = op+ '<a style="color:#000000; margin-right:10px; " class="link" onclick="return confirm(\'Sunteti sigur ca doriti sa stergeti acest utilizator?\');return false;"   href="@Url.Content("~/Users/Delete?id=")' + jQuery("#listUsers").getCell(ids[i], 'ID') + '">Delete <i class="icon-trash" style="padding:2px;"/></a >';
-                  
+                    if (edit_perm == "1") {
+                        op = '<a style="color:#000000; margin-right:10px; " class="link"  href="@Url.Content("~/Account/Register?id=")' + jQuery("#listUsers").getCell(ids[i], 'ID') + '">Edit <i class="icon-pencil" style="padding:2px;"/></a >';
+                    }
+                    else {
+                        op = "";
+                    }
+                    if (edit_perm == "1") {
+                        del = op + '<a style="color:#000000; margin-right:10px; " class="link" onclick="return confirm(\'Sunteti sigur ca doriti sa stergeti acest utilizator?\');return false;"   href="@Url.Content("~/Users/Delete?id=")' + jQuery("#listUsers").getCell(ids[i], 'ID') + '">Delete <i class="icon-trash" style="padding:2px;"/></a >';
+                    } else {
+                        del = op;
+                    }
                     jQuery("#listUsers").jqGrid('setRowData', ids[i], { Options: del });
 
                 }
@@ -137,6 +146,13 @@
 </script>
 
 <div style="display:none">    @Html.DropDownList("RoleList", "")</div>
+@if(ViewBag.EditRoles == "1"){
+<div style="float: left; width: 100%; margin-bottom:10px;" class="container">
+
+    @Html.Action("GroupRoles", "Users", new { type = 0 })
+</div>
+}
+
 <div id="noResultsDiv" style="float:left;  " class="alert hideDiv">
     <button type="button" class="close" data-dismiss="alert"><img src='@Url.Content("~/Content/Icons/x.png")'/></button>
  <strong>Important!</strong> Nu exista utilizatori.
@@ -152,7 +168,4 @@
         <div id="divDelete"></div>
  
 </div>
-<div style="float:left;width:100%">
 
-@Html.Action("GroupRoles", "Users", new { type = 0})
-    </div>

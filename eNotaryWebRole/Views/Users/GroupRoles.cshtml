@@ -2,7 +2,7 @@
      <link href='@Url.Content("~/Content/dropdown/simple.dropdown.css")' rel="stylesheet" />
 <link href='@Url.Content("~/Content/users/roles.css")' rel="stylesheet" />
 
-<div id="group-roles">
+<div id="group-roles" style="margin:20px;">
    
    
     <div id="group">
@@ -41,18 +41,22 @@
             if (type == 0) {
                 $.each($("#group-type-security-point-per-group").find("[type=checkbox]"), function (index, value) {
                     if (index == 0) {
+                        if (value.checked == true)
                         ids = value.id;
                     }
                     else
+                        if (value.checked == true)
                         ids = ids + "," + value.id;
                 });
             }
             else {
                 $.each($("#user-sec-points").find("[type=checkbox]"), function (index, value) {
                     if (index == 0) {
+                        if (value.checked == true)
                         ids = value.id;
                     }
                     else
+                        if (value.checked == true)
                         ids = ids + "," + value.id;
                 });
                 ids = ids.replace(/_user/g, '');
@@ -85,8 +89,8 @@
 
         });
 
-
-
+       
+       
         $('#group-type').simpleDropdown({
             selectedID: -1,
             defaultText: 'Select group type',
@@ -114,6 +118,7 @@
                 data: parameter,
                 contentType: "application/json",
                 success: function (data) {
+                    $("#group-type-security-point-per-group").html("");
                     sec_p = data.replace("{", "").replace("}", "").replace(/"/g, "").split(",");
                     console.log(data);
 

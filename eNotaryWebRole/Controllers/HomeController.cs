@@ -178,34 +178,8 @@ namespace eNotaryWebRole.Controllers
         {
             var url = HttpContext.Request.PhysicalApplicationPath;
          
-           // delete all temporary files
+           
 
-            //Array.ForEach(Directory.GetFiles(url + "\\Fisiere"),
-            // delegate(string path)
-            // {
-            //     System.IO.File.Delete(path);
-            // });
-
-            //SelectICard();
-            //SetupReaderList();
-            //LoadApduList();
-            //try
-            //{
-            //    m_iCard.Connect(DefaultReader, SHARE.Shared, PROTOCOL.T0orT1);
-            //    try
-            //    {
-            //        // Get the ATR of the card
-            //        byte[] atrValue = m_iCard.GetAttribute(SCARD_ATTR_VALUE.ATR_STRING);              
-                           
-            //    }
-            //    catch (Exception ex)
-            //    {                   
-            //    }          
-
-            //}
-            //catch (Exception ex)
-            //{            
-            //}
 
            
 
@@ -234,7 +208,52 @@ namespace eNotaryWebRole.Controllers
 
 
                      ViewBag.ActType = new SelectList(act_type_list, "ID", "Name", 0);
-        
+                     // verify security points 
+
+                     username = User.Identity.Name;
+                     long us = (from s in _db.SecurityPoints
+                                join rs in _db.RoleSecurityPoints
+                                on s.ID equals rs.SecurityPointID
+                                join u in _db.Users.Where(u => u.Username == username)
+                                on rs.RoleID equals u.RoleID
+                                where s.Name == "vizualizare utilizatori"
+                                select rs.State).FirstOrDefault();
+                     // verify if per user is set this security point
+                     long us_us = (from u in _db.Users.Where(u => u.Username == username)
+                                   join r in _db.RoleSecurityPoints
+                                   on u.ID equals r.UserID
+                                   join s in _db.SecurityPoints
+                                   on r.SecurityPointID equals s.ID
+                                   where s.Name == "vizualizare utilizatori"
+                                   select r.State).FirstOrDefault();
+
+                     if (us_us == 1)
+                     {
+                         us = us_us;
+                     }
+                     ViewBag.ViewUsers = us;
+
+                     long doc = (from s in _db.SecurityPoints
+                                 join rs in _db.RoleSecurityPoints
+                                 on s.ID equals rs.RoleID
+                                 join u in _db.Users.Where(u => u.Username == username)
+                                 on rs.RoleID equals u.RoleID
+                                 where s.Name == "vizualizare documente"
+                                 select rs.State).FirstOrDefault();
+                     long doc_doc = (from u in _db.Users.Where(u => u.Username == username)
+                                     join r in _db.RoleSecurityPoints
+                                     on u.ID equals r.UserID
+                                     join s in _db.SecurityPoints
+                                     on r.SecurityPointID equals s.ID
+                                     where s.Name == "vizualizare documente"
+                                     select r.State).FirstOrDefault();
+                     if (doc_doc == 1)
+                     {
+                         doc = doc_doc;
+                     }
+                     ViewBag.ViewDocuments = doc;
+                         
+
 
            
 

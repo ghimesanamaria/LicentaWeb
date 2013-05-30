@@ -105,7 +105,8 @@
                 <label>Configurati rolurile acestui utilizator </label>
               
 
-        @if (ViewBag.Action != "Register") {   
+        @if (ViewBag.Action != "Register" && ViewBag.EditRoles =="1")
+        {   
  
               @Html.Action("GroupRoles", "Users", new { type = 1 })
         }

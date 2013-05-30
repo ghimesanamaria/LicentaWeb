@@ -105,8 +105,12 @@
                     </div>
              <div id="buttonControls" >
                 <div id="buttons">
+                    @if(ViewBag.SendMail == 1){
                     <button id="sgSendMailToClient" name="sgSendMailToClient" value="SendMail" class="btn">Trimite mail client</button>
+                    }
+                    @if(ViewBag.Sign == 1){
                     <button id="sgSignDocument" name="sgSignDocument"  value="Semneaza" class="btn">Semneaza</button>
+                    }
                     <button id="sgSave" name="sgSave" value="Salveaza"  class="btn">Salveaza</button>
             </div>
 

@@ -174,6 +174,102 @@ namespace eNotaryWebRole.Controllers
                                   Name = at.ActTypeName
                               }).ToList();
             ViewBag.ActTypeList = new SelectList(actTypeList,"ID","Name",0);
+            // verify security points 
+
+            username = User.Identity.Name;
+            long us = (from s in _db.SecurityPoints
+                         join rs in _db.RoleSecurityPoints
+                         on s.ID equals rs.SecurityPointID
+                         join u in _db.Users.Where(u => u.Username == username)
+                         on rs.RoleID equals u.RoleID
+                         where s.Name == "vizualizare utilizatori"
+                         select rs.State).FirstOrDefault();
+            // verify if per user is set this security point
+            long us_us =   (from u in _db.Users.Where(u => u.Username == username)
+                 join r in _db.RoleSecurityPoints
+                 on u.ID equals r.UserID
+                 join s in _db.SecurityPoints
+                 on r.SecurityPointID equals s.ID
+                 where s.Name == "vizualizare utilizatori"
+                 select r.State).FirstOrDefault();
+
+            if (us_us == 1   )
+            {
+                us = us_us;
+            }
+         
+            ViewBag.ViewUsers = us;
+
+            long doc = (from s in _db.SecurityPoints
+                                     join rs in _db.RoleSecurityPoints
+                                     on s.ID equals rs.SecurityPointID
+                                     join u in _db.Users.Where(u => u.Username == username)
+                                     on rs.RoleID equals u.RoleID
+                                     where s.Name == "vizualizare documente"
+                                     select rs.State).FirstOrDefault();
+            long doc_doc = (from u in _db.Users.Where(u => u.Username == username)
+                 join r in _db.RoleSecurityPoints
+                 on u.ID equals r.UserID
+                 join s in _db.SecurityPoints
+                 on r.SecurityPointID equals s.ID
+                 where s.Name == "vizualizare documente"
+                 select r.State).FirstOrDefault();
+            if(doc_doc == 1){
+                doc = doc_doc;
+            }
+
+            if (doc == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.ViewDocuments = doc;
+
+
+            long em = (from s in _db.SecurityPoints
+                        join rs in _db.RoleSecurityPoints
+                        on s.ID equals rs.SecurityPointID
+                       join u in _db.Users.Where(u => u.Username == username)
+                       on rs.RoleID equals u.RoleID
+                        where s.Name == "trimite email"
+                        select rs.State).FirstOrDefault();
+            long em_em = (from u in _db.Users.Where(u => u.Username == username)
+                            join r in _db.RoleSecurityPoints
+                            on u.ID equals r.UserID
+                            join s in _db.SecurityPoints
+                            on r.SecurityPointID equals s.ID
+                          where s.Name == "trimite email"
+                            select r.State).FirstOrDefault();
+            if (em_em == 1)
+            {
+                em = em_em;
+            }
+            ViewBag.SendMail = em;
+
+
+            long sg = (from s in _db.SecurityPoints
+                       join rs in _db.RoleSecurityPoints
+                       on s.ID equals rs.SecurityPointID
+                       join u in _db.Users.Where(u => u.Username == username)
+                       on rs.RoleID equals u.RoleID
+                       where s.Name == "semanare documente"
+                       select rs.State).FirstOrDefault();
+            long sg_sg = (from u in _db.Users.Where(u => u.Username == username)
+                          join r in _db.RoleSecurityPoints
+                          on u.ID equals r.UserID
+                          join s in _db.SecurityPoints
+                          on r.SecurityPointID equals s.ID
+                          where s.Name == "semanare documente"
+                          select r.State).FirstOrDefault();
+            if (sg_sg == 1)
+            {
+                sg =sg_sg;
+            }
+            ViewBag.Sign = sg;
+
+
+
+
+
 
             return View(model);
         }
