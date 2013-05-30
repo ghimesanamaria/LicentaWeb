@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="eNotaryDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="eNotaryDBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Acts" EntityType="eNotaryDBModel.Act" />
+    <EntitySet Name="ActTypes" EntityType="eNotaryDBModel.ActType" />
+    <EntitySet Name="Addresses" EntityType="eNotaryDBModel.Address" />
+    <EntitySet Name="EducationLevels" EntityType="eNotaryDBModel.EducationLevel" />
+    <EntitySet Name="JobTypes" EntityType="eNotaryDBModel.JobType" />
+    <EntitySet Name="Mails" EntityType="eNotaryDBModel.Mail" />
+    <EntitySet Name="Payments" EntityType="eNotaryDBModel.Payment" />
+    <EntitySet Name="PersonDetails" EntityType="eNotaryDBModel.PersonDetail" />
+    <EntitySet Name="RoleSecurityPoints" EntityType="eNotaryDBModel.RoleSecurityPoint" />
+    <EntitySet Name="SecurityPoints" EntityType="eNotaryDBModel.SecurityPoint" />
+    <EntitySet Name="SignedActs" EntityType="eNotaryDBModel.SignedAct" />
+    <EntitySet Name="sysdiagrams" EntityType="eNotaryDBModel.sysdiagram" />
+    <EntitySet Name="UserRoles" EntityType="eNotaryDBModel.UserRole" />
+    <EntitySet Name="Users" EntityType="eNotaryDBModel.User" />
+    <AssociationSet Name="FK_Acts_ActType" Association="eNotaryDBModel.FK_Acts_ActType">
+      <End Role="ActType" EntitySet="ActTypes" />
+      <End Role="Acts" EntitySet="Acts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Acts_PersonDetails" Association="eNotaryDBModel.FK_Acts_PersonDetails">
+      <End Role="PersonDetails" EntitySet="PersonDetails" />
+      <End Role="Acts" EntitySet="Acts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SignedActs_Acts" Association="eNotaryDBModel.FK_SignedActs_Acts">
+      <End Role="Acts" EntitySet="Acts" />
+      <End Role="SignedActs" EntitySet="SignedActs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonDetails_Address" Association="eNotaryDBModel.FK_PersonDetails_Address">
+      <End Role="Address" EntitySet="Addresses" />
+      <End Role="PersonDetails" EntitySet="PersonDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonDetails_EducationLevel" Association="eNotaryDBModel.FK_PersonDetails_EducationLevel">
+      <End Role="EducationLevel" EntitySet="EducationLevels" />
+      <End Role="PersonDetails" EntitySet="PersonDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonDetails_JobType" Association="eNotaryDBModel.FK_PersonDetails_JobType">
+      <End Role="JobType" EntitySet="JobTypes" />
+      <End Role="PersonDetails" EntitySet="PersonDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_PersonDetails" Association="eNotaryDBModel.FK_Payments_PersonDetails">
+      <End Role="PersonDetails" EntitySet="PersonDetails" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_SignedActs" Association="eNotaryDBModel.FK_Payments_SignedActs">
+      <End Role="SignedActs" EntitySet="SignedActs" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SignedActs_PersonDetails" Association="eNotaryDBModel.FK_SignedActs_PersonDetails">
+      <End Role="PersonDetails" EntitySet="PersonDetails" />
+      <End Role="SignedActs" EntitySet="SignedActs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_PersonDetails" Association="eNotaryDBModel.FK_Users_PersonDetails">
+      <End Role="PersonDetails" EntitySet="PersonDetails" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_UserRoles" Association="eNotaryDBModel.FK_Users_UserRoles">
+      <End Role="UserRoles" EntitySet="UserRoles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Act">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ActTypeID" Type="Int64" Nullable="false" />
+    <Property Name="PersonDetailsID" Type="Int64" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateContactID" Type="Int64" Nullable="false" />
+    <Property Name="Reason" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="State" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ReasonState" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Signed" Type="Boolean" Nullable="false" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
+    <Property Name="ExternalUniqueReference" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ExtraDetails" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditContactID" Type="Int64" />
+    <NavigationProperty Name="ActType" Relationship="eNotaryDBModel.FK_Acts_ActType" FromRole="Acts" ToRole="ActType" />
+    <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_Acts_PersonDetails" FromRole="Acts" ToRole="PersonDetails" />
+    <NavigationProperty Name="SignedActs" Relationship="eNotaryDBModel.FK_SignedActs_Acts" FromRole="Acts" ToRole="SignedActs" />
+  </EntityType>
+  <EntityType Name="ActType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ActTypeName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Acts" Relationship="eNotaryDBModel.FK_Acts_ActType" FromRole="ActType" ToRole="Acts" />
+  </EntityType>
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Street_1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Street_2" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Street_3" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ZIP" Type="Int64" />
+    <Property Name="City" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Country" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="Address" ToRole="PersonDetails" />
+  </EntityType>
+  <EntityType Name="EducationLevel">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EducationLevel1" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Disabled" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_EducationLevel" FromRole="EducationLevel" ToRole="PersonDetails" />
+  </EntityType>
+  <EntityType Name="JobType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="JobName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="PersonDetails" Relationship="eNotaryDBModel.FK_PersonDetails_JobType" FromRole="JobType" ToRole="PersonDetails" />
+  </EntityType>
+  <EntityType Name="Mail">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="To" />
+      <PropertyRef Name="From" />
+      <PropertyRef Name="DateCreated" />
+      <PropertyRef Name="ID_SentPerson" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="To" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="From" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Subject" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="BodyMail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ID_SentPerson" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SignedActID" Type="Int64" Nullable="false" />
+    <Property Name="PersonID" Type="Int64" Nullable="false" />
+    <Property Name="Payment1" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ExternalUniqueRefernce" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_Payments_PersonDetails" FromRole="Payments" ToRole="PersonDetails" />
+    <NavigationProperty Name="SignedAct" Relationship="eNotaryDBModel.FK_Payments_SignedActs" FromRole="Payments" ToRole="SignedActs" />
+  </EntityType>
+  <EntityType Name="PersonDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Nationality" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="AddressID" Type="Int64" />
+    <Property Name="MobilePhoneNumber" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+    <Property Name="HomePhoneNumber" Type="String" MaxLength="12" Unicode="true" FixedLength="false" />
+    <Property Name="JobTypeID" Type="Int64" />
+    <Property Name="JobPlace" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="EducationLevelID" Type="Int64" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="FacebookID" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CommunicationMode" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateContactID" Type="Int64" Nullable="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditContactID" Type="Int64" />
+    <NavigationProperty Name="Acts" Relationship="eNotaryDBModel.FK_Acts_PersonDetails" FromRole="PersonDetails" ToRole="Acts" />
+    <NavigationProperty Name="Address" Relationship="eNotaryDBModel.FK_PersonDetails_Address" FromRole="PersonDetails" ToRole="Address" />
+    <NavigationProperty Name="EducationLevel" Relationship="eNotaryDBModel.FK_PersonDetails_EducationLevel" FromRole="PersonDetails" ToRole="EducationLevel" />
+    <NavigationProperty Name="JobType" Relationship="eNotaryDBModel.FK_PersonDetails_JobType" FromRole="PersonDetails" ToRole="JobType" />
+    <NavigationProperty Name="Payments" Relationship="eNotaryDBModel.FK_Payments_PersonDetails" FromRole="PersonDetails" ToRole="Payments" />
+    <NavigationProperty Name="SignedActs" Relationship="eNotaryDBModel.FK_SignedActs_PersonDetails" FromRole="PersonDetails" ToRole="SignedActs" />
+    <NavigationProperty Name="Users" Relationship="eNotaryDBModel.FK_Users_PersonDetails" FromRole="PersonDetails" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="RoleSecurityPoint">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SecurityPointID" Type="Int64" Nullable="false" />
+    <Property Name="RoleID" Type="Int64" />
+    <Property Name="UserID" Type="Int64" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateID" Type="Int64" Nullable="false" />
+    <Property Name="State" Type="Int64" Nullable="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditID" Type="Int64" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SecurityPoint">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateID" Type="Int64" Nullable="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditID" Type="Int64" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SignedAct">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ActID" Type="Int64" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatePersonID" Type="Int64" Nullable="false" />
+    <Property Name="Signed" Type="Boolean" Nullable="false" />
+    <Property Name="ReasonSigned" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="SentToClient" Type="Boolean" Nullable="false" />
+    <Property Name="ResonSent" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="ExternalUniqueReference" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ExtraDetails" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditContactID" Type="Int64" />
+    <NavigationProperty Name="Act" Relationship="eNotaryDBModel.FK_SignedActs_Acts" FromRole="SignedActs" ToRole="Acts" />
+    <NavigationProperty Name="Payments" Relationship="eNotaryDBModel.FK_Payments_SignedActs" FromRole="SignedActs" ToRole="Payments" />
+    <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_SignedActs_PersonDetails" FromRole="SignedActs" ToRole="PersonDetails" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateContactID" Type="Int64" Nullable="false" />
+    <Property Name="EditDate" Type="Int64" />
+    <Property Name="EditContactID" Type="Int64" />
+    <NavigationProperty Name="Users" Relationship="eNotaryDBModel.FK_Users_UserRoles" FromRole="UserRoles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int64" Nullable="false" />
+    <Property Name="PersonID" Type="Int64" Nullable="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PsswdEncrypt" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="DigitalCertificate" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateContactID" Type="Int64" Nullable="false" />
+    <Property Name="EditDate" Type="DateTime" Precision="3" />
+    <Property Name="EditContactID" Type="Int64" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="PersonDetail" Relationship="eNotaryDBModel.FK_Users_PersonDetails" FromRole="Users" ToRole="PersonDetails" />
+    <NavigationProperty Name="UserRole" Relationship="eNotaryDBModel.FK_Users_UserRoles" FromRole="Users" ToRole="UserRoles" />
+  </EntityType>
+  <Association Name="FK_Acts_ActType">
+    <End Role="ActType" Type="eNotaryDBModel.ActType" Multiplicity="1" />
+    <End Role="Acts" Type="eNotaryDBModel.Act" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ActType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Acts">
+        <PropertyRef Name="ActTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Acts_PersonDetails">
+    <End Role="PersonDetails" Type="eNotaryDBModel.PersonDetail" Multiplicity="1" />
+    <End Role="Acts" Type="eNotaryDBModel.Act" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Acts">
+        <PropertyRef Name="PersonDetailsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SignedActs_Acts">
+    <End Role="Acts" Type="eNotaryDBModel.Act" Multiplicity="1" />
+    <End Role="SignedActs" Type="eNotaryDBModel.SignedAct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SignedActs">
+        <PropertyRef Name="ActID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonDetails_Address">
+    <End Role="Address" Type="eNotaryDBModel.Address" Multiplicity="0..1" />
+    <End Role="PersonDetails" Type="eNotaryDBModel.PersonDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PersonDetails">
+        <PropertyRef Name="AddressID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonDetails_EducationLevel">
+    <End Role="EducationLevel" Type="eNotaryDBModel.EducationLevel" Multiplicity="0..1" />
+    <End Role="PersonDetails" Type="eNotaryDBModel.PersonDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EducationLevel">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PersonDetails">
+        <PropertyRef Name="EducationLevelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonDetails_JobType">
+    <End Role="JobType" Type="eNotaryDBModel.JobType" Multiplicity="0..1" />
+    <End Role="PersonDetails" Type="eNotaryDBModel.PersonDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PersonDetails">
+        <PropertyRef Name="JobTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_PersonDetails">
+    <End Role="PersonDetails" Type="eNotaryDBModel.PersonDetail" Multiplicity="1" />
+    <End Role="Payments" Type="eNotaryDBModel.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_SignedActs">
+    <End Role="SignedActs" Type="eNotaryDBModel.SignedAct" Multiplicity="1" />
+    <End Role="Payments" Type="eNotaryDBModel.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SignedActs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="SignedActID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SignedActs_PersonDetails">
+    <End Role="PersonDetails" Type="eNotaryDBModel.PersonDetail" Multiplicity="1" />
+    <End Role="SignedActs" Type="eNotaryDBModel.SignedAct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SignedActs">
+        <PropertyRef Name="CreatePersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_PersonDetails">
+    <End Role="PersonDetails" Type="eNotaryDBModel.PersonDetail" Multiplicity="1" />
+    <End Role="Users" Type="eNotaryDBModel.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_UserRoles">
+    <End Role="UserRoles" Type="eNotaryDBModel.UserRole" Multiplicity="1" />
+    <End Role="Users" Type="eNotaryDBModel.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRoles">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

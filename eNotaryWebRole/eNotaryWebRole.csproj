@@ -113,9 +113,6 @@
     <Reference Include="PdfSharp">
       <HintPath>..\packages\PDFsharp.1.32.2602.0\lib\net20\PdfSharp.dll</HintPath>
     </Reference>
-    <Reference Include="PdfSharp.Charting">
-      <HintPath>..\packages\PDFsharp.1.32.2602.0\lib\net20\PdfSharp.Charting.dll</HintPath>
-    </Reference>
     <Reference Include="PdfViewer">
       <HintPath>..\..\..\..\Downloads\Pdf-Test-Site\Bin\PdfViewer.dll</HintPath>
     </Reference>
@@ -568,6 +565,8 @@
       <DependentUpon>eNotaryDB.edmx</DependentUpon>
       <LastGenOutput>eNotaryDB.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\eNotary - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\eNotary - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\ajax-loader.gif" />
     <Content Include="Images\ajax-loaderback.gif" />

@@ -1,0 +1,9 @@
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\eNotaryWebRole.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\eNotaryWebRole.pdb
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\TallComponents.PDF.Layout.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Release\eNotaryWebRole.csprojResolveAssemblyReference.cache
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Release\Interop.CERTCLIENTLib.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Release\Interop.CERTENROLLLib.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Release\eNotaryWebRole.csproj.ResolveComReference.cache
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Release\eNotaryWebRole.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Release\eNotaryWebRole.pdb
