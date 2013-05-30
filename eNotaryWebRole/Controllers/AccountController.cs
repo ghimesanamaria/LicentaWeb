@@ -152,6 +152,7 @@ namespace eNotaryWebRole.Controllers
                edr = edr_edr;
            }
            ViewBag.EditRoles = edr.ToString();
+           ViewBag.RoleID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID.ToString();
             return View(model);
         }
 

@@ -322,6 +322,9 @@ namespace eNotaryWebRole.Controllers
                                id = gt.ID,
                                name = gt.RoleName
                            };
+
+
+            
             return Json(group_type, JsonRequestBehavior.AllowGet);
         }
 
