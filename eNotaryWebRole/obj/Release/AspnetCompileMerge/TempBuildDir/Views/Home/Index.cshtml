@@ -1,0 +1,177 @@
+﻿<script type="text/javascript">
+
+ </script>
+@section AddToHead{
+    <link href='@Url.Content("~/Content/home/index_home.css")' rel="stylesheet" />
+    <link href='@Url.Content("~/Content/home/png_preview.css")' rel="stylesheet" />
+    <link href='@Url.Content("~/Content/dropdown/simple.dropdown.css")' rel="stylesheet" />
+}
+
+<div class="home-container">
+<div id="infoMessage " class="alert alert-info" style="float:left;">
+    1. Cererile pentru intocmirea unui act notarial electronic pot fi inaintate notarului public, in forma electronica, in acest caz fiind semnate cu semnatura electronica extinsa a solicitantului. <br />
+    2. In cazul in care cererea este facuta prin reprezentant, se va anexa actul in baza caruia partile sunt reprezentate, care poate fi si in forma electronica daca este semnat cu semnatura electronica extinsa a partilor.
+
+</div>
+<div id="errorMessage" style="float:left; margin-left:30px; margin-right: 60px;"></div>
+
+
+
+
+
+<div class="progressBar">
+<div class="status"></div>
+</div>
+    <div class="dropdown" >
+        <label style="display:inline-block">Tipul actului/ actelor:</label>
+    <div id="choose-act-type"></div>
+            <div id="ErrorMessageDivorce" style="float: left; width: 100%; margin-bottom:5px;height:20px; margin-top:5px;"></div>
+        </div>
+   <div id="render-partial-view">
+       @Html.Action("UploadAndDetails","Home")
+   </div>
+
+
+</div>
+
+
+
+
+
+@section AddToBottom{
+    <script src='@Url.Content("~/Scripts/home/home.js")'></script>
+    <script src='@Url.Content("~/Scripts/home/preview_box.js")'></script>
+    <script src='@Url.Content("~/Scripts/dropdown/simple.dropdown.js")'></script>
+    <script>
+
+        $(function () {
+            addEvents();
+
+
+
+            $('#choose-act-type').simpleDropdown({
+                selectedID: -1,
+                defaultText: 'Select act type',
+                inputName: 'PActType',
+                url: '@Url.Action("GetActType", "Home")',
+            });
+
+
+
+            // change the view when the select type is changing
+
+            $("[name=PActType]").change(function (e) {
+                if ($("[name=PActType]").val() == "16") { //16 represents the divorce application
+                    
+                    $('#render-partial-view').empty();
+
+                    $.get('@Url.Action("DivorceApplication","Home")', function (data) {
+                        $('#render-partial-view').html(data);
+                    });
+                   
+                    $("#ErrorMessageDivorce").html("");
+                }
+                else {
+                    $('#render-partial-view').empty();
+                  
+                    $.get('@Url.Action("UploadAndDetails","Home")', function (data) {
+                        $('#render-partial-view').html(data);
+                    });
+                  
+                    $("#ErrorMessageDivorce").html("");
+                    $("#ErrorMessageDivorce").removeClass('alert alert-error alert-success');
+                   
+                }
+
+               
+            });
+
+        });
+
+        var myFunction = function (element) {
+            var relDiv = element.id.split(':')[0];
+            if (confirm("Sunteti sigur ca doriti  sa stergeti acest fisier")) {
+                $(".dfiles[rel='" + relDiv + "']").remove();
+            }
+        }
+
+        var config = {
+            // Valid file formats
+            //support: "image/jpg,image/png,image/bmp,image/jpeg,image/gif",
+            support: "application/pdf",
+            form: "demoFiler", // Form ID
+            dragArea: "dragAndDropFiles", // Upload Area ID
+            uploadUrl: '@Url.Content("~/Home/Upload")' // Server side file url
+    };
+    //Initiate file uploader.
+    $(document).ready(function () {
+        initMultiUploader(config);
+
+
+       
+    });
+    function valid_form() {
+
+        if ($("#hName").val() != '' && $("[name=UActType]").val()!='-1' && $("#hReason").val() != '' && $("div.div-preview").find("img.clicked")[0].id !== 'undefined') {
+            return true;
+        }
+        return false;
+
+    }
+
+
+    $("#saveFileDetails").click(function (event) {
+        event.preventDefault();
+        var param = new Object();
+        if (valid_form() == true) {
+            param.ID = $("div.div-preview").find("img.clicked")[0].id;
+            param.Name = $("#hName").val();
+            param.ActTypeID = $("[name=UActType]").val();
+            param.ExtraDetails = $("#hMessage").val();
+            param.Reason = $("#hReason").val();
+
+            var parameter = JSON.stringify(param);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Content("~/Home/SaveDataFile/")',
+                dataType: 'json',
+                data: parameter,
+                contentType: "application/json",
+                success: function (data) {
+                    $("#error-message").html(data);
+
+                    $("#error-message").removeClass('alert alert-error');
+                    $("#error-message").addClass('alert ');
+                    if (data.indexOf("succes") > -1) {
+                        id = $("div.div-preview").find("img.clicked")[0].id;
+                        $("#" + $("div.div-preview").find("img.clicked")[0].id).addClass('png-ok');
+                        $.each($("#" + id).parent().find("i"), function (index, value) {
+                            if(value.id == id+"sign")
+                           $("#"+id+"sign").removeClass('icon-question-sign').addClass('icon-ok-sign');
+                        });
+                    }
+                },
+
+                error: function (data) {
+                    console.log('eroare');
+
+                }
+            });
+        } else {
+            $("#error-message").html("Campurile marcate cu * sunt obligatorii!");
+
+            $("#error-message").addClass('alert alert-error');
+        }
+       
+    });
+        //script for upload style
+
+    
+      
+
+
+    </script>
+}
+
+
+

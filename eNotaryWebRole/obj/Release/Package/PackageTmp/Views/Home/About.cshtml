@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+
+<article>
+    <p>
+        Use this area to provide additional information.
+    </p>
+
+    <p>
+        Use this area to provide additional information.
+    </p>
+
+    <p>
+        Use this area to provide additional information.
+    </p>
+</article>
+
+<aside>
+    <h3>Aside Title</h3>
+    <p>
+        Use this area to provide additional information.
+    </p>
+    <ul>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    </ul>
+</aside>
+
+
+
+
+@using eNotaryWebRole;
+
+
+
+@Html.PayPalButton(true,
+    HtmlHelpers.EButtonType.BuyNow,
+    "jeroen@xyz.com",
+    "Your PDF file without watermarks",
+    "2ca168a959bb48e28a2ddb4b4640c568",
+    1.99f,
+    HtmlHelpers.ECurrencyCode.USD,
+    "http://xslfop.com/order/complete",
+    "http://xslfop.com/order/cancel",
+    "http://xslfop.com/order/ipn")

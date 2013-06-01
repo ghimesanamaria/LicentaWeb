@@ -1,0 +1,19 @@
+﻿#loginForm {
+   margin-bottom:30px;
+   float:left;
+    width:33%;
+    
+    border-left: solid 2px #c8c8c8;
+    border-bottom: solid 2px #c8c8c8;
+    border-top: solid 2px #c8c8c8;
+}
+
+.row {
+    width: 33%;
+    float: left;
+    min-height:200px;
+}
+
+#loginButtons {
+    margin-left:20px;
+}

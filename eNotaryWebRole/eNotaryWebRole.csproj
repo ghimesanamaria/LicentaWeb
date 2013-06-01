@@ -31,6 +31,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <PublishDatabaseSettings>
+      <Objects>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -118,31 +122,199 @@
     </Reference>
     <Reference Include="SecureBlackbox, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.dll</HintPath>
+      <HintPath>bin\SecureBlackbox.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.Cloud, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.Cloud.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.DAVClient, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.DAVClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.DAVCommon, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.DAVCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.DAVIISServer, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.DAVIISServer.dll</HintPath>
+    </Reference>
+    <Reference Include="SecureBlackbox.DAVServer, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.DAVServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.DC, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.DC.dll</HintPath>
+    </Reference>
+    <Reference Include="SecureBlackbox.EDI, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.EDI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.FTPS, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.FTPS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.FTPSServer, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.FTPSServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SecureBlackbox.HTTP, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.HTTP.dll</HintPath>
+      <HintPath>bin\SecureBlackbox.HTTP.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.HTTPCommon, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.HTTPCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.HTTPServer, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.HTTPServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.LDAP, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.LDAP.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.Mail, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.Mail.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.MIME, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.MIME.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.Office, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.Office.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SecureBlackbox.PDF, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.PDF.dll</HintPath>
+      <HintPath>bin\SecureBlackbox.PDF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.PGP, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.PGP.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.PGPLDAP, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.PGPLDAP.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.PGPMIME, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.PGPMIME.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.PGPSSH, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.PGPSSH.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.PGPTLS, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.PGPTLS.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SecureBlackbox.PKI, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.PKI.dll</HintPath>
+      <HintPath>bin\SecureBlackbox.PKI.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SecureBlackbox.PKIPDF, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.PKIPDF.dll</HintPath>
+      <HintPath>bin\SecureBlackbox.PKIPDF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.PKISSH, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.PKISSH.dll</HintPath>
+    </Reference>
+    <Reference Include="SecureBlackbox.SFTP, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.SFTP.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.SFTPCommon, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.SFTPCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.SFTPServer, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.SFTPServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.SMIME, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.SMIME.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.SolFS, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.SolFS.dll</HintPath>
+    </Reference>
+    <Reference Include="SecureBlackbox.SSHClient, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.SSHClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.SSHCommon, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.SSHCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.SSHServer, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.SSHServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SecureBlackbox.SSLClient, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.SSLClient.dll</HintPath>
+      <HintPath>bin\SecureBlackbox.SSLClient.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SecureBlackbox.SSLCommon, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.SSLCommon.dll</HintPath>
+      <HintPath>bin\SecureBlackbox.SSLCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.SSLServer, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.SSLServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.XML, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.XML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.XMLSecurity, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.XMLSecurity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SecureBlackbox.ZIP, Version=10.0.233.0, Culture=neutral, PublicKeyToken=5a62fa96d0ac431a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SecureBlackbox.ZIP.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -269,31 +441,31 @@
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Models\Act.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ActType.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Address.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EducationLevel.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\eNotaryDB.Context.cs">
+    <Compile Include="Models\eNotaryModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>eNotaryDB.Context.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\eNotaryDB.cs">
+    <Compile Include="Models\eNotaryModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\eNotaryDB.Designer.cs">
+    <Compile Include="Models\eNotaryModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>eNotaryDB.edmx</DependentUpon>
+      <DependentUpon>eNotaryModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Helpers\HtmlHelpers.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
@@ -321,39 +493,41 @@
     <Compile Include="Models\ISignatureFunctions.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\JobType.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\JsTreeModel.cs" />
     <Compile Include="Models\Mail.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Payment.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PersonDetail.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RoleSecurityPoint.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SecurityPoint.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SignedAct.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SmartCardException.cs" />
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TreeNodesViewModel.cs" />
     <Compile Include="Models\User.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserRole.cs">
-      <DependentUpon>eNotaryDB.tt</DependentUpon>
+      <DependentUpon>eNotaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\CertificateWrapperViewModel.cs" />
     <Compile Include="Models\UnsignedDocumentsViewModel.cs" />
     <Compile Include="ViewModel\DivorceCommonDetailsViewModel.cs" />
@@ -367,89 +541,51 @@
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\ClientDependency.Core.dll" />
     <Content Include="bin\ClientDependency.Core.Mvc.dll" />
-    <Content Include="bin\de\PdfSharp.Charting.resources.dll" />
-    <Content Include="bin\de\PdfSharp.resources.dll" />
     <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
-    <Content Include="bin\DotNetOpenAuth.AspNet.xml" />
     <Content Include="bin\DotNetOpenAuth.Core.dll" />
-    <Content Include="bin\DotNetOpenAuth.Core.xml" />
     <Content Include="bin\DotNetOpenAuth.InfoCard.dll" />
-    <Content Include="bin\DotNetOpenAuth.InfoCard.xml" />
     <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.xml" />
     <Content Include="bin\DotNetOpenAuth.OAuth.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.xml" />
     <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.xml" />
     <Content Include="bin\eNotaryWebRole.dll" />
     <Content Include="bin\eNotaryWebRole.pdb" />
     <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.xml" />
     <Content Include="bin\GemCard.dll" />
-    <Content Include="bin\GemCard.pdb" />
     <Content Include="bin\GSMHelper.dll" />
-    <Content Include="bin\GSMHelper.pdb" />
     <Content Include="bin\Microsoft.Web.Helpers.dll" />
     <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
     <Content Include="bin\Microsoft.Web.Services.dll" />
     <Content Include="bin\Microsoft.Web.Services3.dll" />
     <Content Include="bin\Microsoft.Web.WebPages.OAuth.dll" />
-    <Content Include="bin\Microsoft.Web.WebPages.OAuth.xml" />
     <Content Include="bin\Microsoft.WindowsAzure.Configuration.dll" />
     <Content Include="bin\Microsoft.WindowsAzure.Diagnostics.dll" />
-    <Content Include="bin\Microsoft.WindowsAzure.Diagnostics.xml" />
     <Content Include="bin\Microsoft.WindowsAzure.Storage.dll" />
-    <Content Include="bin\Microsoft.WindowsAzure.Storage.xml" />
     <Content Include="bin\Microsoft.WindowsAzure.StorageClient.dll" />
-    <Content Include="bin\Mono.Math.dll" />
-    <Content Include="bin\Mono.Math.xml" />
     <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Newtonsoft.Json.xml" />
     <Content Include="bin\NuGet.Core.dll" />
-    <Content Include="bin\Org.Mentalis.Security.Cryptography.dll" />
-    <Content Include="bin\Org.Mentalis.Security.Cryptography.xml" />
     <Content Include="bin\PdfSharp.Charting.dll" />
-    <Content Include="bin\PdfSharp.Charting.xml" />
     <Content Include="bin\PdfSharp.dll" />
-    <Content Include="bin\PdfSharp.xml" />
     <Content Include="bin\PdfViewer.dll" />
-    <Content Include="bin\PdfViewer.pdb" />
     <Content Include="bin\SecureBlackbox.PKIPDF.dll" />
     <Content Include="bin\System.Net.Http.dll" />
     <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.xml" />
     <Content Include="bin\System.Net.Http.WebRequest.dll" />
-    <Content Include="bin\System.Net.Http.WebRequest.xml" />
-    <Content Include="bin\System.Net.Http.xml" />
     <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Helpers.xml" />
     <Content Include="bin\System.Web.Http.dll" />
     <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.xml" />
-    <Content Include="bin\System.Web.Http.xml" />
     <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Mvc.xml" />
     <Content Include="bin\System.Web.Optimization.dll" />
     <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.Razor.xml" />
     <Content Include="bin\System.Web.WebPages.Administration.dll" />
-    <Content Include="bin\System.Web.WebPages.Administration.xml" />
     <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
     <Content Include="bin\System.Web.WebPages.dll" />
     <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.xml" />
     <Content Include="bin\TallComponents.PDF.Kit.dll" />
-    <Content Include="bin\TallComponents.PDF.Kit.xml" />
     <Content Include="bin\TallComponents.PDF.Rasterizer.dll" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="bin\WebMatrix.Data.dll" />
-    <Content Include="bin\WebMatrix.Data.xml" />
     <Content Include="bin\WebMatrix.WebData.dll" />
-    <Content Include="bin\WebMatrix.WebData.xml" />
     <Content Include="ConfigFiles\AuthConfig.xml" />
     <None Include="ConfigFiles\MailConfig.config" />
     <Content Include="ConfigFiles\DivorceConfig.xml" />
@@ -548,24 +684,34 @@
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="Content\fonts\kberry.ttf" />
     <Content Include="Content\fonts\atlandsketchesbb_ital.ttf" />
-    <EntityDeploy Include="Models\eNotaryDB.edmx">
+    <Content Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </Content>
+    <EntityDeploy Include="Models\eNotaryModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>eNotaryDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>eNotaryModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\eNotaryDB.Context.tt">
+    <Content Include="Models\eNotaryModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>eNotaryDB.edmx</DependentUpon>
-      <LastGenOutput>eNotaryDB.Context.cs</LastGenOutput>
+      <DependentUpon>eNotaryModel.edmx</DependentUpon>
+      <LastGenOutput>eNotaryModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\eNotaryDB.edmx.diagram">
-      <DependentUpon>eNotaryDB.edmx</DependentUpon>
+    <Content Include="Models\eNotaryModel.edmx.diagram">
+      <DependentUpon>eNotaryModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\eNotaryDB.tt">
+    <Content Include="Models\eNotaryModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>eNotaryDB.edmx</DependentUpon>
-      <LastGenOutput>eNotaryDB.cs</LastGenOutput>
+      <DependentUpon>eNotaryModel.edmx</DependentUpon>
+      <LastGenOutput>eNotaryModel.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\eNotary - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\eNotary - FTP %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\eNotary - FTP %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\eNotary - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\eNotary - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\eNotary - Web Deploy %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\ajax-loader.gif" />
@@ -589,7 +735,7 @@
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\jstree\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -719,6 +865,7 @@
     <Content Include="Views\Account\Username.cshtml" />
     <Content Include="Views\Users\GroupRoles.cshtml" />
     <Content Include="Views\Users\UsersSecurityPoints.cshtml" />
+    <Content Include="Views\SignDocs\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,19 +37,20 @@ namespace eNotaryWebRole.Code
             return value;
         }
 
-        public Document create_divorce_pdf(string filename, string url,Dictionary<string,string> dictionary)
+        public Document create_divorce_pdf(string filename, string url,Dictionary<string,string> dictionary,string url_config)
         {
             // generate a pdf form for divorce application
             TallComponents.PDF.Layout.Document pdf = new TallComponents.PDF.Layout.Document();
-            using (FileStream file = new FileStream(url + "PDFApplications\\" + filename, FileMode.Create, FileAccess.Write))
+            using (FileStream file = new FileStream(url + filename, FileMode.Create, FileAccess.Write))
             {
             // read the xml configuration file for divorce
                 Section section = pdf.Sections.Add();
                 section.PageSize = TallComponents.PDF.Layout.PageSize.A4;
                 section.DoNotBreak = true;
                 TextParagraph text = new TextParagraph();
-
-            XmlTextReader reader = new XmlTextReader(url+"ConfigFiles\\DivorceConfig.xml");
+                
+                
+            XmlTextReader reader = new XmlTextReader(url_config+"DivorceConfig.xml");
 
             string type = "";
 

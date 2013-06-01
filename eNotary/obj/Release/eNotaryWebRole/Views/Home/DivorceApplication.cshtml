@@ -1,0 +1,314 @@
+﻿@model eNotaryWebRole.ViewModel.DivorceViewModel
+<div id="container-divorce-application" >
+   
+    
+
+    @using (@Ajax.BeginForm("DivorceApplication", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "formDivorce" }))
+    {
+        <div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" href="#collapse-doc-controls-top">
+            <b>Generare cerere divort
+            </b>
+            <i class="icon-chevron-up"></i>
+        </a>
+    </div>
+
+    <div id="collapse-doc-controls-top" class="accordion-body collapse in">
+        <div class="accordion-inner">
+        </div>
+        <div id="husband-details">
+
+            @Html.Action("DivorcePersonDetails", "Helper", new { type = "Husband",pd= Model.husband })
+
+        </div>
+        <div id="wife-details">
+            @Html.Action("DivorcePersonDetails", "Helper", new { type = "Wife", pd = Model.wife })
+
+        </div>
+
+        <div id="common-details">
+            @Html.Action("CommonDetails", "Helper", new { cd=Model.common })
+
+        </div>
+
+
+
+        <div class="clear-all"></div>
+    </div>
+</div>
+                      
+             <div id="buttonControls" >
+                 <div id="buttons">
+                     <button id="GenerateDivorceAppBtn" class="btn btn-info">Genereaza cerere</button>
+                 </div>
+
+            
+    </div>
+    }
+    <div id="container-generate-divorce">
+        <iframe id="application-divorce" src='~/PDFApplications/out.pdf' frameborder="0" id="iframeDoc" style="width:100%; height:700px;"></iframe>
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+    var onBegin = function (data) {
+    };
+    var onSuccess = function (data) {
+        console.log('here');
+      
+    };
+</script>
+<link href='@Url.Content("~/Content/home/divorce_app.css")' rel="stylesheet" />
+<script src='@Url.Content("~/Scripts/divorce_app/divorce_app.js")'></script>
+
+
+
+
+<script>
+
+    $("#GenerateDivorceAppBtn").click(function (e) {
+        e.preventDefault();
+
+        if ($("#formDivorce").valid()) {
+            $("#formDivorce").submit();
+            $("#formDivorce input").css('background-color', 'white');
+            $("#formDivorce textarea").css('background-color', 'white');
+            $("#ErrorMessageDivorce").removeClass('alert alert-error');
+            $("#ErrorMessageDivorce").addClass('alert alert-success');
+            $("#ErrorMessageDivorce").html('Cererea a fost generata cu succes!');
+
+        }
+        else {
+            $("#formDivorce input").css('background-color', 'rgb(253, 221, 231)');
+            $("#formDivorce textarea").css('background-color', 'rgb(253, 221, 231)');
+            $("#ErrorMessageDivorce").addClass('alert alert-error');
+            $("#ErrorMessageDivorce").removeClass('alert alert-success');
+            $("#ErrorMessageDivorce").html('Toate campurile sunt obligatorii!');
+        }
+        $("#application-divorce").show();
+        $("#application-divorce").attr('src', "~/PDFApplications/out.pdf");
+      //  $("#application-divorce").attr('src', '@Url.Content("~/PDFApplications/out.pdf")');
+    });
+
+
+    $(function () {
+        $("#formDivorce").validate({
+
+            onsubmit: false,
+            ignore: '.ignore',
+            debug: true,
+            onkeyup: false,
+            onclick: false,
+            rules: {
+                daNameHusband: {
+                    required: true
+                },
+                daNameFatherHusband: {
+                    required: true
+                },
+                daNameMotherHusband: {
+                    required: true
+                },
+                daCityHusband: {
+                    required: true
+                },
+                daCountyHusband: {
+                    required: true
+                },
+                daSerieActHusband: {
+                    required: true
+                },
+                daNoActHusband: {
+                    required: true
+                },
+                daCNPHusband: {
+                    required: true
+                },
+                daAddressHusband: {
+                    required: true
+                },
+                daBirthdayHusband: {
+                    required: true
+                },
+                daNameWife: {
+                    required: true
+                },
+                daNameFatherWife: {
+                    required: true
+                },
+                daNameMotherWife: {
+                    required: true
+                },
+                daCityWife: {
+                    required: true
+                },
+                daCountyWife: {
+                    required: true
+                },
+                daSerieActWife: {
+                    required: true
+                },
+                daNoActWife: {
+                    required: true
+                },
+                daCNPWife: {
+                    required: true
+                },
+                daAddressWife: {
+                    required: true
+                },
+                daBirthdayWife: {
+                    required: true
+                },
+                daMarriageDate: {
+                    required: true
+                },
+                daDownHallCity: {
+                    required: true
+                },
+                daDownHallCounty: {
+                    required: true
+                },
+                daMarriageCertificateSeries: {
+                    required: true
+                },
+                daMarriageCertificateNo: {
+                    required: true
+                },
+                daCommonCity: {
+                    required: true
+                },
+                daCommonStreet: {
+                    required: true
+                },
+                daCommonStreetNo: {
+                    required: true
+                },
+                daCommonStreetBl: {
+                    required: true
+                },
+                daCommonEt: {
+                    required: true
+                },
+                daCommonAp: {
+                    required: true
+                },
+                daCommonExHusbandName: {
+                    required: true
+                },
+                daCommonExWifeName: {
+                    required: true
+                }
+            },
+            messages: {
+
+                daNameHusband: {
+                    required: "*"
+                },
+                daNameFatherHusband: {
+                    required: "*"
+                },
+                daNameMotherHusband: {
+                    required: "*"
+                },
+                daCityHusband: {
+                    required: "*"
+                },
+                daCountyHusband: {
+                    required: "*"
+                },
+                daSerieActHusband: {
+                    required: "*"
+                },
+                daNoActHusband: {
+                    required: "*"
+                },
+                daCNPHusband: {
+                    required: "*"
+                },
+                daAddressHusband: {
+                    required: "*"
+                },
+                daBirthdayHusband: {
+                    required: "*"
+                },
+                daNameWife: {
+                    required: "*"
+                },
+                daNameFatherWife: {
+                    required: "*"
+                },
+                daNameMotherWife: {
+                    required: "*"
+                },
+                daCityWife: {
+                    required: "*"
+                },
+                daCountyWife: {
+                    required: "*"
+                },
+                daSerieActWife: {
+                    required: "*"
+                },
+                daNoActWife: {
+                    required: "*"
+                },
+                daCNPWife: {
+                    required: "*"
+                },
+                daAddressWife: {
+                    required: "*"
+                },
+                daBirthdayWife: {
+                    required: "*"
+                },
+                daMarriageDate: {
+                    required: "*"
+                },
+                daDownHallCity: {
+                    required: "*"
+                },
+                daDownHallCounty: {
+                    required: "*"
+                },
+                daMarriageCertificateSeries: {
+                    required: "*"
+                },
+                daMarriageCertificateNo: {
+                    required: "*"
+                },
+                daCommonCity: {
+                    required: "*"
+                },
+                daCommonStreet: {
+                    required: "*"
+                },
+                daCommonStreetNo: {
+                    required: "*"
+                },
+                daCommonStreetBl: {
+                    required: "*"
+                },
+                daCommonEt: {
+                    required: "*"
+                },
+                daCommonAp: {
+                    required: "*"
+                },
+                daCommonExHusbandName: {
+                    required: "*"
+                },
+                daCommonExWifeName: {
+                    required: "*"
+                }
+            }
+        });
+    });
+</script>
+    

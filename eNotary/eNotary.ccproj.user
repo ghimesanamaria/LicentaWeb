@@ -6,5 +6,6 @@
     </WebRoleSkipLaunchInBrowser>
     <WebRoleHttpsSkipLaunchInBrowser>
     </WebRoleHttpsSkipLaunchInBrowser>
+    <ActivePublishProfile>eNotaryCloudServiceProduction</ActivePublishProfile>
   </PropertyGroup>
 </Project>

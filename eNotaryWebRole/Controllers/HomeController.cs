@@ -57,7 +57,8 @@ namespace eNotaryWebRole.Controllers
     using eNotaryWebRole.Code;
     using eNotaryWebRole.ViewModel;
 
-    [AlteredAuthorize]
+   // [AlteredAuthorize]
+    [Authorize]
     public class HomeController : Controller
     {
 
@@ -173,10 +174,10 @@ namespace eNotaryWebRole.Controllers
 
         private eNotaryDBEntities1 _db = new eNotaryDBEntities1();
 
-        [Authorize]
+       // [Authorize]
         public ActionResult Index()
         {
-            var url = HttpContext.Request.PhysicalApplicationPath;
+            
          
            
 
@@ -189,15 +190,15 @@ namespace eNotaryWebRole.Controllers
             // environment, you can check the value of the IsAvailable property
             // true measns the service is running a WA fabric, either local or live
 
-            if(RoleEnvironment.IsAvailable)
-                 ViewBag.EmailAdmin = RoleEnvironment.GetConfigurationSettingValue("EmailAdmin");
-            else
-            {
-                ViewBag.EmailAdmin = ConfigurationManager.AppSettings["EmailAdmin"];
-            }
+            //if(RoleEnvironment.IsAvailable)
+            //     ViewBag.EmailAdmin = RoleEnvironment.GetConfigurationSettingValue("EmailAdmin");
+            //else
+            //{
+            //    ViewBag.EmailAdmin = ConfigurationManager.AppSettings["EmailAdmin"];
+            //}
 
-            LocalResource resouce = RoleEnvironment.GetLocalResource("eNotarySpace");
-            ViewBag.LocalStorage =resouce.RootPath ;
+           // LocalResource resouce = RoleEnvironment.GetLocalResource("eNotarySpace");
+            //ViewBag.LocalStorage =resouce.RootPath ;
 
            var act_type_list = from at in _db.ActTypes
                                     select new
@@ -309,9 +310,10 @@ namespace eNotaryWebRole.Controllers
                 common_ex_husband_name = collection["daCommonExHusbandName"],
                 common_ex_wife_name=collection["daCommonExWifeName"]
             };
-            string url =HttpContext.Request.PhysicalApplicationPath;
+            string url = Server.MapPath("~/PDFApplications/");
+            string url_config = Server.MapPath("~/ConfigFiles/");
             string filename = "out.pdf";
-            _rep_pdf.create_divorce_pdf(filename, url, formatPDF);
+            _rep_pdf.create_divorce_pdf(filename, url, formatPDF,url_config);
             return View(dv);
         }
 
@@ -510,7 +512,7 @@ namespace eNotaryWebRole.Controllers
                         _db.Acts.Add(new_act);
                         _db.SaveChanges();
 
-                        var url = HttpContext.Request.PhysicalApplicationPath;
+                        var url = Server.MapPath("~/Content/pdf_preview/"); 
                         //create png image from first page to use it for preview
                         PdfFunctions pdf_to_bitmap = new PdfFunctions();
 

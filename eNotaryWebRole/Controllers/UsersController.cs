@@ -13,6 +13,7 @@ using System.Web.Script.Serialization;
 
 namespace eNotaryWebRole.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         //
@@ -23,27 +24,28 @@ namespace eNotaryWebRole.Controllers
 
         public ActionResult Index()
         {
-            var url = HttpContext.Request.PhysicalApplicationPath;
+            var url = Server.MapPath("~/Fisiere");
             // delete all temporary files
 
-            Array.ForEach(Directory.GetFiles(url + "\\Fisiere"),
-             delegate(string path)
-             {
-                 System.IO.File.Delete(path);
-             });
+            //Array.ForEach(Directory.GetFiles(url),
+            // delegate(string path)
+            // {
+            //     System.IO.File.Delete(path);
+            // });
 
-            // delete all temporary files
-
-            Array.ForEach(Directory.GetFiles(url + "\\PDFApplications"),
-             delegate(string path)
-             {
-                 System.IO.File.Delete(path);
-             });
-            Array.ForEach(Directory.GetFiles(url + "\\Content\\pdf_preview"),
-            delegate(string path)
-            {
-                System.IO.File.Delete(path);
-            });
+            //// delete all temporary files
+            //url = Server.MapPath("~/PDFApplications");
+            //Array.ForEach(Directory.GetFiles(url),
+            // delegate(string path)
+            // {
+            //     System.IO.File.Delete(path);
+            // });
+            //url = Server.MapPath("~/Content/pdf_preview");
+            //Array.ForEach(Directory.GetFiles(url),
+            //delegate(string path)
+            //{
+            //    System.IO.File.Delete(path);
+            //});
             var role_list = from ur in _db.UserRoles
                             select new {
                                 ID= ur.ID,

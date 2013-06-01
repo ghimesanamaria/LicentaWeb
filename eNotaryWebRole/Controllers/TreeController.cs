@@ -22,15 +22,16 @@ namespace eNotaryWebRole.Controllers
         public ActionResult Index()
         {
             _username = User.Identity.Name;
+           
+                string role = _rep.getRole(_username);
+                var treemodel = GetTreeRootData();
+                TreeNodesViewModel model = new TreeNodesViewModel();
+                model.treeVariables = new JavaScriptSerializer().Serialize(treemodel.Data);
+                ViewBag.Role = role;
+
+                return PartialView("Index", model);
+           
             
-
-            string role = _rep.getRole(_username);
-            var treemodel = GetTreeRootData();
-            TreeNodesViewModel model = new TreeNodesViewModel();
-            model.treeVariables = new JavaScriptSerializer().Serialize(treemodel.Data);
-            ViewBag.Role = role;
-
-            return PartialView("Index", model);
         }
 
 
@@ -46,7 +47,7 @@ namespace eNotaryWebRole.Controllers
 
             List<JsTreeModel> tree = new List<JsTreeModel>();
 
-            string url = Url.Content("~/Images/unsigned.png");
+            string url =Url.Content("~/Images/unsigned.png");
             JsTreeData data = new JsTreeData("Documente nesemnate", url);
             JsTreeAttribute attr = new JsTreeAttribute("-1", false, "", "UnsignedUnvDocs");
             JsTreeModel root_node = new JsTreeModel(data, "closed", "-1", attr, null);
@@ -98,7 +99,7 @@ namespace eNotaryWebRole.Controllers
                         // we have to sort them depending on their role
 
                         // 1.
-                        url = Url.Content("~/Images/Person.png");
+                        url =Url.Content("~/Images/Person.png");
 
                         var q = ((from a in _db.Acts.Where(o => o.Signed == false && o.State == "nevizualizat")
                                   join p in _db.PersonDetails

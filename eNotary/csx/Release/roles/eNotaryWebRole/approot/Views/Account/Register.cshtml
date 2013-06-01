@@ -1,0 +1,460 @@
+﻿@model eNotaryWebRole.Models.PersonDetail
+@{
+    ViewBag.Title = "Register";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Create a new account.</h2>
+</hgroup>
+<h4 id="ErrorMessage" ></h4>
+<h4 id="InformationMessage" class="alert alert-info" style="margin-top:10px;"> Campurile marcate cu * sunt obligatorii !</h4>
+
+
+@using (@Ajax.BeginForm("Register", "Account", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "registrationForm" }))
+{ 
+   @Html.AntiForgeryToken()
+   @Html.ValidationSummary()
+
+   
+    <div class="dropdown"> 
+      <ul class="nav nav-pills" role="menu" aria-labelledby="dLabel" id="registerMenu" >
+          <li class="active" id="liPersonDetails"><a href="#" >Date personale</a></li>   
+          <li id ="liAddress"><a href="#">Adresa</a></li> 
+          <li id ="liContactDetails"><a href="#">Date de contact</a></li> 
+      </ul>
+    </div>
+    <div id="contentRegister" style="width:100%; ">
+    
+    <div id="divPersonal" class="container">
+       <div style ="float:left; width:45%;">
+            <p id="pFirstName"> Prenume 1 *</p>
+            @Html.TextBoxFor(m => m.FirstName)
+      
+      
+            <p id="pMiddleName"> Prenume 2</p>
+            @Html.TextBoxFor(m => m.MiddleName)
+       
+       
+            <p id="pLastName"> Nume *</p>
+            @Html.TextBoxFor(m => m.LastName)
+        
+     
+            <p id="pBirthday"> Data nasterii *</p>
+            @Html.TextBoxFor(m => m.Birthday)
+       
+
+         
+            <p id="pGender"> Sex</p>
+            @{
+                List<string> list = new List<string>();
+                list.Add("Feminin");
+                list.Add("Masculin");
+                SelectList listGender = new SelectList(list);
+    
+            }
+           @Html.DropDownList("genderList", listGender, new { id="genderList"})
+        
+         
+           
+        
+       </div>
+        <div style ="float:left; width :45%;">
+           <p id="pNationality"> Nationalitate</p>
+            @Html.TextBoxFor(m => m.Nationality)
+           <p id="pJobType"> Tipul job-ului </p>
+             @Html.DropDownList("JobType")
+            
+            <p id="pJobPlace">Locul de munca</p>
+            @Html.TextBoxFor(m=>m.JobPlace)
+            <p id="pEducationLevel">Nivelul de educatie</p>
+           @Html.DropDownList("EducationLevel")
+             
+
+        </div> 
+
+    </div>
+
+    <div id="divAddress" class ="hideDiv container">
+      
+       @Html.Action("Address", "Account", new {id  = Model!=null? Model.AddressID: 0  })
+    </div>
+    
+    <div id="divContactDetails" class="hideDiv container" style="margin:2px; margin-bottom:5px; height:100%;">
+        <div style="margin:10px; float:left; width:45%; ">
+            <p id="pMobilePhoneNumber">Numar de telefon mobil *</p>
+            @Html.TextBoxFor(m => m.MobilePhoneNumber)
+            <p id="pHomePhoneNumber">Numar de telefon fix (acasa)</p>
+            @Html.TextBoxFor(m => m.HomePhoneNumber)
+            <p id="pEmail">Adresa email *</p>
+            @Html.TextBoxFor(m => m.Email)
+            <p id="pFacebookID">Facebook ID</p>
+            @Html.TextBoxFor(m => m.FacebookID)
+            <p id="pCommunicationMode">Modalitate de comunicare</p>
+            <input type="checkbox" id="chkSMS" name="chkSMS" />
+            <b id="bSMS">SMS </b>
+            <input type="checkbox" id="chkMobilePhone" name=" chkMobilePhone" />
+            <b id="bMobilePhone">Telefon Mobil </b>
+            <input type="checkbox" id="chkEmail" name="chkEmail" />
+            <b id="bEmail">Email </b>
+            <input type="checkbox" id="chkFacebookID" name="chkFacebookID" />
+            <b id="bFacebookID">Facebook ID </b>
+        </div>
+        
+            <div style="float: left; width: 48% ;margin:10px;">
+                <label>Configurati rolurile acestui utilizator </label>
+              
+
+        @if (ViewBag.Action != "Register" && ViewBag.EditRoles =="1")
+        {   
+ 
+              @Html.Action("GroupRoles", "Users", new { type = 1 })
+        }
+                
+            </div>
+    </div>
+     </div>   
+    <br />
+    <br />
+    <div  style ="float:left; width:100%; margin-left:10px; margin-bottom:10px;" id="btnRegisterNow"> <button  class ="btn" value="@ViewBag.Button" style="float:left; " data-toggle="modal" data-target="#divUserPopUp" id="btnPopUp">@ViewBag.Button</button></div> 
+    <div>
+
+        @if (ViewBag.Action == "Register") {   
+ 
+            @Html.Action("Username", "Account", new { id = Model.ID })
+        }
+       
+        
+    </div>
+    <input type="hidden" value="@Model.ID" name ="iPersonID"/>
+    
+}
+
+  <div id="divMessagePopUp" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="MessageModalLabel">Mesaj</h3>
+        </div>
+        <div class="modal-body">
+            <p id="pMessage"></p>
+            
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Inchide</button> 
+         </div>
+    </div>
+    
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+
+
+
+
+    $("#Birthday").datepicker('show');
+
+    var onBegin = function (data) {
+        return true;
+    };
+    var onSuccess = function(data)
+    {
+        $("#pMessage").text(data);
+        console.log('here1');
+
+        $("#divMessagePopUp").modal('show');
+        count=data[0];
+            
+        if (count!=null) {
+
+       
+            if (data == "Datele nu au fost salvate!" ) 
+            {
+                $("#ErrorMessage").removeClass('alert alert-success');
+                $("#ErrorMessage").addClass('alert alert-error');
+           
+            } else {
+           
+                $("#ErrorMessage").removeClass('alert alert-error');
+                $("#ErrorMessage").addClass('alert alert-success');
+            }
+     
+            $("#ErrorMessage").html(data);
+
+        } else {
+
+            $("#ErrorMessage").html("Datele nu au fost salvate!");
+           
+ 
+            $("#ErrorMessage").addClass('alert alert-error');
+  
+            $("#ErrorMessage").html(data);
+        }
+    };
+       
+
+    $(document).ready(function () {
+
+       
+
+        // change tab
+        // find live which tab was clicked to make it active
+        $('#registerMenu li a').live('click', function () {
+
+           
+
+            // remove class active from each tab 
+            $('#registerMenu').find('li').removeClass('active');
+
+            $("#"+$(this).parent()[0].id).addClass('active');
+            if ($(this).parent()[0].id == 'liAddress') {
+                $("#divAddress").removeClass('hideDiv');
+                $("#divPersonal").addClass('hideDiv');
+                $("#divContactDetails").addClass('hideDiv');
+            }
+            else if ($(this).parent()[0].id == 'liPersonDetails') {
+                        $("#divAddress").addClass('hideDiv');
+                        $("#divPersonal").removeClass('hideDiv');
+                        $("#divContactDetails").addClass('hideDiv');
+            }
+            else  if ($(this).parent()[0].id == 'liContactDetails') {
+                        $("#divAddress").addClass('hideDiv');
+                        $("#divPersonal").addClass('hideDiv');
+                        $("#divContactDetails").removeClass('hideDiv');
+                    }
+
+        });
+
+        // validate the registration form
+
+        $("#registrationForm").validate({
+            onsubmit: false,
+            ignore: '.ignore',
+            debug: true,
+            onkeyup: false,
+            onclick: false,
+            rules: {
+                FirstName: {
+                    required: true                 
+                },
+                LastName:{
+                    required: true
+                },
+                Birthday:{
+                    date: true,
+                    required: true
+                },
+                Address1: {
+                    required: true
+                },
+                Street_1:{
+                    required: true
+                },
+                ZIP:{
+                    required: true,
+                    numeric: "#ZIP"
+                },
+                City:{
+                    required: true
+                },
+                Country :{
+                    required: true
+                },
+                MobilePhoneNumber:{
+                    required: true,
+                    validPhoneNumber: "#MobilePhoneNumber"
+                },
+                HomePhoneNumber: {
+                    validPhoneNumber : "#HomePhoneNumber"
+                }
+            ,
+                Email :{
+                    required: true,
+                    validEmail: "#Email"
+                }
+
+            },
+            messages: {
+                FirstName: {
+                    required: "*"
+                },
+                LastName: {
+                    required: "*"
+                },
+                Birthday: {
+                    required: "*"
+                },
+                Address1: {
+                    required: "*"
+                },
+                Street_1: {
+                    required: "*"
+                },
+                ZIP : {
+                    required: "*",
+                    numeric: "Codul postal trebuie sa fie alcatuit din 6 cifre"
+                },
+                City: {
+                    required: "*"
+                },
+                Country: {
+                    required: "*"
+                },
+                MobilePhoneNumber: {
+                    required: "*",
+                    validPhoneNumber : "Introduceti un numar de telefon corect!"
+                },
+                HomePhoneNumber :{
+                    validPhoneNumber: "Introduceti un numar de telefon corect!"
+                }
+                ,
+                Email :{
+                    required:  "*",
+                    validEmail : "Introduceti o adresa de email valida!"
+                }
+
+
+            },
+            success: function (data) {
+                
+                    
+
+            },
+             showErrors: function (e, el) {
+
+                 this.defaultShowErrors();
+                 
+
+             }
+         });
+
+        
+        jQuery.validator.addMethod("numeric",
+            function (value, element, params) {
+                if (params == "")
+                    return true;
+                var code= $(params).val();
+               
+
+                return !isNaN(parseFloat(code)) && isFinite(code);;
+            });
+
+
+        jQuery.validator.addMethod("validEmail",
+        function (value, element, params) {
+            var isCorrect = false;
+           
+            var email = $(params).val();
+            
+            var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+            
+           
+
+            try {
+                var valid = emailReg.test(email);
+                if (valid)
+
+                    isCorrect = true;
+
+                console.log(email.match(emailRegex));
+
+            }
+            catch (e) {
+
+            }
+
+            //            if (isCorrect == false)
+            //                alert("Introduceti o adresa de mail valida.");
+            return isCorrect;
+        });
+
+        jQuery.validator.addMethod("validPhoneNumber",
+       function (value, element, params) {
+           var isCorrect = false;
+           
+           var phone = $(params).val();
+            
+           var phoneReg = new RegExp(/^[0-9-+]+$/);
+            
+           
+
+           try {
+               var valid = phoneReg.test(phone);
+               if (valid)
+
+                   isCorrect = true;
+               if(phone.length <10)
+                   isCorrect = false;
+
+             
+
+           }
+           catch (e) {
+
+           }
+
+           //            if (isCorrect == false)
+           //                alert("Introduceti o adresa de mail valida.");
+           return isCorrect;
+       });
+
+        $('#btnPopUp').click(function (e) {
+
+          e.preventDefault();
+            
+
+            if ($("#registrationForm").valid()) {
+                
+                // $('#divUserPopUp').modal('toggle');
+                if('@Html.Raw(ViewBag.Action)' !='Register')
+
+                $.post('@Url.Action("Register", "Account")', $("#registrationForm").serialize(), onSuccess);
+
+
+
+            } else {
+
+                $("#ErrorMessage").text("Campurile marcate cu (*) sunt obligatorii!");
+                $("#ErrorMessage").addClass('alert alert-error');
+            }
+            
+            
+        });
+       
+   
+        
+
+    });
+    $('#btnSaveRegister').click(function (e){
+
+        if ($("#registrationForm").valid()) {
+            $.post('@Url.Action("Register", "Account")', $("#registrationForm").serialize(), onSuccess);
+        }
+    });
+        
+
+</script>
+
+
+   <script type="text/javascript">
+       
+       // communication mode STEF
+       $(document).ready(function(){
+           var commMode = '@Html.Raw(Model.CommunicationMode)';
+
+           if(commMode !=''){
+               if(commMode.indexOf('S')>-1){
+                   $("#chkSMS").attr('checked',true);
+               }
+               else if(commMode.indexOf('T')>-1){
+                   $("#chkEmail").attr('checked',true);
+               }
+               else if(commMode.indexOf('F')>-1){
+                   $("#chkFacebookID").attr('checked',true);
+               }
+           }
+       });
+      
+   </script>

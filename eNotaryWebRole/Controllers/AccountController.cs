@@ -132,7 +132,10 @@ namespace eNotaryWebRole.Controllers
            educationLevelList = (from e in _db.EducationLevels
                                  select e.EducationLevel1).ToList();
            ViewBag.EducationLevel = new SelectList(educationLevelList);
-           ViewBag.RoleID = _db.Users.Where(x => x.Username == username).FirstOrDefault().RoleID;
+           //if (id != 0)
+           //    ViewBag.RoleID = _db.Users.Where(x => x.Username == username).FirstOrDefault().RoleID;
+           //else
+           //    ViewBag.RoleID = 0;
            long edr = (from s in _db.SecurityPoints
                        join rs in _db.RoleSecurityPoints
                        on s.ID equals rs.SecurityPointID
@@ -152,7 +155,8 @@ namespace eNotaryWebRole.Controllers
                edr = edr_edr;
            }
            ViewBag.EditRoles = edr.ToString();
-           ViewBag.RoleID = _db.Users.Where(u => u.Username == username).FirstOrDefault().ID.ToString();
+           
+          
             return View(model);
         }
 

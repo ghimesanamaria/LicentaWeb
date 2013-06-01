@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\aspnet-eNotaryWebRole-20121122090205.mdf;Initial Catalog=aspnet-eNotaryWebRole-20121122090205;Integrated Security=True;User Instance=True" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\Ana\\SkyDrive\\Documente\\LicentaWeb\\eNotaryWebRole\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
-  </parameter>
-  <parameter name="eNotaryDBEntities1-Web.config Connection String" description="eNotaryDBEntities1 Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.eNotaryDB.csdl|res://*/Models.eNotaryDB.ssdl|res://*/Models.eNotaryDB.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=ANA-PC;initial catalog=eNotaryDB;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
+  <parameter name="eNotaryDBEntities1-Web.config Connection String" description="eNotaryDBEntities1 Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.eNotaryModel.csdl|res://*/Models.eNotaryModel.ssdl|res://*/Models.eNotaryModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=bvd7vk9u59.database.windows.net,1433;initial catalog=eNotaryDB;user id=eNotaryDB_admin;password=Ana123!@#;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\Ana\\SkyDrive\\Documente\\LicentaWeb\\eNotaryWebRole\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='eNotaryDBEntities1']/@connectionString" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="DefaultConnection_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Ana\\SkyDrive\\Documente\\LicentaWeb\\eNotaryWebRole\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
   </parameter>
 </parameters>

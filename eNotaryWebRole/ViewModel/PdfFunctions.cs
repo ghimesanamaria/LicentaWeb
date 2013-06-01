@@ -72,7 +72,7 @@ namespace eNotaryWebRole.ViewModel
 
                          
 
-                          bitmap.Save(url+"Content\\pdf_preview\\" + png_name, System.Drawing.Imaging.ImageFormat.Png);
+                          bitmap.Save(url+ png_name, System.Drawing.Imaging.ImageFormat.Png);
                         
 
                          

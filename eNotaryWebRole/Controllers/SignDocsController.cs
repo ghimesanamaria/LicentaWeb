@@ -55,10 +55,12 @@ using System.IO;
 
 namespace eNotaryWebRole.Controllers
 {
+    
     public class SignDocsController : Controller
     {
 
         string username = "";
+       
 
         //
         // GET: /SignDocs/
@@ -126,152 +128,162 @@ namespace eNotaryWebRole.Controllers
         {
 
             
-
+          
 
             //Load the certificate
+          
 
-            FCLX509.X509Certificate FCLcer = WSEX509.X509Certificate.CreateFromCertFile(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Certificate\certificatVeriSignTest.cer");
+            //FCLX509.X509Certificate FCLcer = WSEX509.X509Certificate.CreateFromCertFile(@"D:\Scoala\Licenta\Temp\eNotary\eNotaryWebRole\Certificate\certificatVeriSignTest.cer");
 
-            // Construct the WSE 1.0 X509Certificate class
-            WSEX509.X509Certificate cer = new WSEX509.X509Certificate(FCLcer.GetRawCertData());
-            string expirationDate = cer.GetExpirationDateString();
-            X509Certificate2 cert = new X509Certificate2(FCLcer);
+            //// Construct the WSE 1.0 X509Certificate class
+            //WSEX509.X509Certificate cer = new WSEX509.X509Certificate(FCLcer.GetRawCertData());
+            //string expirationDate = cer.GetExpirationDateString();
+            //X509Certificate2 cert = new X509Certificate2(FCLcer);
 
 
-            // verify if the certificate is revoked using CRLs
-            string state = "valid";
-            X509Chain chain = new X509Chain();
-            chain.Build(cert);
-            chain.ChainPolicy.RevocationMode = X509RevocationMode.Online;
-            chain.ChainPolicy.RevocationFlag = X509RevocationFlag.EntireChain;
-            chain.ChainPolicy.UrlRetrievalTimeout = new TimeSpan(100);
-            chain.ChainPolicy.VerificationTime = DateTime.Now;
-            foreach (X509ChainElement element in chain.ChainElements)
+            //// verify if the certificate is revoked using CRLs
+            //string state = "valid";
+            //X509Chain chain = new X509Chain();
+            //chain.Build(cert);
+            //chain.ChainPolicy.RevocationMode = X509RevocationMode.Online;
+            //chain.ChainPolicy.RevocationFlag = X509RevocationFlag.EntireChain;
+            //chain.ChainPolicy.UrlRetrievalTimeout = new TimeSpan(100);
+            //chain.ChainPolicy.VerificationTime = DateTime.Now;
+            //foreach (X509ChainElement element in chain.ChainElements)
+            //{
+            //    bool elementValid = element.Certificate.Verify();
+            //    if (!elementValid)
+            //    {
+            //        // if elementValid is false this means that the certificate is revoked 
+            //        // we save the status of certificate to display an error to user
+            //        state = "revoked";
+            //    }
+
+            //}
+            try
             {
-                bool elementValid = element.Certificate.Verify();
-                if (!elementValid)
+
+                UnsignedDocumentsViewModel model = new UnsignedDocumentsViewModel();
+                List<string> nimic = new List<string>();
+                model.List = nimic;
+
+
+                // signPDF();
+                // signAdvancedPDF();
+
+                var actTypeList = (from at in _db.ActTypes
+                                   select new
+                                   {
+                                       ID = at.ID,
+                                       Name = at.ActTypeName
+                                   }).ToList();
+                ViewBag.ActTypeList = new SelectList(actTypeList, "ID", "Name", 0);
+                // verify security points 
+
+                username = User.Identity.Name;
+                long us = (from s in _db.SecurityPoints
+                           join rs in _db.RoleSecurityPoints
+                           on s.ID equals rs.SecurityPointID
+                           join u in _db.Users.Where(u => u.Username == username)
+                           on rs.RoleID equals u.RoleID
+                           where s.Name == "vizualizare utilizatori"
+                           select rs.State).FirstOrDefault();
+                // verify if per user is set this security point
+                long us_us = (from u in _db.Users.Where(u => u.Username == username)
+                              join r in _db.RoleSecurityPoints
+                              on u.ID equals r.UserID
+                              join s in _db.SecurityPoints
+                              on r.SecurityPointID equals s.ID
+                              where s.Name == "vizualizare utilizatori"
+                              select r.State).FirstOrDefault();
+
+                if (us_us == 1)
                 {
-                    // if elementValid is false this means that the certificate is revoked 
-                    // we save the status of certificate to display an error to user
-                    state = "revoked";
+                    us = us_us;
                 }
 
+                ViewBag.ViewUsers = us;
+
+                long doc = (from s in _db.SecurityPoints
+                            join rs in _db.RoleSecurityPoints
+                            on s.ID equals rs.SecurityPointID
+                            join u in _db.Users.Where(u => u.Username == username)
+                            on rs.RoleID equals u.RoleID
+                            where s.Name == "vizualizare documente"
+                            select rs.State).FirstOrDefault();
+                long doc_doc = (from u in _db.Users.Where(u => u.Username == username)
+                                join r in _db.RoleSecurityPoints
+                                on u.ID equals r.UserID
+                                join s in _db.SecurityPoints
+                                on r.SecurityPointID equals s.ID
+                                where s.Name == "vizualizare documente"
+                                select r.State).FirstOrDefault();
+                if (doc_doc == 1)
+                {
+                    doc = doc_doc;
+                }
+
+                if (doc == 0)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                ViewBag.ViewDocuments = doc;
+
+
+                long em = (from s in _db.SecurityPoints
+                           join rs in _db.RoleSecurityPoints
+                           on s.ID equals rs.SecurityPointID
+                           join u in _db.Users.Where(u => u.Username == username)
+                           on rs.RoleID equals u.RoleID
+                           where s.Name == "trimite email"
+                           select rs.State).FirstOrDefault();
+                long em_em = (from u in _db.Users.Where(u => u.Username == username)
+                              join r in _db.RoleSecurityPoints
+                              on u.ID equals r.UserID
+                              join s in _db.SecurityPoints
+                              on r.SecurityPointID equals s.ID
+                              where s.Name == "trimite email"
+                              select r.State).FirstOrDefault();
+                if (em_em == 1)
+                {
+                    em = em_em;
+                }
+                ViewBag.SendMail = em;
+
+
+                long sg = (from s in _db.SecurityPoints
+                           join rs in _db.RoleSecurityPoints
+                           on s.ID equals rs.SecurityPointID
+                           join u in _db.Users.Where(u => u.Username == username)
+                           on rs.RoleID equals u.RoleID
+                           where s.Name == "semanare documente"
+                           select rs.State).FirstOrDefault();
+                long sg_sg = (from u in _db.Users.Where(u => u.Username == username)
+                              join r in _db.RoleSecurityPoints
+                              on u.ID equals r.UserID
+                              join s in _db.SecurityPoints
+                              on r.SecurityPointID equals s.ID
+                              where s.Name == "semanare documente"
+                              select r.State).FirstOrDefault();
+                if (sg_sg == 1)
+                {
+                    sg = sg_sg;
+                }
+                ViewBag.Sign = sg;
+                return View(model);
             }
-
-
-            UnsignedDocumentsViewModel model = new UnsignedDocumentsViewModel();
-            List<string> nimic = new List<string>();
-            model.List = nimic;
-
-
-            // signPDF();
-           // signAdvancedPDF();
-
-            var actTypeList = (from at in _db.ActTypes
-                              select new
-                              {
-                                  ID = at.ID,
-                                  Name = at.ActTypeName
-                              }).ToList();
-            ViewBag.ActTypeList = new SelectList(actTypeList,"ID","Name",0);
-            // verify security points 
-
-            username = User.Identity.Name;
-            long us = (from s in _db.SecurityPoints
-                         join rs in _db.RoleSecurityPoints
-                         on s.ID equals rs.SecurityPointID
-                         join u in _db.Users.Where(u => u.Username == username)
-                         on rs.RoleID equals u.RoleID
-                         where s.Name == "vizualizare utilizatori"
-                         select rs.State).FirstOrDefault();
-            // verify if per user is set this security point
-            long us_us =   (from u in _db.Users.Where(u => u.Username == username)
-                 join r in _db.RoleSecurityPoints
-                 on u.ID equals r.UserID
-                 join s in _db.SecurityPoints
-                 on r.SecurityPointID equals s.ID
-                 where s.Name == "vizualizare utilizatori"
-                 select r.State).FirstOrDefault();
-
-            if (us_us == 1   )
-            {
-                us = us_us;
-            }
-         
-            ViewBag.ViewUsers = us;
-
-            long doc = (from s in _db.SecurityPoints
-                                     join rs in _db.RoleSecurityPoints
-                                     on s.ID equals rs.SecurityPointID
-                                     join u in _db.Users.Where(u => u.Username == username)
-                                     on rs.RoleID equals u.RoleID
-                                     where s.Name == "vizualizare documente"
-                                     select rs.State).FirstOrDefault();
-            long doc_doc = (from u in _db.Users.Where(u => u.Username == username)
-                 join r in _db.RoleSecurityPoints
-                 on u.ID equals r.UserID
-                 join s in _db.SecurityPoints
-                 on r.SecurityPointID equals s.ID
-                 where s.Name == "vizualizare documente"
-                 select r.State).FirstOrDefault();
-            if(doc_doc == 1){
-                doc = doc_doc;
-            }
-
-            if (doc == 0)
+            catch (Exception ex)
             {
                 return RedirectToAction("Index", "Home");
             }
-            ViewBag.ViewDocuments = doc;
-
-
-            long em = (from s in _db.SecurityPoints
-                        join rs in _db.RoleSecurityPoints
-                        on s.ID equals rs.SecurityPointID
-                       join u in _db.Users.Where(u => u.Username == username)
-                       on rs.RoleID equals u.RoleID
-                        where s.Name == "trimite email"
-                        select rs.State).FirstOrDefault();
-            long em_em = (from u in _db.Users.Where(u => u.Username == username)
-                            join r in _db.RoleSecurityPoints
-                            on u.ID equals r.UserID
-                            join s in _db.SecurityPoints
-                            on r.SecurityPointID equals s.ID
-                          where s.Name == "trimite email"
-                            select r.State).FirstOrDefault();
-            if (em_em == 1)
-            {
-                em = em_em;
-            }
-            ViewBag.SendMail = em;
-
-
-            long sg = (from s in _db.SecurityPoints
-                       join rs in _db.RoleSecurityPoints
-                       on s.ID equals rs.SecurityPointID
-                       join u in _db.Users.Where(u => u.Username == username)
-                       on rs.RoleID equals u.RoleID
-                       where s.Name == "semanare documente"
-                       select rs.State).FirstOrDefault();
-            long sg_sg = (from u in _db.Users.Where(u => u.Username == username)
-                          join r in _db.RoleSecurityPoints
-                          on u.ID equals r.UserID
-                          join s in _db.SecurityPoints
-                          on r.SecurityPointID equals s.ID
-                          where s.Name == "semanare documente"
-                          select r.State).FirstOrDefault();
-            if (sg_sg == 1)
-            {
-                sg =sg_sg;
-            }
-            ViewBag.Sign = sg;
+            
 
 
 
 
 
 
-            return View(model);
+            
         }
 
         [HttpPost]
@@ -390,8 +402,8 @@ namespace eNotaryWebRole.Controllers
         public void signPDF()
         {
 
-            var url = HttpContext.Request.PhysicalApplicationPath;
-            using (FileStream inFile = new FileStream(url+"\\Fisiere\\test.pdf", FileMode.Open, FileAccess.Read))
+            var url = Server.MapPath("~/Fisiere/test.pdf"); ;
+            using (FileStream inFile = new FileStream(url, FileMode.Open, FileAccess.Read))
             {
                 //Existing document
                 Document document = new Document(inFile);
@@ -420,7 +432,9 @@ namespace eNotaryWebRole.Controllers
                 //    string psswd = "jerrycora";
                 //    ks = new Pkcs12Store(file.BaseStream, psswd);
                 //}
-                var ks = new X509Certificate2(url+"\\Certificate\\certificat12.p12", "jerrycora", X509KeyStorageFlags.Exportable);
+
+                url = Server.MapPath("~/Certificate/certificat12.p12");
+                var ks = new X509Certificate2(url, "jerrycora", X509KeyStorageFlags.Exportable);
                 Pkcs12Store k = new Pkcs12Store(ks);
 
                 //let the Create factory decide which type should be used.
@@ -443,7 +457,8 @@ namespace eNotaryWebRole.Controllers
                 //optional code to set image;
                 SignatureAppearance signedAppearance = new SignatureAppearance();
                 signedAppearance.Style = SignatureAppearanceStyle.ImageAndText;
-                using (System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(url+"\\Content\\logo_pdfkit.gif"))
+                url = Server.MapPath("~/Content/logo_pdfkit.gif");
+                using (System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(url))
                 {
                     signedAppearance.Bitmap = bmp;
                 }
@@ -454,9 +469,10 @@ namespace eNotaryWebRole.Controllers
                 field.Widgets.Add(widget);
                 page.Widgets.Add(widget);
                 document.Fields.Add(field);
+                url = Server.MapPath("~/Fisiere/test_signed.pdf");
 
                 // write the modified document to disk, note: signing requires read-write file access
-                using (FileStream outFile = new FileStream(url+"\\Fisiere\\test_signed.pdf", FileMode.Create, FileAccess.ReadWrite))
+                using (FileStream outFile = new FileStream(url, FileMode.Create, FileAccess.ReadWrite))
                 {
                     document.Write(outFile);
                 }
@@ -619,8 +635,8 @@ namespace eNotaryWebRole.Controllers
 
         public void function_init_document(string filename)
         {
-            var url = HttpContext.Request.PhysicalApplicationPath;
-            PrepareTemporaryFile(url + "\\Fisiere\\"+filename);
+            var url = Server.MapPath("~/Fisiere/"+filename);
+            PrepareTemporaryFile(url);
                 try
                 {
                     m_CurrDoc = new TElPDFDocument();
@@ -666,8 +682,8 @@ namespace eNotaryWebRole.Controllers
 
 
 
-            var url = HttpContext.Request.PhysicalApplicationPath;
-            int r = m_Cert.LoadFromFileAuto(url+"\\Certificate\\certificat12.p12", "jerrycora");
+            var url = Server.MapPath("~/Certificate/certificat12.p12");
+            int r = m_Cert.LoadFromFileAuto(url, "jerrycora");
                 if (r != 0)
                 {
                     //MessageBox.Show("Failed to load certificate, error " + r.ToString());
@@ -700,10 +716,10 @@ namespace eNotaryWebRole.Controllers
             CloudBlobDirectory subDirectory = container.GetDirectoryReference("actenesemnate");
 
             CloudBlockBlob blockBlob = subDirectory.GetBlockBlobReference(extUniqueRefAct);
-            var url = HttpContext.Request.PhysicalApplicationPath;
+            var url = Server.MapPath("~/Fisiere/");
             try
             {
-                using (FileStream fileStream = new FileStream(url + "\\Fisiere\\"+extUniqueRefAct, FileMode.Create))
+                using (FileStream fileStream = new FileStream(url +extUniqueRefAct, FileMode.Create))
                 {
                     blockBlob.DownloadToStream(fileStream);
 
@@ -724,10 +740,10 @@ namespace eNotaryWebRole.Controllers
 
                 //get the image            
 
-                XImage img = XImage.FromFile(url + "\\Fisiere\\" + extUniqueRefAct);
+                XImage img = XImage.FromFile(url  + extUniqueRefAct);
                 xgr.DrawImage(img, 0, 0);
                 //save the image in format pdf
-                doc.Save(url + "\\Fisiere\\" + extUniqueRefAct.Split('.')[0] + ".pdf");
+                doc.Save(url  + extUniqueRefAct.Split('.')[0] + ".pdf");
                 doc.Close();
             }
            
@@ -784,7 +800,7 @@ namespace eNotaryWebRole.Controllers
                
                 // save the signed document to blob
 
-                    FileStream file = new FileStream(url+"\\Fisiere\\"+extUniqueRefAct.Split('.')[0]+".pdf", FileMode.Open, FileAccess.ReadWrite); ;
+                    FileStream file = new FileStream(url+extUniqueRefAct.Split('.')[0]+".pdf", FileMode.Open, FileAccess.ReadWrite); ;
                   
                         
 
@@ -828,16 +844,28 @@ namespace eNotaryWebRole.Controllers
         [HttpPost]
         public ActionResult DisplayImage(string id, long parentID)
         {
-            var url = HttpContext.Request.PhysicalApplicationPath;
+            
 
            
             
 
             long idAct = long.Parse(id.Split('_')[0]);
+            string type = "signed";
+            if (parentID == 0)
+            {
+                type = id.Split('_')[1];
+                if (type.Substring(0, type.Length).Contains("unsigned"))
+                {
+                    type = "unsigned";
+                }
+                
+
+            }
+            
 
             object model = new object();
 
-            if (parentID == -1 || parentID == -3)
+            if (parentID == -1 || parentID == -3 || type=="unsigned")
             {
                 model = (from a in _db.Acts.Where(o => o.ID == idAct)
                          select new
@@ -893,7 +921,25 @@ namespace eNotaryWebRole.Controllers
                                 }).FirstOrDefault();
             }
             else
+                if (parentID == 0)
+                {
+                    personDetail =( from p in _db.PersonDetails
+                                   join u in _db.Users.Where(u => u.Username == username)
+                                   on p.ID equals u.PersonID
+                                    select new
+                                {
+                                    p.FirstName,
+                                    p.MiddleName,
+                                    p.LastName,
+                                    p.Gender,
+                                    p.Birthday
+
+                                }).FirstOrDefault();
+                }
+                else
             {
+
+
                 personDetail = (from p in _db.PersonDetails
                                 join a in _db.SignedActs.Where(o => o.ID == idAct)
                                 on p.ID equals a.CreatePersonID
@@ -927,7 +973,7 @@ namespace eNotaryWebRole.Controllers
             CloudBlockBlob blockBlob;
             CloudBlobDirectory subDirectory;
             string extUnique = "";
-            if (parentID == -1 || parentID == -3)
+            if (parentID == -1 || parentID == -3 || type == "unsigned" )
             {
                 subDirectory = container.GetDirectoryReference("actenesemnate");
                 extUnique = _db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
@@ -947,7 +993,8 @@ namespace eNotaryWebRole.Controllers
            
             try
             {
-                using (var stream = System.IO.File.OpenWrite(url+"\\Fisiere\\"+extUnique))
+                var url = Server.MapPath("~/Fisiere/");
+                using (var stream = System.IO.File.OpenWrite(url+extUnique))
                 {
                     blockBlob.BeginDownloadToStream(stream, null, null);
                     blockBlob.DownloadToStream(stream);

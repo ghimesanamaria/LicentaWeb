@@ -12,7 +12,7 @@ namespace eNotaryWebRole.Code
 {
     interface IPDFProvider
     {
-        Document create_divorce_pdf(string filename, string url, Dictionary<string, string> dictionary);
+        Document create_divorce_pdf(string filename, string url , Dictionary<string, string> dictionary,string url_config);
         string replace_content(string value, Dictionary<string, string> dictionary);
         string replace_data(string value, string old_word, string new_word);
     }

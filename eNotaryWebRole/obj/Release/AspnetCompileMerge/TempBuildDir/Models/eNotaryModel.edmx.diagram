@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b930a17213c40f7bd8794dc869c41f7" Name="Diagram1">
+        <EntityTypeShape EntityType="Database_NotaryModel.Act" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.ActType" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.Address" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.EducationLevel" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.JobType" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.Mail" Width="1.5" PointX="5.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.Payment" Width="1.5" PointX="12.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.PersonDetail" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.RoleSecurityPoint" Width="1.5" PointX="7.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.SecurityPoint" Width="1.5" PointX="2.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.SignedAct" Width="1.5" PointX="10.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.UserRole" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database_NotaryModel.User" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="Database_NotaryModel.FK_Acts_ActType" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_NotaryModel.FK_Acts_PersonDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_NotaryModel.FK_SignedActs_Acts" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_NotaryModel.FK_PersonDetails_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_NotaryModel.FK_PersonDetails_EducationLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_NotaryModel.FK_PersonDetails_JobType" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_NotaryModel.FK_Payments_PersonDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_NotaryModel.FK_Payments_SignedActs" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_NotaryModel.FK_SignedActs_PersonDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_NotaryModel.FK_Users_PersonDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="Database_NotaryModel.FK_Users_UserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
