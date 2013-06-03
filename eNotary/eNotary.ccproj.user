@@ -7,5 +7,9 @@
     <WebRoleHttpsSkipLaunchInBrowser>
     </WebRoleHttpsSkipLaunchInBrowser>
     <ActivePublishProfile>eNotaryCloudServiceProduction</ActivePublishProfile>
+    <RemoteDesktopMoreOptions>True</RemoteDesktopMoreOptions>
+    <PackageProfile>Cloud</PackageProfile>
+    <PackageSolutionConfiguration>Debug</PackageSolutionConfiguration>
+    <PackageEnableRemoteDesktop>True</PackageEnableRemoteDesktop>
   </PropertyGroup>
 </Project>
