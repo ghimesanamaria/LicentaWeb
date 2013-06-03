@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="6929fab6-11a7-4194-9c8c-975da1a2669c" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="08073bf8-9102-44c8-9683-25471aa62857" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="eNotaryGroup" generation="1" functional="0" release="0">
       <componentports>
@@ -13,6 +13,11 @@
             <lBChannelMoniker name="/eNotary/eNotaryGroup/LB:eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" />
           </inToChannel>
         </inPort>
+        <inPort name="eNotaryWebRole:Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint" protocol="tcp">
+          <inToChannel>
+            <lBChannelMoniker name="/eNotary/eNotaryGroup/LB:eNotaryWebRole:Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint" />
+          </inToChannel>
+        </inPort>
       </componentports>
       <settings>
         <aCS name="Certificate|eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" defaultValue="">
@@ -23,6 +28,11 @@
         <aCS name="eNotaryWebRole:EmailAdmin" defaultValue="">
           <maps>
             <mapMoniker name="/eNotary/eNotaryGroup/MapeNotaryWebRole:EmailAdmin" />
+          </maps>
+        </aCS>
+        <aCS name="eNotaryWebRole:eNotaryCloudStorage" defaultValue="">
+          <maps>
+            <mapMoniker name="/eNotary/eNotaryGroup/MapeNotaryWebRole:eNotaryCloudStorage" />
           </maps>
         </aCS>
         <aCS name="eNotaryWebRole:eNotarySpace" defaultValue="">
@@ -137,6 +147,11 @@
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" />
           </toPorts>
         </lBChannel>
+        <lBChannel name="LB:eNotaryWebRole:Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint">
+          <toPorts>
+            <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint" />
+          </toPorts>
+        </lBChannel>
         <sFSwitchChannel name="SW:eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteAccess.Rdp">
           <toPorts>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/Microsoft.WindowsAzure.Plugins.RemoteAccess.Rdp" />
@@ -152,6 +167,11 @@
         <map name="MapeNotaryWebRole:EmailAdmin" kind="Identity">
           <setting>
             <aCSMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/EmailAdmin" />
+          </setting>
+        </map>
+        <map name="MapeNotaryWebRole:eNotaryCloudStorage" kind="Identity">
+          <setting>
+            <aCSMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/eNotaryCloudStorage" />
           </setting>
         </map>
         <map name="MapeNotaryWebRole:eNotarySpace" kind="Identity">
@@ -265,6 +285,7 @@
                 </certificate>
               </inPort>
               <inPort name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" protocol="tcp" />
+              <inPort name="Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint" protocol="tcp" portRanges="8172" />
               <inPort name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Rdp" protocol="tcp" portRanges="3389" />
               <outPort name="eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteAccess.Rdp" protocol="tcp">
                 <outToChannel>
@@ -274,6 +295,7 @@
             </componentports>
             <settings>
               <aCS name="EmailAdmin" defaultValue="" />
+              <aCS name="eNotaryCloudStorage" defaultValue="" />
               <aCS name="eNotarySpace" defaultValue="" />
               <aCS name="Microsoft.WindowsAzure.Plugins.Connect.ActivationToken" defaultValue="" />
               <aCS name="Microsoft.WindowsAzure.Plugins.Connect.Administrators" defaultValue="" />
@@ -293,7 +315,7 @@
               <aCS name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" defaultValue="" />
               <aCS name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" defaultValue="" />
               <aCS name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" defaultValue="" />
-              <aCS name="__ModelData" defaultValue="&lt;m role=&quot;eNotaryWebRole&quot; xmlns=&quot;urn:azure:m:v1&quot;&gt;&lt;r name=&quot;eNotaryWebRole&quot;&gt;&lt;e name=&quot;Endpoint1&quot; /&gt;&lt;e name=&quot;Microsoft.WindowsAzure.Plugins.RemoteAccess.Rdp&quot; /&gt;&lt;e name=&quot;Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput&quot; /&gt;&lt;/r&gt;&lt;/m&gt;" />
+              <aCS name="__ModelData" defaultValue="&lt;m role=&quot;eNotaryWebRole&quot; xmlns=&quot;urn:azure:m:v1&quot;&gt;&lt;r name=&quot;eNotaryWebRole&quot;&gt;&lt;e name=&quot;Endpoint1&quot; /&gt;&lt;e name=&quot;Microsoft.WindowsAzure.Plugins.RemoteAccess.Rdp&quot; /&gt;&lt;e name=&quot;Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput&quot; /&gt;&lt;e name=&quot;Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint&quot; /&gt;&lt;/r&gt;&lt;/m&gt;" />
             </settings>
             <resourcereferences>
               <resourceReference name="DiagnosticStore" defaultAmount="[4096,4096,4096]" defaultSticky="true" kind="Directory" />
@@ -326,16 +348,21 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="80bbd09b-268f-4128-9239-839b96f60c41" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
+    <implementation Id="e9cbc9ae-096b-4a48-a9d6-7fd1e33fcbd5" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
       <interfacereferences>
-        <interfaceReference Id="1606212e-b4a8-4482-9fef-f495f5b4e930" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
+        <interfaceReference Id="f94230b6-96b1-41cc-9091-3f758ebe1488" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Endpoint1" />
           </inPort>
         </interfaceReference>
-        <interfaceReference Id="93c44595-f811-419d-a16e-da9531ab5c52" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput@ServiceDefinition">
+        <interfaceReference Id="4816e86b-bd38-4078-8a3a-e9387baf3a76" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" />
+          </inPort>
+        </interfaceReference>
+        <interfaceReference Id="66e6611e-ce88-43f0-bc38-80026a1f28bb" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint@ServiceDefinition">
+          <inPort>
+            <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint" />
           </inPort>
         </interfaceReference>
       </interfacereferences>

@@ -459,7 +459,12 @@ namespace eNotaryWebRole.Controllers
                         // If your creating an application with no reference to Microsoft.WindowsAzure.CloudConfigurationManager
                         // and your connection string is located in the web.config or app.config , the you can use ConfigurationManger to retrieve the connection string.
                         // 
-                        CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+
+                        // local storage
+                        //CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+
+                        CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+CloudConfigurationManager.GetSetting("eNotaryCloudStorage"));
 
 
 

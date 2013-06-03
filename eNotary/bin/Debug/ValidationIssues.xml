@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ValidationIssue Include="eNotaryWebRole|Interop.CERTCLIENTLib.dll|WAT150">
+      <ProjectName>eNotaryWebRole</ProjectName>
+      <FilenameWithExtension>Interop.CERTCLIENTLib.dll</FilenameWithExtension>
+      <Code>WAT150</Code>
+      <FileFullPath>C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\Interop.CERTCLIENTLib.dll</FileFullPath>
+      <WATMessage>True</WATMessage>
+      <Arguments>eNotaryWebRole;C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\Interop.CERTCLIENTLib.dll</Arguments>
+      <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
+    </ValidationIssue>
+    <ValidationIssue Include="eNotaryWebRole|Interop.CERTENROLLLib.dll|WAT150">
+      <ProjectName>eNotaryWebRole</ProjectName>
+      <FilenameWithExtension>Interop.CERTENROLLLib.dll</FilenameWithExtension>
+      <Code>WAT150</Code>
+      <FileFullPath>C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\Interop.CERTENROLLLib.dll</FileFullPath>
+      <WATMessage>True</WATMessage>
+      <Arguments>eNotaryWebRole;C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\Interop.CERTENROLLLib.dll</Arguments>
+      <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
+    </ValidationIssue>
+    <ValidationIssue Include="eNotaryWebRole|SecureBlackbox.DC.dll|WAT150">
+      <ProjectName>eNotaryWebRole</ProjectName>
+      <FilenameWithExtension>SecureBlackbox.DC.dll</FilenameWithExtension>
+      <Code>WAT150</Code>
+      <FileFullPath>C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\SecureBlackbox.DC.dll</FileFullPath>
+      <WATMessage>True</WATMessage>
+      <Arguments>eNotaryWebRole;C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\SecureBlackbox.DC.dll</Arguments>
+      <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
+    </ValidationIssue>
+  </ItemGroup>
+</Project>

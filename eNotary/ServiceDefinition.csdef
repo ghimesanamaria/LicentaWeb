@@ -20,6 +20,7 @@
     <ConfigurationSettings>
       <Setting name="EmailAdmin" />
       <Setting name="eNotarySpace" />
+      <Setting name="eNotaryCloudStorage" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="eNotarySpace" cleanOnRoleRecycle="false" sizeInMB="30000" />

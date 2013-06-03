@@ -12,7 +12,7 @@
         $.each(png_list, function (index, value) {
             temp = value.split(":");
             console.log(temp);
-            $("#area-container-preview").append("<div class='div-preview'><img src='Content/pdf_preview/" + temp[1] + "'  id=" + temp[0] + "  class='png-preview'> <i id="+temp[0]+"sign"+" class='icon-question-sign'/><label></label>"+temp[1]+"</div>");
+            $("#area-container-preview").append("<div class='div-preview'><img src='/Content/pdf_preview/" + temp[1] + "'  id=" + temp[0] + "  class='png-preview'> <i id="+temp[0]+"sign"+" class='icon-question-sign'/><label></label>"+temp[1]+"</div>");
 
         });
 

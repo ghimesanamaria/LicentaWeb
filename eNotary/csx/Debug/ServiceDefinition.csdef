@@ -7,6 +7,7 @@
     </LocalResources>
     <ConfigurationSettings>
       <Setting name="EmailAdmin" />
+      <Setting name="eNotaryCloudStorage" />
       <Setting name="eNotarySpace" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Connect.ActivationToken" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Connect.Administrators" />

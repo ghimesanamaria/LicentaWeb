@@ -19,76 +19,13 @@
       <Arguments>eNotaryWebRole;C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Release\Interop.CERTENROLLLib.dll</Arguments>
       <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
     </ValidationIssue>
-    <ValidationIssue Include="eNotaryWebRole|SecureBlackbox.dll|WAT150">
+    <ValidationIssue Include="eNotaryWebRole|SecureBlackbox.DC.dll|WAT150">
       <ProjectName>eNotaryWebRole</ProjectName>
-      <FilenameWithExtension>SecureBlackbox.dll</FilenameWithExtension>
+      <FilenameWithExtension>SecureBlackbox.DC.dll</FilenameWithExtension>
       <Code>WAT150</Code>
-      <FileFullPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.dll</FileFullPath>
+      <FileFullPath>C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\SecureBlackbox.DC.dll</FileFullPath>
       <WATMessage>True</WATMessage>
-      <Arguments>eNotaryWebRole;C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.dll</Arguments>
-      <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
-    </ValidationIssue>
-    <ValidationIssue Include="eNotaryWebRole|SecureBlackbox.HTTP.dll|WAT150">
-      <ProjectName>eNotaryWebRole</ProjectName>
-      <FilenameWithExtension>SecureBlackbox.HTTP.dll</FilenameWithExtension>
-      <Code>WAT150</Code>
-      <FileFullPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.HTTP.dll</FileFullPath>
-      <WATMessage>True</WATMessage>
-      <Arguments>eNotaryWebRole;C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.HTTP.dll</Arguments>
-      <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
-    </ValidationIssue>
-    <ValidationIssue Include="eNotaryWebRole|SecureBlackbox.HTTPCommon.dll|WAT150">
-      <ProjectName>eNotaryWebRole</ProjectName>
-      <FilenameWithExtension>SecureBlackbox.HTTPCommon.dll</FilenameWithExtension>
-      <Code>WAT150</Code>
-      <FileFullPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.HTTPCommon.dll</FileFullPath>
-      <WATMessage>True</WATMessage>
-      <Arguments>eNotaryWebRole;C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.HTTPCommon.dll</Arguments>
-      <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
-    </ValidationIssue>
-    <ValidationIssue Include="eNotaryWebRole|SecureBlackbox.PDF.dll|WAT150">
-      <ProjectName>eNotaryWebRole</ProjectName>
-      <FilenameWithExtension>SecureBlackbox.PDF.dll</FilenameWithExtension>
-      <Code>WAT150</Code>
-      <FileFullPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.PDF.dll</FileFullPath>
-      <WATMessage>True</WATMessage>
-      <Arguments>eNotaryWebRole;C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.PDF.dll</Arguments>
-      <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
-    </ValidationIssue>
-    <ValidationIssue Include="eNotaryWebRole|SecureBlackbox.PKI.dll|WAT150">
-      <ProjectName>eNotaryWebRole</ProjectName>
-      <FilenameWithExtension>SecureBlackbox.PKI.dll</FilenameWithExtension>
-      <Code>WAT150</Code>
-      <FileFullPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.PKI.dll</FileFullPath>
-      <WATMessage>True</WATMessage>
-      <Arguments>eNotaryWebRole;C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.PKI.dll</Arguments>
-      <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
-    </ValidationIssue>
-    <ValidationIssue Include="eNotaryWebRole|SecureBlackbox.SSLClient.dll|WAT150">
-      <ProjectName>eNotaryWebRole</ProjectName>
-      <FilenameWithExtension>SecureBlackbox.SSLClient.dll</FilenameWithExtension>
-      <Code>WAT150</Code>
-      <FileFullPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.SSLClient.dll</FileFullPath>
-      <WATMessage>True</WATMessage>
-      <Arguments>eNotaryWebRole;C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.SSLClient.dll</Arguments>
-      <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
-    </ValidationIssue>
-    <ValidationIssue Include="eNotaryWebRole|SecureBlackbox.SSLCommon.dll|WAT150">
-      <ProjectName>eNotaryWebRole</ProjectName>
-      <FilenameWithExtension>SecureBlackbox.SSLCommon.dll</FilenameWithExtension>
-      <Code>WAT150</Code>
-      <FileFullPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.SSLCommon.dll</FileFullPath>
-      <WATMessage>True</WATMessage>
-      <Arguments>eNotaryWebRole;C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.SSLCommon.dll</Arguments>
-      <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
-    </ValidationIssue>
-    <ValidationIssue Include="eNotaryWebRole|SecureBlackbox.XML.dll|WAT150">
-      <ProjectName>eNotaryWebRole</ProjectName>
-      <FilenameWithExtension>SecureBlackbox.XML.dll</FilenameWithExtension>
-      <Code>WAT150</Code>
-      <FileFullPath>C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.XML.dll</FileFullPath>
-      <WATMessage>True</WATMessage>
-      <Arguments>eNotaryWebRole;C:\Program Files (x86)\EldoS\SecureBlackbox.NET\Assemblies\NET_45_Win32\SecureBlackbox.XML.dll</Arguments>
+      <Arguments>eNotaryWebRole;C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\SecureBlackbox.DC.dll</Arguments>
       <HelpKeyword>WATValidationIssueWarning</HelpKeyword>
     </ValidationIssue>
   </ItemGroup>

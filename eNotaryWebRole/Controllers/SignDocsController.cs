@@ -704,8 +704,14 @@ namespace eNotaryWebRole.Controllers
 
             // Step 1. Get the document wished
 
-            CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+            // local storage 
 
+            //CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+
+            // cloud storage
+
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+    CloudConfigurationManager.GetSetting("eNotaryCloudStorage"));
 
 
             // Second step
@@ -960,9 +966,14 @@ namespace eNotaryWebRole.Controllers
             // if the extension is different convert document in pdf, then sign
 
             // Step 1. Get the document wished
+            // local storage
 
-            CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+           // CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
 
+
+            // cloud storage
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+CloudConfigurationManager.GetSetting("eNotaryCloudStorage"));
 
 
             // Second step

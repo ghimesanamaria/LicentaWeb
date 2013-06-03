@@ -72,12 +72,12 @@
                                @if (Request.IsAuthenticated) {
                                     <li id="liHome">@Html.ActionLink("Acasa", "Index", "Home")</li>
                                     <li id="liDocs">@Html.ActionLink("Documente", "Index", "SignDocs")</li>
-                                   if(ViewBag.ViewUsers == 1){
+                                  // if(ViewBag.ViewUsers == 1){
                                     <li id="liUsers">@Html.ActionLink("Utilizatori", "Index", "Users")</li>
-                                   }
-                                    if(ViewBag.ViewDocuments == 1){
+                                   //}
+                                   // if(ViewBag.ViewDocuments == 1){
                                      <li id="liAccount">@Html.ActionLink("Contul meu", "Register", "Account")</li>
-                                    }
+                                   // }
                                }
                               <li id="liAbout">@Html.ActionLink("Despre noi", "About", "Home")</li>
                               <li id="liContact">@Html.ActionLink("Contact", "Contact", "Home")</li>

@@ -46,6 +46,12 @@
         <Variable name="WaRoleType" value="IISWebRole" />
       </Environment>
     </Task>
+    <Task commandLine="ConfigureIIS.cmd &gt; WebDeployConfig.log" executionContext="elevated" relativePath="plugins\WebDeploy">
+      <Environment>
+        <Variable name="RdModuleName" value="WebDeploy" />
+        <Variable name="WaRoleType" value="IISWebRole" />
+      </Environment>
+    </Task>
   </Startup>
   <Runtime>
     <EntryPoint>

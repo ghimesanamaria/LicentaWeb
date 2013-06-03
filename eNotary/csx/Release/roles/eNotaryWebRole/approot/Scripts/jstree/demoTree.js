@@ -143,7 +143,7 @@
             success: function (data) {
                 
                 $("#iframeDoc").show();
-                $("#iframeDoc").attr('src', urlServerImage + data.nameFile+"#toolbar=0");
+                $("#iframeDoc").attr('src', "/Fisiere/"+ data.nameFile);
                 //$("#iframeDocA").attr('href', urlServerImage + data.nameFile );
                
 
