@@ -301,7 +301,7 @@
                     selFilters.push(value.id);
                 });
                
-                loadJstree(treeModelTree, [], selFilters, [], [], '@Url.Content("~/Tree/GetTreeData/")', '@Url.Content("~/Tree/SearchTreeData/")', 0,'','@Url.Content("~/SignDocs/DisplayImage")','@Server.MapPath("~/Fisiere/")','@Html.Raw(ViewBag.Role)');
+                loadJstree(treeModelTree, [], selFilters, [], [], '@Url.Content("~/Tree/GetTreeData/")', '@Url.Content("~/Tree/SearchTreeData/")', 0,'','@Url.Content("~/SignDocs/DisplayImage")','@Url.Content("~/Fisiere/")','@Html.Raw(ViewBag.Role)');
            
         });
 
@@ -347,7 +347,7 @@
                     var parameter = JSON.stringify(param);
                     $.ajax({
                         type: "POST",
-                        url: '@Url.Content("~/SignDocs/PersonDetails")',
+                        url: '/SignDocs/PersonDetails',
                 dataType: 'json',
                 data: parameter,
 

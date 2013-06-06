@@ -397,7 +397,7 @@ namespace eNotaryWebRole.Controllers
           init_function();
           Dictionary<string, List<SignatureDetailsViewModel> > docsSigs = new Dictionary<string, List<SignatureDetailsViewModel>>();
           Dictionary<string,string> png_preview_List = new Dictionary<string,string>();
-
+       
           if (Request.Files.Count > 0)
           {
              foreach (string  fileName in Request.Files)
@@ -463,10 +463,11 @@ namespace eNotaryWebRole.Controllers
                         // local storage
                         //CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
 
-                        CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-CloudConfigurationManager.GetSetting("eNotaryCloudStorage"));
 
+                        CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=portalvhdsb0gp4f2vb4fdk;AccountKey=H7CNOHAFQBVZ5KLRqGUFLYblBJAfSrdBcmyMXbj3tP/YE0HR1oS2PYWbELqQN6wnBuWEJ1nUV39SsarZHfbVcw==");
+                        
 
+                       
 
                         // Second step
                         CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
@@ -532,14 +533,11 @@ CloudConfigurationManager.GetSetting("eNotaryCloudStorage"));
                       
 
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        messages = messages+ "In timpul incarcarii fisierului " + file.FileName + " pe server a intervenit o problema va rugam reluati actiunea de upload";
+                        messages = messages+ "In timpul incarcarii fisierului " + file.FileName + " pe server a intervenit o problema va rugam reluati actiunea de upload" +" Exceptia este: "+ ex.ToString();
                     }
-                    finally
-                    {
-                        messages = "";
-                    }
+                   
                 }
              }
              JavaScriptSerializer jsonserializer = new JavaScriptSerializer();

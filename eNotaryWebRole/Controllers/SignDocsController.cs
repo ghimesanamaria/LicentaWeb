@@ -710,8 +710,9 @@ namespace eNotaryWebRole.Controllers
 
             // cloud storage
 
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-    CloudConfigurationManager.GetSetting("eNotaryCloudStorage"));
+
+
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=portalvhdsb0gp4f2vb4fdk;AccountKey=H7CNOHAFQBVZ5KLRqGUFLYblBJAfSrdBcmyMXbj3tP/YE0HR1oS2PYWbELqQN6wnBuWEJ1nUV39SsarZHfbVcw==");
 
 
             // Second step
@@ -848,186 +849,194 @@ namespace eNotaryWebRole.Controllers
 
        
         [HttpPost]
-        public ActionResult DisplayImage(string id, long parentID)
+        public ActionResult DisplayImage(string id, string parentID)
         {
-            
 
-           
-            
-
-            long idAct = long.Parse(id.Split('_')[0]);
-            string type = "signed";
-            if (parentID == 0)
+            string message = "OK";
+            long parent;
+            if (long.TryParse(parentID, out parent))
             {
-                type = id.Split('_')[1];
-                if (type.Substring(0, type.Length).Contains("unsigned"))
+
+
+                long idAct = long.Parse(id.Split('_')[0]);
+                string type = "signed";
+                if (parent == 0)
                 {
-                    type = "unsigned";
+                    type = id.Split('_')[1];
+                    if (type.Substring(0, type.Length).Contains("unsigned"))
+                    {
+                        type = "unsigned";
+                    }
+
+
                 }
-                
-
-            }
-            
-
-            object model = new object();
-
-            if (parentID == -1 || parentID == -3 || type=="unsigned")
-            {
-                model = (from a in _db.Acts.Where(o => o.ID == idAct)
-                         select new
-                         {
-                             
-                             a.ActTypeID,
-                             a.Name,
-                             a.CreationDate,
-                             a.Reason,
-                             a.State,
-                             a.ReasonState,
-                             a.ExternalUniqueReference,
-                             a.ExtraDetails
-                             
-
-                         }).FirstOrDefault();
-            }
-            else
-            {
-                model = (from sa in _db.SignedActs.Where(o => o.ID == idAct)
-                         join a in _db.Acts
-                         on sa.ActID equals a.ID
-                         select new
-                         {
-                             a.ActTypeID,
-                             sa.Name,
-                             sa.CreationDate,
-                             a.Reason,
-                             State = "semnat",
-                             sa.ReasonSigned,
-                             sa.SentToClient,
-                             sa.ExtraDetails
-                             
-
-                         }).FirstOrDefault();
-            }
 
 
-            object personDetail = new object();
-            if (parentID == -1 || parentID == -3)
-            {
-                personDetail = (from p in _db.PersonDetails
-                                join a in _db.Acts.Where(o => o.ID == idAct)
-                                on p.ID equals a.PersonDetailsID
-                                select new
-                                {
-                                    p.FirstName,
-                                    p.MiddleName,
-                                    p.LastName,
-                                    p.Gender,
-                                    p.Birthday
+                object model = new object();
 
-                                }).FirstOrDefault();
-            }
-            else
-                if (parentID == 0)
+                if (parent == -1 || parent == -3 || type == "unsigned")
                 {
-                    personDetail =( from p in _db.PersonDetails
-                                   join u in _db.Users.Where(u => u.Username == username)
-                                   on p.ID equals u.PersonID
-                                    select new
-                                {
-                                    p.FirstName,
-                                    p.MiddleName,
-                                    p.LastName,
-                                    p.Gender,
-                                    p.Birthday
+                    model = (from a in _db.Acts.Where(o => o.ID == idAct)
+                             select new
+                             {
 
-                                }).FirstOrDefault();
+                                 a.ActTypeID,
+                                 a.Name,
+                                 a.CreationDate,
+                                 a.Reason,
+                                 a.State,
+                                 a.ReasonState,
+                                 a.ExternalUniqueReference,
+                                 a.ExtraDetails
+
+
+                             }).FirstOrDefault();
                 }
                 else
-            {
+                {
+                    model = (from sa in _db.SignedActs.Where(o => o.ID == idAct)
+                             join a in _db.Acts
+                             on sa.ActID equals a.ID
+                             select new
+                             {
+                                 a.ActTypeID,
+                                 sa.Name,
+                                 sa.CreationDate,
+                                 a.Reason,
+                                 State = "semnat",
+                                 sa.ReasonSigned,
+                                 sa.SentToClient,
+                                 sa.ExtraDetails
 
 
-                personDetail = (from p in _db.PersonDetails
-                                join a in _db.SignedActs.Where(o => o.ID == idAct)
-                                on p.ID equals a.CreatePersonID
-                                select new
-                                {
-                                    p.FirstName,
-                                    p.MiddleName,
-                                    p.LastName,
-                                    p.Gender,
-                                    p.Birthday
-
-                                }).FirstOrDefault();
-            }
+                             }).FirstOrDefault();
+                }
 
 
-            // get the specified document 
-            // verify its extension, because the signed document will have the pdf extension
-            // if the extension is different convert document in pdf, then sign
+                object personDetail = new object();
+                if (parent == -1 || parent == -3)
+                {
+                    personDetail = (from p in _db.PersonDetails
+                                    join a in _db.Acts.Where(o => o.ID == idAct)
+                                    on p.ID equals a.PersonDetailsID
+                                    select new
+                                    {
+                                        p.FirstName,
+                                        p.MiddleName,
+                                        p.LastName,
+                                        p.Gender,
+                                        p.Birthday
 
-            // Step 1. Get the document wished
-            // local storage
+                                    }).FirstOrDefault();
+                }
+                else
+                    if (parent == 0)
+                    {
+                        personDetail = (from p in _db.PersonDetails
+                                        join u in _db.Users.Where(u => u.Username == username)
+                                        on p.ID equals u.PersonID
+                                        select new
+                                    {
+                                        p.FirstName,
+                                        p.MiddleName,
+                                        p.LastName,
+                                        p.Gender,
+                                        p.Birthday
 
-           // CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+                                    }).FirstOrDefault();
+                    }
+                    else
+                    {
 
 
-            // cloud storage
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-CloudConfigurationManager.GetSetting("eNotaryCloudStorage"));
+                        personDetail = (from p in _db.PersonDetails
+                                        join a in _db.SignedActs.Where(o => o.ID == idAct)
+                                        on p.ID equals a.CreatePersonID
+                                        select new
+                                        {
+                                            p.FirstName,
+                                            p.MiddleName,
+                                            p.LastName,
+                                            p.Gender,
+                                            p.Birthday
+
+                                        }).FirstOrDefault();
+                    }
 
 
-            // Second step
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+                // get the specified document 
+                // verify its extension, because the signed document will have the pdf extension
+                // if the extension is different convert document in pdf, then sign
 
-            // Retrieve a reference to a container
-            CloudBlobContainer container = blobClient.GetContainerReference("acte");
-            CloudBlockBlob blockBlob;
-            CloudBlobDirectory subDirectory;
-            string extUnique = "";
-            if (parentID == -1 || parentID == -3 || type == "unsigned" )
-            {
-                subDirectory = container.GetDirectoryReference("actenesemnate");
-                extUnique = _db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
-               blockBlob = subDirectory.GetBlockBlobReference(extUnique);
+                // Step 1. Get the document wished
+                // local storage
+
+                // CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+
+
+                // cloud storage
+
+
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=portalvhdsb0gp4f2vb4fdk;AccountKey=H7CNOHAFQBVZ5KLRqGUFLYblBJAfSrdBcmyMXbj3tP/YE0HR1oS2PYWbELqQN6wnBuWEJ1nUV39SsarZHfbVcw==");
+
+
+                // Second step
+                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+                // Retrieve a reference to a container
+                CloudBlobContainer container = blobClient.GetContainerReference("acte");
+                CloudBlockBlob blockBlob;
+                CloudBlobDirectory subDirectory;
+                string extUnique = "";
+                if (parent == -1 || parent == -3 || type == "unsigned")
+                {
+                    subDirectory = container.GetDirectoryReference("actenesemnate");
+                    extUnique = _db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
+                    blockBlob = subDirectory.GetBlockBlobReference(extUnique);
+                }
+                else
+                {
+                    subDirectory = container.GetDirectoryReference("actesemnate");
+                    extUnique = _db.SignedActs.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
+                    blockBlob = subDirectory.GetBlockBlobReference(extUnique);
+                }
+
+
+
+
+
+
+                try
+                {
+                    var url = Server.MapPath("~/Content/");
+                    using (var stream = System.IO.File.OpenWrite(url + extUnique))
+                    {
+                        blockBlob.BeginDownloadToStream(stream, null, null);
+                        blockBlob.DownloadToStream(stream);
+                        blockBlob.EndDownloadToStream(blockBlob.BeginDownloadToStream(stream, null /* callback */, null /* state */));
+
+                        System.IO.File.SetAttributes(url + extUnique, FileAttributes.Normal);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    message = ex.ToString();
+                }
+
+                return Json(new
+                {
+                    act = model,
+                    person = personDetail,
+                    nameFile = extUnique,
+                    message
+
+                });
             }
             else
-            {
-                subDirectory = container.GetDirectoryReference("actesemnate");
-                extUnique = _db.SignedActs.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
-                blockBlob = subDirectory.GetBlockBlobReference(extUnique);
-            }
-            
-           
-            
-       
+                return Json("");
 
-           
-            try
-            {
-                var url = Server.MapPath("~/Fisiere/");
-                using (var stream = System.IO.File.OpenWrite(url+extUnique))
-                {
-                    blockBlob.BeginDownloadToStream(stream, null, null);
-                    blockBlob.DownloadToStream(stream);
-                    blockBlob.EndDownloadToStream(blockBlob.BeginDownloadToStream(stream, null /* callback */, null /* state */));
-                    
-                   
-                }
-                
-            }
-            catch (Exception ex)
-            {
-            }
-
-
-
-
-            return Json(new  {
-             act = model, 
-             person = personDetail,
-             nameFile = extUnique
-            
-            });
+          
 
         }
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="628a45e5-3057-4bdc-8541-eda40c11d9e4" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="d740d3d8-fe87-4f81-9b19-3538f51b2cc5" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="eNotaryGroup" generation="1" functional="0" release="0">
       <componentports>
@@ -28,11 +28,6 @@
         <aCS name="eNotaryWebRole:eNotaryCloudStorage" defaultValue="">
           <maps>
             <mapMoniker name="/eNotary/eNotaryGroup/MapeNotaryWebRole:eNotaryCloudStorage" />
-          </maps>
-        </aCS>
-        <aCS name="eNotaryWebRole:eNotarySpace" defaultValue="">
-          <maps>
-            <mapMoniker name="/eNotary/eNotaryGroup/MapeNotaryWebRole:eNotarySpace" />
           </maps>
         </aCS>
         <aCS name="eNotaryWebRole:Microsoft.WindowsAzure.Plugins.Connect.ActivationToken" defaultValue="">
@@ -164,11 +159,6 @@
             <aCSMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/eNotaryCloudStorage" />
           </setting>
         </map>
-        <map name="MapeNotaryWebRole:eNotarySpace" kind="Identity">
-          <setting>
-            <aCSMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/eNotarySpace" />
-          </setting>
-        </map>
         <map name="MapeNotaryWebRole:Microsoft.WindowsAzure.Plugins.Connect.ActivationToken" kind="Identity">
           <setting>
             <aCSMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole/Microsoft.WindowsAzure.Plugins.Connect.ActivationToken" />
@@ -285,7 +275,6 @@
             <settings>
               <aCS name="EmailAdmin" defaultValue="" />
               <aCS name="eNotaryCloudStorage" defaultValue="" />
-              <aCS name="eNotarySpace" defaultValue="" />
               <aCS name="Microsoft.WindowsAzure.Plugins.Connect.ActivationToken" defaultValue="" />
               <aCS name="Microsoft.WindowsAzure.Plugins.Connect.Administrators" defaultValue="" />
               <aCS name="Microsoft.WindowsAzure.Plugins.Connect.DomainAccountName" defaultValue="" />
@@ -337,14 +326,14 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="81d91f23-21b8-4d5b-91ba-871e96e7104a" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
+    <implementation Id="6c14cdb5-c101-4093-80ed-4f9bf29c9825" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
       <interfacereferences>
-        <interfaceReference Id="37621911-afec-44b6-9ab1-cf32d9cacaa8" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
+        <interfaceReference Id="77ce8192-07e8-44b7-8d7b-994cc1ce890e" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Endpoint1" />
           </inPort>
         </interfaceReference>
-        <interfaceReference Id="d7259bc4-73c2-4a89-a0ab-2ce9f98af5de" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput@ServiceDefinition">
+        <interfaceReference Id="5672568e-b237-4bed-a29c-229747b12fd0" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" />
           </inPort>

@@ -3,9 +3,8 @@
   <Role name="eNotaryWebRole">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=enotarystorage;AccountKey=xK4r/q+DNGLy4tzS+zUJqfm+5l1QpGnuZo6hHvoRVN/vV3nCLSoo4wKqOAEyx/XFRtvYqslpVapyDNZVRvTm5w==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=portalvhdsb0gp4f2vb4fdk;AccountKey=H7CNOHAFQBVZ5KLRqGUFLYblBJAfSrdBcmyMXbj3tP/YE0HR1oS2PYWbELqQN6wnBuWEJ1nUV39SsarZHfbVcw==" />
       <Setting name="EmailAdmin" value="ghimes.ana@compu-cons.ro" />
-      <Setting name="eNotarySpace" value="DefaultEndpointsProtocol=https;AccountName=enotarystorage;AccountKey=xK4r/q+DNGLy4tzS+zUJqfm+5l1QpGnuZo6hHvoRVN/vV3nCLSoo4wKqOAEyx/XFRtvYqslpVapyDNZVRvTm5w==" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="eNotaryDB_admin" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEAi0mnd4X06STm5FkYBl8jQwDQYJKoZIhvcNAQEBBQAEggEAS0DlaQBXBz5WB0HbvMe0oufNbJCbpTjJzJJr8NgfWZ3I7qcvjmGrD9xVzd7i4AFRy38NYstiOM7Wm9UP8TPCOGOTvjY25AJxXpHOM5qHt/VEga06G81I6fWxbSk1sRXPP6CX/L71alIWzuw/aB+x+mP5MiTdoAUqGgm2UAHcpL8pQ98ii3bAJ6we0Lu6koZYFoH4erq+cRILUOwSPMHGmmve85/eOrA7MPXQuCamkmHMuFtUu5d0dlfdGz+owZkdgNKQLJkvCdex0Zv7V9patSgScUGLc2MbpopTRpDMVehZmlkAZHWb7H7GnU9F5XEaAtGhUIFB2+vowsK9zxFjEjAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECHIMjQyjsUCugBBmcVK1C0SlsfwLBWblRa5w" />

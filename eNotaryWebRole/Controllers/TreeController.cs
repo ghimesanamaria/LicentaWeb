@@ -84,11 +84,15 @@ namespace eNotaryWebRole.Controllers
              string url ;
              _username = User.Identity.Name;
            // change the interface to tree if the user is not admin or notar
-             if (role != "angajat")
+             if (role == "utilizator")
              {
                  id_person = _db.Users.Where(u => u.Username == _username).FirstOrDefault().ID;
                  typeAct = int.Parse(id);
                  id = "";
+             }
+             else
+             {
+                 id_person = long.Parse(id.Split('_')[0]);
              }
 
             switch (id)

@@ -15,6 +15,8 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bi
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\EntityFramework.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\GemCard.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\GSMHelper.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Interop.CERTCLIENTLib.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Interop.CERTENROLLLib.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.Web.Helpers.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.Web.Services.dll

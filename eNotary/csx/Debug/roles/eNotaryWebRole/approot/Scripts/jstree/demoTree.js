@@ -123,37 +123,40 @@
 
         // because the access on a blob it's private make an ajax request to load the image on server temporarily
         var param = new Object();
-        //if (role != "utilizator") {
-            param.id = data.args[0].parentNode.parentNode.id;
-            param.parentID = data.args[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.id;
-        //}
-        //else {
-        //    param.id = data.args[0].parentNode.parentNode.id;
-        //    param.parentID = data.args[0].parentNode.parentNode.parentNode.parentNode.parentNode.id;
-        //}
-      
-        var parameter = JSON.stringify(param);
-        $.ajax({                  
-            type: "POST",
-            url: urlDisplayImage,
-            dataType: 'json',
-            data: parameter,
+        if (role != "utilizator") {
+            param.id = data.args[0].parentNode.id;
+            param.parentID = data.args[0].parentNode.parentNode.parentNode.parentNode.parentNode.id;
+        }
+       else {
+          param.id = data.args[0].parentNode.parentNode.id;
+           param.parentID = data.args[0].parentNode.parentNode.parentNode.parentNode.id;
+        }
+        console.log($("#" + param.id).attr('description'));
+        if ($("#" + param.id).attr('description') != 'act') { }
+        else {
+            var parameter = JSON.stringify(param);
+            $.ajax({
+                type: "POST",
+                url: urlDisplayImage,
+                dataType: 'json',
+                data: parameter,
 
-            contentType: 'application/json',
-            success: function (data) {
-                
-                $("#iframeDoc").show();
-                $("#iframeDoc").attr('src', "/Fisiere/"+ data.nameFile);
-                //$("#iframeDocA").attr('href', urlServerImage + data.nameFile );
-               
+                contentType: 'application/json',
+                success: function (data) {
+                    console.log(data.message);
 
-                // complete the forms with dates 
-                $("#sdPersonFirstName").val(data.person.FirstName);
-                $("#sdPersonMiddleName").val(data.person.MiddleName);
-                $("#sdPersonLastName").val(data.person.LastName);
-                $("#sdExtraDetails").val(data.person.ExtraDetails);
-                // calculate age
-                    
+                    $("#iframeDoc").show();
+                    $("#iframeDoc").attr('src', "Content/Fisiere/"+data.nameFile);
+                    //$("#iframeDocA").attr('href', urlServerImage + data.nameFile );
+
+
+                    // complete the forms with dates 
+                    $("#sdPersonFirstName").val(data.person.FirstName);
+                    $("#sdPersonMiddleName").val(data.person.MiddleName);
+                    $("#sdPersonLastName").val(data.person.LastName);
+                    $("#sdExtraDetails").val(data.person.ExtraDetails);
+                    // calculate age
+
                     birthday = new Date(parseFloat(data.person.Birthday.split('(')[1].split(')')[0]));
                     todayDate = new Date();
                     todayYear = todayDate.getFullYear();
@@ -168,36 +171,36 @@
                     if (birthday.getMonth() - 1 == todayMonth && todayDay < birthday.getDate()) {
                         age--;
                     }
-                
 
 
-                $("#sdGender").val(data.person.Gender);
-                $("#sdAge").val(age);
-                $("#sdBirthday").val(birthday.getDate() + "/" + birthday.getMonth() + 1 + "/" + birthday.getFullYear());
-                $('#ActTypeList option[value="' + data.act.ActTypeID + '"]').attr('selected', 'selected');
-                
-                $("#sdActName").val(data.act.Name);
 
-                var creationdate = new Date(new Date(parseFloat(data.act.CreationDate.split('(')[1].split(')')[0])));
-                $("#sdCreationDate").val(creationdate.getDay() + "/" + creationdate.getMonth()+1 + "/" + creationdate.getFullYear());
-                $("#sdReason").val(data.act.Reason);
-                $("#sdState").val(data.act.State);
-                $("#sdReasonState").val(data.act.ReasonState);
+                    $("#sdGender").val(data.person.Gender);
+                    $("#sdAge").val(age);
+                    $("#sdBirthday").val(birthday.getDate() + "/" + birthday.getMonth() + 1 + "/" + birthday.getFullYear());
+                    $('#ActTypeList option[value="' + data.act.ActTypeID + '"]').attr('selected', 'selected');
 
-                console.log(data.act.SentToClient);
-                if(data.act.SentToClient == 1)
-                $("#sdSentToClient").attr('checked','checked');
-            
+                    $("#sdActName").val(data.act.Name);
+
+                    var creationdate = new Date(new Date(parseFloat(data.act.CreationDate.split('(')[1].split(')')[0])));
+                    $("#sdCreationDate").val(creationdate.getDay() + "/" + creationdate.getMonth() + 1 + "/" + creationdate.getFullYear());
+                    $("#sdReason").val(data.act.Reason);
+                    $("#sdState").val(data.act.State);
+                    $("#sdReasonState").val(data.act.ReasonState);
+
+                    console.log(data.act.SentToClient);
+                    if (data.act.SentToClient == 1)
+                        $("#sdSentToClient").attr('checked', 'checked');
 
 
-                return true;
-            },
-            error: function () {
-                console.log('eroare');
 
-            }
-        });
+                    return true;
+                },
+                error: function () {
+                    console.log('eroare');
 
+                }
+            });
+        }
        
         })
     .bind("loaded.jstree", function (e, data) {

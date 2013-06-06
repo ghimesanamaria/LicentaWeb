@@ -7,3 +7,8 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Release\Interop.CE
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Release\eNotaryWebRole.csproj.ResolveComReference.cache
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Release\eNotaryWebRole.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Release\eNotaryWebRole.pdb
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Interop.CERTCLIENTLib.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Interop.CERTENROLLLib.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Microsoft.WindowsAzure.ServiceRuntime.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\System.Configuration.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Microsoft.WindowsAzure.ServiceRuntime.xml
