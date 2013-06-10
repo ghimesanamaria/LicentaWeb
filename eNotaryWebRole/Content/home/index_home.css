@@ -1,4 +1,21 @@
 ﻿/*HomePage*/
+ /* render-partial-view csc*/
+ /*begin*/
+#render-partial-view {
+    float:left;
+    width:100%;
+}
+ /*end*/
+
+ /*container-upload-details*/
+ /*begin*/
+#container-upload-details {
+    float:left;
+    width:100%;
+}
+
+ /*end*/
+
 #dragAndDropFiles {
 
 
@@ -168,7 +185,6 @@
 }
 
 #messageContainerUpload {
-    padding-top: 10px;
     padding-bottom: 10px;
 }
 
@@ -178,10 +194,10 @@
 }
 
 #area-container-preview {
-   width:57%;
+   width:54%;
    float:right;
- 
-  min-height:510px;
+   margin-left:10px; 
+  min-height:481px;
    
 }
 
@@ -194,6 +210,7 @@
 #container-files-and-details {
     float:left;
     width:40%;
+    min-height:481px;
 }
 
 #message-details {
