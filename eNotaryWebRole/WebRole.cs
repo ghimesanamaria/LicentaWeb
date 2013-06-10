@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
+using Microsoft.Web.Administration;
+
 
 namespace eNotaryWebRole
 {
@@ -15,6 +17,14 @@ namespace eNotaryWebRole
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
             CloudConfigurationManager.GetSetting("eNotaryCloudStorage"));
+            using(var server = new ServerManager()){
+            var siteNameFromServiceModel = "Web";
+            var siteName = "eNotaryWebRole";
+            var config = server.GetApplicationHostConfiguration();
+            var accessSection = config.GetSection("system.webServer/security/access",siteName);
+            accessSection["sslFlags"] = @"Ssl, SslRequireCert";
+            server.CommitChanges();
+            }
 
 
 

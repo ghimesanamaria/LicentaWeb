@@ -18,7 +18,7 @@
       </Site>
     </Sites>
     <Endpoints>
-      <InputEndpoint name="Endpoint1" protocol="https" port="80" certificate="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" />
+      <InputEndpoint name="Endpoint1" protocol="https" port="443" certificate="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />

@@ -28,7 +28,7 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" />
     </ConfigurationSettings>
     <Endpoints>
-      <InputEndpoint name="Endpoint1" protocol="https" port="80" certificate="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" localPort="80" />
+      <InputEndpoint name="Endpoint1" protocol="https" port="443" certificate="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" localPort="443" />
       <InputEndpoint name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" protocol="tcp" port="3389" localPort="*" ignoreRoleInstanceStatus="true" />
       <InternalEndpoint name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Rdp" protocol="tcp">
         <FixedPortRange min="3389" max="3389" />

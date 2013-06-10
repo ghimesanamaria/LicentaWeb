@@ -13,6 +13,7 @@ using System.Web.Script.Serialization;
 
 namespace eNotaryWebRole.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class UsersController : Controller
     {

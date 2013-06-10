@@ -49,6 +49,8 @@ using SBHTTPTSPClient;
 using SBOCSPClient;
 using SBWinCertStorage;
 
+using System.Net.Http.Headers;
+
 
 using System.Web.Script.Serialization;
 
@@ -57,8 +59,9 @@ namespace eNotaryWebRole.Controllers
     using eNotaryWebRole.Code;
     using eNotaryWebRole.ViewModel;
 
-   // [AlteredAuthorize]
+    
     [Authorize]
+   
     public class HomeController : Controller
     {
 
@@ -174,31 +177,15 @@ namespace eNotaryWebRole.Controllers
 
         private eNotaryDBEntities1 _db = new eNotaryDBEntities1();
 
-       // [Authorize]
+        [Authorize]
+        [RequireHttps]
+        
         public ActionResult Index()
         {
-            
-         
+
+            var cert = HttpContext.Request.ClientCertificate;
            
-
-
            
-
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            // to test if your service is running in the compute emulator or in a classic webserver
-            // environment, you can check the value of the IsAvailable property
-            // true measns the service is running a WA fabric, either local or live
-
-            //if(RoleEnvironment.IsAvailable)
-            //     ViewBag.EmailAdmin = RoleEnvironment.GetConfigurationSettingValue("EmailAdmin");
-            //else
-            //{
-            //    ViewBag.EmailAdmin = ConfigurationManager.AppSettings["EmailAdmin"];
-            //}
-
-           // LocalResource resouce = RoleEnvironment.GetLocalResource("eNotarySpace");
-            //ViewBag.LocalStorage =resouce.RootPath ;
 
            var act_type_list = from at in _db.ActTypes
                                     select new

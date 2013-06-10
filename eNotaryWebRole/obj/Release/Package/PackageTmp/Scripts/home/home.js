@@ -42,6 +42,7 @@
         if (currentClassAttr == 'icon-chevron-down') {
             iconElem.attr('class', 'icon-chevron-up');
             $("#file-details").show();
+            $("#file-details").height('391px');
            
         } else {
             iconElem.attr('class', 'icon-chevron-down');

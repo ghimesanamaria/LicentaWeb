@@ -246,3 +246,4 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\WebGrease.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\WebMatrix.Data.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\WebMatrix.WebData.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Microsoft.Web.Administration.dll

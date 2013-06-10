@@ -9,7 +9,10 @@ using System.Data.SqlClient;
 using System.Data.Objects.SqlClient;
 
 namespace eNotaryWebRole.Controllers
+    
 {
+    [RequireHttps]
+    [Authorize]
     public class TreeController : Controller
     {
 

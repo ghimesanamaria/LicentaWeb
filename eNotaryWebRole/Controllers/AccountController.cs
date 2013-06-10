@@ -14,6 +14,8 @@ using SBClient;
 using System.Security.Cryptography;
 using System.Text;
 using eNotaryWebRole.Code;
+using System.Security;
+using System.Net;
 
 namespace eNotaryWebRole.Controllers
 {
@@ -31,6 +33,8 @@ namespace eNotaryWebRole.Controllers
        
         public ActionResult Login(string returnUrl)
         {
+             
+
             ViewBag.ReturnUrl = returnUrl;
             
 
@@ -43,6 +47,7 @@ namespace eNotaryWebRole.Controllers
         // POST: /Account/Login
 
         [HttpPost]
+        [RequireHttps]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
        
@@ -53,12 +58,15 @@ namespace eNotaryWebRole.Controllers
             //    return RedirectToLocal(returnUrl);
             //}
 
+            
+           
+
 
             if (ModelState.IsValid)
             {
 
                 string userNameLdap = model.UserName;
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                if (Membership.ValidateUser(model.UserName, model.Password) )
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
@@ -71,6 +79,7 @@ namespace eNotaryWebRole.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                 }
+                    
                 else
                 {
                     ModelState.AddModelError("", "Utilizatorul sau parola sunt incorecte!");
@@ -81,7 +90,7 @@ namespace eNotaryWebRole.Controllers
             return View(model);
 
 
-            HttpClientCertificate ret = Request.ClientCertificate;
+            //HttpClientCertificate ret = Request.ClientCertificate;
 
             //// If we got this far, something failed, redisplay form
             //ModelState.AddModelError("", "The user name or password provided is incorrect.");
