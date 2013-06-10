@@ -17,14 +17,7 @@ namespace eNotaryWebRole
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
             CloudConfigurationManager.GetSetting("eNotaryCloudStorage"));
-            using(var server = new ServerManager()){
-            var siteNameFromServiceModel = "Web";
-            var siteName = "eNotaryWebRole";
-            var config = server.GetApplicationHostConfiguration();
-            var accessSection = config.GetSection("system.webServer/security/access",siteName);
-            accessSection["sslFlags"] = @"Ssl, SslRequireCert";
-            server.CommitChanges();
-            }
+           
 
 
 

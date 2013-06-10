@@ -27,7 +27,7 @@ namespace eNotaryWebRole
                 RouteConfig.RegisterRoutes(RouteTable.Routes);
                 BundleConfig.RegisterBundles(BundleTable.Bundles);
                 AuthConfig.RegisterAuth();
-              //  GlobalFilters.Filters.Add(new eNotaryWebRole.Code.AuthorizationFilter());
+                GlobalFilters.Filters.Add(new eNotaryWebRole.Code.AuthorizationFilter());
             }
             catch (Exception ex)
             {
