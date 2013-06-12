@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="3e5f14a3-c6f1-4c41-98a9-46601fdd2ea5" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eNotary" generation="1" functional="0" release="0" Id="61c5224b-2ff4-4da7-b236-4afdce1df7b3" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="eNotaryGroup" generation="1" functional="0" release="0">
       <componentports>
@@ -326,14 +326,14 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="f9edbe5b-0b0d-46a3-9593-1047875b73e3" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
+    <implementation Id="a2dc44fe-36bd-4edb-94bb-e4e926852258" ref="Microsoft.RedDog.Contract\ServiceContract\eNotaryContract@ServiceDefinition">
       <interfacereferences>
-        <interfaceReference Id="2f532524-adb2-45b4-add8-e22e9f0c08b4" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
+        <interfaceReference Id="3b8613c2-7dde-46d9-9306-9892e05479fc" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Endpoint1@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Endpoint1" />
           </inPort>
         </interfaceReference>
-        <interfaceReference Id="aaa319bd-0f67-4bd1-9d47-1500a631e405" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput@ServiceDefinition">
+        <interfaceReference Id="02983e6f-2a88-4956-b32f-646c3646b87a" ref="Microsoft.RedDog.Contract\Interface\eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/eNotary/eNotaryGroup/eNotaryWebRole:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" />
           </inPort>

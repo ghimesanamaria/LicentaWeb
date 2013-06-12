@@ -414,6 +414,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\TallComponents.PDF.Rasterizer.dll</HintPath>
     </Reference>
+    <Reference Include="VisioAutomation.VDX">
+      <HintPath>..\packages\VisioAutomation.VDX.1.0.8\lib\net40\VisioAutomation.VDX.dll</HintPath>
+    </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -595,6 +598,7 @@
     <Content Include="bin\WebMatrix.Data.dll" />
     <Content Include="bin\WebMatrix.WebData.dll" />
     <Content Include="ConfigFiles\AuthConfig.xml" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="ConfigFiles\MailConfig.config" />
     <Content Include="ConfigFiles\DivorceConfig.xml" />
     <Content Include="Content\account\account.css" />

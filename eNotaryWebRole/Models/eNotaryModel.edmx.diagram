@@ -17,7 +17,7 @@
         <EntityTypeShape EntityType="eNotaryDBModel.SecurityPoint" Width="1.5" PointX="2.75" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="eNotaryDBModel.SignedAct" Width="1.5" PointX="10.5" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="eNotaryDBModel.UserRole" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eNotaryDBModel.User" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eNotaryDBModel.User" Width="1.5" PointX="8.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="eNotaryDBModel.FK_Acts_ActType" ManuallyRouted="false" />
         <AssociationConnector Association="eNotaryDBModel.FK_Acts_PersonDetails" ManuallyRouted="false" />
         <AssociationConnector Association="eNotaryDBModel.FK_SignedActs_Acts" ManuallyRouted="false" />

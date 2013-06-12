@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>VisioAutomation.VDX</id>
+    <version>1.0.8</version>
+    <title>VisioAutomation.VDX</title>
+    <authors>saveenr</authors>
+    <owners>saveenr</owners>
+    <licenseUrl>http://visioautomation.codeplex.com/</licenseUrl>
+    <projectUrl>http://visioautomation.codeplex.com/</projectUrl>
+    <iconUrl>http://viziblr.com/storage/visioautomation/visioautomation-128x128.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>VisioAutomation.VDX helps create Visio diagrams using the VDX file format. It does not require a running instance of Visio and is useful for server-side diagram creation.</description>
+    <releaseNotes>Fixed a bug where hex colors were coming out in 3 digits instead of 6
+	Previous 1.0.7 version did not contain the fix</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <language />
+    <tags>Visio VDX</tags>
+    <references>
+      <reference file="VisioAutomation.VDX.dll" />
+    </references>
+  </metadata>
+</package>
