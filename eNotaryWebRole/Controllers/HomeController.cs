@@ -60,7 +60,7 @@ namespace eNotaryWebRole.Controllers
     using eNotaryWebRole.ViewModel;
 
     
-    [Authorize]
+ 
    
     public class HomeController : Controller
     {

@@ -613,6 +613,7 @@
     <Content Include="Content\Icons\x.png" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\JavaApplication6.jar" />
     <Content Include="Content\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="Content\logo_pdfkit.gif" />
     <Content Include="Content\pdf_preview\test_43_81.png" />
