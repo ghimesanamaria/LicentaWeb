@@ -381,7 +381,7 @@ namespace eNotaryWebRole.Controllers
           username = User.Identity.Name;
           var tmp = Request;
           string messages = "Fiserele au fost  incarcat cu succes!"; 
-          init_function();
+          InitBlackBox();
           Dictionary<string, List<SignatureDetailsViewModel> > docsSigs = new Dictionary<string, List<SignatureDetailsViewModel>>();
           Dictionary<string,string> png_preview_List = new Dictionary<string,string>();
        
@@ -548,7 +548,7 @@ namespace eNotaryWebRole.Controllers
 
       TElPDFAdvancedPublicKeySecurityHandler m_Handler = null;
 
-      public void init_function()
+      public void InitBlackBox()
       {
           SBUtils.Unit.SetLicenseKey("AF479A648A42969644F109C690E12B1402F11DBD9EB213B43821FD62B787AE111989D1C38A5E2278F9D19F3D1D6AD85D87B7DA6DBAEDC72150960800413FB48E6067B17B03A5AB32A4417F35B4A17DA29FF2C9512DBC2D7AAE5CE117889C2FDC64CB65C6F6A9F1891D0CEEE134994DFF0DC19B95ABFDC55161B144E9482299618BE29FA9C8EFB89EB666049899C11907610B664CDAA723A1E18820A18A671B68C88C661854CC1B4DC48BA8806ED30AF02DAB7B25A63DE63258CE2F616F93D040DA6BC54212072542DBD41F7A343485A23C9AEF476404980F00B0125997FC7A4869186411F543FB4ED74A897E46B75351983715EEF95E6E443B25D156D010A57A");
           SBPDF.Unit.Initialize();

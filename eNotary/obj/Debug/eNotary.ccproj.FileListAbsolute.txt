@@ -170,6 +170,7 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\GSMHelper.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Interop.CERTCLIENTLib.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Interop.CERTENROLLLib.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Microsoft.Web.Administration.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Microsoft.Web.Helpers.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Microsoft.Web.Services.dll
@@ -243,8 +244,7 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\TallComponents.PDF.Kit.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\TallComponents.PDF.Layout.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\TallComponents.PDF.Rasterizer.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\VisioAutomation.VDX.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\WebGrease.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\WebMatrix.Data.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\WebMatrix.WebData.dll
-C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\Microsoft.Web.Administration.dll
-C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\bin\VisioAutomation.VDX.dll

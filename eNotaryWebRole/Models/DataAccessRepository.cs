@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web;
 using eNotaryWebRole.Models;
 using eNotaryWebRole.ViewModel;
+using System.Web;
 
 namespace eNotaryWebRole.Models
 {
     public class DataAccessRepository:IDataAccessRepository
     {
-        string username = "user_test"; 
+        string username = "";
         private static eNotaryDBEntities1 _db = new eNotaryDBEntities1();
 
         public  string getRole(string username)
@@ -32,8 +33,11 @@ namespace eNotaryWebRole.Models
             
         }
 
-        public Act create_Act(long act_type_id, string act_name, string act_reason, string act_reason_state, string state, string act_extra_details)
+        public Act create_Act(long act_type_id, string act_name, string act_reason, string act_reason_state, string state, string act_extra_details, string username)
         {
+
+            
+
             long user_ID = _db.Users.Where(x => x.Username == username).FirstOrDefault().ID;
             Act new_act = new Act(){
             ActTypeID =act_type_id,
@@ -43,7 +47,8 @@ namespace eNotaryWebRole.Models
             ExtraDetails = act_extra_details,
             ReasonState = act_reason_state,
             State = state,
-            CreateContactID = user_ID
+            CreateContactID = user_ID,
+            
            
 
             };
@@ -51,7 +56,7 @@ namespace eNotaryWebRole.Models
             return new_act;
         }
 
-       public void update_Act(long id,long act_type_id, string act_name, string act_reason, string act_reason_state, string state, string act_extra_details)
+       public void update_Act(long id,long act_type_id, string act_name, string act_reason, string act_reason_state, string state, string act_extra_details, string username)
         {
             long user_ID = _db.Users.Where(x => x.Username == username).FirstOrDefault().PersonID;
             
@@ -74,7 +79,7 @@ namespace eNotaryWebRole.Models
             
         }
 
-       public void update_SignedAct(long id,long act_type_id, string act_name, string act_reason_signed,bool act_sent_to_client, bool act_signed, string act_extra_details, string act_reason)
+       public void update_SignedAct(long id,long act_type_id, string act_name, string act_reason_signed,bool act_sent_to_client, bool act_signed, string act_extra_details, string act_reason, string username)
        {
            long user_ID = _db.Users.Where(x => x.Username == username).FirstOrDefault().PersonID;
            SignedAct up_Act = _db.SignedActs.Where(x => x.ID == id).FirstOrDefault();
@@ -110,8 +115,11 @@ namespace eNotaryWebRole.Models
 
 
 
-       public SignedAct create_SignedAct(long id, long act_type_id, string act_name, string act_reason_signed, bool act_sent_to_client, bool act_signed, string act_extra_details, string act_reason, string unique_ref)
+       public SignedAct create_SignedAct(long id, long act_type_id, string act_name, string act_reason_signed, bool act_sent_to_client, bool act_signed, string act_extra_details, string act_reason, string unique_ref, string username)
        {
+
+           
+
            long user_ID = _db.Users.Where(x => x.Username == username).FirstOrDefault().PersonID;
            SignedAct new_Act = new SignedAct();
 

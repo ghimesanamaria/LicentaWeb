@@ -294,44 +294,54 @@ namespace eNotaryWebRole.Controllers
             string type = "";
             if (!string.IsNullOrEmpty(collection["sgSignDocument"]))
             {
-                foreach (string coll in collection.AllKeys)
+
+                try
                 {
-                    if (coll.Contains("check_act"))
+                    foreach (string coll in collection.AllKeys)
                     {
-                         idAct = long.Parse(collection[coll].Split('_')[0]);
-                        type=collection[coll].Split('_')[1];
+                        if (coll.Contains("check_act"))
+                        {
+                            idAct = long.Parse(collection[coll].Split('_')[0]);
+                            type = collection[coll].Split('_')[1];
+                        }
+                    }
+
+                    string externalUniqueRef = "";
+                    if (type != "signedAct")
+                    {
+
+                        externalUniqueRef = _db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
+                    }
+                    else
+                    {
+                        externalUniqueRef = _db.SignedActs.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
+                    }
+                    long id_Max = _db.SignedActs.Select(x => x.ID).Max();
+                    string ext_unique_signed = externalUniqueRef.Split('.')[0] + id_Max + ".pdf";
+
+                    bool is_Signed = signAdvancedPDF(externalUniqueRef, ext_unique_signed);
+                    bool state = false;
+                    if (collection["sdSentToClient"] == "True")
+                    {
+                        state = true;
+                    }
+
+                    bool signed = false;
+                    if (collection["sdState"] == "semnat")
+                    {
+                        signed = true;
+                    }
+
+                    if (is_Signed)
+                    {
+                        SignedAct new_act = _reporsitory.create_SignedAct(idAct, long.Parse(collection["ActTypeList"]), collection["sdActName"], collection["sdReasonState"], state, true, collection["sdExtraDetails"], collection["sdReason"], ext_unique_signed,username);
+                        _db.SignedActs.Add(new_act);
+                        _db.SaveChanges();
                     }
                 }
-
-                string externalUniqueRef ="";
-                if(type!="signedAct"){
-                
-                externalUniqueRef= _db.Acts.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
-                }
-                else{
-                    externalUniqueRef = _db.SignedActs.Where(o=>o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
-                }
-                long id_Max = _db.SignedActs.Select(x => x.ID).Max();
-                string ext_unique_signed = externalUniqueRef.Split('.')[0]+id_Max+".pdf";
-
-                bool is_Signed = signAdvancedPDF(externalUniqueRef,ext_unique_signed);
-                bool state = false;
-                if (collection["sdSentToClient"] == "True")
+                catch (Exception ex)
                 {
-                    state = true;
-                }
-
-                bool signed = false;
-                if (collection["sdState"] == "semnat")
-                {
-                    signed = true;
-                }
-
-                if (is_Signed)
-                {
-                    SignedAct new_act = _reporsitory.create_SignedAct(idAct, long.Parse(collection["ActTypeList"]), collection["sdActName"], collection["sdReasonState"], state, signed, collection["sdExtraDetails"], collection["sdReason"],ext_unique_signed);
-                    _db.SignedActs.Add(new_act);
-                    _db.SaveChanges();
+                    ModelState.AddModelError("", "Va rugam reluati procedura de semnare!");
                 }
 
 
@@ -359,7 +369,7 @@ namespace eNotaryWebRole.Controllers
                     {
                        // DateTime creation_Date = DateTime.ParseExact(collection["sdCreationDate"],"yyyy-MM-dd HH:mm:ss",System.Globalization.CultureInfo.InvariantCulture);
 
-                        _reporsitory.update_Act(idAct, long.Parse(collection["ActTypeList"]), collection["sdActName"], collection["sdReason"], collection["sdReasonState"], collection["sdState"], collection["sdExtraDetails"]);
+                        _reporsitory.update_Act(idAct, long.Parse(collection["ActTypeList"]), collection["sdActName"], collection["sdReason"], collection["sdReasonState"], collection["sdState"], collection["sdExtraDetails"], username);
                         
 
                     }
@@ -374,7 +384,7 @@ namespace eNotaryWebRole.Controllers
                         if(collection["sdState"] == "semnat"){
                             signed = true;
                         }
-                        _reporsitory.update_SignedAct(idAct, long.Parse(collection["ActTypeList"]), collection["sdActName"], collection["sdReasonState"], state, signed, collection["sdExtraDetails"], collection["sdReason"]);
+                        _reporsitory.update_SignedAct(idAct, long.Parse(collection["ActTypeList"]), collection["sdActName"], collection["sdReasonState"], state, signed, collection["sdExtraDetails"], collection["sdReason"], username);
                     }
                 }
                 else
@@ -396,6 +406,100 @@ namespace eNotaryWebRole.Controllers
             {
             }
             ViewBag.ActTypeList = new SelectList(actTypeList, "ID", "Name", tempActType);
+
+
+            // verify security points 
+
+            username = User.Identity.Name;
+            long us = (from s in _db.SecurityPoints
+                       join rs in _db.RoleSecurityPoints
+                       on s.ID equals rs.SecurityPointID
+                       join u in _db.Users.Where(u => u.Username == username)
+                       on rs.RoleID equals u.RoleID
+                       where s.Name == "vizualizare utilizatori"
+                       select rs.State).FirstOrDefault();
+            // verify if per user is set this security point
+            long us_us = (from u in _db.Users.Where(u => u.Username == username)
+                          join r in _db.RoleSecurityPoints
+                          on u.ID equals r.UserID
+                          join s in _db.SecurityPoints
+                          on r.SecurityPointID equals s.ID
+                          where s.Name == "vizualizare utilizatori"
+                          select r.State).FirstOrDefault();
+
+            if (us_us == 1)
+            {
+                us = us_us;
+            }
+
+            ViewBag.ViewUsers = us;
+
+            long doc = (from s in _db.SecurityPoints
+                        join rs in _db.RoleSecurityPoints
+                        on s.ID equals rs.SecurityPointID
+                        join u in _db.Users.Where(u => u.Username == username)
+                        on rs.RoleID equals u.RoleID
+                        where s.Name == "vizualizare documente"
+                        select rs.State).FirstOrDefault();
+            long doc_doc = (from u in _db.Users.Where(u => u.Username == username)
+                            join r in _db.RoleSecurityPoints
+                            on u.ID equals r.UserID
+                            join s in _db.SecurityPoints
+                            on r.SecurityPointID equals s.ID
+                            where s.Name == "vizualizare documente"
+                            select r.State).FirstOrDefault();
+            if (doc_doc == 1)
+            {
+                doc = doc_doc;
+            }
+
+            if (doc == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.ViewDocuments = doc;
+
+
+            long em = (from s in _db.SecurityPoints
+                       join rs in _db.RoleSecurityPoints
+                       on s.ID equals rs.SecurityPointID
+                       join u in _db.Users.Where(u => u.Username == username)
+                       on rs.RoleID equals u.RoleID
+                       where s.Name == "trimite email"
+                       select rs.State).FirstOrDefault();
+            long em_em = (from u in _db.Users.Where(u => u.Username == username)
+                          join r in _db.RoleSecurityPoints
+                          on u.ID equals r.UserID
+                          join s in _db.SecurityPoints
+                          on r.SecurityPointID equals s.ID
+                          where s.Name == "trimite email"
+                          select r.State).FirstOrDefault();
+            if (em_em == 1)
+            {
+                em = em_em;
+            }
+            ViewBag.SendMail = em;
+
+
+            long sg = (from s in _db.SecurityPoints
+                       join rs in _db.RoleSecurityPoints
+                       on s.ID equals rs.SecurityPointID
+                       join u in _db.Users.Where(u => u.Username == username)
+                       on rs.RoleID equals u.RoleID
+                       where s.Name == "semanare documente"
+                       select rs.State).FirstOrDefault();
+            long sg_sg = (from u in _db.Users.Where(u => u.Username == username)
+                          join r in _db.RoleSecurityPoints
+                          on u.ID equals r.UserID
+                          join s in _db.SecurityPoints
+                          on r.SecurityPointID equals s.ID
+                          where s.Name == "semanare documente"
+                          select r.State).FirstOrDefault();
+            if (sg_sg == 1)
+            {
+                sg = sg_sg;
+            }
+            ViewBag.Sign = sg;
             return View();
         }
         //sign pdf
@@ -500,7 +604,7 @@ namespace eNotaryWebRole.Controllers
 
         // function needed to use secure blacbox
 
-        public void init_function()
+        public void InitBlackBox()
         {
             SBUtils.Unit.SetLicenseKey("AF479A648A42969644F109C690E12B1402F11DBD9EB213B43821FD62B787AE111989D1C38A5E2278F9D19F3D1D6AD85D87B7DA6DBAEDC72150960800413FB48E6067B17B03A5AB32A4417F35B4A17DA29FF2C9512DBC2D7AAE5CE117889C2FDC64CB65C6F6A9F1891D0CEEE134994DFF0DC19B95ABFDC55161B144E9482299618BE29FA9C8EFB89EB666049899C11907610B664CDAA723A1E18820A18A671B68C88C661854CC1B4DC48BA8806ED30AF02DAB7B25A63DE63258CE2F616F93D040DA6BC54212072542DBD41F7A343485A23C9AEF476404980F00B0125997FC7A4869186411F543FB4ED74A897E46B75351983715EEF95E6E443B25D156D010A57A");
             SBPDF.Unit.Initialize();
@@ -635,7 +739,7 @@ namespace eNotaryWebRole.Controllers
 
         public void function_init_document(string filename)
         {
-            var url = Server.MapPath("~/Fisiere/"+filename);
+            var url = Server.MapPath("~/Content/"+filename);
             PrepareTemporaryFile(url);
                 try
                 {
@@ -646,7 +750,7 @@ namespace eNotaryWebRole.Controllers
                         m_CurrDoc.Open(m_CurrStream);
                       
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         m_CurrDoc = null;
                         throw;
@@ -709,6 +813,21 @@ namespace eNotaryWebRole.Controllers
             //CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
 
             // cloud storage
+            try
+            {
+                DirectoryInfo DI = new DirectoryInfo(Server.MapPath("~/Content/"));
+                FileSystemInfo[] FSI = DI.GetFiles();
+                foreach (FileSystemInfo fInfo in FSI)
+                {
+                    if (fInfo.Extension == ".pdf")
+                    {
+                        fInfo.Delete();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
 
 
 
@@ -723,23 +842,51 @@ namespace eNotaryWebRole.Controllers
             CloudBlobDirectory subDirectory = container.GetDirectoryReference("actenesemnate");
 
             CloudBlockBlob blockBlob = subDirectory.GetBlockBlobReference(extUniqueRefAct);
-            var url = Server.MapPath("~/Fisiere/");
+
+
+
+
+
+
+            var url = Server.MapPath("~/Content/");
+
+            string random = RandomString(20, true) + ".pdf";
             try
             {
-                using (FileStream fileStream = new FileStream(url +extUniqueRefAct, FileMode.Create))
-                {
-                    blockBlob.DownloadToStream(fileStream);
+               
 
+
+                //var stream = System.IO.File.OpenWrite(url + random);
+
+                //blockBlob.BeginDownloadToStream(stream, null, null);
+                //blockBlob.DownloadToStream(stream);
+                //blockBlob.EndDownloadToStream(blockBlob.BeginDownloadToStream(stream, null /* callback */, null /* state */));
+
+                ////System.IO.File.SetAttributes(url + extUnique, FileAttributes.Normal);
+
+                //stream.Close();
+
+
+                using (FileStream fileStream = new FileStream(url +random, FileMode.Create))
+                {
+                 blockBlob.DownloadToStream(fileStream);
+                 fileStream.Close();
                 }
+
+                
+
+
             }
             catch (Exception ex)
             {
+                
             }
+
             
 
             // Step 2. Create a new PdfDocument
 
-            if (extUniqueRefAct.Split('.')[1] != "pdf")
+            if (random.Split('.')[1] != "pdf")
             {
                 PdfSharp.Pdf.PdfDocument doc = new PdfSharp.Pdf.PdfDocument();
                 doc.Pages.Add(new PdfSharp.Pdf.PdfPage());
@@ -747,17 +894,17 @@ namespace eNotaryWebRole.Controllers
 
                 //get the image            
 
-                XImage img = XImage.FromFile(url  + extUniqueRefAct);
+                XImage img = XImage.FromFile(url  +random);
                 xgr.DrawImage(img, 0, 0);
                 //save the image in format pdf
-                doc.Save(url  + extUniqueRefAct.Split('.')[0] + ".pdf");
+                doc.Save(url  + random.Split('.')[0] + ".pdf");
                 doc.Close();
             }
            
 
             m_TspClient = new TElHTTPTSPClient();
-            init_function();
-            function_init_document(extUniqueRefAct.Split('.')[0] + ".pdf");
+            InitBlackBox();
+            function_init_document(random);
             try
             {
                 try
@@ -807,7 +954,7 @@ namespace eNotaryWebRole.Controllers
                
                 // save the signed document to blob
 
-                    FileStream file = new FileStream(url+extUniqueRefAct.Split('.')[0]+".pdf", FileMode.Open, FileAccess.ReadWrite); ;
+                    FileStream file = new FileStream(url+random.Split('.')[0]+".pdf", FileMode.Open, FileAccess.ReadWrite); ;
                   
                         
 
@@ -847,10 +994,31 @@ namespace eNotaryWebRole.Controllers
                
             }
 
+
+        
+
        
         [HttpPost]
         public ActionResult DisplayImage(string id, string parentID)
         {
+
+            try
+            {
+                DirectoryInfo DI = new DirectoryInfo(Server.MapPath("~/Content/"));
+                FileSystemInfo[] FSI = DI.GetFiles();
+                foreach (FileSystemInfo fInfo in FSI)
+                {
+                    if (fInfo.Extension == ".pdf")
+                    {
+
+                        
+                        fInfo.Delete();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
 
             string message = "OK";
             long parent;
@@ -1005,18 +1173,22 @@ namespace eNotaryWebRole.Controllers
 
 
 
-
+                string random = RandomString(20, true) + ".pdf";
                 try
                 {
                     var url = Server.MapPath("~/Content/");
-                    using (var stream = System.IO.File.OpenWrite(url + extUnique))
-                    {
+
+                   
+                    var stream = System.IO.File.OpenWrite(url + random);
+                    
                         blockBlob.BeginDownloadToStream(stream, null, null);
                         blockBlob.DownloadToStream(stream);
                         blockBlob.EndDownloadToStream(blockBlob.BeginDownloadToStream(stream, null /* callback */, null /* state */));
 
-                        System.IO.File.SetAttributes(url + extUnique, FileAttributes.Normal);
-                    }
+                        //System.IO.File.SetAttributes(url + extUnique, FileAttributes.Normal);
+
+                        stream.Close();
+                  
 
                 }
                 catch (Exception ex)
@@ -1028,7 +1200,7 @@ namespace eNotaryWebRole.Controllers
                 {
                     act = model,
                     person = personDetail,
-                    nameFile = extUnique,
+                    nameFile = random,
                     message
 
                 });
@@ -1038,6 +1210,21 @@ namespace eNotaryWebRole.Controllers
 
           
 
+        }
+
+        private string RandomString(int size, bool lowerCase)
+        {
+            StringBuilder builder = new StringBuilder();
+            Random random = new Random();
+            char ch;
+            for (int i = 0; i < size; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+            if (lowerCase)
+                return builder.ToString().ToLower();
+            return builder.ToString();
         }
 
 
