@@ -599,6 +599,7 @@
     <Content Include="bin\WebMatrix.WebData.dll" />
     <Content Include="ConfigFiles\AuthConfig.xml" />
     <Content Include="ClassDiagram1.cd" />
+    <Content Include="Certificate\certificat12.p12" />
     <None Include="ConfigFiles\MailConfig.config" />
     <Content Include="ConfigFiles\DivorceConfig.xml" />
     <Content Include="Content\account\account.css" />
@@ -610,6 +611,8 @@
     <Content Include="Content\home\divorce_person_details.css" />
     <Content Include="Content\home\index_home.css" />
     <Content Include="Content\home\png_preview.css" />
+    <Content Include="Content\Icons\Sigla.png" />
+    <Content Include="Content\Icons\Sigla2.png" />
     <Content Include="Content\Icons\x.png" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
@@ -680,7 +683,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Certificate\certificat.crt" />
-    <Content Include="Certificate\certificat12.p12" />
     <Content Include="Certificate\200605167004010F3E.crt" />
     <Content Include="Certificate\certificatVeriSignTest.cer" />
     <Content Include="Certificate\certificatVeriSignTest.pem" />
@@ -723,10 +725,12 @@
     <None Include="Properties\PublishProfiles\eNotary - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - FTP %284%29.pubxml" />
+    <None Include="Properties\PublishProfiles\eNotary - FTP %285%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - Web Deploy %284%29.pubxml" />
+    <None Include="Properties\PublishProfiles\eNotary - Web Deploy %285%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\ajax-loader.gif" />

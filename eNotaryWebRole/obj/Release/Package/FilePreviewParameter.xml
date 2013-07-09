@@ -4,10 +4,10 @@
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Ana\\SkyDrive\\Documente\\LicentaWeb\\eNotaryWebRole\\obj\\Release\\Package\\PackageTmp$" />
     <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\Ana\\SkyDrive\\Documente\\LicentaWeb\\eNotaryWebRole\\obj\\Release\\Package\\PackageTmp$" />
   </parameter>
-  <parameter name="eNotaryDBEntities1-Web.config Connection String" description="" value="metadata=res://*/Models.eNotaryModel.csdl|res://*/Models.eNotaryModel.ssdl|res://*/Models.eNotaryModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=bvd7vk9u59.database.windows.net,1433;Initial Catalog=eNotaryDB;User ID=eNotaryDB_admin;Password=Ana123!@#&quot;" tags="">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\Ana\\SkyDrive\\Documente\\LicentaWeb\\eNotaryWebRole\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='eNotaryDBEntities1']/@connectionString" />
-  </parameter>
-  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." value="DefaultConnection_ConnectionString" tags="SqlConnectionString">
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="DefaultConnection_ConnectionString" tags="">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\Ana\\SkyDrive\\Documente\\LicentaWeb\\eNotaryWebRole\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="eNotaryDBEntities1-Web.config Connection String" description="" value="metadata=res://*/Models.eNotaryModel.csdl|res://*/Models.eNotaryModel.ssdl|res://*/Models.eNotaryModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=bvd7vk9u59.database.windows.net,1433;initial catalog=eNotaryDB;user id=eNotaryDB_admin;password=Ana123!@#;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Ana\\SkyDrive\\Documente\\LicentaWeb\\eNotaryWebRole\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='eNotaryDBEntities1']/@connectionString" />
   </parameter>
 </parameters>

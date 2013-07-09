@@ -8,7 +8,6 @@
     <ConfigurationSettings>
       <Setting name="EmailAdmin" />
       <Setting name="eNotaryCloudStorage" />
-      <Setting name="eNotarySpace" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Connect.ActivationToken" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Connect.Administrators" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Connect.DomainAccountName" />
@@ -29,7 +28,7 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" />
     </ConfigurationSettings>
     <Endpoints>
-      <InputEndpoint name="Endpoint1" protocol="https" port="80" certificate="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" localPort="80" />
+      <InputEndpoint name="Endpoint1" protocol="https" port="443" certificate="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" localPort="443" />
       <InputEndpoint name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" protocol="tcp" port="3389" localPort="*" ignoreRoleInstanceStatus="true" />
       <InputEndpoint name="Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint" protocol="tcp" port="8172" localPort="8172" />
       <InternalEndpoint name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Rdp" protocol="tcp">

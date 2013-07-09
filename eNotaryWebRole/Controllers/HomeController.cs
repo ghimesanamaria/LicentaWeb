@@ -178,7 +178,7 @@ namespace eNotaryWebRole.Controllers
         private eNotaryDBEntities1 _db = new eNotaryDBEntities1();
 
         [Authorize]
-        [RequireHttps]
+       [RequireHttps]
         
         public ActionResult Index()
         {

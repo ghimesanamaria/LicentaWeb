@@ -9,7 +9,7 @@
     <ActivePublishProfile>eNotaryCloudServiceProduction</ActivePublishProfile>
     <RemoteDesktopMoreOptions>True</RemoteDesktopMoreOptions>
     <PackageProfile>Cloud</PackageProfile>
-    <PackageSolutionConfiguration>Debug</PackageSolutionConfiguration>
+    <PackageSolutionConfiguration>Release</PackageSolutionConfiguration>
     <PackageEnableRemoteDesktop>True</PackageEnableRemoteDesktop>
   </PropertyGroup>
 </Project>

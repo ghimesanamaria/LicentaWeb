@@ -1,6 +1,5 @@
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\bin\Release\ServiceConfiguration.cscfg
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\bin\Release\ServiceDefinition.csdef
-C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\bin\Release\ValidationIssues.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Antlr3.Runtime.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\ClientDependency.Core.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\ClientDependency.Core.Mvc.dll
@@ -17,6 +16,7 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bi
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\GSMHelper.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Interop.CERTCLIENTLib.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Interop.CERTENROLLLib.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.Web.Administration.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.Web.Helpers.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.Web.Services.dll
@@ -24,6 +24,7 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bi
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.Web.WebPages.OAuth.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.WindowsAzure.Configuration.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.WindowsAzure.Diagnostics.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.WindowsAzure.ServiceRuntime.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.WindowsAzure.Storage.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Microsoft.WindowsAzure.StorageClient.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\Newtonsoft.Json.dll
@@ -36,6 +37,7 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bi
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\SecureBlackbox.DAVCommon.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\SecureBlackbox.DAVIISServer.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\SecureBlackbox.DAVServer.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\SecureBlackbox.DC.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\SecureBlackbox.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\SecureBlackbox.EDI.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\SecureBlackbox.FTPS.dll
@@ -70,6 +72,7 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bi
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\SecureBlackbox.XML.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\SecureBlackbox.XMLSecurity.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\SecureBlackbox.ZIP.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\System.Configuration.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\System.Net.Http.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\System.Net.Http.Formatting.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\System.Net.Http.WebRequest.dll
@@ -86,6 +89,7 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bi
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\TallComponents.PDF.Kit.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\TallComponents.PDF.Layout.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\TallComponents.PDF.Rasterizer.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\VisioAutomation.VDX.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\WebGrease.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\WebMatrix.Data.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\bin\WebMatrix.WebData.dll
@@ -94,6 +98,7 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Ce
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Certificate\certificat12.p12
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Certificate\certificatVeriSignTest.cer
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Certificate\certificatVeriSignTest.pem
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\ClassDiagram1.cd
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\ConfigFiles\AuthConfig.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\ConfigFiles\DivorceConfig.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\account\account.css
@@ -107,9 +112,12 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Co
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\home\divorce_person_details.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\home\index_home.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\home\png_preview.css
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\Icons\Sigla.png
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\Icons\Sigla2.png
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\Icons\x.png
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\img\glyphicons-halflings-white.png
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\img\glyphicons-halflings.png
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\JavaApplication6.jar
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\jquery-ui-1.10.3.custom.min.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\logo_pdfkit.gif
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\pdf_preview\test_43_81.png

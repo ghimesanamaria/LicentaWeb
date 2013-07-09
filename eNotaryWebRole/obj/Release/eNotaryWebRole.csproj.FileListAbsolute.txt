@@ -12,3 +12,5 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Interop.CERTENROLL
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Microsoft.WindowsAzure.ServiceRuntime.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\System.Configuration.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Microsoft.WindowsAzure.ServiceRuntime.xml
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Microsoft.Web.Administration.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\VisioAutomation.VDX.dll
