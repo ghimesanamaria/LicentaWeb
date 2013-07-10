@@ -146,6 +146,8 @@ namespace eNotaryWebRole.Controllers
                      join p in _db.PersonDetails
                      on u.PersonID equals p.ID
                      select p).FirstOrDefault();
+                ViewBag.Action = "Edit";
+                ViewBag.Button = "Salveaza";
             }
             else
             
