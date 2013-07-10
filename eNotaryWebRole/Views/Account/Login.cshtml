@@ -11,14 +11,14 @@
 
 <div id="loginForm">
 
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formLogIn" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset style="margin-top:20px;">
         <legend>Log in Form</legend>
-        <ol>
+        <ol id ="normal-log-in">
             <li>
                 <label>Utilizator</label>
                 @Html.TextBoxFor(m => m.UserName)
@@ -35,27 +35,48 @@
             </li>
         </ol>
 
-        
-        <object classid="java:tokenconnect.TokenConnect.class"
-            type="application/x-java-applet"
-            archive="tokenconnect.jar,bcprov-jdk14-140.jar,iText-2.1.7.jar,sunpkcs11.jar"
-            height="0" width="0" name="app">
-            <param name="code" value="java:tokenconnect.TokenConnect.class" />
-            <param name="persistState" value="false" />
-            <param name="cache_option" value="no" />
-            <param name="codebase_lookup" value="true" />
-            <param name="codebase" value="~/Content/" />
-        </object>
+    
         
         </fieldset>
         <div id="loginButtons">
-            <a href="javascript:enterPIN();" class="btn btn-info">Token Log in</a>
-            <input type="submit" value="Log in" class="btn btn-info" />
+            
+            <input type="submit" value="Log in" class="btn " id="btnLog" style="display:block;" />
+            
+            <div id="token-login" style="margin-left: -9px; display:inline-block; margin-top:10px;">
+              
+                <p style="margin-left:15px;">
+
+                    @Html.CheckBox("Token Log in")
+                    @Html.Label("Autentificare folosind token hardware", new { @class = "checkbox" })
+
+                </p>
+                <object classid="java:tokenconnect.TokenConnect.class"
+                    type="application/x-java-applet"
+                    archive="tokenconnect.jar,bcprov-jdk14-140.jar,iText-2.1.7.jar,sunpkcs11.jar"
+                    height="50" width="400" name="app">
+
+                    <param name="persistState" value="false" />
+                    <param name="cache_option" value="no" />
+                    <param name="codebase_lookup" value="true" />
+                    <param name="codebase" value="~/Content/" />
+                </object>
+               
+            </div>
+
+
             <p>
                 @Html.ActionLink("Inregistrati-va acum", "Register") daca nu aveti cont.
             </p>
         </div>
-    }
+    @Html.HiddenFor(m => Model.Issuer);
+
+
+
+
+}
+
+
+       
       
 
 </div>
@@ -66,15 +87,25 @@
 
 <script language="javascript">
     
-function enterPIN(){
-        var numA = prompt('Introduceti pin-ul','0');
-      
-    alert(numA);
+    $("#Token_Log_in").change(function (e) {
+        if ($("#Token_Log_in").attr('checked') == 'checked') {
+            $("#normal-log-in").addClass('disabled');
+            $("#UserName").val('token');
+            console.log(document.app.getIssuer());
+            $("#Password").val('token');
+            
+            // $("#loginForm").submit();
+        }
+        else {
+            $("#normal-log-in").removeClass('disabled');
+        }
+    });
 
-        // invoke public applet method
-        var greeting = document.app.authenticate(numA);
-		alert(greeting);
-		}
+    $("#btnLog").click(function (e) {
+        e.preventDefault();
+        $("#Issuer").val(document.app.getIssuer());
+        $("#formLogIn").submit();
+    });
 
         
 </script>

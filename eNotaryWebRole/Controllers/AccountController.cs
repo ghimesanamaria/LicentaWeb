@@ -58,14 +58,31 @@ namespace eNotaryWebRole.Controllers
             //    return RedirectToLocal(returnUrl);
             //}
 
-            
+            if (model.Issuer != null)
+            {
+                string email_address = model.Issuer.Split(',')[1].Split('=')[1];
+                var exist = (from p in _db.PersonDetails.Where(o => o.Email == email_address)
+                            join u in _db.Users
+                            on p.ID equals u.PersonID
+                            select u).FirstOrDefault();
+                if (exist != null)
+                {
+                    FormsAuthentication.SetAuthCookie(exist.Username, true);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return Redirect(returnUrl);
+                }
+
+            }
            
 
 
             if (ModelState.IsValid)
             {
 
-                string userNameLdap = model.UserName;
+               
                 if (Membership.ValidateUser(model.UserName, model.Password) )
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
@@ -117,7 +134,21 @@ namespace eNotaryWebRole.Controllers
         public ActionResult Register(long id = 0) // id =0 when you create a new account
         {
             string username = User.Identity.Name;
+
             PersonDetail model;
+
+
+
+           
+            if (!string.IsNullOrEmpty(username) && id == 0)
+            {
+                model = (from u in _db.Users
+                     join p in _db.PersonDetails
+                     on u.PersonID equals p.ID
+                     select p).FirstOrDefault();
+            }
+            else
+            
             if (id != 0)
             {
                 model = _db.PersonDetails.Where(p => p.ID == id && p.Disabled == false).FirstOrDefault();

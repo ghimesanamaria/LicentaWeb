@@ -5,8 +5,12 @@
     display: inline-block;
 }
 
+/*login*/
+#Token_Log_in {
+    display: inline-block;
+}
 
-/*registet*/
+/*register*/
 
 .container {
     

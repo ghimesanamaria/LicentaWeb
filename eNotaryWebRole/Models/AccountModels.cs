@@ -69,6 +69,8 @@ namespace eNotaryWebRole.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public string Issuer { get; set; }
     }
 
     public class RegisterModel
