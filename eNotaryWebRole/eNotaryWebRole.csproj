@@ -603,6 +603,7 @@
     <None Include="ConfigFiles\MailConfig.config" />
     <Content Include="ConfigFiles\DivorceConfig.xml" />
     <Content Include="Content\account\account.css" />
+    <Content Include="Content\bcprov-jdk14-140.jar" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\dropdown\simple.dropdown.css" />
@@ -616,7 +617,7 @@
     <Content Include="Content\Icons\x.png" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
-    <Content Include="Content\JavaApplication6.jar" />
+    <Content Include="Content\iText-2.1.7.jar" />
     <Content Include="Content\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="Content\logo_pdfkit.gif" />
     <Content Include="Content\pdf_preview\test_43_81.png" />
@@ -624,6 +625,7 @@
     <Content Include="Content\signed\index_singed.css" />
     <Content Include="Content\signed\mail.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\sunpkcs11.jar" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -678,6 +680,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\TokenConnect.jar" />
     <Content Include="Content\users\roles.css" />
     <Content Include="Content\users\users.css" />
     <Content Include="favicon.ico" />

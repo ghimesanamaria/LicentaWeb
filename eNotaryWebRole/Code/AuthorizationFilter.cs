@@ -14,25 +14,25 @@ namespace eNotaryWebRole.Code
         {
            // if (_logger.IsInfoEnabled) _logger.Info("OnAuthorization");
 
-            HttpContext context = HttpContext.Current;
+            //HttpContext context = HttpContext.Current;
 
-            if (context.Request.ClientCertificate.IsPresent)
-            {
-                X509Certificate2 userCert = new X509Certificate2(context.Request.ClientCertificate.Certificate);
-                X500DistinguishedName dn = userCert.SubjectName;
-                string userDn = dn.Name.Trim().ToUpper();
+            //if (context.Request.ClientCertificate.IsPresent)
+            //{
+            //    X509Certificate2 userCert = new X509Certificate2(context.Request.ClientCertificate.Certificate);
+            //    X500DistinguishedName dn = userCert.SubjectName;
+            //    string userDn = dn.Name.Trim().ToUpper();
 
-              //  if (_logger.IsInfoEnabled) _logger.Info(string.Format("OnAuthorization : UserDn = {0}", userDn));
+            //  //  if (_logger.IsInfoEnabled) _logger.Info(string.Format("OnAuthorization : UserDn = {0}", userDn));
 
-                if (userDn != "CN=JOHN DOE")
-                {
-                    throw new HttpException(401, "Invalid Client Certificate");
-                }
-            }
-            else
-            {
-                throw new HttpException(401, "Client Certificate Missing");
-            }
+            //    if (userDn != "CN=JOHN DOE")
+            //    {
+            //        throw new HttpException(401, "Invalid Client Certificate");
+            //    }
+            //}
+            //else
+            //{
+            //    throw new HttpException(401, "Client Certificate Missing");
+            //}
         }
     }
 }

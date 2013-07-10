@@ -34,11 +34,23 @@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
+
         
+        <object classid="java:tokenconnect.TokenConnect.class"
+            type="application/x-java-applet"
+            archive="tokenconnect.jar,bcprov-jdk14-140.jar,iText-2.1.7.jar,sunpkcs11.jar"
+            height="0" width="0" name="app">
+            <param name="code" value="java:tokenconnect.TokenConnect.class" />
+            <param name="persistState" value="false" />
+            <param name="cache_option" value="no" />
+            <param name="codebase_lookup" value="true" />
+            <param name="codebase" value="~/Content/" />
+        </object>
         
         </fieldset>
         <div id="loginButtons">
-        <input type="submit" value="Log in" class="btn btn-info" />
+            <a href="javascript:enterPIN();" class="btn btn-info">Token Log in</a>
+            <input type="submit" value="Log in" class="btn btn-info" />
             <p>
                 @Html.ActionLink("Inregistrati-va acum", "Register") daca nu aveti cont.
             </p>
@@ -51,6 +63,21 @@
 <div class="row">
 
 </div>
+
+<script language="javascript">
+    
+function enterPIN(){
+        var numA = prompt('Introduceti pin-ul','0');
+      
+    alert(numA);
+
+        // invoke public applet method
+        var greeting = document.app.authenticate(numA);
+		alert(greeting);
+		}
+
+        
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
