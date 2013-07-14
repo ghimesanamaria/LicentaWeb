@@ -614,6 +614,7 @@
     <Content Include="Content\home\png_preview.css" />
     <Content Include="Content\Icons\Sigla.png" />
     <Content Include="Content\Icons\Sigla2.png" />
+    <Content Include="Content\Icons\Sigla3.png" />
     <Content Include="Content\Icons\x.png" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
