@@ -1040,11 +1040,11 @@ namespace eNotaryWebRole.Controllers
                 }
 
 
-                object model = new object();
 
+                object model = new object();
                 if (parent == -1 || parent == -3 || type == "unsigned")
                 {
-                    model = (from a in _db.Acts.Where(o => o.ID == idAct)
+                    var modelC = (from a in _db.Acts.Where(o => o.ID == idAct)
                              select new
                              {
 
@@ -1059,10 +1059,21 @@ namespace eNotaryWebRole.Controllers
 
 
                              }).FirstOrDefault();
+                    model = new
+                    {
+                        ActTypeID= modelC.ActTypeID,
+                        Name=modelC.Name,
+                        CreationDate=modelC.CreationDate.ToShortDateString(),
+                        Reason = modelC.Reason,
+                        State = modelC.State,
+                        ReasonState = modelC.ReasonState,
+                        ExternalUniqueReference = modelC.ExternalUniqueReference,
+                        ExtraDetails=modelC.ExtraDetails
+                    };
                 }
                 else
                 {
-                    model = (from sa in _db.SignedActs.Where(o => o.ID == idAct)
+                    var modelC = (from sa in _db.SignedActs.Where(o => o.ID == idAct)
                              join a in _db.Acts
                              on sa.ActID equals a.ID
                              select new
@@ -1078,13 +1089,25 @@ namespace eNotaryWebRole.Controllers
 
 
                              }).FirstOrDefault();
+                     model = new
+                    {
+                        ActTypeID = modelC.ActTypeID,
+                        Name = modelC.Name,
+                        CreationDate = modelC.CreationDate.ToShortDateString(),
+                        Reason = modelC.Reason,
+                        State = modelC.State,
+                        ReasonState = modelC.ReasonSigned,
+                        SentToClient = modelC.SentToClient,
+                        ExtraDetails = modelC.ExtraDetails
+                    };
                 }
 
 
+                
                 object personDetail = new object();
                 if (parent == -1 || parent == -3)
                 {
-                    personDetail = (from p in _db.PersonDetails
+                   var  personDetailC = (from p in _db.PersonDetails
                                     join a in _db.Acts.Where(o => o.ID == idAct)
                                     on p.ID equals a.PersonDetailsID
                                     select new
@@ -1096,11 +1119,21 @@ namespace eNotaryWebRole.Controllers
                                         p.Birthday
 
                                     }).FirstOrDefault();
+                    personDetail = new
+                    {
+
+                        FirstName = personDetailC.FirstName,
+                        MiddleName = personDetailC.MiddleName,
+                        LastName = personDetailC.LastName,
+                        Gender = personDetailC.Gender,
+                        Birthday = personDetailC.Birthday.ToShortDateString()
+
+                    };
                 }
                 else
                     if (parent == 0)
                     {
-                        personDetail = (from p in _db.PersonDetails
+                      var  personDetailC = (from p in _db.PersonDetails
                                         join u in _db.Users.Where(u => u.Username == username)
                                         on p.ID equals u.PersonID
                                         select new
@@ -1112,24 +1145,47 @@ namespace eNotaryWebRole.Controllers
                                         p.Birthday
 
                                     }).FirstOrDefault();
+                        personDetail = new
+                        {
+
+                            FirstName = personDetailC.FirstName,
+                            MiddleName = personDetailC.MiddleName,
+                            LastName = personDetailC.LastName,
+                            Gender = personDetailC.Gender,
+                            Birthday = personDetailC.Birthday.ToShortDateString()
+
+                        };
                     }
                     else
                     {
 
 
-                        personDetail = (from p in _db.PersonDetails
-                                        join a in _db.SignedActs.Where(o => o.ID == idAct)
-                                        on p.ID equals a.CreatePersonID
-                                        select new
-                                        {
-                                            p.FirstName,
-                                            p.MiddleName,
-                                            p.LastName,
-                                            p.Gender,
-                                            p.Birthday
+                       var  personDetailC = (from p in _db.PersonDetails
+                                         join a in _db.SignedActs.Where(o => o.ID == idAct)
+                                         on p.ID equals a.CreatePersonID
+                                         select new
+                                         {
+                                             p.FirstName,
+                                             p.MiddleName,
+                                             p.LastName,
+                                             p.Gender,
+                                             p.Birthday
 
-                                        }).FirstOrDefault();
+                                         }).FirstOrDefault();
+                      personDetail = new
+                        {
+
+                            FirstName = personDetailC.FirstName,
+                            MiddleName = personDetailC.MiddleName,
+                            LastName = personDetailC.LastName,
+                            Gender = personDetailC.Gender,
+                            Birthday = personDetailC.Birthday.ToShortDateString()
+
+                        };
                     }
+              
+
+               
 
 
                 // get the specified document 
