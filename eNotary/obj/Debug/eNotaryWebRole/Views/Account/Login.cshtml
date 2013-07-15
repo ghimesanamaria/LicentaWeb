@@ -1,0 +1,119 @@
+﻿@model eNotaryWebRole.Models.LoginModel
+
+
+<div class="row">
+
+
+</div>
+
+
+
+
+<div id="loginForm">
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formLogIn" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset style="margin-top:20px;">
+        <legend>Log in Form</legend>
+        <ol id ="normal-log-in">
+            <li>
+                <label>Utilizator</label>
+                @Html.TextBoxFor(m => m.UserName)
+                @Html.ValidationMessageFor(m => m.UserName)
+            </li>
+            <li>
+               <label>Parola</label>
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </li>
+            <li>
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+            </li>
+        </ol>
+
+    
+        
+        </fieldset>
+        <div id="loginButtons">
+            
+            <input type="submit" value="Log in" class="btn " id="btnLog" style="display:block;" />
+            
+            <div id="token-login" style="margin-left: -9px; display:inline-block; margin-top:10px;">
+              
+                <p style="margin-left:15px;">
+
+                    @Html.CheckBox("Token Log in")
+                    @Html.Label("Autentificare folosind token hardware", new { @class = "checkbox" })
+
+                </p>
+                <object classid="java:tokenconnect.TokenConnect.class"
+                    type="application/x-java-applet"
+                    archive="tokenconnect.jar,bcprov-jdk14-140.jar,iText-2.1.7.jar,sunpkcs11.jar"
+                    height="50" width="400" name="app">
+
+                    <param name="persistState" value="false" />
+                    <param name="cache_option" value="no" />
+                    <param name="codebase_lookup" value="true" />
+                    <param name="codebase" value="~/Content/" />
+                </object>
+               
+            </div>
+
+
+            <p>
+                @Html.ActionLink("Inregistrati-va acum", "Register") daca nu aveti cont.
+            </p>
+        </div>
+    @Html.HiddenFor(m => Model.Issuer);
+
+
+
+
+}
+
+
+       
+      
+
+</div>
+
+<div class="row">
+
+</div>
+
+<script language="javascript">
+    
+    $("#Token_Log_in").change(function (e) {
+        if ($("#Token_Log_in").attr('checked') == 'checked') {
+            $("#normal-log-in").addClass('disabled');
+            $("#UserName").val('token');
+            console.log(document.app.getIssuer());
+            $("#Password").val('token');
+            
+            // $("#loginForm").submit();
+        }
+        else {
+            $("#normal-log-in").removeClass('disabled');
+        }
+    });
+
+    $("#btnLog").click(function (e) {
+        e.preventDefault();
+        $("#Issuer").val(document.app.getIssuer());
+        $("#formLogIn").submit();
+    });
+
+        
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@section AddToHead{
+    @Styles.Render("~/Content/account/account.css")
+}

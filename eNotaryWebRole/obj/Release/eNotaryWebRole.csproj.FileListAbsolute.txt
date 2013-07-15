@@ -14,3 +14,4 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\System.Configurati
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Microsoft.WindowsAzure.ServiceRuntime.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Microsoft.Web.Administration.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\VisioAutomation.VDX.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Certificate\certificat12.p12

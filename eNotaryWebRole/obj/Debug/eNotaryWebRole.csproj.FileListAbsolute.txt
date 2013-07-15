@@ -168,3 +168,4 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Microsoft.WindowsA
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\obj\Debug\eNotaryWebRole.csprojResolveAssemblyReference.cache
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Microsoft.Web.Administration.dll
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\VisioAutomation.VDX.dll
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\bin\Certificate\certificat12.p12

@@ -46,6 +46,12 @@
         <Variable name="WaRoleType" value="IISWebRole" />
       </Environment>
     </Task>
+    <Task commandLine="ConfigureIIS.cmd &gt; WebDeployConfig.log" executionContext="elevated" relativePath="plugins\WebDeploy">
+      <Environment>
+        <Variable name="RdModuleName" value="WebDeploy" />
+        <Variable name="WaRoleType" value="IISWebRole" />
+      </Environment>
+    </Task>
   </Startup>
   <Runtime>
     <EntryPoint>
@@ -83,11 +89,11 @@
     <Property name="OutputDir" value="C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\" />
     <Property name="EntryPoint" value="eNotaryWebRole.dll" />
     <Property name="SourceDir" value="C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\" />
-    <Property name="SitePhysicalPath" value="C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\" />
+    <Property name="SitePhysicalPath" value="C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\" />
     <Property name="TargetRuntimeVersion" value="v4.0" />
   </Properties>
   <Sites>
-    <Site name="Web" physicalDirectory="C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotaryWebRole\">
+    <Site name="Web" physicalDirectory="C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Debug\eNotaryWebRole\">
       <Bindings>
         <Binding name="Endpoint1" endpointName="Endpoint1" />
       </Bindings>

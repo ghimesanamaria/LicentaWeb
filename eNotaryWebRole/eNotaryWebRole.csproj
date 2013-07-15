@@ -599,7 +599,10 @@
     <Content Include="bin\WebMatrix.WebData.dll" />
     <Content Include="ConfigFiles\AuthConfig.xml" />
     <Content Include="ClassDiagram1.cd" />
-    <Content Include="Certificate\certificat12.p12" />
+    <Content Include="Certificate\certificat12.p12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\Certificate\certificat12.p12" />
     <None Include="ConfigFiles\MailConfig.config" />
     <Content Include="ConfigFiles\DivorceConfig.xml" />
     <Content Include="Content\account\account.css" />
@@ -730,11 +733,13 @@
     <None Include="Properties\PublishProfiles\eNotary - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - FTP %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - FTP %285%29.pubxml" />
+    <None Include="Properties\PublishProfiles\eNotary - FTP %286%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - Web Deploy %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - Web Deploy %285%29.pubxml" />
+    <None Include="Properties\PublishProfiles\eNotary - Web Deploy %286%29.pubxml" />
     <None Include="Properties\PublishProfiles\eNotary - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\ajax-loader.gif" />

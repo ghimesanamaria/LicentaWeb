@@ -1,0 +1,23 @@
+﻿.div-preview {
+    padding:30px;
+    width: 25%;
+    float: left;
+}
+#information-preview-message {
+   float:right;
+   margin-left:10px;
+   width:52%;
+   padding-right:1%;
+   
+
+}
+.png-preview {
+    padding: 20px;
+    border: 1px;
+    border: 2px solid rgb(241, 20, 20);
+    box-shadow: rgb(207, 112, 112) 0px 0px 20px 10px;
+}
+.png-ok {    
+    border: 2px solid rgb(15, 88, 15);
+    box-shadow: rgb(112, 207, 116) 0px 0px 20px 10px;
+}

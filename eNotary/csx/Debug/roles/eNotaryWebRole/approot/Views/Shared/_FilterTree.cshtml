@@ -1,0 +1,102 @@
+﻿@model string
+  
+<script src="@Url.Content("~/Scripts/jstree/filterTree.js")"></script>
+
+  @{
+      string myId = "_filter";
+     
+      var inputSearch = "tbSearch"+myId;
+      var clearSearch = "bttClearSearch"+myId ;
+      var search = "bttSearch" +myId;
+      var hideFunction = "hideFilteredNodes"+myId;
+      var showFunction = "showFilteredNodes" +myId;
+      
+      }
+
+    <div id="search-header-wrapper-model">
+    <div id="search-header-model">
+        <div id="searchBoxModelTree">
+            <div class="input-append" style="width:100%;border: 1px solid #CCC; border-radius: 4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;">
+                <input type="text"  id=@inputSearch name=@inputSearch style="width:inherit; border:none; " >
+                <button class="btn add-on" style="display: none;" id=@clearSearch value=@clearSearch name=@clearSearch ><img src='@Url.Content("~/Content/Icons/x.png")'/></button>
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+
+<div id="@myId" >
+</div>
+
+<script type="text/javascript">
+    var getDevicesOpen = [];
+// keypress Enter
+       $("#@inputSearch").keypress(function(e) {
+   if(e.which == 13) {
+         var temp = "#@myId" ;
+       var val=$("#@inputSearch").val();
+        $(temp).jstree("search",$("#@inputSearch").val());
+       $("#@inputSearch").val(val);
+   }
+   });
+
+    $("#@inputSearch").live('input',
+       function () {
+
+
+           if ($("#@clearSearch").css("display") == "none") {
+
+               $("#@inputSearch").css("width", "-=19");
+           }
+
+           if ($("#@inputSearch").val() != '')
+               $("#@clearSearch").css('display', 'inline');
+           else {
+               $("#@myId").jstree("clear_search");
+               $("#@clearSearch").css('display', 'none');
+               $("#@inputSearch").css("width", "+=19");
+
+           }
+       }
+   );
+       $("#@search").click(function (e) {
+           e.preventDefault();
+           var temp = "#@myId" ;
+           $(temp).jstree("search", $("#@inputSearch").val());
+
+       });
+
+    $("#@clearSearch").click(function (e) {
+        e.preventDefault();
+       
+         $("#@inputSearch").css("width", "+=24");
+        var temp = "#@myId";
+        $("#@inputSearch").attr('value', '');
+        $("#@clearSearch").css('display', 'none');
+        // $("#@search").removeClass("btn-primary");
+        $(temp).jstree("clear_search");
+
+       });
+       
+    $(window).resize(function() {
+        
+           
+            $("#@inputSearch").css("width", "-=60");
+        
+     });
+        
+        $(document).ready(function() {
+      
+           
+                $("#@inputSearch").css("width", "-=60");
+            
+     });
+  
+    $(function () {
+
+      
+        filter_tree("@myId","@Model" ,   '@Url.Content("~/"+Model.ToString())');
+    });    
+  
+</script>
