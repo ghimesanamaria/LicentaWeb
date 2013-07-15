@@ -19,14 +19,12 @@
     </Sites>
     <Endpoints>
       <InputEndpoint name="Endpoint1" protocol="https" port="443" certificate="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" />
-      <InputEndpoint name="Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint" protocol="tcp" port="8172" localPort="8172" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
       <Import moduleName="RemoteAccess" />
       <Import moduleName="RemoteForwarder" />
       <Import moduleName="Connect" />
-      <Import moduleName="WebDeploy" />
     </Imports>
     <ConfigurationSettings>
       <Setting name="EmailAdmin" />
