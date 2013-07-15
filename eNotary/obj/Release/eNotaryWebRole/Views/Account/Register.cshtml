@@ -3,20 +3,19 @@
     ViewBag.Title = "Register";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
-</hgroup>
-<h4 id="ErrorMessage" ></h4>
-<h4 id="InformationMessage" class="alert alert-info" style="margin-top:10px;"> Campurile marcate cu * sunt obligatorii !</h4>
+
+
 
 
 @using (@Ajax.BeginForm("Register", "Account", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Test", InsertionMode = InsertionMode.Replace, LoadingElementId = "loadingDiv", OnBegin = "onBegin", OnSuccess = "onSuccess" }, new { id = "registrationForm" }))
 { 
    @Html.AntiForgeryToken()
    @Html.ValidationSummary()
+    <div style="float:left; width:100%;">
 
-   
+   <p id="ErrorMessage" ></p>
+<p id="InformationMessage" class="alert alert-info" style="margin-top:10px;"> Campurile marcate cu * sunt obligatorii !</p>
+        </div>
     <div class="dropdown"> 
       <ul class="nav nav-pills" role="menu" aria-labelledby="dLabel" id="registerMenu" >
           <li class="active" id="liPersonDetails"><a href="#" >Date personale</a></li>   

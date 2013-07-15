@@ -156,8 +156,9 @@
                     $("#sdPersonLastName").val(data.person.LastName);
                     $("#sdExtraDetails").val(data.person.ExtraDetails);
                     // calculate age
-
-                    birthday = new Date(parseFloat(data.person.Birthday.split('(')[1].split(')')[0]));
+                    birthday = new Date(data.person.Birthday);
+                    //birthday.setUTCDate(data.person.Birthday.split('/')[1].split('(')[1].split(')')[0]);
+                   // birthday = new Date(data.person.Birthday.split('/')[1].split('(')[1].split(')')[0]);
                     todayDate = new Date();
                     todayYear = todayDate.getFullYear();
                     todayMonth = todayDate.getMonth();
@@ -176,13 +177,17 @@
 
                     $("#sdGender").val(data.person.Gender);
                     $("#sdAge").val(age);
-                    $("#sdBirthday").val(birthday.getDate() + "/" + birthday.getMonth() + 1 + "/" + birthday.getFullYear());
+                    $("#sdBirthday").val(data.person.Birthday);
                     $('#ActTypeList option[value="' + data.act.ActTypeID + '"]').attr('selected', 'selected');
 
                     $("#sdActName").val(data.act.Name);
-
-                    var creationdate = new Date(new Date(parseFloat(data.act.CreationDate.split('(')[1].split(')')[0])));
-                    $("#sdCreationDate").val(creationdate.getDay() + "/" + creationdate.getMonth() + 1 + "/" + creationdate.getFullYear());
+                   // creationdate = new Date(data.act.CreationDate);
+                    
+                    // creationdate = new Date(data.act.CreationDate.split('/')[1].split('(')[1].split(')')[0]);
+                    
+                   
+                  
+                    $("#sdCreationDate").val(data.act.CreationDate);
                     $("#sdReason").val(data.act.Reason);
                     $("#sdState").val(data.act.State);
                     $("#sdReasonState").val(data.act.ReasonState);

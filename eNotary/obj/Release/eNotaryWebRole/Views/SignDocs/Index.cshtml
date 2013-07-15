@@ -171,7 +171,7 @@
         </div>
     </div>
     <div id="mail-footer">
-        <button id="btnSendMail" class="btn btn-info" >Trimite mail</button>
+        <button id="btnSendMail" class="btn " >Trimite mail</button>
     </div>
 
 
@@ -353,7 +353,8 @@
 
                 contentType: 'application/json',
                 success: function (data) {
-                    console.log(data);
+                   // console.log(data);
+                    console.log(data.Birthday);
                     birthday = new Date(parseFloat(data[0].Birthday.split('(')[1].split(')')[0]));
                     $("#divFullProfile").html(
                         "<input type=\"text\" id =\"sdNationality\" class=\"inputSignDocs\" placeholder =\"" + data[0].Nationality + "\"/>" +

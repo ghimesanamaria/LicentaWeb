@@ -476,8 +476,14 @@ namespace eNotaryWebRole.Controllers
 
                         // create unique name for file adding the last record id from table
                         long rand = 0;
+                        if( _db.Acts.Count()>0){
                         rand = (from a in _db.Acts
                                select a.ID).Max();
+                        }
+                        else
+                        {
+                            rand = 0;
+                        }
 
                         var contentType = file.ContentType;
                         var blobName = file.FileName.Split('.')[0] + "_" + rand + "." + file.FileName.Split('.')[1];
@@ -488,19 +494,25 @@ namespace eNotaryWebRole.Controllers
 
                         User user = _db.Users.Where(x => x.Username == username).FirstOrDefault();
 
+                        string sig_users = "";
+                        foreach( var sig in list_Signatures)
+                        {
+                            sig_users = sig_users + sig.issuerName + ";";
 
+                        }
                         //save the file in database
 
                         Act new_act = new Act()
                         {
-                            PersonDetailsID = user.ID,
+                            PersonDetailsID = user.PersonID,
                             ExternalUniqueReference = blobName,
                             CreationDate = DateTime.Now,
                             Signed = false,
                             State="nevizualizat",
                             Reason="",//must be edited after the upload is reloaded
                             Disabled = true,
-                            ActTypeID = 1// this will be changed
+                            ActTypeID = 1,// this will be changed
+                            ExtraDetails = sig_users
                         };
                         _db.Acts.Add(new_act);
                         _db.SaveChanges();

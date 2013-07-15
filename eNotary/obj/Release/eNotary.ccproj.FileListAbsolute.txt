@@ -102,6 +102,7 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Cl
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\ConfigFiles\AuthConfig.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\ConfigFiles\DivorceConfig.xml
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\account\account.css
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\bcprov-jdk14-140.jar
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\bootstrap.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\datepicker.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\dropdown\simple.dropdown.css
@@ -114,10 +115,11 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Co
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\home\png_preview.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\Icons\Sigla.png
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\Icons\Sigla2.png
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\Icons\Sigla3.png
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\Icons\x.png
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\img\glyphicons-halflings-white.png
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\img\glyphicons-halflings.png
-C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\JavaApplication6.jar
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\iText-2.1.7.jar
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\jquery-ui-1.10.3.custom.min.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\logo_pdfkit.gif
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\pdf_preview\test_43_81.png
@@ -126,6 +128,7 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Co
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\signed\mail.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\Site.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\style.css
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\sunpkcs11.jar
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png
@@ -180,6 +183,7 @@ C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Co
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\themes\base\minified\jquery.ui.slider.min.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\themes\base\minified\jquery.ui.tabs.min.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\themes\base\minified\jquery.ui.theme.min.css
+C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\TokenConnect.jar
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\users\roles.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\Content\users\users.css
 C:\Users\Ana\SkyDrive\Documente\LicentaWeb\eNotary\obj\Release\eNotaryWebRole\favicon.ico

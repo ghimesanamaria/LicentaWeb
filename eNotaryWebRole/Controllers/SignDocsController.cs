@@ -316,7 +316,16 @@ namespace eNotaryWebRole.Controllers
                     {
                         externalUniqueRef = _db.SignedActs.Where(o => o.ID == idAct).FirstOrDefault().ExternalUniqueReference;
                     }
-                    long id_Max = _db.SignedActs.Select(x => x.ID).Max();
+                    long id_Max = 0;
+                    if (_db.SignedActs.Count() > 0)
+                    {
+
+                        id_Max = _db.SignedActs.Select(x => x.ID).Max();
+                    }
+                    else
+                    {
+                        id_Max = 0;
+                    }
                     string ext_unique_signed = externalUniqueRef.Split('.')[0] + id_Max + ".pdf";
 
                     bool is_Signed = signAdvancedPDF(externalUniqueRef, ext_unique_signed);
@@ -331,6 +340,7 @@ namespace eNotaryWebRole.Controllers
                     {
                         signed = true;
                     }
+                    username = User.Identity.Name;
 
                     if (is_Signed)
                     {
@@ -995,7 +1005,18 @@ namespace eNotaryWebRole.Controllers
             }
 
 
-        
+        //// <summary>
+      /// Copies the contents of input to output. Doesn't close either stream.
+      /// </summary>
+      public static void CopyStream(Stream input, Stream output)
+      {
+          byte[] buffer = new byte[8 * 1024];
+          int len;
+          while ((len = input.Read(buffer, 0, buffer.Length)) > 0)
+          {
+              output.Write(buffer, 0, len);
+          }
+      }
 
        
         [HttpPost]
@@ -1227,7 +1248,7 @@ namespace eNotaryWebRole.Controllers
 
 
 
-
+                
 
                 string random = RandomString(20, true) + ".pdf";
                 try
@@ -1244,13 +1265,20 @@ namespace eNotaryWebRole.Controllers
                         //System.IO.File.SetAttributes(url + extUnique, FileAttributes.Normal);
 
                         stream.Close();
-                  
 
                 }
                 catch (Exception ex)
                 {
                     message = ex.ToString();
                 }
+
+
+
+                
+
+              
+
+        
 
                 return Json(new
                 {
@@ -1378,6 +1406,156 @@ namespace eNotaryWebRole.Controllers
 
 
             return Json(message);
+        }
+
+
+
+
+        public SignatureDetailsViewModel VerifyIfIsSigned(TElPDFSignature sig)
+        {
+
+            SignatureDetailsViewModel model = new SignatureDetailsViewModel();
+            model.typeOfSignature = "";
+            TElPDFAdvancedPublicKeySecurityHandler handler = null;
+            if (sig.Handler is TElPDFAdvancedPublicKeySecurityHandler)
+            {
+                handler = (TElPDFAdvancedPublicKeySecurityHandler)sig.Handler;
+                if (handler.PAdESSignatureType == TSBPAdESSignatureType.pastBasic)
+                {
+                    model.typeOfSignature = "Basic";
+                }
+                else if (handler.PAdESSignatureType == TSBPAdESSignatureType.pastEnhanced)
+                {
+                    model.typeOfSignature = "Enhanced (long-term)";
+                }
+                else if (handler.PAdESSignatureType == TSBPAdESSignatureType.pastDocumentTimestamp)
+                {
+                    model.typeOfSignature = "Document timestamp";
+                }
+                else
+                {
+                    model.typeOfSignature = "Unknown";
+                }
+            }
+            else if (sig.Handler is TElPDFPublicKeySecurityHandler)
+            {
+                model.typeOfSignature = "Standard";
+            }
+            else
+            {
+                model.typeOfSignature = "Unknown";
+            }
+
+            model.issuerName = "";
+            model.timeStampDetails = "";
+            model.signatureDetails = "";
+            model.errorDoc = "";
+            if (handler != null)
+            {
+                model.issuerName = "Issuer: " + handler.CMS.get_Signatures(0).Signer.Issuer.SaveToDNString() + ", S/N: " +
+                    SBUtils.Unit.BinaryToString(handler.CMS.get_Signatures(0).Signer.SerialNumber);
+
+                if (handler.TimestampCount > 0)
+                {
+                    model.timeStampDetails = handler.get_Timestamps(0).Time.ToShortDateString() + " " + handler.get_Timestamps(0).Time.ToShortTimeString() + " yes";
+
+                }
+                else if (handler.PAdESSignatureType == TSBPAdESSignatureType.pastDocumentTimestamp)
+                {
+                    model.timeStampDetails = handler.DocumentTimestamp.Time.ToShortDateString() + " " + handler.DocumentTimestamp.Time.ToShortTimeString() + " yes";
+
+                }
+                else
+                {
+                    model.timeStampDetails = sig.SigningTime.ToShortDateString() + " " + sig.SigningTime.ToShortTimeString() + " no";
+
+                }
+
+                if ((handler.ValidationDetails == SBPKICommon.TSBCMSAdvancedSignatureValidity.casvUnknown))
+                {
+                    PrepareValidation(handler);
+                    try
+                    {
+                        sig.Validate();
+
+                        if (!sig.IsDocumentSigned())
+                            model.errorDoc = "Signature does not cover the entire document";
+                    }
+                    catch (Exception e)
+                    {
+                        model.errorDoc = e.Message;
+                    }
+                }
+                switch (handler.ValidationDetails)
+                {
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvValid:
+                        model.signatureDetails = "Valid";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvSignatureCorrupted:
+                        model.signatureDetails = "Signature corrupted";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvSignerNotFound:
+                        model.signatureDetails = "Signer not found";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvIncompleteChain:
+                        model.signatureDetails = "Incomplete chain";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvBadCountersignature:
+                        model.signatureDetails = "Bad countersignature";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvBadTimestamp:
+                        model.signatureDetails = "Bad timestamp";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvCertificateExpired:
+                        model.signatureDetails = "Certificate expired";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvCertificateRevoked:
+                        model.signatureDetails = "Certificate revoked";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvCertificateCorrupted:
+                        model.signatureDetails = "Certificate corrupted";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvUntrustedCA:
+                        model.signatureDetails = "Untrusted CA";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvRevInfoNotFound:
+                        model.signatureDetails = "Revocation information not found";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvTimestampInfoNotFound:
+                        model.signatureDetails = "Timestamp information not found";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvFailure:
+                        model.signatureDetails = "General failure";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvCertificateMalformed:
+                        model.signatureDetails = "Certificate malformed";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvUnknown:
+                        model.signatureDetails = "Unknown";
+                        break;
+                    case SBPKICommon.TSBCMSAdvancedSignatureValidity.casvChainValidationFailed:
+                        model.signatureDetails = "Chain validation failed";
+                        break;
+                    default:
+                        model.signatureDetails = "";
+                        break;
+                }
+
+
+            }
+            else
+            {
+                model.issuerName = sig.AuthorName;
+                model.signatureDetails = "Semnat la data de :" + sig.SigningTime.ToShortDateString() + " " + sig.SigningTime.ToShortTimeString();
+                model.timeStampDetails = "N/A";
+                model.typeOfSignature = "N/A";
+                model.errorDoc = "N/A";
+                model.reason = sig.Reason;
+            }
+
+
+
+            return model;
         }
             
         }
