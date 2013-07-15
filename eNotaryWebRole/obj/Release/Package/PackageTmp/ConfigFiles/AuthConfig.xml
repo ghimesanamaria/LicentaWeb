@@ -1,0 +1,3 @@
+﻿<AuthConfig>
+  <add key="use_authentication" value="true" />
+</AuthConfig>
